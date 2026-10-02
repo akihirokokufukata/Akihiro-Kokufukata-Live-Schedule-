@@ -395,4 +395,299 @@
       let playersHTML = '';
 
 
-      if (players
+      if (players.length) {
+
+        /*
+          7人以上なら最初の6人だけ表示
+        */
+
+        if (players.length > 6) {
+
+          players =
+            players.slice(0, 6);
+
+          players.push('…and more');
+        }
+
+
+        playersHTML = `
+          <div class="label">
+            PLAYERS
+          </div>
+
+          <div class="players">
+            ${players
+              .map(player =>
+                escapeHTML(player)
+              )
+              .join('<br>')}
+          </div>
+        `;
+      }
+
+
+      /* VENUE */
+
+      let venueHTML = '';
+
+
+      if (venue || info.place) {
+
+        venueHTML = `
+          <div class="label">
+            VENUE
+          </div>
+
+          ${
+            venue
+              ? `
+                <div class="venue">
+                  ${escapeHTML(venue)}
+                </div>
+              `
+              : ''
+          }
+
+          ${
+            info.place
+              ? `
+                <div class="place">
+                  📍 ${escapeHTML(info.place)}
+                </div>
+              `
+              : ''
+          }
+
+          ${
+            mapURL
+              ? `
+                <a
+                  class="map"
+                  href="${mapURL}"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  MAP ↗
+                </a>
+              `
+              : ''
+          }
+        `;
+      }
+
+
+      return `
+        <article class="event">
+
+          <div class="event-date">
+            ${formatDate(event)}
+            &nbsp;·&nbsp;
+            ${formatTime(event)}
+          </div>
+
+          <h2 class="event-title">
+            ${escapeHTML(
+              event.summary || 'Live'
+            )}
+          </h2>
+
+          ${playersHTML}
+
+          ${venueHTML}
+
+        </article>
+      `;
+    }
+
+
+    /* Google Calendarを読み込む */
+
+    async function loadCalendar() {
+
+      const now =
+        new Date();
+
+
+      /*
+        過去1年から未来2年まで取得
+      */
+
+      const timeMin =
+        new Date(
+          now.getFullYear() - 1,
+          now.getMonth(),
+          now.getDate()
+        ).toISOString();
+
+
+      const timeMax =
+        new Date(
+          now.getFullYear() + 2,
+          now.getMonth(),
+          now.getDate()
+        ).toISOString();
+
+
+      const url =
+        'https://www.googleapis.com/calendar/v3/calendars/' +
+        encodeURIComponent(CALENDAR_ID) +
+        '/events' +
+        '?key=' +
+        encodeURIComponent(API_KEY) +
+        '&singleEvents=true' +
+        '&orderBy=startTime' +
+        '&timeMin=' +
+        encodeURIComponent(timeMin) +
+        '&timeMax=' +
+        encodeURIComponent(timeMax) +
+        '&maxResults=250';
+
+
+      try {
+
+        const response =
+          await fetch(url);
+
+
+        if (!response.ok) {
+
+          const errorText =
+            await response.text();
+
+          console.error(errorText);
+
+          throw new Error(
+            'Calendar request failed'
+          );
+        }
+
+
+        const data =
+          await response.json();
+
+
+        const events =
+          data.items || [];
+
+
+        const upcoming = [];
+        const past = [];
+
+
+        events.forEach(event => {
+
+          if (!event.start || !event.end) {
+            return;
+          }
+
+
+          const endValue =
+            event.end.dateTime ||
+            event.end.date;
+
+
+          const endDate =
+            new Date(endValue);
+
+
+          if (endDate < now) {
+            past.push(event);
+          }
+          else {
+            upcoming.push(event);
+          }
+
+        });
+
+
+        /* UPCOMING */
+
+        if (upcoming.length) {
+
+          upcomingElement.innerHTML =
+            upcoming
+              .map(event =>
+                createEventCard(event)
+              )
+              .join('');
+        }
+        else {
+
+          upcomingElement.innerHTML =
+            '<div class="loading">No upcoming shows.</div>';
+        }
+
+
+        /* PAST */
+
+        past.reverse();
+
+
+        if (past.length) {
+
+          pastElement.innerHTML =
+            past
+              .map(event =>
+                createEventCard(event)
+              )
+              .join('');
+        }
+        else {
+
+          pastElement.innerHTML =
+            '<div class="loading">No past shows.</div>';
+        }
+
+      }
+
+      catch (error) {
+
+        console.error(error);
+
+        upcomingElement.innerHTML = `
+          <div class="error">
+            Could not load the live schedule.
+          </div>
+        `;
+      }
+    }
+
+
+    /* Past Showsボタン */
+
+    document
+      .getElementById('pastButton')
+      .addEventListener(
+        'click',
+        function () {
+
+          const past =
+            document.getElementById('past');
+
+
+          const isOpen =
+            past.style.display === 'block';
+
+
+          past.style.display =
+            isOpen
+              ? 'none'
+              : 'block';
+
+
+          this.textContent =
+            isOpen
+              ? 'VIEW PAST SHOWS ↓'
+              : 'HIDE PAST SHOWS ↑';
+        }
+      );
+
+
+    /* START */
+
+    loadCalendar();
+
+  </script>
+
+</body>
+</html>
