@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-
   <meta charset="UTF-8">
 
   <meta
@@ -10,18 +9,15 @@
     content="width=device-width, initial-scale=1.0"
   >
 
-  <title>
-    Akihiro Kokufukata | Live Schedule
-  </title>
+  <title>Akihiro Kokufukata | Live Schedule</title>
 
 
-  <!-- =========================================
+  <!-- =========================================================
        SETTINGS
-       今後、基本的にここだけ変更すればOK
-       ========================================= -->
+       ★ 基本的に今後変更するのはここだけです
+       ========================================================= -->
 
   <script>
-
     const SETTINGS = {
 
       API_KEY:
@@ -34,13 +30,12 @@
         'akihirokokufukatamusic@gmail.com'
 
     };
-
   </script>
 
 
-  <!-- =========================================
+  <!-- =========================================================
        FONTS
-       ========================================= -->
+       ========================================================= -->
 
   <link
     rel="preconnect"
@@ -61,32 +56,21 @@
 
   <style>
 
-    /* =========================================
+    /* =========================================================
        DESIGN SYSTEM
-       ========================================= */
+       ========================================================= */
 
     :root {
+      --paper: #f3eee5;
+      --paper-card: #f7f2e9;
 
-      --paper:
-        #f3eee5;
+      --ink: #181313;
+      --muted: #756b66;
 
-      --paper-card:
-        #f7f2e9;
+      --crimson: #98182a;
+      --blush: #d8aaa5;
 
-      --ink:
-        #181313;
-
-      --muted:
-        #756b66;
-
-      --crimson:
-        #8b1726;
-
-      --blush:
-        #d8aaa5;
-
-      --line:
-        #cfc2b6;
+      --line: #cfc2b6;
 
       --serif:
         "Cormorant Garamond",
@@ -101,448 +85,374 @@
         "Space Grotesk",
         Arial,
         sans-serif;
-
     }
-
 
 
     * {
-
-      box-sizing:
-        border-box;
-
+      box-sizing: border-box;
     }
-
 
 
     html {
-
-      scroll-behavior:
-        smooth;
-
+      scroll-behavior: smooth;
     }
-
 
 
     body {
+      margin: 0;
 
-      margin:
-        0;
+      background: var(--paper);
+      color: var(--ink);
 
-      background:
-        var(--paper);
-
-      color:
-        var(--ink);
-
-      -webkit-font-smoothing:
-        antialiased;
-
+      -webkit-font-smoothing: antialiased;
     }
-
 
 
     button,
-    select,
     a {
-
-      -webkit-tap-highlight-color:
-        transparent;
-
+      -webkit-tap-highlight-color: transparent;
     }
-
 
 
     main {
+      position: relative;
 
-      position:
-        relative;
+      width: 100%;
+      max-width: 1100px;
 
-      width:
-        100%;
-
-      max-width:
-        1100px;
-
-      margin:
-        0 auto;
+      margin: 0 auto;
 
       padding:
-        58px 30px 90px;
+        58px
+        30px
+        90px;
 
-      overflow-x:
-        clip;
-
+      overflow-x: clip;
     }
 
 
 
-    /* =========================================
+    /* =========================================================
        HEADER DECORATION
-       ========================================= */
+       ========================================================= */
 
     .top-decoration {
+      position: absolute;
 
-      position:
-        absolute;
+      top: 0;
+      right: 0;
 
-      top:
-        0;
+      width: 300px;
+      height: 300px;
 
-      right:
-        0;
+      pointer-events: none;
 
-      width:
-        310px;
-
-      height:
-        280px;
-
-      pointer-events:
-        none;
-
-      z-index:
-        1;
-
+      z-index: 1;
     }
-
 
 
     .deco-block {
+      position: absolute;
 
-      position:
-        absolute;
+      right: 0;
+      top: 0;
 
-      right:
-        0;
+      width: 108px;
+      height: 158px;
 
-      top:
-        0;
-
-      width:
-        108px;
-
-      height:
-        158px;
-
-      background:
-        var(--crimson);
-
+      background: var(--crimson);
     }
-
 
 
     .deco-circle {
+      position: absolute;
 
-      position:
-        absolute;
+      right: 87px;
+      top: 78px;
 
-      right:
-        88px;
+      width: 92px;
+      height: 92px;
 
-      top:
-        78px;
-
-      width:
-        92px;
-
-      height:
-        92px;
-
-      border-radius:
-        50%;
+      border-radius: 50%;
 
       background:
-        rgba(
-          216,
-          170,
-          165,
-          .62
-        );
-
+        rgba(216, 170, 165, .62);
     }
 
 
 
-    .deco-square {
+    /* =========================================================
+       ABSTRACT TRUMPET
 
-      position:
-        absolute;
+       選んだ左上案をベースにしたデザイン
 
-      right:
-        160px;
+       ・ベルは上向き
+       ・ベルを大きく
+       ・3本のバルブ
+       ・右側に大きな管のループ
+       ・バルブとループが重なる
+       ========================================================= */
 
-      top:
-        105px;
+    .trumpet-mark {
+      position: absolute;
 
-      width:
-        85px;
+      top: 112px;
+      right: 33px;
 
-      height:
-        72px;
+      width: 112px;
+      height: 180px;
 
-      background:
-        rgba(
-          216,
-          170,
-          165,
-          .35
-        );
-
+      z-index: 3;
     }
 
 
-
-    /* =========================================
-       VERTICAL TRUMPET SYMBOL
-       ========================================= */
-
-    .trumpet-symbol {
-
-      position:
-        absolute;
-
-      right:
-        43px;
-
-      top:
-        108px;
-
-      width:
-        72px;
-
-      height:
-        145px;
-
-    }
-
-
-
-    /* Bell */
+    /* -------------------------
+       BELL
+       ------------------------- */
 
     .trumpet-bell {
+      position: absolute;
 
-      position:
-        absolute;
+      top: 0;
+      left: 42px;
 
-      top:
-        0;
+      width: 67px;
+      height: 58px;
 
-      left:
-        10px;
-
-      width:
-        52px;
-
-      height:
-        45px;
-
-      background:
-        var(--crimson);
+      background: var(--crimson);
 
       clip-path:
         polygon(
-          10% 100%,
-          25% 42%,
           0 0,
           100% 0,
-          75% 42%,
-          90% 100%
+          69% 18%,
+          56% 38%,
+          52% 100%,
+          47% 100%,
+          43% 38%,
+          31% 18%
         );
+    }
 
+
+    /* Bell rim */
+
+    .trumpet-bell-rim {
+      position: absolute;
+
+      top: -2px;
+      left: 38px;
+
+      width: 75px;
+      height: 3px;
+
+      background: var(--crimson);
     }
 
 
 
-    .trumpet-bell-cutout {
+    /* -------------------------
+       MAIN BODY
+       ------------------------- */
 
-      position:
-        absolute;
+    .trumpet-body {
+      position: absolute;
 
-      top:
-        4px;
+      top: 50px;
+      left: 73px;
 
-      left:
-        17px;
+      width: 6px;
+      height: 105px;
 
-      width:
-        38px;
+      background: var(--crimson);
+    }
 
-      height:
-        35px;
 
-      background:
-        var(--paper);
+
+    /* -------------------------
+       VALVES
+       ------------------------- */
+
+    .trumpet-valves {
+      position: absolute;
+
+      top: 79px;
+      left: 11px;
+
+      width: 68px;
+      height: 59px;
+    }
+
+
+    .trumpet-valve {
+      position: absolute;
+
+      left: 0;
+
+      width: 68px;
+      height: 7px;
+
+      background: var(--crimson);
+    }
+
+
+    .trumpet-valve:nth-child(1) {
+      top: 0;
+    }
+
+
+    .trumpet-valve:nth-child(2) {
+      top: 22px;
+    }
+
+
+    .trumpet-valve:nth-child(3) {
+      top: 44px;
+    }
+
+
+    /* Round valve ends */
+
+    .trumpet-valve::before {
+      content: "";
+
+      position: absolute;
+
+      left: -5px;
+      top: -3px;
+
+      width: 13px;
+      height: 13px;
+
+      border-radius: 50%;
+
+      background: var(--crimson);
+    }
+
+
+    /* Small separation before body */
+
+    .trumpet-valve::after {
+      content: "";
+
+      position: absolute;
+
+      left: 15px;
+      top: 0;
+
+      width: 5px;
+      height: 7px;
+
+      background: var(--paper);
+    }
+
+
+
+    /* -------------------------
+       LARGE TUBING LOOP
+       ------------------------- */
+
+    .trumpet-loop {
+      position: absolute;
+
+      top: 65px;
+      left: 72px;
+
+      width: 39px;
+      height: 91px;
+
+      border:
+        6px solid
+        var(--crimson);
+
+      border-radius:
+        22px;
+
+      background: transparent;
+    }
+
+
+    /*
+      Main body sits over the loop,
+      giving the same overlapping
+      geometric look as the chosen mark.
+    */
+
+    .trumpet-loop-mask {
+      position: absolute;
+
+      top: 70px;
+      left: 68px;
+
+      width: 11px;
+      height: 80px;
+
+      background: var(--crimson);
+    }
+
+
+
+    /* -------------------------
+       MOUTHPIECE / BOTTOM
+       ------------------------- */
+
+    .trumpet-mouthpiece-line {
+      position: absolute;
+
+      top: 153px;
+      left: 72px;
+
+      width: 8px;
+      height: 5px;
+
+      background: var(--crimson);
+    }
+
+
+    .trumpet-mouthpiece {
+      position: absolute;
+
+      top: 161px;
+      left: 65px;
+
+      width: 21px;
+      height: 17px;
+
+      background: var(--crimson);
 
       clip-path:
         polygon(
-          14% 100%,
-          29% 40%,
-          5% 0,
-          95% 0,
-          71% 40%,
-          86% 100%
+          33% 0,
+          67% 0,
+          100% 100%,
+          0 100%
         );
-
     }
 
 
 
-    /* Main tube */
-
-    .trumpet-tube {
-
-      position:
-        absolute;
-
-      top:
-        37px;
-
-      left:
-        35px;
-
-      width:
-        2px;
-
-      height:
-        100px;
-
-      background:
-        var(--crimson);
-
-    }
-
-
-
-    /* Valves */
-
-    .vertical-valves {
-
-      position:
-        absolute;
-
-      top:
-        60px;
-
-      left:
-        20px;
-
-      display:
-        flex;
-
-      gap:
-        5px;
-
-    }
-
-
-
-    .vertical-valves span {
-
-      position:
-        relative;
-
-      width:
-        7px;
-
-      height:
-        37px;
-
-      background:
-        var(--crimson);
-
-    }
-
-
-
-    .vertical-valves span::before {
-
-      content:
-        "";
-
-      position:
-        absolute;
-
-      left:
-        -2px;
-
-      top:
-        -7px;
-
-      width:
-        11px;
-
-      height:
-        5px;
-
-      background:
-        var(--crimson);
-
-    }
-
-
-
-    /* Curved-ish side tubing */
-
-    .trumpet-loop {
-
-      position:
-        absolute;
-
-      left:
-        11px;
-
-      top:
-        91px;
-
-      width:
-        51px;
-
-      height:
-        32px;
-
-      border:
-        2px solid var(--crimson);
-
-      border-top:
-        0;
-
-      border-radius:
-        0 0 25px 25px;
-
-    }
-
-
-
-    /* =========================================
+    /* =========================================================
        HEADER
-       ========================================= */
+       ========================================================= */
 
     header {
+      position: relative;
 
-      position:
-        relative;
-
-      z-index:
-        2;
+      z-index: 2;
 
       padding:
-        25px 10px 72px;
-
+        25px
+        10px
+        72px;
     }
-
 
 
     .artist-name {
+      margin: 0;
 
-      margin:
-        0;
+      max-width: 640px;
 
-      max-width:
-        640px;
-
-      font-family:
-        var(--serif);
+      font-family: var(--serif);
 
       font-size:
         clamp(
@@ -551,87 +461,60 @@
           100px
         );
 
-      font-weight:
-        600;
+      font-weight: 600;
 
-      line-height:
-        .82;
+      line-height: .82;
 
-      letter-spacing:
-        -3px;
-
+      letter-spacing: -3px;
     }
-
 
 
     .artist-name span {
-
-      display:
-        block;
-
+      display: block;
     }
-
 
 
     .artist-role {
+      margin-top: 27px;
 
-      margin-top:
-        27px;
+      color: var(--crimson);
 
-      color:
-        var(--crimson);
+      font-family: var(--sans);
 
-      font-family:
-        var(--sans);
+      font-size: 13px;
 
-      font-size:
-        13px;
+      font-weight: 600;
 
-      font-weight:
-        600;
+      letter-spacing: 5px;
 
-      letter-spacing:
-        5px;
-
-      text-transform:
-        uppercase;
-
+      text-transform: uppercase;
     }
 
 
 
-    /* =========================================
-       SCHEDULE HEADER
-       ========================================= */
+    /* =========================================================
+       SCHEDULE HEADING
+       ========================================================= */
 
     .schedule-heading {
+      display: flex;
 
-      display:
-        flex;
+      align-items: flex-end;
 
-      align-items:
-        flex-end;
+      justify-content: space-between;
 
-      justify-content:
-        space-between;
+      gap: 20px;
 
-      gap:
-        30px;
-
-      margin-bottom:
-        27px;
-
+      margin-bottom: 27px;
     }
-
 
 
     .schedule-title {
+      margin: 0;
 
-      margin:
-        0;
+      flex-shrink: 0;
 
-      font-family:
-        var(--serif);
+      font-family: var(--serif);
 
       font-size:
         clamp(
@@ -640,133 +523,88 @@
           65px
         );
 
-      font-weight:
-        600;
+      font-weight: 600;
 
-      line-height:
-        .95;
+      line-height: .95;
 
-      letter-spacing:
-        -1.5px;
-
+      letter-spacing: -1.5px;
     }
 
 
 
-    /* =========================================
+    /* =========================================================
        MONTH NAVIGATION
-       ========================================= */
+       ========================================================= */
 
     .month-filter {
+      display: flex;
 
-      display:
-        flex;
+      align-items: stretch;
 
-      align-items:
-        center;
+      border:
+        1px solid
+        var(--crimson);
 
-      gap:
-        22px;
-
-      padding-bottom:
-        8px;
-
-      border-bottom:
-        1px solid var(--crimson);
-
+      height: 37px;
     }
-
 
 
     .month-button {
-
-      position:
-        relative;
+      min-width: 63px;
 
       padding:
-        6px 2px;
+        0
+        12px;
 
-      border:
-        0;
+      border: 0;
 
-      background:
-        transparent;
+      border-right:
+        1px solid
+        var(--crimson);
 
-      color:
-        var(--ink);
+      background: transparent;
 
-      font-family:
-        var(--sans);
+      color: var(--crimson);
 
-      font-size:
-        11px;
+      font-family: var(--sans);
 
-      font-weight:
-        600;
+      font-size: 9px;
 
-      letter-spacing:
-        1.5px;
+      font-weight: 600;
 
-      cursor:
-        pointer;
+      letter-spacing: 1.4px;
 
+      cursor: pointer;
     }
 
+
+    .month-button:last-child {
+      border-right: 0;
+    }
 
 
     .month-button.active {
+      background: var(--crimson);
 
-      color:
-        var(--crimson);
-
+      color: var(--paper);
     }
 
 
 
-    .month-button.active::after {
-
-      content:
-        "";
-
-      position:
-        absolute;
-
-      left:
-        0;
-
-      right:
-        0;
-
-      bottom:
-        -9px;
-
-      height:
-        3px;
-
-      background:
-        var(--crimson);
-
-    }
-
-
-
-    /* =========================================
+    /* =========================================================
        EVENT CARD
-       ========================================= */
+       ========================================================= */
 
     .event {
+      position: relative;
 
-      position:
-        relative;
-
-      display:
-        grid;
+      display: grid;
 
       grid-template-columns:
-        125px minmax(0, 1fr);
+        125px
+        minmax(0, 1fr);
 
-      margin-bottom:
-        16px;
+      margin-bottom: 16px;
 
       background:
         rgba(
@@ -777,264 +615,189 @@
         );
 
       border:
-        1px solid var(--line);
+        1px solid
+        var(--line);
 
-      overflow:
-        hidden;
-
+      overflow: hidden;
     }
-
 
 
     .event.leader {
-
-      border-color:
-        var(--crimson);
-
+      border-color: var(--crimson);
     }
 
 
 
-    /* =========================================
+    /* =========================================================
        TONIGHT
-       ========================================= */
+       ========================================================= */
 
     .status {
+      position: absolute;
 
-      position:
-        absolute;
+      top: 0;
+      left: 0;
 
-      top:
-        0;
-
-      left:
-        0;
-
-      min-width:
-        125px;
+      min-width: 125px;
 
       padding:
-        10px 16px;
+        10px
+        16px;
 
-      background:
-        var(--crimson);
+      background: var(--crimson);
 
-      color:
-        var(--paper);
+      color: var(--paper);
 
-      font-family:
-        var(--sans);
+      font-family: var(--sans);
 
-      font-size:
-        10px;
+      font-size: 10px;
 
-      font-weight:
-        600;
+      font-weight: 600;
 
-      letter-spacing:
-        2.3px;
+      letter-spacing: 2.3px;
 
-      text-align:
-        center;
+      text-align: center;
 
-      z-index:
-        2;
-
+      z-index: 2;
     }
 
 
 
-    /* =========================================
+    /* =========================================================
        DATE COLUMN
-       ========================================= */
+       ========================================================= */
 
     .event-date-column {
-
       padding:
-        28px 22px 24px;
+        28px
+        22px
+        24px;
 
       border-right:
-        1px solid var(--line);
-
+        1px solid
+        var(--line);
     }
-
 
 
     .event.has-status
     .event-date-column {
-
-      padding-top:
-        63px;
-
+      padding-top: 63px;
     }
-
 
 
     .event-month {
+      font-family: var(--serif);
 
-      font-family:
-        var(--serif);
+      font-size: 19px;
 
-      font-size:
-        19px;
+      font-weight: 600;
 
-      font-weight:
-        600;
-
-      letter-spacing:
-        1px;
-
+      letter-spacing: 1px;
     }
-
 
 
     .event-number {
+      margin-top: -3px;
 
-      margin-top:
-        -3px;
+      color: var(--crimson);
 
-      color:
-        var(--crimson);
+      font-family: var(--serif);
 
-      font-family:
-        var(--serif);
+      font-size: 55px;
 
-      font-size:
-        55px;
+      font-weight: 600;
 
-      font-weight:
-        600;
-
-      line-height:
-        .92;
-
+      line-height: .92;
     }
-
 
 
     .event-day {
+      margin-top: 4px;
 
-      margin-top:
-        4px;
+      color: var(--crimson);
 
-      color:
-        var(--crimson);
+      font-family: var(--serif);
 
-      font-family:
-        var(--serif);
+      font-size: 17px;
 
-      font-size:
-        17px;
+      font-weight: 600;
 
-      font-weight:
-        600;
-
-      letter-spacing:
-        2px;
-
+      letter-spacing: 2px;
     }
-
 
 
     .date-rule {
+      width: 100%;
 
-      width:
-        100%;
-
-      height:
-        1px;
+      height: 1px;
 
       margin:
-        15px 0;
+        15px
+        0;
 
-      background:
-        var(--line);
-
+      background: var(--line);
     }
-
 
 
     .event-time {
+      font-family: var(--serif);
 
-      font-family:
-        var(--serif);
+      font-size: 17px;
 
-      font-size:
-        17px;
-
-      font-weight:
-        500;
-
+      font-weight: 500;
     }
 
 
 
-    /* =========================================
+    /* =========================================================
        EVENT BODY
-       ========================================= */
+       ========================================================= */
 
     .event-body {
+      position: relative;
 
-      position:
-        relative;
-
-      min-width:
-        0;
+      min-width: 0;
 
       padding:
-        27px 28px 25px;
-
+        27px
+        28px
+        25px;
     }
-
 
 
     .leader-label,
     .next-label {
+      position: relative;
 
-      position:
-        relative;
+      z-index: 2;
 
-      z-index:
-        2;
+      margin-bottom: 8px;
 
-      margin-bottom:
-        8px;
+      color: var(--crimson);
 
-      color:
-        var(--crimson);
+      font-family: var(--sans);
 
-      font-family:
-        var(--sans);
+      font-size: 10px;
 
-      font-size:
-        10px;
+      font-weight: 600;
 
-      font-weight:
-        600;
+      letter-spacing: 3px;
 
-      letter-spacing:
-        3px;
-
-      text-transform:
-        uppercase;
-
+      text-transform: uppercase;
     }
 
 
-
     .event-title {
+      position: relative;
 
-      position:
-        relative;
-
-      z-index:
-        2;
+      z-index: 2;
 
       margin:
-        0 0 21px;
+        0
+        0
+        21px;
 
-      font-family:
-        var(--jp);
+      font-family: var(--jp);
 
       font-size:
         clamp(
@@ -1043,23 +806,16 @@
           27px
         );
 
-      font-weight:
-        600;
+      font-weight: 600;
 
-      line-height:
-        1.4;
+      line-height: 1.4;
 
-      overflow-wrap:
-        anywhere;
-
+      overflow-wrap: anywhere;
     }
 
 
-
     .event-title.english {
-
-      font-family:
-        var(--serif);
+      font-family: var(--serif);
 
       font-size:
         clamp(
@@ -1068,382 +824,253 @@
           34px
         );
 
-      line-height:
-        1.05;
-
+      line-height: 1.05;
     }
 
 
 
-    /* =========================================
+    /* =========================================================
        LABELS
-       ========================================= */
+       ========================================================= */
 
     .label {
+      margin-bottom: 8px;
 
-      margin-bottom:
-        8px;
+      color: var(--crimson);
 
-      color:
-        var(--crimson);
+      font-family: var(--sans);
 
-      font-family:
-        var(--sans);
+      font-size: 10px;
 
-      font-size:
-        10px;
+      font-weight: 600;
 
-      font-weight:
-        600;
+      letter-spacing: 3px;
 
-      letter-spacing:
-        3px;
-
-      text-transform:
-        uppercase;
-
+      text-transform: uppercase;
     }
 
 
 
-    /* =========================================
+    /* =========================================================
        PLAYERS
-       ========================================= */
+       ========================================================= */
 
     .players-section {
-
-      margin-bottom:
-        24px;
-
+      margin-bottom: 24px;
     }
-
 
 
     .players {
+      color: #342c29;
 
-      color:
-        #342c29;
+      font-family: var(--jp);
 
-      font-family:
-        var(--jp);
+      font-size: 14px;
 
-      font-size:
-        14px;
+      font-weight: 400;
 
-      font-weight:
-        400;
+      line-height: 1.85;
 
-      line-height:
-        1.85;
-
-      overflow-wrap:
-        anywhere;
-
+      overflow-wrap: anywhere;
     }
-
 
 
     .player {
-
-      display:
-        block;
-
+      display: block;
     }
-
 
 
     .hidden-players {
-
-      display:
-        none;
-
+      display: none;
     }
-
 
 
     .hidden-players.open {
-
-      display:
-        block;
-
+      display: block;
     }
-
 
 
     .show-more {
+      display: inline-block;
 
-      display:
-        inline-block;
+      margin-top: 11px;
 
-      margin-top:
-        11px;
+      padding: 0;
 
-      padding:
-        0;
+      border: 0;
 
-      border:
-        0;
+      background: transparent;
 
-      background:
-        transparent;
+      color: var(--crimson);
 
-      color:
-        var(--crimson);
+      font-family: var(--sans);
 
-      font-family:
-        var(--sans);
+      font-size: 10px;
 
-      font-size:
-        10px;
+      font-weight: 600;
 
-      font-weight:
-        600;
+      letter-spacing: 1.5px;
 
-      letter-spacing:
-        1.5px;
-
-      cursor:
-        pointer;
-
+      cursor: pointer;
     }
 
 
 
-    /* =========================================
+    /* =========================================================
        VENUE
-       ========================================= */
+       ========================================================= */
 
     .venue-section {
-
-      margin-top:
-        4px;
-
+      margin-top: 4px;
     }
-
 
 
     .venue {
+      font-family: var(--jp);
 
-      font-family:
-        var(--jp);
+      font-size: 15px;
 
-      font-size:
-        15px;
+      font-weight: 500;
 
-      font-weight:
-        500;
+      line-height: 1.5;
 
-      line-height:
-        1.5;
-
-      overflow-wrap:
-        anywhere;
-
+      overflow-wrap: anywhere;
     }
-
 
 
     .place {
+      margin-top: 3px;
 
-      margin-top:
-        3px;
+      color: var(--muted);
 
-      color:
-        var(--muted);
+      font-family: var(--jp);
 
-      font-family:
-        var(--jp);
+      font-size: 13px;
 
-      font-size:
-        13px;
-
-      line-height:
-        1.5;
-
+      line-height: 1.5;
     }
 
 
 
-    /* =========================================
-       BUTTONS
-       ========================================= */
+    /* =========================================================
+       ACTION BUTTONS
+       ========================================================= */
 
     .actions {
+      display: flex;
 
-      display:
-        flex;
+      flex-wrap: wrap;
 
-      flex-wrap:
-        wrap;
+      gap: 9px;
 
-      gap:
-        9px;
-
-      margin-top:
-        20px;
-
+      margin-top: 20px;
     }
-
 
 
     .action {
+      display: inline-flex;
 
-      display:
-        inline-flex;
+      align-items: center;
 
-      align-items:
-        center;
+      justify-content: center;
 
-      justify-content:
-        center;
-
-      min-width:
-        108px;
+      min-width: 108px;
 
       padding:
-        10px 16px;
+        10px
+        16px;
 
       border:
-        1px solid var(--crimson);
-
-      color:
+        1px solid
         var(--crimson);
 
-      background:
-        transparent;
+      color: var(--crimson);
 
-      font-family:
-        var(--sans);
+      background: transparent;
 
-      font-size:
-        9px;
+      font-family: var(--sans);
 
-      font-weight:
-        600;
+      font-size: 9px;
 
-      letter-spacing:
-        1.7px;
+      font-weight: 600;
 
-      text-decoration:
-        none;
+      letter-spacing: 1.7px;
+
+      text-decoration: none;
 
       transition:
         background .18s ease,
         color .18s ease;
-
     }
-
 
 
     .action:hover {
+      background: var(--crimson);
 
-      background:
-        var(--crimson);
-
-      color:
-        var(--paper);
-
+      color: var(--paper);
     }
-
 
 
     .action.email {
-
-      min-width:
-        130px;
-
+      min-width: 130px;
     }
 
 
 
-    /* =========================================
+    /* =========================================================
        LEADER SHOW DECORATION
-       ========================================= */
+       ========================================================= */
 
     .leader-shape {
+      position: absolute;
 
-      position:
-        absolute;
+      top: 0;
+      right: 0;
 
-      top:
-        0;
+      width: 115px;
+      height: 95px;
 
-      right:
-        0;
+      overflow: hidden;
 
-      width:
-        115px;
+      pointer-events: none;
 
-      height:
-        95px;
-
-      overflow:
-        hidden;
-
-      pointer-events:
-        none;
-
-      opacity:
-        .9;
-
+      opacity: .9;
     }
-
 
 
     .leader-shape::before {
+      content: "";
 
-      content:
-        "";
+      position: absolute;
 
-      position:
-        absolute;
+      top: 0;
+      right: 0;
 
-      top:
-        0;
-
-      right:
-        0;
-
-      width:
-        58px;
-
-      height:
-        58px;
+      width: 58px;
+      height: 58px;
 
       background:
         rgba(
-          139,
-          23,
-          38,
+          152,
+          24,
+          42,
           .82
         );
-
     }
 
 
-
     .leader-shape::after {
+      content: "";
 
-      content:
-        "";
+      position: absolute;
 
-      position:
-        absolute;
+      right: 25px;
+      top: 25px;
 
-      right:
-        25px;
+      width: 76px;
+      height: 76px;
 
-      top:
-        25px;
-
-      width:
-        76px;
-
-      height:
-        76px;
-
-      border-radius:
-        50%;
+      border-radius: 50%;
 
       background:
         rgba(
@@ -1452,204 +1079,142 @@
           165,
           .45
         );
-
     }
 
 
 
-    /* =========================================
+    /* =========================================================
        MESSAGE
-       ========================================= */
+       ========================================================= */
 
     .message {
-
       padding:
-        40px 5px;
+        40px
+        5px;
 
-      color:
-        var(--muted);
+      color: var(--muted);
 
-      font-family:
-        var(--sans);
+      font-family: var(--sans);
 
-      font-size:
-        13px;
-
+      font-size: 13px;
     }
 
 
 
-    /* =========================================
+    /* =========================================================
        FOOTER
-       ========================================= */
+       ========================================================= */
 
     footer {
-
-      margin-top:
-        75px;
+      margin-top: 75px;
 
       padding:
-        32px 4px 15px;
+        32px
+        4px
+        15px;
 
       border-top:
-        1px solid var(--line);
-
+        1px solid
+        var(--line);
     }
-
 
 
     .footer-name {
+      font-family: var(--sans);
 
-      font-family:
-        var(--sans);
+      font-size: 9px;
 
-      font-size:
-        9px;
+      font-weight: 500;
 
-      font-weight:
-        500;
-
-      letter-spacing:
-        4px;
-
+      letter-spacing: 4px;
     }
-
 
 
     .footer-role {
+      margin-top: 8px;
 
-      margin-top:
-        8px;
+      color: var(--muted);
 
-      color:
-        var(--muted);
+      font-family: var(--sans);
 
-      font-family:
-        var(--sans);
+      font-size: 8px;
 
-      font-size:
-        8px;
-
-      letter-spacing:
-        3px;
-
+      letter-spacing: 3px;
     }
 
 
 
-    /* =========================================
+    /* =========================================================
        MOBILE
-       ========================================= */
+       ========================================================= */
 
-    @media (
-      max-width: 650px
-    ) {
-
+    @media (max-width: 650px) {
 
       main {
-
         padding:
-          34px 15px 65px;
-
+          34px
+          15px
+          65px;
       }
 
 
-
-      /* Header decoration */
+      /* -------------------------
+         HEADER DECORATION
+         ------------------------- */
 
       .top-decoration {
+        right: 0;
 
-        right:
-          0;
-
-        width:
-          125px;
-
-        height:
-          270px;
-
+        width: 125px;
+        height: 275px;
       }
-
 
 
       .deco-block {
-
-        width:
-          34px;
-
-        height:
-          126px;
-
+        width: 34px;
+        height: 126px;
       }
-
 
 
       .deco-circle {
+        right: 23px;
+        top: 78px;
 
-        right:
-          23px;
-
-        top:
-          78px;
-
-        width:
-          57px;
-
-        height:
-          57px;
-
+        width: 57px;
+        height: 57px;
       }
 
 
+      /* -------------------------
+         TRUMPET
+         ------------------------- */
 
-      .deco-square {
-
-        display:
-          none;
-
-      }
-
-
-
-      /* Vertical trumpet stays entirely inside screen */
-
-      .trumpet-symbol {
-
-        right:
-          18px;
-
-        top:
-          128px;
-
-        width:
-          60px;
-
-        height:
-          125px;
+      .trumpet-mark {
+        top: 120px;
+        right: 7px;
 
         transform:
-          scale(.82);
+          scale(.70);
 
         transform-origin:
           top right;
-
       }
 
 
+      /* -------------------------
+         HEADER
+         ------------------------- */
 
       header {
-
         padding:
-          30px 6px 62px;
-
+          30px
+          6px
+          62px;
       }
-
 
 
       .artist-name {
-
-        max-width:
-          350px;
+        max-width: 350px;
 
         font-size:
           clamp(
@@ -1658,402 +1223,260 @@
             70px
           );
 
-        line-height:
-          .86;
+        line-height: .86;
 
-        letter-spacing:
-          -2px;
-
+        letter-spacing: -2px;
       }
-
 
 
       .artist-role {
+        margin-top: 21px;
 
-        margin-top:
-          21px;
+        font-size: 11px;
 
-        font-size:
-          11px;
-
-        letter-spacing:
-          3.3px;
-
+        letter-spacing: 3.3px;
       }
 
 
 
-      /* Schedule heading */
+      /* -------------------------
+         LIVE SCHEDULE + MONTHS
+         ------------------------- */
 
       .schedule-heading {
+        display: flex;
 
-        display:
-          block;
+        align-items: flex-end;
 
-        margin-bottom:
-          25px;
+        justify-content: space-between;
 
+        gap: 9px;
+
+        margin-bottom: 25px;
       }
-
 
 
       .schedule-title {
-
         font-size:
-          40px;
-
-      }
-
-
-
-      /* Month navigation */
-
-      .month-filter {
-
-        display:
-          grid;
-
-        grid-template-columns:
-          repeat(
-            3,
-            1fr
+          clamp(
+            34px,
+            9.5vw,
+            42px
           );
 
-        width:
-          100%;
-
-        gap:
-          0;
-
-        margin-top:
-          20px;
-
-        padding:
-          0;
-
-        border:
-          1px solid var(--crimson);
-
+        letter-spacing: -1px;
       }
 
+
+      .month-filter {
+        flex-shrink: 0;
+
+        height: 31px;
+      }
 
 
       .month-button {
+        min-width: 43px;
 
         padding:
-          12px 5px;
+          0
+          7px;
 
-        border-right:
-          1px solid var(--crimson);
+        font-size: 7.5px;
 
-        color:
-          var(--crimson);
-
-        font-size:
-          9px;
-
-        letter-spacing:
-          1.4px;
-
+        letter-spacing: .8px;
       }
 
 
 
-      .month-button:last-child {
-
-        border-right:
-          0;
-
-      }
-
-
-
-      .month-button.active {
-
-        background:
-          var(--crimson);
-
-        color:
-          var(--paper);
-
-      }
-
-
-
-      .month-button.active::after {
-
-        display:
-          none;
-
-      }
-
-
-
-      /* Event */
+      /* -------------------------
+         EVENT CARD
+         ------------------------- */
 
       .event {
-
         grid-template-columns:
-          84px minmax(0, 1fr);
-
+          84px
+          minmax(0, 1fr);
       }
-
 
 
       .status {
-
-        min-width:
-          84px;
+        min-width: 84px;
 
         padding:
-          9px 5px;
+          9px
+          5px;
 
-        font-size:
-          8px;
+        font-size: 8px;
 
-        letter-spacing:
-          1.3px;
-
+        letter-spacing: 1.3px;
       }
-
 
 
       .event-date-column {
-
         padding:
-          22px 11px;
-
+          22px
+          11px;
       }
-
 
 
       .event.has-status
       .event-date-column {
-
-        padding-top:
-          57px;
-
+        padding-top: 57px;
       }
-
 
 
       .event-month {
-
-        font-size:
-          15px;
-
+        font-size: 15px;
       }
-
 
 
       .event-number {
-
-        font-size:
-          43px;
-
+        font-size: 43px;
       }
-
 
 
       .event-day {
+        font-size: 14px;
 
-        font-size:
-          14px;
-
-        letter-spacing:
-          1.5px;
-
+        letter-spacing: 1.5px;
       }
-
 
 
       .event-time {
-
-        font-size:
-          14px;
-
+        font-size: 14px;
       }
-
 
 
       .event-body {
-
         padding:
-          22px 15px 21px;
-
+          22px
+          15px
+          21px;
       }
-
 
 
       .leader-label,
       .next-label,
       .label {
+        font-size: 9px;
 
-        font-size:
-          9px;
-
-        letter-spacing:
-          2.2px;
-
+        letter-spacing: 2.2px;
       }
-
 
 
       .event-title {
+        font-size: 18px;
 
-        font-size:
-          18px;
-
-        line-height:
-          1.45;
-
+        line-height: 1.45;
       }
-
 
 
       .event-title.english {
+        font-size: 23px;
 
-        font-size:
-          23px;
-
-        line-height:
-          1.08;
-
+        line-height: 1.08;
       }
-
 
 
       .players {
+        font-size: 12.5px;
 
-        font-size:
-          12.5px;
-
-        line-height:
-          1.8;
-
+        line-height: 1.8;
       }
-
 
 
       .venue {
-
-        font-size:
-          14px;
-
+        font-size: 14px;
       }
-
 
 
       .actions {
+        gap: 7px;
 
-        gap:
-          7px;
-
-        margin-top:
-          18px;
-
+        margin-top: 18px;
       }
-
 
 
       .action {
-
         flex:
-          1 1 calc(
-            50% - 4px
-          );
+          1 1
+          calc(50% - 4px);
 
-        min-width:
-          0;
+        min-width: 0;
 
         padding:
-          11px 6px;
+          11px
+          6px;
 
-        font-size:
-          8px;
+        font-size: 8px;
 
-        letter-spacing:
-          1.1px;
-
+        letter-spacing: 1.1px;
       }
-
 
 
       .action.email {
-
-        flex-basis:
-          100%;
-
+        flex-basis: 100%;
       }
 
 
-
       .leader-shape {
-
-        width:
-          82px;
-
-        height:
-          72px;
-
+        width: 82px;
+        height: 72px;
       }
 
     }
 
 
 
-    @media (
-      max-width: 380px
-    ) {
+    /* =========================================================
+       VERY SMALL PHONES
+       ========================================================= */
 
+    @media (max-width: 380px) {
 
       .schedule-title {
-
-        font-size:
-          36px;
-
+        font-size: 32px;
       }
 
+
+      .month-filter {
+        height: 29px;
+      }
+
+
+      .month-button {
+        min-width: 39px;
+
+        padding:
+          0
+          5px;
+
+        font-size: 7px;
+      }
 
 
       .event {
-
         grid-template-columns:
-          78px minmax(0, 1fr);
-
+          78px
+          minmax(0, 1fr);
       }
-
 
 
       .event-date-column {
-
-        padding-left:
-          9px;
-
-        padding-right:
-          9px;
-
+        padding-left: 9px;
+        padding-right: 9px;
       }
-
 
 
       .status {
-
-        min-width:
-          78px;
-
+        min-width: 78px;
       }
 
 
-
       .event-body {
-
-        padding-left:
-          13px;
-
-        padding-right:
-          13px;
-
+        padding-left: 13px;
+        padding-right: 13px;
       }
 
     }
@@ -2066,331 +1489,281 @@
 
 <body>
 
-  <main>
+<main>
 
 
-    <!-- =========================================
-         HEADER ART
-         ========================================= -->
+  <!-- =========================================================
+       HEADER ART
+       ========================================================= -->
 
-    <div
-      class="top-decoration"
-      aria-hidden="true"
-    >
+  <div
+    class="top-decoration"
+    aria-hidden="true"
+  >
+
+    <div class="deco-block"></div>
+
+    <div class="deco-circle"></div>
+
+
+    <!-- ABSTRACT TRUMPET -->
+
+    <div class="trumpet-mark">
+
+      <div class="trumpet-bell"></div>
+
+      <div class="trumpet-bell-rim"></div>
+
+      <div class="trumpet-body"></div>
+
+
+      <div class="trumpet-valves">
+
+        <div class="trumpet-valve"></div>
+
+        <div class="trumpet-valve"></div>
+
+        <div class="trumpet-valve"></div>
+
+      </div>
+
+
+      <div class="trumpet-loop"></div>
+
+      <div class="trumpet-loop-mask"></div>
+
+      <div class="trumpet-mouthpiece-line"></div>
+
+      <div class="trumpet-mouthpiece"></div>
+
+    </div>
+
+  </div>
+
+
+
+  <!-- =========================================================
+       HEADER
+       ========================================================= -->
+
+  <header>
+
+    <h1 class="artist-name">
+
+      <span>Akihiro</span>
+
+      <span>Kokufukata</span>
+
+    </h1>
+
+
+    <div class="artist-role">
+
+      TRUMPETER / COMPOSER
+
+    </div>
+
+  </header>
+
+
+
+  <!-- =========================================================
+       LIVE SCHEDULE
+       ========================================================= -->
+
+  <section>
+
+
+    <div class="schedule-heading">
+
+
+      <h2 class="schedule-title">
+
+        Live Schedule
+
+      </h2>
+
 
       <div
-        class="deco-block"
+        class="month-filter"
+        id="monthFilter"
       ></div>
 
 
-      <div
-        class="deco-circle"
-      ></div>
+    </div>
 
 
-      <div
-        class="deco-square"
-      ></div>
 
+    <div id="events">
 
-      <div
-        class="trumpet-symbol"
-      >
+      <div class="message">
 
-        <div
-          class="trumpet-bell"
-        ></div>
-
-
-        <div
-          class="trumpet-bell-cutout"
-        ></div>
-
-
-        <div
-          class="trumpet-tube"
-        ></div>
-
-
-        <div
-          class="vertical-valves"
-        >
-
-          <span></span>
-
-          <span></span>
-
-          <span></span>
-
-        </div>
-
-
-        <div
-          class="trumpet-loop"
-        ></div>
+        Loading shows...
 
       </div>
 
     </div>
 
 
+  </section>
 
-    <!-- =========================================
-         HEADER
-         ========================================= -->
 
-    <header>
 
-      <h1
-        class="artist-name"
-      >
+  <!-- =========================================================
+       FOOTER
+       ========================================================= -->
 
-        <span>
-          Akihiro
-        </span>
+  <footer>
 
-        <span>
-          Kokufukata
-        </span>
+    <div class="footer-name">
 
-      </h1>
+      AKIHIRO KOKUFUKATA
 
+    </div>
 
-      <div
-        class="artist-role"
-      >
 
-        TRUMPETER / COMPOSER
+    <div class="footer-role">
 
-      </div>
+      TRUMPETER / COMPOSER
 
-    </header>
+    </div>
 
+  </footer>
 
 
-    <!-- =========================================
-         LIVE SCHEDULE
-         ========================================= -->
+</main>
 
-    <section>
 
 
-      <div
-        class="schedule-heading"
-      >
+<script>
 
+  /* =========================================================
+     SETTINGS
+     ========================================================= */
 
-        <h2
-          class="schedule-title"
-        >
+  const API_KEY =
+    SETTINGS.API_KEY;
 
-          Live Schedule
 
-        </h2>
+  const CALENDAR_ID =
+    SETTINGS.CALENDAR_ID;
 
 
-        <div
-          class="month-filter"
-          id="monthFilter"
-        ></div>
+  const EMAIL_ADDRESS =
+    SETTINGS.EMAIL_ADDRESS;
 
 
-      </div>
 
+  /* =========================================================
+     GLOBAL DATA
+     ========================================================= */
 
+  let upcomingEvents = [];
 
-      <div
-        id="events"
-      >
+  let selectedMonth = 'all';
 
-        <div
-          class="message"
-        >
 
-          Loading shows...
 
-        </div>
+  /* =========================================================
+     HTML ESCAPE
+     ========================================================= */
 
-      </div>
+  function escapeHTML(value = '') {
 
+    return String(value)
 
-    </section>
+      .replaceAll(
+        '&',
+        '&amp;'
+      )
 
+      .replaceAll(
+        '<',
+        '&lt;'
+      )
 
+      .replaceAll(
+        '>',
+        '&gt;'
+      )
 
-    <!-- =========================================
-         FOOTER
-         ========================================= -->
+      .replaceAll(
+        '"',
+        '&quot;'
+      )
 
-    <footer>
+      .replaceAll(
+        "'",
+        '&#039;'
+      );
 
+  }
 
-      <div
-        class="footer-name"
-      >
 
-        AKIHIRO KOKUFUKATA
 
-      </div>
+  /* =========================================================
+     WEBSITE URL CLEANER
 
+     Google Calendar側でURLがHTML化・Markdown化
+     されても、https://～だけを抽出します。
+     ========================================================= */
 
-      <div
-        class="footer-role"
-      >
+  function normalizeWebsiteURL(value = '') {
 
-        TRUMPETER / COMPOSER
+    let text =
+      String(value).trim();
 
-      </div>
 
+    const markdown =
+      text.match(
+        /\]\((https?:\/\/[^)\s]+)\)/i
+      );
 
-    </footer>
 
+    if (markdown) {
 
-  </main>
-
-
-
-  <script>
-
-
-    /* =========================================
-       SHORTCUTS TO SETTINGS
-       ========================================= */
-
-    const API_KEY =
-      SETTINGS.API_KEY;
-
-
-    const CALENDAR_ID =
-      SETTINGS.CALENDAR_ID;
-
-
-    const EMAIL_ADDRESS =
-      SETTINGS.EMAIL_ADDRESS;
-
-
-
-    /* =========================================
-       GLOBAL DATA
-       ========================================= */
-
-    let upcomingEvents =
-      [];
-
-
-    let selectedMonth =
-      'all';
-
-
-
-    /* =========================================
-       ESCAPE HTML
-       ========================================= */
-
-    function escapeHTML(
-      value = ''
-    ) {
-
-      return String(value)
-
-        .replaceAll(
-          '&',
-          '&amp;'
-        )
-
-        .replaceAll(
-          '<',
-          '&lt;'
-        )
-
-        .replaceAll(
-          '>',
-          '&gt;'
-        )
-
-        .replaceAll(
-          '"',
-          '&quot;'
-        )
-
-        .replaceAll(
-          "'",
-          '&#039;'
-        );
+      text = markdown[1];
 
     }
 
 
-
-    /* =========================================
-       WEBSITE URL CLEANER
-       ========================================= */
-
-    function normalizeWebsiteURL(
-      value = ''
-    ) {
-
-      let text =
-        String(value)
-          .trim();
+    const html =
+      text.match(
+        /href=["'](https?:\/\/[^"']+)["']/i
+      );
 
 
-      /*
-        Markdown link
-        [url](url)
-      */
+    if (html) {
 
-      const markdown =
-        text.match(
-          /\]\((https?:\/\/[^)\s]+)\)/i
+      text = html[1];
+
+    }
+
+
+    const plain =
+      text.match(
+        /https?:\/\/[^\s<>"')\]]+/i
+      );
+
+
+    if (!plain) {
+
+      return '';
+
+    }
+
+
+    try {
+
+      const url =
+        new URL(
+          plain[0]
         );
 
 
       if (
-        markdown
-      ) {
-
-        text =
-          markdown[1];
-
-      }
-
-
-
-      /*
-        HTML link
-        <a href="...">
-      */
-
-      const html =
-        text.match(
-          /href=["'](https?:\/\/[^"']+)["']/i
-        );
-
-
-      if (
-        html
-      ) {
-
-        text =
-          html[1];
-
-      }
-
-
-
-      /*
-        Extract absolute URL
-      */
-
-      const plain =
-        text.match(
-          /https?:\/\/[^\s<>"')\]]+/i
-        );
-
-
-      if (
-        !plain
+        url.protocol !== 'https:' &&
+        url.protocol !== 'http:'
       ) {
 
         return '';
@@ -2398,567 +1771,325 @@
       }
 
 
-
-      try {
-
-        const url =
-          new URL(
-            plain[0]
-          );
-
-
-        if (
-          url.protocol !==
-            'https:' &&
-
-          url.protocol !==
-            'http:'
-        ) {
-
-          return '';
-
-        }
-
-
-        return url.href;
-
-      }
-
-
-      catch {
-
-        return '';
-
-      }
+      return url.href;
 
     }
 
+    catch {
 
-
-    /* =========================================
-       GOOGLE CALENDAR DESCRIPTION
-
-       Recommended format:
-
-       Players:
-       Name (P)
-       Name (Tp)
-
-       Place: Shinjuku
-       Website: https://...
-       Leader: yes
-
-       ========================================= */
-
-    function parseDescription(
-      description = ''
-    ) {
-
-      const lines =
-        description
-
-          .replace(
-            /\r/g,
-            ''
-          )
-
-          .split(
-            '\n'
-          );
-
-
-      const players =
-        [];
-
-
-      let place =
-        '';
-
-
-      let website =
-        '';
-
-
-      let leader =
-        false;
-
-
-      let readingPlayers =
-        false;
-
-
-
-      for (
-        const rawLine
-        of lines
-      ) {
-
-
-        const line =
-          rawLine.trim();
-
-
-
-        if (
-          !line
-        ) {
-
-          continue;
-
-        }
-
-
-
-        /* PLAYERS */
-
-        if (
-          /^players\s*:/i
-            .test(line)
-        ) {
-
-          readingPlayers =
-            true;
-
-
-          const sameLine =
-            line
-
-              .replace(
-                /^players\s*:/i,
-                ''
-              )
-
-              .trim();
-
-
-          if (
-            sameLine
-          ) {
-
-            players.push(
-              sameLine
-            );
-
-          }
-
-
-          continue;
-
-        }
-
-
-
-        /* PLACE */
-
-        if (
-          /^place\s*:/i
-            .test(line)
-        ) {
-
-          readingPlayers =
-            false;
-
-
-          place =
-            line
-
-              .replace(
-                /^place\s*:/i,
-                ''
-              )
-
-              .trim();
-
-
-          continue;
-
-        }
-
-
-
-        /* WEBSITE */
-
-        if (
-          /^website\s*:/i
-            .test(line)
-        ) {
-
-          readingPlayers =
-            false;
-
-
-          const rawWebsite =
-            line
-
-              .replace(
-                /^website\s*:/i,
-                ''
-              )
-
-              .trim();
-
-
-          website =
-            normalizeWebsiteURL(
-              rawWebsite
-            );
-
-
-          continue;
-
-        }
-
-
-
-        /* LEADER */
-
-        if (
-          /^leader\s*:/i
-            .test(line)
-        ) {
-
-          readingPlayers =
-            false;
-
-
-          const value =
-            line
-
-              .replace(
-                /^leader\s*:/i,
-                ''
-              )
-
-              .trim()
-
-              .toLowerCase();
-
-
-          leader =
-            [
-              'yes',
-              'true',
-              '1',
-              'leader'
-            ]
-            .includes(
-              value
-            );
-
-
-          continue;
-
-        }
-
-
-
-        /*
-          Unknown metadata field
-          prevents it becoming a player
-        */
-
-        if (
-          /^[a-z][a-z0-9_-]*\s*:/i
-            .test(line)
-        ) {
-
-          readingPlayers =
-            false;
-
-
-          continue;
-
-        }
-
-
-
-        if (
-          readingPlayers
-        ) {
-
-          players.push(
-            line
-          );
-
-        }
-
-      }
-
-
-
-      return {
-
-        players,
-        place,
-        website,
-        leader
-
-      };
+      return '';
 
     }
 
+  }
 
 
-    /* =========================================
-       VENUE
-       ========================================= */
 
-    function getVenue(
-      location = ''
-    ) {
+  /* =========================================================
+     DESCRIPTION PARSER
 
-      if (
-        !location
-      ) {
+     Google Calendar description:
 
-        return '';
+     Players:
+     Name (P)
+     Name (Tp)
 
-      }
+     Place: Shinjuku
+     Website: https://example.com/
+     Leader: yes
 
+     ========================================================= */
 
-      return location
+  function parseDescription(
+    description = ''
+  ) {
+
+    const lines =
+      description
+
+        .replace(
+          /\r/g,
+          ''
+        )
 
         .split(
-          /[,、]/
-        )[0]
-
-        .trim();
-
-    }
-
-
-
-    /* =========================================
-       EVENT DATES
-       ========================================= */
-
-    function eventStart(
-      event
-    ) {
-
-      return new Date(
-
-        event.start.dateTime ||
-
-        event.start.date
-
-      );
-
-    }
-
-
-
-    function eventEnd(
-      event
-    ) {
-
-      return new Date(
-
-        event.end.dateTime ||
-
-        event.end.date
-
-      );
-
-    }
-
-
-
-    function tokyoDateKey(
-      date
-    ) {
-
-      const parts =
-
-        new Intl.DateTimeFormat(
-
-          'en-US',
-
-          {
-
-            timeZone:
-              'Asia/Tokyo',
-
-            year:
-              'numeric',
-
-            month:
-              '2-digit',
-
-            day:
-              '2-digit'
-
-          }
-
-        )
-        .formatToParts(
-          date
+          '\n'
         );
 
 
-      const values =
+    const players = [];
 
-        Object.fromEntries(
+    let place = '';
 
-          parts.map(
+    let website = '';
 
-            part => [
+    let leader = false;
 
-              part.type,
-
-              part.value
-
-            ]
-
-          )
-
-        );
-
-
-      return (
-
-        `${values.year}-${values.month}-${values.day}`
-
-      );
-
-    }
+    let readingPlayers = false;
 
 
 
-    function isToday(
-      event
+    for (
+      const rawLine
+      of lines
     ) {
 
-      return (
-
-        tokyoDateKey(
-          eventStart(event)
-        )
-
-        ===
-
-        tokyoDateKey(
-          new Date()
-        )
-
-      );
-
-    }
+      const line =
+        rawLine.trim();
 
 
+      if (!line) {
 
-    function getDateParts(
-      event
-    ) {
-
-      const date =
-        eventStart(
-          event
-        );
-
-
-      const month =
-
-        new Intl.DateTimeFormat(
-
-          'en-US',
-
-          {
-
-            timeZone:
-              'Asia/Tokyo',
-
-            month:
-              'short'
-
-          }
-
-        )
-
-        .format(
-          date
-        )
-
-        .toUpperCase();
-
-
-
-      const number =
-
-        new Intl.DateTimeFormat(
-
-          'en-US',
-
-          {
-
-            timeZone:
-              'Asia/Tokyo',
-
-            day:
-              '2-digit'
-
-          }
-
-        )
-
-        .format(
-          date
-        );
-
-
-
-      const weekday =
-
-        new Intl.DateTimeFormat(
-
-          'en-US',
-
-          {
-
-            timeZone:
-              'Asia/Tokyo',
-
-            weekday:
-              'short'
-
-          }
-
-        )
-
-        .format(
-          date
-        )
-
-        .toUpperCase();
-
-
-
-      return {
-
-        month,
-        number,
-        weekday
-
-      };
-
-    }
-
-
-
-    function formatTime(
-      event
-    ) {
-
-      if (
-        !event.start.dateTime
-      ) {
-
-        return 'ALL DAY';
+        continue;
 
       }
 
 
-      return new Intl.DateTimeFormat(
+
+      /* PLAYERS */
+
+      if (
+        /^players\s*:/i
+          .test(line)
+      ) {
+
+        readingPlayers = true;
+
+
+        const sameLine =
+          line
+
+            .replace(
+              /^players\s*:/i,
+              ''
+            )
+
+            .trim();
+
+
+        if (sameLine) {
+
+          players.push(
+            sameLine
+          );
+
+        }
+
+
+        continue;
+
+      }
+
+
+
+      /* PLACE */
+
+      if (
+        /^place\s*:/i
+          .test(line)
+      ) {
+
+        readingPlayers = false;
+
+
+        place =
+          line
+
+            .replace(
+              /^place\s*:/i,
+              ''
+            )
+
+            .trim();
+
+
+        continue;
+
+      }
+
+
+
+      /* WEBSITE */
+
+      if (
+        /^website\s*:/i
+          .test(line)
+      ) {
+
+        readingPlayers = false;
+
+
+        const rawWebsite =
+          line
+
+            .replace(
+              /^website\s*:/i,
+              ''
+            )
+
+            .trim();
+
+
+        website =
+          normalizeWebsiteURL(
+            rawWebsite
+          );
+
+
+        continue;
+
+      }
+
+
+
+      /* LEADER */
+
+      if (
+        /^leader\s*:/i
+          .test(line)
+      ) {
+
+        readingPlayers = false;
+
+
+        const value =
+          line
+
+            .replace(
+              /^leader\s*:/i,
+              ''
+            )
+
+            .trim()
+
+            .toLowerCase();
+
+
+        leader =
+          [
+            'yes',
+            'true',
+            '1',
+            'leader'
+          ]
+
+          .includes(
+            value
+          );
+
+
+        continue;
+
+      }
+
+
+
+      /*
+        Unknown metadata field should not
+        accidentally become a player.
+      */
+
+      if (
+        /^[a-z][a-z0-9_-]*\s*:/i
+          .test(line)
+      ) {
+
+        readingPlayers = false;
+
+        continue;
+
+      }
+
+
+
+      if (readingPlayers) {
+
+        players.push(
+          line
+        );
+
+      }
+
+    }
+
+
+
+    return {
+
+      players,
+      place,
+      website,
+      leader
+
+    };
+
+  }
+
+
+
+  /* =========================================================
+     VENUE
+     ========================================================= */
+
+  function getVenue(
+    location = ''
+  ) {
+
+    if (!location) {
+
+      return '';
+
+    }
+
+
+    return location
+
+      .split(
+        /[,、]/
+      )[0]
+
+      .trim();
+
+  }
+
+
+
+  /* =========================================================
+     EVENT DATES
+     ========================================================= */
+
+  function eventStart(event) {
+
+    return new Date(
+
+      event.start.dateTime ||
+
+      event.start.date
+
+    );
+
+  }
+
+
+  function eventEnd(event) {
+
+    return new Date(
+
+      event.end.dateTime ||
+
+      event.end.date
+
+    );
+
+  }
+
+
+
+  function tokyoDateKey(date) {
+
+    const parts =
+
+      new Intl.DateTimeFormat(
 
         'en-US',
 
@@ -2967,211 +2098,89 @@
           timeZone:
             'Asia/Tokyo',
 
-          hour:
+          year:
             'numeric',
 
-          minute:
+          month:
+            '2-digit',
+
+          day:
             '2-digit'
 
         }
 
       )
 
-      .format(
+      .formatToParts(
+        date
+      );
+
+
+    const values =
+
+      Object.fromEntries(
+
+        parts.map(
+
+          part => [
+
+            part.type,
+
+            part.value
+
+          ]
+
+        )
+
+      );
+
+
+    return (
+
+      `${values.year}-${values.month}-${values.day}`
+
+    );
+
+  }
+
+
+
+  function isToday(event) {
+
+    return (
+
+      tokyoDateKey(
         eventStart(event)
-      );
+      )
 
-    }
+      ===
 
+      tokyoDateKey(
+        new Date()
+      )
 
+    );
 
-    /* =========================================
-       MONTH FUNCTIONS
-       ========================================= */
+  }
 
-    function getMonthKey(
-      event
-    ) {
 
-      const date =
-        eventStart(
-          event
-        );
 
+  function getDateParts(event) {
 
-      const parts =
+    const date =
+      eventStart(event);
 
-        new Intl.DateTimeFormat(
 
-          'en-US',
+    const month =
 
-          {
-
-            timeZone:
-              'Asia/Tokyo',
-
-            year:
-              'numeric',
-
-            month:
-              '2-digit'
-
-          }
-
-        )
-
-        .formatToParts(
-          date
-        );
-
-
-      const values =
-
-        Object.fromEntries(
-
-          parts.map(
-
-            part => [
-
-              part.type,
-
-              part.value
-
-            ]
-
-          )
-
-        );
-
-
-      return (
-
-        `${values.year}-${values.month}`
-
-      );
-
-    }
-
-
-
-    function getCurrentTokyoMonth() {
-
-      const parts =
-
-        new Intl.DateTimeFormat(
-
-          'en-US',
-
-          {
-
-            timeZone:
-              'Asia/Tokyo',
-
-            year:
-              'numeric',
-
-            month:
-              '2-digit'
-
-          }
-
-        )
-
-        .formatToParts(
-          new Date()
-        );
-
-
-      const values =
-
-        Object.fromEntries(
-
-          parts.map(
-
-            part => [
-
-              part.type,
-
-              part.value
-
-            ]
-
-          )
-
-        );
-
-
-      return {
-
-        year:
-          Number(
-            values.year
-          ),
-
-        month:
-          Number(
-            values.month
-          )
-
-      };
-
-    }
-
-
-
-    function makeMonthKey(
-      year,
-      month
-    ) {
-
-      return (
-
-        String(year) +
-
-        '-' +
-
-        String(month)
-          .padStart(
-            2,
-            '0'
-          )
-
-      );
-
-    }
-
-
-
-    function getMonthName(
-      year,
-      month
-    ) {
-
-      const date =
-
-        new Date(
-
-          Date.UTC(
-
-            year,
-
-            month - 1,
-
-            1
-
-          )
-
-        );
-
-
-      return new Intl.DateTimeFormat(
+      new Intl.DateTimeFormat(
 
         'en-US',
 
         {
 
           timeZone:
-            'UTC',
+            'Asia/Tokyo',
 
           month:
             'short'
@@ -3180,642 +2189,671 @@
 
       )
 
-      .format(
-        date
-      )
+      .format(date)
 
       .toUpperCase();
 
+
+
+    const number =
+
+      new Intl.DateTimeFormat(
+
+        'en-US',
+
+        {
+
+          timeZone:
+            'Asia/Tokyo',
+
+          day:
+            '2-digit'
+
+        }
+
+      )
+
+      .format(date);
+
+
+
+    const weekday =
+
+      new Intl.DateTimeFormat(
+
+        'en-US',
+
+        {
+
+          timeZone:
+            'Asia/Tokyo',
+
+          weekday:
+            'short'
+
+        }
+
+      )
+
+      .format(date)
+
+      .toUpperCase();
+
+
+
+    return {
+
+      month,
+      number,
+      weekday
+
+    };
+
+  }
+
+
+
+  function formatTime(event) {
+
+    if (
+      !event.start.dateTime
+    ) {
+
+      return 'ALL DAY';
+
+    }
+
+
+    return new Intl.DateTimeFormat(
+
+      'en-US',
+
+      {
+
+        timeZone:
+          'Asia/Tokyo',
+
+        hour:
+          'numeric',
+
+        minute:
+          '2-digit'
+
+      }
+
+    )
+
+    .format(
+      eventStart(event)
+    );
+
+  }
+
+
+
+  /* =========================================================
+     MONTH FUNCTIONS
+     ========================================================= */
+
+  function getMonthKey(event) {
+
+    const date =
+      eventStart(event);
+
+
+    const parts =
+
+      new Intl.DateTimeFormat(
+
+        'en-US',
+
+        {
+
+          timeZone:
+            'Asia/Tokyo',
+
+          year:
+            'numeric',
+
+          month:
+            '2-digit'
+
+        }
+
+      )
+
+      .formatToParts(date);
+
+
+    const values =
+
+      Object.fromEntries(
+
+        parts.map(
+
+          part => [
+
+            part.type,
+
+            part.value
+
+          ]
+
+        )
+
+      );
+
+
+    return (
+
+      `${values.year}-${values.month}`
+
+    );
+
+  }
+
+
+
+  function getCurrentTokyoMonth() {
+
+    const parts =
+
+      new Intl.DateTimeFormat(
+
+        'en-US',
+
+        {
+
+          timeZone:
+            'Asia/Tokyo',
+
+          year:
+            'numeric',
+
+          month:
+            '2-digit'
+
+        }
+
+      )
+
+      .formatToParts(
+        new Date()
+      );
+
+
+    const values =
+
+      Object.fromEntries(
+
+        parts.map(
+
+          part => [
+
+            part.type,
+
+            part.value
+
+          ]
+
+        )
+
+      );
+
+
+    return {
+
+      year:
+        Number(
+          values.year
+        ),
+
+      month:
+        Number(
+          values.month
+        )
+
+    };
+
+  }
+
+
+
+  function makeMonthKey(
+    year,
+    month
+  ) {
+
+    return (
+
+      String(year) +
+
+      '-' +
+
+      String(month)
+        .padStart(
+          2,
+          '0'
+        )
+
+    );
+
+  }
+
+
+
+  function getMonthName(
+    year,
+    month
+  ) {
+
+    const date =
+
+      new Date(
+
+        Date.UTC(
+
+          year,
+
+          month - 1,
+
+          1
+
+        )
+
+      );
+
+
+    return new Intl.DateTimeFormat(
+
+      'en-US',
+
+      {
+
+        timeZone:
+          'UTC',
+
+        month:
+          'short'
+
+      }
+
+    )
+
+    .format(date)
+
+    .toUpperCase();
+
+  }
+
+
+
+  /* =========================================================
+     MONTH FILTER
+     ========================================================= */
+
+  function buildMonthFilters() {
+
+    const current =
+      getCurrentTokyoMonth();
+
+
+    let nextYear =
+      current.year;
+
+
+    let nextMonth =
+      current.month + 1;
+
+
+    if (
+      nextMonth > 12
+    ) {
+
+      nextMonth = 1;
+
+      nextYear += 1;
+
     }
 
 
 
-    /* =========================================
-       MONTH FILTER
-       ALL + CURRENT MONTH + NEXT MONTH
-       ========================================= */
+    const currentKey =
 
-    function buildMonthFilters() {
+      makeMonthKey(
 
-      const current =
-        getCurrentTokyoMonth();
+        current.year,
 
+        current.month
 
-      let nextYear =
-        current.year;
+      );
 
 
-      let nextMonth =
-        current.month + 1;
+    const nextKey =
+
+      makeMonthKey(
+
+        nextYear,
+
+        nextMonth
+
+      );
 
 
-      if (
-        nextMonth > 12
-      ) {
+    const filter =
 
-        nextMonth =
-          1;
-
-
-        nextYear +=
-          1;
-
-      }
+      document.getElementById(
+        'monthFilter'
+      );
 
 
+    filter.innerHTML = `
 
-      const currentKey =
+      <button
+        class="month-button active"
+        data-month="all"
+        type="button"
+      >
+        ALL
+      </button>
 
-        makeMonthKey(
 
+      <button
+        class="month-button"
+        data-month="${currentKey}"
+        type="button"
+      >
+        ${getMonthName(
           current.year,
-
           current.month
+        )}
+      </button>
 
-        );
 
-
-
-      const nextKey =
-
-        makeMonthKey(
-
+      <button
+        class="month-button"
+        data-month="${nextKey}"
+        type="button"
+      >
+        ${getMonthName(
           nextYear,
-
           nextMonth
+        )}
+      </button>
 
-        );
+    `;
 
-
-
-      const filter =
-
-        document.getElementById(
-          'monthFilter'
-        );
+  }
 
 
 
-      filter.innerHTML = `
+  /* =========================================================
+     JAPANESE CHECK
+     ========================================================= */
 
-        <button
-          class="month-button active"
-          data-month="all"
-          type="button"
-        >
-          ALL
-        </button>
+  function containsJapanese(
+    text = ''
+  ) {
 
+    return /[\u3040-\u30ff\u3400-\u9fff]/
+      .test(text);
 
-        <button
-          class="month-button"
-          data-month="${currentKey}"
-          type="button"
-        >
-          ${getMonthName(
-            current.year,
-            current.month
-          )}
-        </button>
+  }
 
 
-        <button
-          class="month-button"
-          data-month="${nextKey}"
-          type="button"
-        >
-          ${getMonthName(
-            nextYear,
-            nextMonth
-          )}
-        </button>
 
-      `;
+  /* =========================================================
+     PLAYERS
+     ========================================================= */
+
+  function createPlayersHTML(
+    players
+  ) {
+
+    if (!players.length) {
+
+      return '';
 
     }
 
 
-
-    /* =========================================
-       JAPANESE CHECK
-       ========================================= */
-
-    function containsJapanese(
-      text = ''
-    ) {
-
-      return /[\u3040-\u30ff\u3400-\u9fff]/
-        .test(
-          text
-        );
-
-    }
+    const visible =
+      players.slice(
+        0,
+        6
+      );
 
 
-
-    /* =========================================
-       PLAYERS
-       ========================================= */
-
-    function createPlayersHTML(
-      players
-    ) {
-
-      if (
-        !players.length
-      ) {
-
-        return '';
-
-      }
+    const hidden =
+      players.slice(
+        6
+      );
 
 
+    let html = `
 
-      const visible =
-        players.slice(
-          0,
-          6
-        );
+      <div class="players-section">
+
+        <div class="label">
+          PLAYERS
+        </div>
 
 
-      const hidden =
-        players.slice(
-          6
-        );
+        <div class="players">
+
+          ${visible
+
+            .map(
+
+              player =>
+
+                `<span class="player">${escapeHTML(
+                  player
+                )}</span>`
+
+            )
+
+            .join('')
+          }
+
+    `;
 
 
 
-      let html = `
-
-        <div
-          class="players-section"
-        >
-
-          <div
-            class="label"
-          >
-            PLAYERS
-          </div>
-
-
-          <div
-            class="players"
-          >
-
-
-            ${visible
-
-              .map(
-
-                player =>
-
-                  `<span class="player">${escapeHTML(
-                    player
-                  )}</span>`
-
-              )
-
-              .join('')
-            }
-
-      `;
-
-
-
-      if (
-        hidden.length
-      ) {
-
-        html += `
-
-          <div
-            class="hidden-players"
-          >
-
-            ${hidden
-
-              .map(
-
-                player =>
-
-                  `<span class="player">${escapeHTML(
-                    player
-                  )}</span>`
-
-              )
-
-              .join('')
-            }
-
-          </div>
-
-
-          <button
-            class="show-more"
-            type="button"
-            aria-expanded="false"
-          >
-
-            SHOW MORE ↓
-
-          </button>
-
-        `;
-
-      }
-
-
+    if (hidden.length) {
 
       html += `
 
-          </div>
+        <div class="hidden-players">
 
+          ${hidden
+
+            .map(
+
+              player =>
+
+                `<span class="player">${escapeHTML(
+                  player
+                )}</span>`
+
+            )
+
+            .join('')
+          }
+
+        </div>
+
+
+        <button
+          class="show-more"
+          type="button"
+          aria-expanded="false"
+        >
+          SHOW MORE ↓
+        </button>
+
+      `;
+
+    }
+
+
+
+    html += `
+
+        </div>
+
+      </div>
+
+    `;
+
+
+    return html;
+
+  }
+
+
+
+  /* =========================================================
+     EVENT CARD
+     ========================================================= */
+
+  function createEventCard(
+    event,
+    originalIndex
+  ) {
+
+    const info =
+
+      parseDescription(
+
+        event.description ||
+        ''
+
+      );
+
+
+    const venue =
+
+      getVenue(
+
+        event.location ||
+        ''
+
+      );
+
+
+    const date =
+      getDateParts(event);
+
+
+    const tonight =
+      isToday(event);
+
+
+    const isNext =
+
+      originalIndex === 0 &&
+
+      !tonight;
+
+
+    const title =
+
+      event.summary ||
+
+      'Live';
+
+
+    const titleClass =
+
+      containsJapanese(title)
+
+        ? ''
+
+        : ' english';
+
+
+
+    /* MAP */
+
+    const mapURL =
+
+      event.location
+
+        ?
+
+        'https://www.google.com/maps/search/?api=1&query=' +
+
+        encodeURIComponent(
+          event.location
+        )
+
+        :
+
+        '';
+
+
+
+    /* LABELS */
+
+    let topLabels = '';
+
+
+    if (info.leader) {
+
+      topLabels += `
+
+        <div class="leader-label">
+          LEADER SHOW
         </div>
 
       `;
 
+    }
 
 
-      return html;
+    if (isNext) {
+
+      topLabels += `
+
+        <div class="next-label">
+          NEXT SHOW
+        </div>
+
+      `;
 
     }
 
 
 
-    /* =========================================
-       EVENT CARD
-       ========================================= */
+    /* VENUE */
 
-    function createEventCard(
-      event,
-      originalIndex
+    let venueHTML = '';
+
+
+    if (
+      venue ||
+      info.place
     ) {
 
-      const info =
+      venueHTML = `
 
-        parseDescription(
+        <div class="venue-section">
 
-          event.description ||
-          ''
-
-        );
-
-
-
-      const venue =
-
-        getVenue(
-
-          event.location ||
-          ''
-
-        );
-
-
-
-      const date =
-
-        getDateParts(
-          event
-        );
-
-
-
-      const tonight =
-
-        isToday(
-          event
-        );
-
-
-
-      const isNext =
-
-        originalIndex === 0 &&
-
-        !tonight;
-
-
-
-      const title =
-
-        event.summary ||
-
-        'Live';
-
-
-
-      const titleClass =
-
-        containsJapanese(
-          title
-        )
-
-          ? ''
-
-          : ' english';
-
-
-
-      /* MAP */
-
-      const mapURL =
-
-        event.location
-
-          ?
-
-          'https://www.google.com/maps/search/?api=1&query=' +
-
-          encodeURIComponent(
-            event.location
-          )
-
-          :
-
-          '';
-
-
-
-      /* TOP LABELS */
-
-      let topLabels =
-        '';
-
-
-
-      if (
-        info.leader
-      ) {
-
-        topLabels += `
-
-          <div
-            class="leader-label"
-          >
-
-            LEADER SHOW
-
+          <div class="label">
+            VENUE
           </div>
-
-        `;
-
-      }
-
-
-
-      if (
-        isNext
-      ) {
-
-        topLabels += `
-
-          <div
-            class="next-label"
-          >
-
-            NEXT SHOW
-
-          </div>
-
-        `;
-
-      }
-
-
-
-      /* VENUE */
-
-      let venueHTML =
-        '';
-
-
-
-      if (
-        venue ||
-        info.place
-      ) {
-
-        venueHTML = `
-
-          <div
-            class="venue-section"
-          >
-
-            <div
-              class="label"
-            >
-
-              VENUE
-
-            </div>
-
-
-            ${
-              venue
-
-                ?
-
-                `
-
-                <div
-                  class="venue"
-                >
-
-                  ${escapeHTML(
-                    venue
-                  )}
-
-                </div>
-
-                `
-
-                :
-
-                ''
-            }
-
-
-            ${
-              info.place
-
-                ?
-
-                `
-
-                <div
-                  class="place"
-                >
-
-                  ${escapeHTML(
-                    info.place
-                  )}
-
-                </div>
-
-                `
-
-                :
-
-                ''
-            }
-
-          </div>
-
-        `;
-
-      }
-
-
-
-      /* BUTTONS */
-
-      const actions =
-        [];
-
-
-
-      /* Leader email */
-
-      if (
-
-        info.leader &&
-
-        EMAIL_ADDRESS &&
-
-        EMAIL_ADDRESS !==
-          'YOUR_EMAIL_ADDRESS'
-
-      ) {
-
-        const subject =
-
-          encodeURIComponent(
-
-            `Live inquiry: ${title}`
-
-          );
-
-
-        actions.push(`
-
-          <a
-            class="action email"
-            href="mailto:${escapeHTML(
-              EMAIL_ADDRESS
-            )}?subject=${subject}"
-          >
-
-            EMAIL ME ↗
-
-          </a>
-
-        `);
-
-      }
-
-
-
-      /* Website */
-
-      if (
-        info.website
-      ) {
-
-        actions.push(`
-
-          <a
-            class="action"
-            href="${escapeHTML(
-              info.website
-            )}"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-
-            WEBSITE ↗
-
-          </a>
-
-        `);
-
-      }
-
-
-
-      /* Map */
-
-      if (
-        mapURL
-      ) {
-
-        actions.push(`
-
-          <a
-            class="action"
-            href="${mapURL}"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-
-            MAP ↗
-
-          </a>
-
-        `);
-
-      }
-
-
-
-      const actionsHTML =
-
-        actions.length
-
-          ?
-
-          `
-
-          <div
-            class="actions"
-          >
-
-            ${actions.join('')}
-
-          </div>
-
-          `
-
-          :
-
-          '';
-
-
-
-      return `
-
-        <article
-          class="
-            event
-            ${info.leader ? 'leader' : ''}
-            ${tonight ? 'has-status' : ''}
-          "
-        >
 
 
           ${
-            tonight
+            venue
 
               ?
 
               `
 
-              <div
-                class="status"
-              >
-
-                TONIGHT
-
+              <div class="venue">
+                ${escapeHTML(venue)}
               </div>
 
               `
@@ -3826,110 +2864,27 @@
           }
 
 
+          ${
+            info.place
 
-          <div
-            class="event-date-column"
-          >
+              ?
 
+              `
 
-            <div
-              class="event-month"
-            >
+              <div class="place">
+                ${escapeHTML(
+                  info.place
+                )}
+              </div>
 
-              ${date.month}
+              `
 
-            </div>
+              :
 
+              ''
+          }
 
-            <div
-              class="event-number"
-            >
-
-              ${date.number}
-
-            </div>
-
-
-            <div
-              class="event-day"
-            >
-
-              ${date.weekday}
-
-            </div>
-
-
-            <div
-              class="date-rule"
-            ></div>
-
-
-            <div
-              class="event-time"
-            >
-
-              ${formatTime(
-                event
-              )}
-
-            </div>
-
-
-          </div>
-
-
-
-          <div
-            class="event-body"
-          >
-
-
-            ${
-              info.leader
-
-                ?
-
-                '<div class="leader-shape"></div>'
-
-                :
-
-                ''
-            }
-
-
-            ${topLabels}
-
-
-
-            <h3
-              class="event-title${titleClass}"
-            >
-
-              ${escapeHTML(
-                title
-              )}
-
-            </h3>
-
-
-
-            ${createPlayersHTML(
-              info.players
-            )}
-
-
-
-            ${venueHTML}
-
-
-
-            ${actionsHTML}
-
-
-          </div>
-
-
-        </article>
+        </div>
 
       `;
 
@@ -3937,105 +2892,407 @@
 
 
 
-    /* =========================================
-       FILTER EVENTS
-       ========================================= */
+    /* ACTION BUTTONS */
 
-    function setMonth(
-      month
+    const actions = [];
+
+
+
+    if (
+      info.leader &&
+      EMAIL_ADDRESS &&
+      EMAIL_ADDRESS !==
+        'YOUR_EMAIL_ADDRESS'
     ) {
 
-      selectedMonth =
-        month;
+      const subject =
 
+        encodeURIComponent(
 
-
-      document
-
-        .querySelectorAll(
-          '.month-button'
-        )
-
-        .forEach(
-
-          button => {
-
-            button
-              .classList
-              .toggle(
-
-                'active',
-
-                button.dataset.month ===
-                  month
-
-              );
-
-          }
+          `Live inquiry: ${title}`
 
         );
 
 
+      actions.push(`
 
-      renderEvents();
+        <a
+          class="action email"
+          href="mailto:${escapeHTML(
+            EMAIL_ADDRESS
+          )}?subject=${subject}"
+        >
+          EMAIL ME ↗
+        </a>
+
+      `);
 
     }
 
 
 
-    /* =========================================
-       RENDER EVENTS
-       ========================================= */
+    if (info.website) {
 
-    function renderEvents() {
+      actions.push(`
 
-      const container =
+        <a
+          class="action"
+          href="${escapeHTML(
+            info.website
+          )}"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          WEBSITE ↗
+        </a>
 
-        document.getElementById(
-          'events'
+      `);
+
+    }
+
+
+
+    if (mapURL) {
+
+      actions.push(`
+
+        <a
+          class="action"
+          href="${mapURL}"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          MAP ↗
+        </a>
+
+      `);
+
+    }
+
+
+
+    const actionsHTML =
+
+      actions.length
+
+        ?
+
+        `
+
+        <div class="actions">
+          ${actions.join('')}
+        </div>
+
+        `
+
+        :
+
+        '';
+
+
+
+    return `
+
+      <article
+        class="
+          event
+          ${info.leader ? 'leader' : ''}
+          ${tonight ? 'has-status' : ''}
+        "
+      >
+
+
+        ${
+          tonight
+
+            ?
+
+            `
+
+            <div class="status">
+              TONIGHT
+            </div>
+
+            `
+
+            :
+
+            ''
+        }
+
+
+        <div class="event-date-column">
+
+
+          <div class="event-month">
+            ${date.month}
+          </div>
+
+
+          <div class="event-number">
+            ${date.number}
+          </div>
+
+
+          <div class="event-day">
+            ${date.weekday}
+          </div>
+
+
+          <div class="date-rule"></div>
+
+
+          <div class="event-time">
+            ${formatTime(event)}
+          </div>
+
+
+        </div>
+
+
+
+        <div class="event-body">
+
+
+          ${
+            info.leader
+
+              ?
+
+              '<div class="leader-shape"></div>'
+
+              :
+
+              ''
+          }
+
+
+          ${topLabels}
+
+
+          <h3
+            class="event-title${titleClass}"
+          >
+            ${escapeHTML(title)}
+          </h3>
+
+
+          ${createPlayersHTML(
+            info.players
+          )}
+
+
+          ${venueHTML}
+
+
+          ${actionsHTML}
+
+
+        </div>
+
+
+      </article>
+
+    `;
+
+  }
+
+
+
+  /* =========================================================
+     SET MONTH
+     ========================================================= */
+
+  function setMonth(month) {
+
+    selectedMonth = month;
+
+
+    document
+
+      .querySelectorAll(
+        '.month-button'
+      )
+
+      .forEach(
+
+        button => {
+
+          button
+            .classList
+            .toggle(
+
+              'active',
+
+              button.dataset.month ===
+                month
+
+            );
+
+        }
+
+      );
+
+
+    renderEvents();
+
+  }
+
+
+
+  /* =========================================================
+     RENDER EVENTS
+     ========================================================= */
+
+  function renderEvents() {
+
+    const container =
+
+      document.getElementById(
+        'events'
+      );
+
+
+    const filtered =
+
+      selectedMonth === 'all'
+
+        ?
+
+        upcomingEvents
+
+        :
+
+        upcomingEvents.filter(
+
+          event =>
+
+            getMonthKey(event) ===
+              selectedMonth
+
         );
 
 
+    if (!filtered.length) {
 
-      const filtered =
+      container.innerHTML = `
 
-        selectedMonth ===
-          'all'
+        <div class="message">
 
-          ?
+          No shows scheduled for this month.
 
-          upcomingEvents
+        </div>
 
-          :
+      `;
 
-          upcomingEvents.filter(
 
-            event =>
+      return;
 
-              getMonthKey(
-                event
-              ) ===
-              selectedMonth
+    }
+
+
+    container.innerHTML =
+
+      filtered
+
+        .map(
+
+          event => {
+
+            const originalIndex =
+
+              upcomingEvents
+                .indexOf(event);
+
+
+            return createEventCard(
+
+              event,
+
+              originalIndex
+
+            );
+
+          }
+
+        )
+
+        .join('');
+
+  }
+
+
+
+  /* =========================================================
+     CLICK HANDLERS
+     ========================================================= */
+
+  document.addEventListener(
+
+    'click',
+
+    function(event) {
+
+
+      /* SHOW MORE */
+
+      const showMore =
+
+        event.target.closest(
+          '.show-more'
+        );
+
+
+      if (showMore) {
+
+        const hidden =
+
+          showMore
+            .previousElementSibling;
+
+
+        if (
+          !hidden ||
+          !hidden.classList.contains(
+            'hidden-players'
+          )
+        ) {
+
+          return;
+
+        }
+
+
+        const open =
+
+          hidden
+            .classList
+            .toggle(
+              'open'
+            );
+
+
+        showMore
+          .setAttribute(
+
+            'aria-expanded',
+
+            String(open)
 
           );
 
 
+        showMore.textContent =
 
-      if (
-        !filtered.length
-      ) {
+          open
 
-        container.innerHTML = `
+            ?
 
-          <div
-            class="message"
-          >
+            'SHOW LESS ↑'
 
-            No shows scheduled for this month.
+            :
 
-          </div>
-
-        `;
+            'SHOW MORE ↓';
 
 
         return;
@@ -4044,334 +3301,187 @@
 
 
 
-      container.innerHTML =
+      /* MONTH */
 
-        filtered
+      const monthButton =
 
-          .map(
-
-            event => {
-
-              const originalIndex =
-
-                upcomingEvents
-                  .indexOf(
-                    event
-                  );
-
-
-              return createEventCard(
-
-                event,
-
-                originalIndex
-
-              );
-
-            }
-
-          )
-
-          .join('');
-
-    }
-
-
-
-    /* =========================================
-       CLICK HANDLERS
-       ========================================= */
-
-    document.addEventListener(
-
-      'click',
-
-      function(event) {
-
-
-        /* SHOW MORE */
-
-        const showMore =
-
-          event.target.closest(
-            '.show-more'
-          );
-
-
-
-        if (
-          showMore
-        ) {
-
-          const hidden =
-
-            showMore
-              .previousElementSibling;
-
-
-
-          if (
-
-            !hidden ||
-
-            !hidden.classList.contains(
-              'hidden-players'
-            )
-
-          ) {
-
-            return;
-
-          }
-
-
-
-          const open =
-
-            hidden
-              .classList
-              .toggle(
-                'open'
-              );
-
-
-
-          showMore
-            .setAttribute(
-
-              'aria-expanded',
-
-              String(open)
-
-            );
-
-
-
-          showMore.textContent =
-
-            open
-
-              ?
-
-              'SHOW LESS ↑'
-
-              :
-
-              'SHOW MORE ↓';
-
-
-
-          return;
-
-        }
-
-
-
-        /* MONTH BUTTON */
-
-        const monthButton =
-
-          event.target.closest(
-            '.month-button'
-          );
-
-
-
-        if (
-          monthButton
-        ) {
-
-          setMonth(
-
-            monthButton
-              .dataset
-              .month
-
-          );
-
-        }
-
-      }
-
-    );
-
-
-
-    /* =========================================
-       GOOGLE CALENDAR
-       ========================================= */
-
-    async function loadCalendar() {
-
-      const now =
-        new Date();
-
-
-
-      const timeMax =
-
-        new Date(
-
-          now.getFullYear() + 2,
-
-          now.getMonth(),
-
-          now.getDate()
-
-        )
-
-        .toISOString();
-
-
-
-      const url =
-
-        'https://www.googleapis.com/calendar/v3/calendars/' +
-
-        encodeURIComponent(
-          CALENDAR_ID
-        ) +
-
-        '/events' +
-
-        '?key=' +
-
-        encodeURIComponent(
-          API_KEY
-        ) +
-
-        '&singleEvents=true' +
-
-        '&orderBy=startTime' +
-
-        '&timeMin=' +
-
-        encodeURIComponent(
-          now.toISOString()
-        ) +
-
-        '&timeMax=' +
-
-        encodeURIComponent(
-          timeMax
-        ) +
-
-        '&maxResults=250';
-
-
-
-      try {
-
-
-        const response =
-
-          await fetch(
-            url
-          );
-
-
-
-        if (
-          !response.ok
-        ) {
-
-          const errorText =
-
-            await response.text();
-
-
-          console.error(
-            errorText
-          );
-
-
-          throw new Error(
-            'Calendar request failed'
-          );
-
-        }
-
-
-
-        const data =
-
-          await response.json();
-
-
-
-        upcomingEvents =
-
-          (
-            data.items ||
-            []
-          )
-
-          .filter(
-
-            event =>
-
-              event.start &&
-
-              event.end &&
-
-              eventEnd(event) >=
-                now
-
-          );
-
-
-
-        buildMonthFilters();
-
-
-        renderEvents();
-
-      }
-
-
-      catch (
-        error
-      ) {
-
-
-        console.error(
-          error
+        event.target.closest(
+          '.month-button'
         );
 
 
-        document
-          .getElementById(
-            'events'
-          )
-          .innerHTML = `
+      if (monthButton) {
 
-            <div
-              class="message"
-            >
+        setMonth(
 
-              Could not load the live schedule.
+          monthButton
+            .dataset
+            .month
 
-            </div>
-
-          `;
+        );
 
       }
 
     }
 
+  );
 
 
-    /* =========================================
-       START
-       ========================================= */
 
-    buildMonthFilters();
+  /* =========================================================
+     GOOGLE CALENDAR API
+     ========================================================= */
 
-    loadCalendar();
+  async function loadCalendar() {
+
+    const now =
+      new Date();
 
 
-  </script>
+    const timeMax =
+
+      new Date(
+
+        now.getFullYear() + 2,
+
+        now.getMonth(),
+
+        now.getDate()
+
+      )
+
+      .toISOString();
+
+
+    const url =
+
+      'https://www.googleapis.com/calendar/v3/calendars/' +
+
+      encodeURIComponent(
+        CALENDAR_ID
+      ) +
+
+      '/events' +
+
+      '?key=' +
+
+      encodeURIComponent(
+        API_KEY
+      ) +
+
+      '&singleEvents=true' +
+
+      '&orderBy=startTime' +
+
+      '&timeMin=' +
+
+      encodeURIComponent(
+        now.toISOString()
+      ) +
+
+      '&timeMax=' +
+
+      encodeURIComponent(
+        timeMax
+      ) +
+
+      '&maxResults=250';
+
+
+
+    try {
+
+      const response =
+
+        await fetch(url);
+
+
+      if (!response.ok) {
+
+        const errorText =
+
+          await response.text();
+
+
+        console.error(
+          errorText
+        );
+
+
+        throw new Error(
+          'Calendar request failed'
+        );
+
+      }
+
+
+      const data =
+
+        await response.json();
+
+
+      upcomingEvents =
+
+        (
+          data.items ||
+          []
+        )
+
+        .filter(
+
+          event =>
+
+            event.start &&
+
+            event.end &&
+
+            eventEnd(event) >= now
+
+        );
+
+
+      buildMonthFilters();
+
+      renderEvents();
+
+    }
+
+
+    catch (error) {
+
+      console.error(error);
+
+
+      document
+        .getElementById(
+          'events'
+        )
+        .innerHTML = `
+
+          <div class="message">
+
+            Could not load the live schedule.
+
+          </div>
+
+        `;
+
+    }
+
+  }
+
+
+
+  /* =========================================================
+     START
+     ========================================================= */
+
+  buildMonthFilters();
+
+  loadCalendar();
+
+</script>
+
 
 </body>
-
 </html>
