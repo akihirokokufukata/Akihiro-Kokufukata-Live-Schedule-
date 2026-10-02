@@ -6,7 +6,6 @@
 
   <title>Akihiro Kokufukata | Live Schedule</title>
 
-  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
@@ -16,10 +15,6 @@
   >
 
   <style>
-
-    /* =========================================
-       DESIGN SYSTEM
-       ========================================= */
 
     :root {
       --paper: #f3eee5;
@@ -70,23 +65,27 @@
       max-width: 1100px;
       margin: 0 auto;
       padding: 58px 30px 90px;
-      overflow: hidden;
+
+      /* trumpetを切らない */
+      overflow-x: clip;
     }
 
 
 
     /* =========================================
-       DECORATION
+       HEADER DECORATION
        ========================================= */
 
     .top-decoration {
       position: absolute;
       top: 0;
-      right: 12px;
-      width: 300px;
-      height: 250px;
+      right: 0;
+
+      width: 330px;
+      height: 270px;
+
       pointer-events: none;
-      opacity: .95;
+      z-index: 1;
     }
 
 
@@ -94,44 +93,56 @@
       position: absolute;
       right: 0;
       top: 0;
+
       width: 116px;
       height: 160px;
+
       background: var(--crimson);
     }
 
 
     .deco-circle {
       position: absolute;
-      right: 82px;
+      right: 93px;
       top: 76px;
+
       width: 92px;
       height: 92px;
+
       border-radius: 50%;
+
       background: rgba(216, 170, 165, .62);
     }
 
 
     .deco-square {
       position: absolute;
-      right: 150px;
+      right: 160px;
       top: 105px;
+
       width: 88px;
       height: 72px;
+
       background: rgba(216, 170, 165, .38);
     }
 
 
 
     /* =========================================
-       ABSTRACT TRUMPET MARK
+       ABSTRACT TRUMPET
        ========================================= */
 
     .trumpet-mark {
       position: absolute;
-      right: 25px;
-      top: 102px;
-      width: 210px;
-      height: 100px;
+
+      /*
+        ベルまで含めて右端から余白を確保
+      */
+      right: 38px;
+      top: 105px;
+
+      width: 225px;
+      height: 105px;
     }
 
 
@@ -139,16 +150,19 @@
       position: absolute;
       left: 0;
       top: 48px;
-      width: 118px;
+
+      width: 125px;
       height: 2px;
+
       background: var(--crimson);
     }
 
 
     .trumpet-valves {
       position: absolute;
-      left: 105px;
+      left: 108px;
       top: 29px;
+
       display: flex;
       gap: 5px;
     }
@@ -156,35 +170,75 @@
 
     .trumpet-valves span {
       position: relative;
+
       width: 8px;
       height: 42px;
+
       background: var(--crimson);
     }
 
 
     .trumpet-valves span::before {
       content: "";
+
       position: absolute;
       top: -9px;
       left: -1px;
+
       width: 10px;
       height: 10px;
+
       border-radius: 50%;
+
       background: var(--crimson);
     }
 
 
     .trumpet-bell {
       position: absolute;
-      right: 0;
+
+      left: 139px;
       top: 17px;
-      width: 76px;
+
+      width: 74px;
       height: 64px;
-      border-top: 3px solid var(--crimson);
-      border-bottom: 3px solid var(--crimson);
-      border-right: 18px solid var(--crimson);
-      border-radius: 0 80% 80% 0;
-      transform: skewX(-18deg);
+
+      /*
+        borderでベルを作る方式をやめ、
+        clip-pathで完全に領域内へ収める
+      */
+      background: var(--crimson);
+
+      clip-path: polygon(
+        0 40%,
+        72% 10%,
+        100% 0,
+        100% 100%,
+        72% 90%,
+        0 60%
+      );
+    }
+
+
+    .trumpet-bell-cutout {
+      position: absolute;
+
+      left: 142px;
+      top: 23px;
+
+      width: 61px;
+      height: 52px;
+
+      background: var(--paper);
+
+      clip-path: polygon(
+        0 41%,
+        72% 15%,
+        100% 7%,
+        100% 93%,
+        72% 85%,
+        0 59%
+      );
     }
 
 
@@ -196,18 +250,25 @@
     header {
       position: relative;
       z-index: 2;
+
       padding: 25px 10px 70px;
     }
 
 
     .artist-name {
       margin: 0;
+
       max-width: 640px;
 
       font-family: var(--serif);
-      font-size: clamp(58px, 8.5vw, 100px);
+
+      font-size:
+        clamp(58px, 8.5vw, 100px);
+
       font-weight: 600;
+
       line-height: .82;
+
       letter-spacing: -3px;
     }
 
@@ -223,8 +284,11 @@
       color: var(--crimson);
 
       font-family: var(--sans);
+
       font-size: 13px;
+
       font-weight: 600;
+
       letter-spacing: 5px;
 
       text-transform: uppercase;
@@ -238,8 +302,11 @@
 
     .schedule-heading {
       display: flex;
+
       align-items: flex-end;
+
       justify-content: space-between;
+
       gap: 30px;
 
       margin-bottom: 27px;
@@ -250,9 +317,14 @@
       margin: 0;
 
       font-family: var(--serif);
-      font-size: clamp(43px, 6vw, 65px);
+
+      font-size:
+        clamp(43px, 6vw, 65px);
+
       font-weight: 600;
+
       line-height: .95;
+
       letter-spacing: -1.5px;
     }
 
@@ -264,11 +336,15 @@
 
     .month-filter {
       display: flex;
+
       align-items: center;
+
       gap: 22px;
 
       padding-bottom: 8px;
-      border-bottom: 1px solid var(--crimson);
+
+      border-bottom:
+        1px solid var(--crimson);
     }
 
 
@@ -278,13 +354,17 @@
       padding: 5px 2px;
 
       border: 0;
+
       background: transparent;
 
       color: var(--ink);
 
       font-family: var(--sans);
+
       font-size: 11px;
+
       font-weight: 500;
+
       letter-spacing: 1.5px;
 
       cursor: pointer;
@@ -298,11 +378,16 @@
 
     .month-button.active::after {
       content: "";
+
       position: absolute;
+
       left: 0;
       right: 0;
+
       bottom: -9px;
+
       height: 3px;
+
       background: var(--crimson);
     }
 
@@ -312,15 +397,21 @@
 
       padding: 8px 28px 8px 11px;
 
-      border: 1px solid var(--crimson);
+      border:
+        1px solid var(--crimson);
+
       border-radius: 0;
 
       background: transparent;
+
       color: var(--crimson);
 
       font-family: var(--sans);
+
       font-size: 10px;
+
       font-weight: 600;
+
       letter-spacing: 1.2px;
 
       text-transform: uppercase;
@@ -336,30 +427,36 @@
       position: relative;
 
       display: grid;
-      grid-template-columns: 125px minmax(0, 1fr);
+
+      grid-template-columns:
+        125px minmax(0, 1fr);
 
       margin-bottom: 16px;
 
-      background: rgba(247, 242, 233, .66);
+      background:
+        rgba(247, 242, 233, .66);
 
-      border: 1px solid var(--line);
+      border:
+        1px solid var(--line);
 
       overflow: hidden;
     }
 
 
     .event.leader {
-      border-color: var(--crimson);
+      border-color:
+        var(--crimson);
     }
 
 
 
     /* =========================================
-       EVENT STATUS
+       STATUS
        ========================================= */
 
     .status {
       position: absolute;
+
       top: 0;
       left: 0;
 
@@ -367,12 +464,19 @@
 
       padding: 10px 16px;
 
-      background: var(--crimson);
-      color: var(--paper);
+      background:
+        var(--crimson);
 
-      font-family: var(--sans);
+      color:
+        var(--paper);
+
+      font-family:
+        var(--sans);
+
       font-size: 10px;
+
       font-weight: 600;
+
       letter-spacing: 2.3px;
 
       text-align: center;
@@ -387,19 +491,25 @@
     .event-date-column {
       padding: 28px 22px 24px;
 
-      border-right: 1px solid var(--line);
+      border-right:
+        1px solid var(--line);
     }
 
 
-    .event.has-status .event-date-column {
+    .event.has-status
+    .event-date-column {
       padding-top: 63px;
     }
 
 
     .event-month {
-      font-family: var(--serif);
+      font-family:
+        var(--serif);
+
       font-size: 19px;
+
       font-weight: 600;
+
       letter-spacing: 1px;
     }
 
@@ -407,11 +517,16 @@
     .event-number {
       margin-top: -3px;
 
-      color: var(--crimson);
+      color:
+        var(--crimson);
 
-      font-family: var(--serif);
+      font-family:
+        var(--serif);
+
       font-size: 55px;
+
       font-weight: 600;
+
       line-height: .92;
     }
 
@@ -419,28 +534,38 @@
     .event-day {
       margin-top: 4px;
 
-      color: var(--crimson);
+      color:
+        var(--crimson);
 
-      font-family: var(--serif);
+      font-family:
+        var(--serif);
+
       font-size: 17px;
+
       font-weight: 600;
+
       letter-spacing: 2px;
     }
 
 
     .date-rule {
       width: 100%;
+
       height: 1px;
 
       margin: 15px 0;
 
-      background: var(--line);
+      background:
+        var(--line);
     }
 
 
     .event-time {
-      font-family: var(--serif);
+      font-family:
+        var(--serif);
+
       font-size: 17px;
+
       font-weight: 500;
     }
 
@@ -452,6 +577,9 @@
 
     .event-body {
       position: relative;
+
+      min-width: 0;
+
       padding: 27px 28px 25px;
     }
 
@@ -460,11 +588,16 @@
     .next-label {
       margin-bottom: 7px;
 
-      color: var(--crimson);
+      color:
+        var(--crimson);
 
-      font-family: var(--sans);
+      font-family:
+        var(--sans);
+
       font-size: 10px;
+
       font-weight: 600;
+
       letter-spacing: 3px;
 
       text-transform: uppercase;
@@ -474,33 +607,49 @@
     .event-title {
       margin: 0 0 20px;
 
-      font-family: var(--jp);
-      font-size: clamp(20px, 3vw, 27px);
+      font-family:
+        var(--jp);
+
+      font-size:
+        clamp(20px, 3vw, 27px);
+
       font-weight: 600;
+
       line-height: 1.4;
+
+      overflow-wrap: anywhere;
     }
 
 
     .event-title.english {
-      font-family: var(--serif);
-      font-size: clamp(26px, 3.3vw, 34px);
-      line-height: 1;
+      font-family:
+        var(--serif);
+
+      font-size:
+        clamp(26px, 3.3vw, 34px);
+
+      line-height: 1.05;
     }
 
 
 
     /* =========================================
-       LABELS
+       LABEL
        ========================================= */
 
     .label {
       margin-bottom: 7px;
 
-      color: var(--crimson);
+      color:
+        var(--crimson);
 
-      font-family: var(--sans);
+      font-family:
+        var(--sans);
+
       font-size: 10px;
+
       font-weight: 600;
+
       letter-spacing: 3px;
 
       text-transform: uppercase;
@@ -512,15 +661,29 @@
        PLAYERS
        ========================================= */
 
-    .players {
-      margin-bottom: 20px;
+    .players-section {
+      margin-bottom: 23px;
+    }
 
+
+    .players {
       color: #342c29;
 
-      font-family: var(--jp);
+      font-family:
+        var(--jp);
+
       font-size: 14px;
+
       font-weight: 400;
-      line-height: 1.8;
+
+      line-height: 1.85;
+
+      overflow-wrap: anywhere;
+    }
+
+
+    .player {
+      display: block;
     }
 
 
@@ -535,18 +698,27 @@
 
 
     .show-more {
-      margin-top: 9px;
+      display: inline-block;
+
+      margin-top: 11px;
+
       padding: 0;
 
       border: 0;
+
       background: transparent;
 
-      color: var(--crimson);
+      color:
+        var(--crimson);
 
-      font-family: var(--sans);
+      font-family:
+        var(--sans);
+
       font-size: 10px;
+
       font-weight: 600;
-      letter-spacing: 1.4px;
+
+      letter-spacing: 1.5px;
 
       cursor: pointer;
     }
@@ -557,21 +729,37 @@
        VENUE
        ========================================= */
 
+    .venue-section {
+      margin-top: 4px;
+    }
+
+
     .venue {
-      font-family: var(--jp);
+      font-family:
+        var(--jp);
+
       font-size: 15px;
+
       font-weight: 500;
+
       line-height: 1.5;
+
+      overflow-wrap: anywhere;
     }
 
 
     .place {
-      margin-top: 2px;
+      margin-top: 3px;
 
-      color: var(--muted);
+      color:
+        var(--muted);
 
-      font-family: var(--jp);
+      font-family:
+        var(--jp);
+
       font-size: 13px;
+
+      line-height: 1.5;
     }
 
 
@@ -582,30 +770,41 @@
 
     .actions {
       display: flex;
+
       flex-wrap: wrap;
+
       gap: 9px;
 
-      margin-top: 18px;
+      margin-top: 20px;
     }
 
 
     .action {
       display: inline-flex;
+
       align-items: center;
+
       justify-content: center;
 
       min-width: 108px;
 
       padding: 10px 16px;
 
-      border: 1px solid var(--crimson);
+      border:
+        1px solid var(--crimson);
 
-      color: var(--crimson);
+      color:
+        var(--crimson);
+
       background: transparent;
 
-      font-family: var(--sans);
+      font-family:
+        var(--sans);
+
       font-size: 9px;
+
       font-weight: 600;
+
       letter-spacing: 1.7px;
 
       text-decoration: none;
@@ -617,8 +816,11 @@
 
 
     .action:hover {
-      background: var(--crimson);
-      color: var(--paper);
+      background:
+        var(--crimson);
+
+      color:
+        var(--paper);
     }
 
 
@@ -634,6 +836,7 @@
 
     .leader-shape {
       position: absolute;
+
       top: 0;
       right: 0;
 
@@ -643,6 +846,7 @@
       overflow: hidden;
 
       pointer-events: none;
+
       opacity: .9;
     }
 
@@ -651,13 +855,15 @@
       content: "";
 
       position: absolute;
+
       top: 0;
       right: 0;
 
       width: 58px;
       height: 58px;
 
-      background: rgba(139, 23, 38, .82);
+      background:
+        rgba(139, 23, 38, .82);
     }
 
 
@@ -665,6 +871,7 @@
       content: "";
 
       position: absolute;
+
       right: 25px;
       top: 25px;
 
@@ -673,21 +880,25 @@
 
       border-radius: 50%;
 
-      background: rgba(216, 170, 165, .45);
+      background:
+        rgba(216, 170, 165, .45);
     }
 
 
 
     /* =========================================
-       EMPTY / ERROR
+       MESSAGES
        ========================================= */
 
     .message {
       padding: 40px 5px;
 
-      color: var(--muted);
+      color:
+        var(--muted);
 
-      font-family: var(--sans);
+      font-family:
+        var(--sans);
+
       font-size: 13px;
     }
 
@@ -698,19 +909,23 @@
        ========================================= */
 
     footer {
-      position: relative;
-
       margin-top: 75px;
+
       padding: 32px 4px 15px;
 
-      border-top: 1px solid var(--line);
+      border-top:
+        1px solid var(--line);
     }
 
 
     .footer-name {
-      font-family: var(--sans);
+      font-family:
+        var(--sans);
+
       font-size: 9px;
+
       font-weight: 500;
+
       letter-spacing: 4px;
     }
 
@@ -718,10 +933,14 @@
     .footer-role {
       margin-top: 8px;
 
-      color: var(--muted);
+      color:
+        var(--muted);
 
-      font-family: var(--sans);
+      font-family:
+        var(--sans);
+
       font-size: 8px;
+
       letter-spacing: 3px;
     }
 
@@ -734,28 +953,37 @@
     @media (max-width: 650px) {
 
       main {
-        padding: 34px 15px 65px;
+        padding:
+          34px 15px 65px;
       }
 
 
+      /*
+        Decorationをスマホ画面内へ収める
+      */
+
       .top-decoration {
-        right: -45px;
-        width: 190px;
-        height: 190px;
+        right: 0;
+
+        width: 175px;
+        height: 205px;
       }
 
 
       .deco-block {
-        width: 65px;
-        height: 110px;
+        right: 0;
+
+        width: 38px;
+        height: 125px;
       }
 
 
       .deco-circle {
-        right: 50px;
-        top: 62px;
-        width: 63px;
-        height: 63px;
+        right: 23px;
+        top: 78px;
+
+        width: 58px;
+        height: 58px;
       }
 
 
@@ -765,23 +993,43 @@
 
 
       .trumpet-mark {
-        right: -6px;
-        top: 92px;
-        transform: scale(.62);
-        transform-origin: right top;
+        /*
+          以前の -6px をやめて
+          ベル全体を画面内へ
+        */
+
+        right: 8px;
+        top: 112px;
+
+        width: 150px;
+        height: 70px;
+
+        transform:
+          scale(.62);
+
+        transform-origin:
+          right top;
       }
 
 
       header {
-        padding: 30px 6px 62px;
+        padding:
+          30px 6px 62px;
       }
 
 
       .artist-name {
         max-width: 350px;
 
-        font-size: clamp(52px, 15vw, 70px);
+        font-size:
+          clamp(
+            52px,
+            15vw,
+            70px
+          );
+
         line-height: .86;
+
         letter-spacing: -2px;
       }
 
@@ -790,12 +1038,14 @@
         margin-top: 21px;
 
         font-size: 11px;
+
         letter-spacing: 3.3px;
       }
 
 
       .schedule-heading {
         align-items: center;
+
         gap: 12px;
       }
 
@@ -815,26 +1065,38 @@
       }
 
 
+
+      /* -----------------------------------------
+         Event mobile layout
+         Date columnを少し細くして
+         Players側の横幅を増やす
+         ----------------------------------------- */
+
       .event {
-        grid-template-columns: 91px minmax(0, 1fr);
+        grid-template-columns:
+          84px minmax(0, 1fr);
       }
 
 
       .status {
-        min-width: 91px;
-        padding: 9px 7px;
+        min-width: 84px;
 
-        font-size: 9px;
-        letter-spacing: 1.7px;
+        padding: 9px 5px;
+
+        font-size: 8px;
+
+        letter-spacing: 1.3px;
       }
 
 
       .event-date-column {
-        padding: 22px 13px;
+        padding:
+          22px 11px;
       }
 
 
-      .event.has-status .event-date-column {
+      .event.has-status
+      .event-date-column {
         padding-top: 57px;
       }
 
@@ -845,12 +1107,14 @@
 
 
       .event-number {
-        font-size: 44px;
+        font-size: 43px;
       }
 
 
       .event-day {
         font-size: 14px;
+
+        letter-spacing: 1.5px;
       }
 
 
@@ -860,7 +1124,8 @@
 
 
       .event-body {
-        padding: 22px 14px 20px;
+        padding:
+          22px 15px 21px;
       }
 
 
@@ -868,24 +1133,39 @@
       .next-label,
       .label {
         font-size: 9px;
-        letter-spacing: 2.3px;
+
+        letter-spacing: 2.2px;
       }
 
 
       .event-title {
         font-size: 18px;
+
         line-height: 1.45;
       }
 
 
       .event-title.english {
         font-size: 23px;
+
+        line-height: 1.08;
+      }
+
+
+      .players-section {
+        margin-bottom: 24px;
       }
 
 
       .players {
-        font-size: 13px;
-        line-height: 1.7;
+        /*
+          スクショより少し小さくして
+          1行に入る情報量を増やす
+        */
+
+        font-size: 12.5px;
+
+        line-height: 1.8;
       }
 
 
@@ -896,18 +1176,23 @@
 
       .actions {
         gap: 7px;
+
+        margin-top: 18px;
       }
 
 
       .action {
-        flex: 1 1 90px;
+        flex:
+          1 1 calc(50% - 4px);
 
         min-width: 0;
 
-        padding: 10px 8px;
+        padding:
+          11px 6px;
 
         font-size: 8px;
-        letter-spacing: 1.2px;
+
+        letter-spacing: 1.1px;
       }
 
 
@@ -918,13 +1203,20 @@
 
       .leader-shape {
         width: 82px;
+
         height: 72px;
       }
 
     }
 
 
+
     @media (max-width: 380px) {
+
+      .schedule-heading {
+        align-items: flex-start;
+      }
+
 
       .schedule-title {
         font-size: 34px;
@@ -932,23 +1224,32 @@
 
 
       .month-select {
-        max-width: 118px;
+        max-width: 116px;
       }
 
 
       .event {
-        grid-template-columns: 82px minmax(0, 1fr);
+        grid-template-columns:
+          78px minmax(0, 1fr);
       }
 
 
       .event-date-column {
-        padding-left: 10px;
-        padding-right: 10px;
+        padding-left: 9px;
+
+        padding-right: 9px;
       }
 
 
       .status {
-        min-width: 82px;
+        min-width: 78px;
+      }
+
+
+      .event-body {
+        padding-left: 13px;
+
+        padding-right: 13px;
       }
 
     }
@@ -961,54 +1262,94 @@
 
   <main>
 
-    <!-- Decorative header -->
-    <div class="top-decoration" aria-hidden="true">
+
+    <!-- =========================================
+         DECORATION
+         ========================================= -->
+
+    <div
+      class="top-decoration"
+      aria-hidden="true"
+    >
+
       <div class="deco-block"></div>
+
       <div class="deco-circle"></div>
+
       <div class="deco-square"></div>
 
+
       <div class="trumpet-mark">
+
         <div class="trumpet-line"></div>
 
+
         <div class="trumpet-valves">
+
           <span></span>
           <span></span>
           <span></span>
+
         </div>
 
+
         <div class="trumpet-bell"></div>
+
+        <div class="trumpet-bell-cutout"></div>
+
       </div>
+
     </div>
 
 
-    <!-- Header -->
+
+    <!-- =========================================
+         HEADER
+         ========================================= -->
+
     <header>
 
       <h1 class="artist-name">
+
         <span>Akihiro</span>
+
         <span>Kokufukata</span>
+
       </h1>
 
+
       <div class="artist-role">
+
         TRUMPETER / COMPOSER
+
       </div>
 
     </header>
 
 
-    <!-- Schedule -->
+
+    <!-- =========================================
+         SCHEDULE
+         ========================================= -->
+
     <section>
+
 
       <div class="schedule-heading">
 
+
         <h2 class="schedule-title">
+
           Live Schedule
+
         </h2>
+
 
         <div
           class="month-filter"
           id="monthFilter"
         ></div>
+
 
         <select
           class="month-select"
@@ -1016,31 +1357,50 @@
           aria-label="Choose month"
         ></select>
 
+
       </div>
+
 
 
       <div id="events">
+
         <div class="message">
+
           Loading shows...
+
         </div>
+
       </div>
+
 
     </section>
 
 
+
+    <!-- =========================================
+         FOOTER
+         ========================================= -->
+
     <footer>
 
       <div class="footer-name">
+
         AKIHIRO KOKUFUKATA
+
       </div>
 
+
       <div class="footer-role">
+
         TRUMPETER / COMPOSER
+
       </div>
 
     </footer>
 
+
   </main>
+
 
 
   <script>
@@ -1052,8 +1412,10 @@
     const API_KEY =
       'AIzaSyCB5WplBrKEb70d5WHZTrg3G46fTdl_A0Q';
 
+
     const CALENDAR_ID =
       'akihirokokufukatamusic@gmail.com';
+
 
     const EMAIL_ADDRESS =
       'akihirokokufukatamusic@gmail.com';
@@ -1061,34 +1423,76 @@
 
 
     /* =========================================
-       GLOBAL DATA
+       DATA
        ========================================= */
 
     let upcomingEvents = [];
 
-    let selectedMonth = 'all';
+    let selectedMonth =
+      'all';
 
 
 
     /* =========================================
-       HELPERS
+       SAFE HTML
        ========================================= */
 
-    function escapeHTML(value = '') {
+    function escapeHTML(
+      value = ''
+    ) {
 
       return String(value)
 
-        .replaceAll('&', '&amp;')
-        .replaceAll('<', '&lt;')
-        .replaceAll('>', '&gt;')
-        .replaceAll('"', '&quot;')
-        .replaceAll("'", '&#039;');
+        .replaceAll(
+          '&',
+          '&amp;'
+        )
+
+        .replaceAll(
+          '<',
+          '&lt;'
+        )
+
+        .replaceAll(
+          '>',
+          '&gt;'
+        )
+
+        .replaceAll(
+          '"',
+          '&quot;'
+        )
+
+        .replaceAll(
+          "'",
+          '&#039;'
+        );
 
     }
 
 
 
-    function parseDescription(description = '') {
+    /* =========================================
+       DESCRIPTION PARSER
+
+       IMPORTANT:
+       Metadata can now appear in ANY order.
+
+       Example:
+
+       Players:
+       Player 1
+       Player 2
+
+       Website: ...
+       Place: ...
+       Leader: yes
+
+       ========================================= */
+
+    function parseDescription(
+      description = ''
+    ) {
 
       const lines =
         description
@@ -1099,228 +1503,453 @@
       const players = [];
 
       let place = '';
+
       let website = '';
+
       let leader = false;
 
       let readingPlayers = false;
 
 
-      for (const rawLine of lines) {
+
+      for (
+        let i = 0;
+        i < lines.length;
+        i++
+      ) {
 
         const line =
-          rawLine.trim();
+          lines[i].trim();
 
 
-        if (/^players\s*:/i.test(line)) {
+        if (!line) {
 
-          readingPlayers = true;
+          continue;
+
+        }
+
+
+
+        /*
+          PLAYERS
+        */
+
+        if (
+          /^players\s*:/i
+            .test(line)
+        ) {
+
+          readingPlayers =
+            true;
+
 
           const sameLine =
             line
-              .replace(/^players\s*:/i, '')
+              .replace(
+                /^players\s*:/i,
+                ''
+              )
               .trim();
 
+
           if (sameLine) {
-            players.push(sameLine);
+
+            players.push(
+              sameLine
+            );
+
           }
 
+
           continue;
+
         }
 
 
-        if (/^place\s*:/i.test(line)) {
 
-          readingPlayers = false;
+        /*
+          PLACE
+
+          Read metadata but DON'T permanently
+          break the parser.
+        */
+
+        if (
+          /^place\s*:/i
+            .test(line)
+        ) {
 
           place =
             line
-              .replace(/^place\s*:/i, '')
+              .replace(
+                /^place\s*:/i,
+                ''
+              )
               .trim();
 
+
+          readingPlayers =
+            false;
+
+
           continue;
+
         }
 
 
-        if (/^website\s*:/i.test(line)) {
 
-          readingPlayers = false;
+        /*
+          WEBSITE
+        */
+
+        if (
+          /^website\s*:/i
+            .test(line)
+        ) {
 
           website =
             line
-              .replace(/^website\s*:/i, '')
+              .replace(
+                /^website\s*:/i,
+                ''
+              )
               .trim();
 
+
+          readingPlayers =
+            false;
+
+
           continue;
+
         }
 
 
-        if (/^leader\s*:/i.test(line)) {
 
-          readingPlayers = false;
+        /*
+          LEADER
+        */
+
+        if (
+          /^leader\s*:/i
+            .test(line)
+        ) {
 
           const value =
             line
-              .replace(/^leader\s*:/i, '')
+              .replace(
+                /^leader\s*:/i,
+                ''
+              )
               .trim()
               .toLowerCase();
 
+
           leader =
-            ['yes', 'true', '1', 'leader']
-              .includes(value);
+            [
+              'yes',
+              'true',
+              '1',
+              'leader'
+            ]
+            .includes(
+              value
+            );
+
+
+          readingPlayers =
+            false;
+
 
           continue;
+
         }
 
 
-        if (readingPlayers && line) {
-          players.push(line);
+
+        /*
+          Any future metadata line should NOT
+          accidentally become a player.
+        */
+
+        if (
+          /^[a-z][a-z0-9_-]*\s*:/i
+            .test(line)
+        ) {
+
+          readingPlayers =
+            false;
+
+          continue;
+
+        }
+
+
+
+        /*
+          PLAYER
+        */
+
+        if (
+          readingPlayers
+        ) {
+
+          players.push(
+            line
+          );
+
         }
 
       }
 
 
+
       return {
+
         players,
         place,
         website,
         leader
+
       };
 
     }
 
 
 
-    function getVenue(location = '') {
+    /* =========================================
+       VENUE
+       ========================================= */
+
+    function getVenue(
+      location = ''
+    ) {
 
       if (!location) {
+
         return '';
+
       }
 
+
       return location
-        .split(/[,、]/)[0]
+
+        .split(
+          /[,、]/
+        )[0]
+
         .trim();
 
     }
 
 
 
-    function eventStart(event) {
+    /* =========================================
+       DATE HELPERS
+       ========================================= */
+
+    function eventStart(
+      event
+    ) {
 
       return new Date(
+
         event.start.dateTime ||
+
         event.start.date
+
       );
 
     }
 
 
 
-    function eventEnd(event) {
+    function eventEnd(
+      event
+    ) {
 
       return new Date(
+
         event.end.dateTime ||
+
         event.end.date
+
       );
 
     }
 
 
 
-    function localDateKey(date) {
+    function localDateKey(
+      date
+    ) {
 
       return new Intl.DateTimeFormat(
+
         'en-CA',
+
         {
-          timeZone: 'Asia/Tokyo',
-          year: 'numeric',
-          month: '2-digit',
-          day: '2-digit'
+
+          timeZone:
+            'Asia/Tokyo',
+
+          year:
+            'numeric',
+
+          month:
+            '2-digit',
+
+          day:
+            '2-digit'
+
         }
-      ).format(date);
 
-    }
-
-
-
-    function isToday(event) {
-
-      const now =
-        new Date();
-
-      return (
-        localDateKey(eventStart(event)) ===
-        localDateKey(now)
+      )
+      .format(
+        date
       );
 
     }
 
 
 
-    function getDateParts(event) {
+    function isToday(
+      event
+    ) {
+
+      return (
+
+        localDateKey(
+          eventStart(event)
+        )
+
+        ===
+
+        localDateKey(
+          new Date()
+        )
+
+      );
+
+    }
+
+
+
+    function getDateParts(
+      event
+    ) {
 
       const date =
         eventStart(event);
 
 
       const month =
+
         new Intl.DateTimeFormat(
+
           'en-US',
+
           {
-            timeZone: 'Asia/Tokyo',
-            month: 'short'
+
+            timeZone:
+              'Asia/Tokyo',
+
+            month:
+              'short'
+
           }
+
         )
         .format(date)
         .toUpperCase();
 
 
+
       const number =
+
         new Intl.DateTimeFormat(
+
           'en-US',
+
           {
-            timeZone: 'Asia/Tokyo',
-            day: '2-digit'
+
+            timeZone:
+              'Asia/Tokyo',
+
+            day:
+              '2-digit'
+
           }
+
         )
         .format(date);
 
 
+
       const weekday =
+
         new Intl.DateTimeFormat(
+
           'en-US',
+
           {
-            timeZone: 'Asia/Tokyo',
-            weekday: 'short'
+
+            timeZone:
+              'Asia/Tokyo',
+
+            weekday:
+              'short'
+
           }
+
         )
         .format(date)
         .toUpperCase();
 
 
+
       return {
+
         month,
         number,
         weekday
+
       };
 
     }
 
 
 
-    function formatTime(event) {
+    function formatTime(
+      event
+    ) {
 
-      if (!event.start.dateTime) {
+      if (
+        !event.start.dateTime
+      ) {
+
         return 'ALL DAY';
+
       }
 
 
       return new Intl.DateTimeFormat(
+
         'en-US',
+
         {
-          timeZone: 'Asia/Tokyo',
-          hour: 'numeric',
-          minute: '2-digit'
+
+          timeZone:
+            'Asia/Tokyo',
+
+          hour:
+            'numeric',
+
+          minute:
+            '2-digit'
+
         }
+
       )
       .format(
         eventStart(event)
@@ -1330,49 +1959,85 @@
 
 
 
-    function getMonthKey(event) {
+    function getMonthKey(
+      event
+    ) {
 
       const date =
         eventStart(event);
 
 
       const year =
+
         new Intl.DateTimeFormat(
+
           'en-US',
+
           {
-            timeZone: 'Asia/Tokyo',
-            year: 'numeric'
+
+            timeZone:
+              'Asia/Tokyo',
+
+            year:
+              'numeric'
+
           }
+
         )
         .format(date);
+
 
 
       const month =
+
         new Intl.DateTimeFormat(
+
           'en-US',
+
           {
-            timeZone: 'Asia/Tokyo',
-            month: '2-digit'
+
+            timeZone:
+              'Asia/Tokyo',
+
+            month:
+              '2-digit'
+
           }
+
         )
         .format(date);
 
 
-      return `${year}-${month}`;
+
+      return (
+        `${year}-${month}`
+      );
 
     }
 
 
 
-    function getMonthLabel(event) {
+    function getMonthLabel(
+      event
+    ) {
 
       return new Intl.DateTimeFormat(
+
         'en-US',
+
         {
-          timeZone: 'Asia/Tokyo',
-          month: 'short',
-          year: 'numeric'
+
+          timeZone:
+            'Asia/Tokyo',
+
+          month:
+            'short',
+
+          year:
+            'numeric'
+
         }
+
       )
       .format(
         eventStart(event)
@@ -1383,9 +2048,12 @@
 
 
 
-    function containsJapanese(text = '') {
+    function containsJapanese(
+      text = ''
+    ) {
 
-      return /[\u3040-\u30ff\u3400-\u9fff]/.test(text);
+      return /[\u3040-\u30ff\u3400-\u9fff]/
+        .test(text);
 
     }
 
@@ -1395,51 +2063,83 @@
        PLAYERS
        ========================================= */
 
-    function createPlayersHTML(players) {
+    function createPlayersHTML(
+      players
+    ) {
 
-      if (!players.length) {
+      if (
+        !players.length
+      ) {
+
         return '';
+
       }
 
 
+      /*
+        First 6 shown.
+        Rest can be expanded.
+      */
+
       const visible =
-        players.slice(0, 6);
+        players.slice(
+          0,
+          6
+        );
 
 
       const hidden =
-        players.slice(6);
+        players.slice(
+          6
+        );
 
 
       let html = `
 
-        <div class="label">
-          PLAYERS
-        </div>
+        <div class="players-section">
 
-        <div class="players">
+          <div class="label">
+            PLAYERS
+          </div>
 
-          ${visible
-            .map(player => escapeHTML(player))
-            .join('<br>')}
+
+          <div class="players">
+
+            ${visible
+              .map(
+                player =>
+                  `<span class="player">${escapeHTML(player)}</span>`
+              )
+              .join('')
+            }
 
       `;
 
 
-      if (hidden.length) {
+
+      if (
+        hidden.length
+      ) {
 
         html += `
 
           <div class="hidden-players">
 
             ${hidden
-              .map(player => escapeHTML(player))
-              .join('<br>')}
+              .map(
+                player =>
+                  `<span class="player">${escapeHTML(player)}</span>`
+              )
+              .join('')
+            }
 
           </div>
+
 
           <button
             class="show-more"
             type="button"
+            aria-expanded="false"
           >
             SHOW MORE ↓
           </button>
@@ -1449,8 +2149,13 @@
       }
 
 
+
       html += `
+
+          </div>
+
         </div>
+
       `;
 
 
@@ -1471,129 +2176,216 @@
 
       const info =
         parseDescription(
-          event.description || ''
+
+          event.description ||
+          ''
+
         );
 
 
       const venue =
         getVenue(
-          event.location || ''
+
+          event.location ||
+          ''
+
         );
 
 
       const date =
-        getDateParts(event);
+        getDateParts(
+          event
+        );
 
 
       const tonight =
-        isToday(event);
+        isToday(
+          event
+        );
 
 
       const isNext =
+
         index === 0 &&
+
         !tonight;
 
 
+
       const mapURL =
+
         event.location
 
-          ? 'https://www.google.com/maps/search/?api=1&query=' +
-            encodeURIComponent(event.location)
+          ?
 
-          : '';
+          'https://www.google.com/maps/search/?api=1&query=' +
+
+          encodeURIComponent(
+            event.location
+          )
+
+          :
+
+          '';
+
 
 
       const title =
-        event.summary || 'Live';
+
+        event.summary ||
+
+        'Live';
+
 
 
       const titleClass =
-        containsJapanese(title)
+
+        containsJapanese(
+          title
+        )
+
           ? ''
+
           : ' english';
+
 
 
       const hasStatus =
         tonight;
 
 
-      let topLabel = '';
 
+      let topLabels =
+        '';
 
-      if (info.leader) {
-
-        topLabel += `
-          <div class="leader-label">
-            LEADER SHOW
-          </div>
-        `;
-
-      }
-
-
-      if (isNext) {
-
-        topLabel += `
-          <div class="next-label">
-            NEXT SHOW
-          </div>
-        `;
-
-      }
-
-
-      let venueHTML = '';
-
-
-      if (venue || info.place) {
-
-        venueHTML = `
-
-          <div class="label">
-            VENUE
-          </div>
-
-          ${
-            venue
-              ? `
-                <div class="venue">
-                  ${escapeHTML(venue)}
-                </div>
-              `
-              : ''
-          }
-
-          ${
-            info.place
-              ? `
-                <div class="place">
-                  ${escapeHTML(info.place)}
-                </div>
-              `
-              : ''
-          }
-
-        `;
-
-      }
-
-
-
-      let actionsHTML = '';
-
-
-      const actions = [];
 
 
       if (
+        info.leader
+      ) {
+
+        topLabels += `
+
+          <div class="leader-label">
+            LEADER SHOW
+          </div>
+
+        `;
+
+      }
+
+
+
+      if (
+        isNext
+      ) {
+
+        topLabels += `
+
+          <div class="next-label">
+            NEXT SHOW
+          </div>
+
+        `;
+
+      }
+
+
+
+      let venueHTML =
+        '';
+
+
+
+      if (
+        venue ||
+        info.place
+      ) {
+
+        venueHTML = `
+
+          <div class="venue-section">
+
+            <div class="label">
+              VENUE
+            </div>
+
+
+            ${
+              venue
+
+                ?
+
+                `
+
+                <div class="venue">
+
+                  ${escapeHTML(
+                    venue
+                  )}
+
+                </div>
+
+                `
+
+                :
+
+                ''
+            }
+
+
+            ${
+              info.place
+
+                ?
+
+                `
+
+                <div class="place">
+
+                  ${escapeHTML(
+                    info.place
+                  )}
+
+                </div>
+
+                `
+
+                :
+
+                ''
+            }
+
+          </div>
+
+        `;
+
+      }
+
+
+
+      const actions =
+        [];
+
+
+
+      if (
+
         info.leader &&
+
         EMAIL_ADDRESS &&
-        EMAIL_ADDRESS !== 'YOUR_EMAIL_ADDRESS'
+
+        EMAIL_ADDRESS !==
+        'YOUR_EMAIL_ADDRESS'
+
       ) {
 
         const subject =
+
           encodeURIComponent(
+
             `Live inquiry: ${title}`
+
           );
 
 
@@ -1601,7 +2393,9 @@
 
           <a
             class="action email"
-            href="mailto:${escapeHTML(EMAIL_ADDRESS)}?subject=${subject}"
+            href="mailto:${escapeHTML(
+              EMAIL_ADDRESS
+            )}?subject=${subject}"
           >
             EMAIL ME ↗
           </a>
@@ -1611,13 +2405,18 @@
       }
 
 
-      if (info.website) {
+
+      if (
+        info.website
+      ) {
 
         actions.push(`
 
           <a
             class="action"
-            href="${escapeHTML(info.website)}"
+            href="${escapeHTML(
+              info.website
+            )}"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -1629,7 +2428,10 @@
       }
 
 
-      if (mapURL) {
+
+      if (
+        mapURL
+      ) {
 
         actions.push(`
 
@@ -1647,15 +2449,26 @@
       }
 
 
-      if (actions.length) {
 
-        actionsHTML = `
+      const actionsHTML =
+
+        actions.length
+
+          ?
+
+          `
+
           <div class="actions">
-            ${actions.join('')}
-          </div>
-        `;
 
-      }
+            ${actions.join('')}
+
+          </div>
+
+          `
+
+          :
+
+          '';
 
 
 
@@ -1669,61 +2482,113 @@
           "
         >
 
+
           ${
             tonight
-              ? `
-                <div class="status">
-                  TONIGHT
-                </div>
+
+              ?
+
               `
-              : ''
+
+              <div class="status">
+                TONIGHT
+              </div>
+
+              `
+
+              :
+
+              ''
           }
+
 
 
           <div class="event-date-column">
 
+
             <div class="event-month">
+
               ${date.month}
+
             </div>
+
 
             <div class="event-number">
+
               ${date.number}
+
             </div>
 
+
             <div class="event-day">
+
               ${date.weekday}
+
             </div>
+
 
             <div class="date-rule"></div>
 
+
             <div class="event-time">
-              ${formatTime(event)}
+
+              ${formatTime(
+                event
+              )}
+
             </div>
 
+
           </div>
+
 
 
           <div class="event-body">
 
+
             ${
               info.leader
-                ? '<div class="leader-shape"></div>'
-                : ''
+
+                ?
+
+                '<div class="leader-shape"></div>'
+
+                :
+
+                ''
             }
 
-            ${topLabel}
 
-            <h3 class="event-title${titleClass}">
-              ${escapeHTML(title)}
+            ${topLabels}
+
+
+            <h3
+              class="event-title${titleClass}"
+            >
+
+              ${escapeHTML(
+                title
+              )}
+
             </h3>
 
-            ${createPlayersHTML(info.players)}
+
+
+            ${createPlayersHTML(
+              info.players
+            )}
+
+
 
             ${venueHTML}
 
+
+
             ${actionsHTML}
 
+
           </div>
+
 
         </article>
 
@@ -1743,38 +2608,60 @@
         new Map();
 
 
-      upcomingEvents.forEach(event => {
 
-        const key =
-          getMonthKey(event);
+      upcomingEvents
+        .forEach(
+          event => {
+
+            const key =
+              getMonthKey(
+                event
+              );
 
 
-        if (!monthMap.has(key)) {
+            if (
+              !monthMap.has(key)
+            ) {
 
-          monthMap.set(
-            key,
-            getMonthLabel(event)
-          );
+              monthMap.set(
 
-        }
+                key,
 
-      });
+                getMonthLabel(
+                  event
+                )
+
+              );
+
+            }
+
+          }
+        );
+
 
 
       const months =
-        [...monthMap.entries()];
+
+        [
+          ...monthMap.entries()
+        ];
+
 
 
       const filter =
+
         document.getElementById(
           'monthFilter'
         );
 
 
+
       const select =
+
         document.getElementById(
           'monthSelect'
         );
+
 
 
       filter.innerHTML = `
@@ -1787,38 +2674,51 @@
           ALL
         </button>
 
-        ${months.map(
-          ([key, label]) => `
 
-            <button
-              class="month-button"
-              data-month="${key}"
-              type="button"
-            >
-              ${label}
-            </button>
+        ${months
+          .map(
+            ([key, label]) => `
 
-          `
-        ).join('')}
+              <button
+                class="month-button"
+                data-month="${key}"
+                type="button"
+              >
+                ${label}
+              </button>
+
+            `
+          )
+          .join('')
+        }
 
       `;
+
 
 
       select.innerHTML = `
 
         <option value="all">
+
           ALL MONTHS
+
         </option>
 
-        ${months.map(
-          ([key, label]) => `
 
-            <option value="${key}">
-              ${label}
-            </option>
+        ${months
+          .map(
+            ([key, label]) => `
 
-          `
-        ).join('')}
+              <option
+                value="${key}"
+              >
+                ${label}
+              </option>
+
+            `
+          )
+          .join('')
+        }
 
       `;
 
@@ -1826,34 +2726,45 @@
 
 
 
-    function setMonth(month) {
+    function setMonth(
+      month
+    ) {
 
       selectedMonth =
         month;
+
 
 
       document
         .querySelectorAll(
           '.month-button'
         )
-        .forEach(button => {
+        .forEach(
+          button => {
 
-          button.classList.toggle(
-            'active',
-            button.dataset.month === month
-          );
+            button
+              .classList
+              .toggle(
 
-        });
+                'active',
 
+                button.dataset.month ===
+                month
 
-      const select =
-        document.getElementById(
-          'monthSelect'
+              );
+
+          }
         );
 
 
-      select.value =
-        month;
+
+      document
+        .getElementById(
+          'monthSelect'
+        )
+        .value =
+          month;
+
 
 
       renderEvents();
@@ -1865,58 +2776,81 @@
     function renderEvents() {
 
       const container =
+
         document.getElementById(
           'events'
         );
 
 
+
       const filtered =
 
-        selectedMonth === 'all'
+        selectedMonth ===
+        'all'
 
-          ? upcomingEvents
+          ?
 
-          : upcomingEvents.filter(
+          upcomingEvents
+
+          :
+
+          upcomingEvents
+            .filter(
               event =>
+
                 getMonthKey(event) ===
                 selectedMonth
+
             );
 
 
-      if (!filtered.length) {
+
+      if (
+        !filtered.length
+      ) {
 
         container.innerHTML = `
+
           <div class="message">
+
             No shows scheduled for this month.
+
           </div>
+
         `;
+
 
         return;
 
       }
 
 
-      /*
-        NEXT SHOW should always refer to the
-        actual next upcoming event, even when
-        a month filter is active.
-      */
 
       container.innerHTML =
 
         filtered
 
-          .map(event => {
+          .map(
+            event => {
 
-            const originalIndex =
-              upcomingEvents.indexOf(event);
+              const originalIndex =
 
-            return createEventCard(
-              event,
-              originalIndex
-            );
+                upcomingEvents
+                  .indexOf(
+                    event
+                  );
 
-          })
+
+              return createEventCard(
+
+                event,
+
+                originalIndex
+
+              );
+
+            }
+          )
 
           .join('');
 
@@ -1925,45 +2859,90 @@
 
 
     /* =========================================
-       SHOW MORE
+       CLICK EVENTS
        ========================================= */
 
     document.addEventListener(
+
       'click',
+
       function(event) {
 
+
+        /*
+          SHOW MORE
+        */
+
         const showMore =
+
           event.target.closest(
             '.show-more'
           );
 
 
-        if (showMore) {
+
+        if (
+          showMore
+        ) {
 
           const hidden =
-            showMore.previousElementSibling;
+
+            showMore
+              .previousElementSibling;
+
 
 
           if (
+
             !hidden ||
-            !hidden.classList.contains(
-              'hidden-players'
-            )
+
+            !hidden
+              .classList
+              .contains(
+                'hidden-players'
+              )
+
           ) {
+
             return;
+
           }
 
 
+
           const open =
-            hidden.classList.toggle(
-              'open'
+
+            hidden
+              .classList
+              .toggle(
+                'open'
+              );
+
+
+
+          showMore
+            .setAttribute(
+
+              'aria-expanded',
+
+              String(open)
+
             );
 
 
+
           showMore.textContent =
+
             open
-              ? 'SHOW LESS ↑'
-              : 'SHOW MORE ↓';
+
+              ?
+
+              'SHOW LESS ↑'
+
+              :
+
+              'SHOW MORE ↓';
+
 
 
           return;
@@ -1971,21 +2950,35 @@
         }
 
 
+
+        /*
+          MONTH
+        */
+
         const monthButton =
+
           event.target.closest(
             '.month-button'
           );
 
 
-        if (monthButton) {
+
+        if (
+          monthButton
+        ) {
 
           setMonth(
-            monthButton.dataset.month
+
+            monthButton
+              .dataset
+              .month
+
           );
 
         }
 
       }
+
     );
 
 
@@ -1995,7 +2988,9 @@
         'monthSelect'
       )
       .addEventListener(
+
         'change',
+
         function() {
 
           setMonth(
@@ -2003,6 +2998,7 @@
           );
 
         }
+
       );
 
 
@@ -2017,13 +3013,20 @@
         new Date();
 
 
+
       const timeMax =
+
         new Date(
+
           now.getFullYear() + 2,
+
           now.getMonth(),
+
           now.getDate()
+
         )
         .toISOString();
+
 
 
       const url =
@@ -2061,40 +3064,66 @@
         '&maxResults=250';
 
 
+
       try {
 
         const response =
-          await fetch(url);
+
+          await fetch(
+            url
+          );
 
 
-        if (!response.ok) {
+
+        if (
+          !response.ok
+        ) {
 
           const errorText =
+
             await response.text();
+
 
           console.error(
             errorText
           );
 
+
           throw new Error(
+
             'Calendar request failed'
+
           );
 
         }
 
 
+
         const data =
+
           await response.json();
 
 
-        upcomingEvents =
-          (data.items || [])
 
-            .filter(event =>
+        upcomingEvents =
+
+          (
+            data.items ||
+            []
+          )
+
+          .filter(
+            event =>
+
               event.start &&
+
               event.end &&
-              eventEnd(event) >= now
-            );
+
+              eventEnd(event) >=
+              now
+
+          );
+
 
 
         buildMonthFilters();
@@ -2104,7 +3133,9 @@
       }
 
 
-      catch (error) {
+      catch (
+        error
+      ) {
 
         console.error(
           error
@@ -2118,7 +3149,9 @@
           .innerHTML = `
 
             <div class="message">
+
               Could not load the live schedule.
+
             </div>
 
           `;
