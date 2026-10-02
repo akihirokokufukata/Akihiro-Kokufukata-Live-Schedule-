@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Akihiro Kokufukata | Live Schedule</title>
+
+  <!-- already-cal のデザイン -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/gh/stavxyz/already-cal@main/dist/already-cal.min.css"
+  >
+
+  <style>
+    body {
+      margin: 0;
+      background: #111;
+      color: #fff;
+      font-family: Arial, sans-serif;
+    }
+
+    .page {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px 14px 60px;
+    }
+
+    .page-title {
+      margin: 10px 0 4px;
+      font-size: 28px;
+    }
+
+    .page-subtitle {
+      margin: 0 0 24px;
+      opacity: 0.6;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="page">
+
+    <h1 class="page-title">Akihiro Kokufukata</h1>
+    <p class="page-subtitle">Live Schedule</p>
+
+    <div id="cal"></div>
+
+  </main>
+
+  <!-- already-cal 本体 -->
+  <script
+    src="https://cdn.jsdelivr.net/gh/stavxyz/already-cal@main/dist/already-cal.min.js">
+  </script>
+
+  <script>
+    Already.init({
+      el: '#cal',
+
+      google: {
+        apiKey: 'AIzaSyCB5WplBrKEb70d5WHZTrg3G46fTdl_A0Q',
+        calendarId: 'akihirokokufukatamusic@gmail.com'
+      },
+
+      showHeader: false,
+
+      defaultView: 'grid',
+      views: ['grid', 'list'],
+
+      showPastEvents: false,
+      pageSize: 10,
+
+      locale: 'en-US',
+
+      mobileBreakpoint: 768,
+      mobileDefaultView: 'grid',
+
+      locationLinkTemplate:
+        'https://maps.google.com/?q={location}',
+
+      theme: {
+        layout: 'hero',
+        palette: 'dark',
+        orientation: 'vertical',
+        radius: '16px'
+      },
+
+      i18n: {
+        viewLabels: {
+          grid: 'Shows',
+          list: 'List'
+        },
+        noUpcomingEvents: 'No upcoming shows.',
+        showPastEvents: 'Show past shows',
+        hidePastEvents: 'Hide past shows',
+        couldNotLoad: 'Could not load shows.',
+        retry: 'Retry',
+        allDay: 'All Day',
+        back: '← Back',
+        loadMore: 'Load more',
+        showEarlier: 'Show earlier shows'
+      }
+    });
+  </script>
+
+</body>
+</html>
