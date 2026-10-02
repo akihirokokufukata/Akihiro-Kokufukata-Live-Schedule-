@@ -9,7 +9,7 @@
 
 <!-- =========================================================
      SETTINGS
-     ★ 基本的にここだけ編集
+     ★ ここだけ自分の情報に変更
      ========================================================= -->
 
 <script>
@@ -33,10 +33,6 @@ const SETTINGS = {
 >
 
 <style>
-
-/* =========================================================
-   BASE
-   ========================================================= */
 
 :root {
   --paper: #f3eee5;
@@ -84,154 +80,153 @@ main {
 
 
 /* =========================================================
-   TOP DECORATION
-   ========================================================= */
-
-.top-decoration {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 300px;
-  height: 390px;
-  pointer-events: none;
-  z-index: 1;
-}
-
-.deco-block {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 105px;
-  height: 155px;
-  background: var(--crimson);
-}
-
-.deco-circle {
-  position: absolute;
-  top: 82px;
-  right: 87px;
-  width: 94px;
-  height: 94px;
-  border-radius: 50%;
-  background: rgba(216,170,165,.56);
-}
-
-
-/* =========================================================
    TRUMPET MARK
-   元画像の形状をCSSで再構成
+   ★ 背景装飾なし
    ========================================================= */
 
 .trumpet-mark {
   position: absolute;
-  top: 30px;
+
+  top: 28px;
   right: 20px;
+
   width: 150px;
   height: 285px;
-  z-index: 3;
+
+  z-index: 5;
+
+  pointer-events: none;
 }
 
 
-/* 大きなベル */
+/* ---------------------------------------------------------
+   BELL
+   --------------------------------------------------------- */
 
 .trumpet-bell {
   position: absolute;
-  top: 0;
-  left: 34px;
 
-  width: 112px;
-  height: 104px;
+  top: 0;
+  left: 31px;
+
+  width: 118px;
+  height: 105px;
 
   background: var(--crimson);
 
   clip-path: polygon(
     0% 0%,
     100% 0%,
-    84% 7%,
-    70% 17%,
-    60% 30%,
-    54% 44%,
-    51% 59%,
+    85% 7%,
+    72% 16%,
+    62% 27%,
+    56% 39%,
+    52% 53%,
+    51% 70%,
     51% 100%,
     49% 100%,
-    49% 59%,
-    46% 44%,
-    40% 30%,
-    30% 17%,
-    16% 7%
+    49% 70%,
+    48% 53%,
+    44% 39%,
+    38% 27%,
+    28% 16%,
+    15% 7%
   );
 }
 
 .trumpet-bell-rim {
   position: absolute;
-  top: -2px;
-  left: 32px;
-  width: 116px;
+
+  top: -1px;
+  left: 29px;
+
+  width: 122px;
   height: 3px;
+
   background: var(--crimson);
 }
 
 
-/* ベルから下に伸びる主管 */
+/* ---------------------------------------------------------
+   MAIN PIPE
+   --------------------------------------------------------- */
 
 .trumpet-main-pipe {
   position: absolute;
-  top: 83px;
+
+  top: 82px;
   left: 88px;
-  width: 12px;
-  height: 167px;
+
+  width: 13px;
+  height: 170px;
+
   background: var(--crimson);
 }
 
 
-/* 左側のバルブ本体 */
+/* ---------------------------------------------------------
+   VALVE BLOCK
+   --------------------------------------------------------- */
 
 .valve-body {
   position: absolute;
-  top: 121px;
-  left: 46px;
-  width: 39px;
-  height: 132px;
-  background: rgba(118,16,31,.93);
+
+  top: 120px;
+  left: 45px;
+
+  width: 41px;
+  height: 134px;
+
+  background: rgba(118,16,31,.95);
 }
-
-
-/* バルブ上部の薄い管 */
 
 .valve-upper {
   position: absolute;
-  top: 97px;
-  left: 46px;
-  width: 20px;
-  height: 43px;
+
+  top: 96px;
+  left: 45px;
+
+  width: 21px;
+  height: 46px;
+
+  background: rgba(216,170,165,.68);
+}
+
+
+/* ---------------------------------------------------------
+   SECOND PIPE
+   --------------------------------------------------------- */
+
+.trumpet-second-pipe {
+  position: absolute;
+
+  top: 109px;
+  left: 109px;
+
+  width: 31px;
+  height: 143px;
+
   background: rgba(216,170,165,.70);
 }
 
 
-/* 右側の薄い縦管 */
-
-.trumpet-second-pipe {
-  position: absolute;
-  top: 111px;
-  left: 108px;
-  width: 30px;
-  height: 139px;
-  background: rgba(216,170,165,.72);
-}
-
-
-/* 3本のバルブ */
+/* ---------------------------------------------------------
+   VALVE STEMS
+   --------------------------------------------------------- */
 
 .valve-stem {
   position: absolute;
+
   left: 19px;
-  width: 48px;
-  height: 8px;
+
+  width: 49px;
+  height: 9px;
+
   background: var(--crimson-dark);
 }
 
 .valve-stem.one {
-  top: 125px;
+  top: 124px;
 }
 
 .valve-stem.two {
@@ -239,22 +234,27 @@ main {
 }
 
 .valve-stem.three {
-  top: 189px;
+  top: 190px;
 }
 
 
-/* バルブボタン */
+/* ---------------------------------------------------------
+   VALVE BUTTONS
+   --------------------------------------------------------- */
 
 .valve-button {
   position: absolute;
-  left: 5px;
-  width: 16px;
-  height: 18px;
+
+  left: 4px;
+
+  width: 17px;
+  height: 19px;
+
   background: var(--crimson-dark);
 }
 
 .valve-button.one {
-  top: 120px;
+  top: 119px;
 }
 
 .valve-button.two {
@@ -262,22 +262,27 @@ main {
 }
 
 .valve-button.three {
-  top: 184px;
+  top: 185px;
 }
 
 
-/* バルブと本体の接続部分 */
+/* ---------------------------------------------------------
+   VALVE JOINTS
+   --------------------------------------------------------- */
 
 .valve-joint {
   position: absolute;
+
   left: 64px;
-  width: 23px;
-  height: 13px;
-  background: rgba(152,24,42,.82);
+
+  width: 24px;
+  height: 14px;
+
+  background: rgba(152,24,42,.88);
 }
 
 .valve-joint.one {
-  top: 122px;
+  top: 121px;
 }
 
 .valve-joint.two {
@@ -285,56 +290,67 @@ main {
 }
 
 .valve-joint.three {
-  top: 186px;
+  top: 187px;
 }
 
 
-/* 元画像の大きな円 */
+/* ---------------------------------------------------------
+   LARGE ROUND TUBE / CIRCLE
+   --------------------------------------------------------- */
 
 .trumpet-round {
   position: absolute;
-  left: 58px;
-  top: 186px;
-  width: 101px;
-  height: 101px;
+
+  left: 57px;
+  top: 184px;
+
+  width: 104px;
+  height: 104px;
+
   border-radius: 50%;
-  background: rgba(216,170,165,.62);
+
+  background: rgba(216,170,165,.60);
 }
 
 
-/* 左下の長い管 */
+/* ---------------------------------------------------------
+   LOWER PIPES
+   --------------------------------------------------------- */
 
 .trumpet-left-lower {
   position: absolute;
-  left: 46px;
-  top: 196px;
-  width: 39px;
-  height: 70px;
-  background: rgba(118,16,31,.93);
+
+  left: 45px;
+  top: 195px;
+
+  width: 41px;
+  height: 72px;
+
+  background: rgba(118,16,31,.95);
 }
-
-
-/* 円を貫く中央管 */
 
 .trumpet-center-lower {
   position: absolute;
+
   left: 88px;
-  top: 194px;
-  width: 12px;
-  height: 61px;
+  top: 193px;
+
+  width: 13px;
+  height: 63px;
+
   background: var(--crimson);
 }
 
-
-/* 右下の濃い管 */
-
 .trumpet-right-lower {
   position: absolute;
-  left: 107px;
-  top: 238px;
+
+  left: 108px;
+  top: 239px;
+
   width: 32px;
   height: 49px;
-  background: rgba(152,24,42,.94);
+
+  background: rgba(152,24,42,.95);
 }
 
 
@@ -345,19 +361,21 @@ main {
 header {
   position: relative;
   z-index: 2;
+
   padding: 25px 10px 78px;
 }
 
 .name-wrap {
-  position: relative;
   display: inline-block;
 }
 
 .artist-name {
   margin: 0;
+
   max-width: 640px;
 
   font-family: var(--serif);
+
   font-size: clamp(58px, 8.5vw, 100px);
   font-weight: 600;
 
@@ -371,17 +389,22 @@ header {
 
 
 /* =========================================================
-   NAME ACCENT
-   ★ 一本線だけ
+   ★ 名前下は一本線のみ
    ========================================================= */
 
 .name-line {
+  display: block;
+
   width: 112px;
   height: 1.5px;
-  margin-top: 24px;
-  background: var(--crimson);
-}
 
+  margin-top: 24px;
+
+  background: var(--crimson);
+
+  border: 0;
+  border-radius: 0;
+}
 
 .artist-role {
   margin-top: 19px;
@@ -389,32 +412,38 @@ header {
   color: var(--crimson);
 
   font-family: var(--sans);
+
   font-size: 13px;
   font-weight: 600;
 
   letter-spacing: 5px;
+
   text-transform: uppercase;
 }
 
 
 /* =========================================================
-   SCHEDULE HEADER
+   SCHEDULE HEADING
    ========================================================= */
 
 .schedule-heading {
   display: flex;
+
   align-items: flex-end;
   justify-content: space-between;
 
   gap: 12px;
+
   margin-bottom: 27px;
 }
 
 .schedule-title {
   margin: 0;
+
   flex-shrink: 0;
 
   font-family: var(--serif);
+
   font-size: clamp(43px, 6vw, 65px);
   font-weight: 600;
 
@@ -425,12 +454,13 @@ header {
 
 /* =========================================================
    FILTER
-   ALL / CURRENT / NEXT / PAST
    ========================================================= */
 
 .month-filter {
   display: flex;
+
   flex-shrink: 0;
+
   height: 29px;
 
   border: 1px solid var(--crimson);
@@ -438,15 +468,18 @@ header {
 
 .month-button {
   min-width: 47px;
+
   padding: 0 7px;
 
   border: 0;
   border-right: 1px solid var(--crimson);
 
   background: transparent;
+
   color: var(--crimson);
 
   font-family: var(--sans);
+
   font-size: 7px;
   font-weight: 600;
 
@@ -466,13 +499,14 @@ header {
 
 
 /* =========================================================
-   EVENT CARD
+   EVENT
    ========================================================= */
 
 .event {
   position: relative;
 
   display: grid;
+
   grid-template-columns: 125px minmax(0,1fr);
 
   margin-bottom: 16px;
@@ -495,6 +529,7 @@ header {
 
 .status {
   position: absolute;
+
   top: 0;
   left: 0;
 
@@ -503,13 +538,16 @@ header {
   padding: 10px 16px;
 
   background: var(--crimson);
+
   color: var(--paper);
 
   font-family: var(--sans);
+
   font-size: 10px;
   font-weight: 600;
 
   letter-spacing: 2.3px;
+
   text-align: center;
 
   z-index: 2;
@@ -522,6 +560,7 @@ header {
 
 .event-date-column {
   padding: 28px 22px 24px;
+
   border-right: 1px solid var(--line);
 }
 
@@ -531,8 +570,10 @@ header {
 
 .event-month {
   font-family: var(--serif);
+
   font-size: 19px;
   font-weight: 600;
+
   letter-spacing: 1px;
 }
 
@@ -542,6 +583,7 @@ header {
   color: var(--crimson);
 
   font-family: var(--serif);
+
   font-size: 55px;
   font-weight: 600;
 
@@ -554,6 +596,7 @@ header {
   color: var(--crimson);
 
   font-family: var(--serif);
+
   font-size: 17px;
   font-weight: 600;
 
@@ -571,6 +614,7 @@ header {
 
 .event-time {
   font-family: var(--serif);
+
   font-size: 17px;
   font-weight: 500;
 }
@@ -591,6 +635,7 @@ header {
 .leader-label,
 .next-label {
   position: relative;
+
   z-index: 2;
 
   margin-bottom: 8px;
@@ -598,20 +643,24 @@ header {
   color: var(--crimson);
 
   font-family: var(--sans);
+
   font-size: 10px;
   font-weight: 600;
 
   letter-spacing: 3px;
+
   text-transform: uppercase;
 }
 
 .event-title {
   position: relative;
+
   z-index: 2;
 
   margin: 0 0 21px;
 
   font-family: var(--jp);
+
   font-size: clamp(20px,3vw,27px);
   font-weight: 600;
 
@@ -622,13 +671,15 @@ header {
 
 .event-title.english {
   font-family: var(--serif);
+
   font-size: clamp(26px,3.3vw,34px);
+
   line-height: 1.05;
 }
 
 
 /* =========================================================
-   LABELS
+   LABEL
    ========================================================= */
 
 .label {
@@ -637,10 +688,12 @@ header {
   color: var(--crimson);
 
   font-family: var(--sans);
+
   font-size: 10px;
   font-weight: 600;
 
   letter-spacing: 3px;
+
   text-transform: uppercase;
 }
 
@@ -657,6 +710,7 @@ header {
   color: #342c29;
 
   font-family: var(--jp);
+
   font-size: 14px;
 
   line-height: 1.85;
@@ -685,9 +739,11 @@ header {
   border: 0;
 
   background: transparent;
+
   color: var(--crimson);
 
   font-family: var(--sans);
+
   font-size: 10px;
   font-weight: 600;
 
@@ -707,6 +763,7 @@ header {
 
 .venue {
   font-family: var(--jp);
+
   font-size: 15px;
   font-weight: 500;
 
@@ -742,9 +799,11 @@ header {
   border: 1px solid var(--crimson);
 
   color: var(--crimson);
+
   background: transparent;
 
   font-family: var(--sans);
+
   font-size: 9px;
   font-weight: 600;
 
@@ -769,6 +828,7 @@ header {
 
 .leader-shape {
   position: absolute;
+
   top: 0;
   right: 0;
 
@@ -776,6 +836,7 @@ header {
   height: 95px;
 
   overflow: hidden;
+
   pointer-events: none;
 
   opacity: .9;
@@ -785,6 +846,7 @@ header {
   content: "";
 
   position: absolute;
+
   top: 0;
   right: 0;
 
@@ -798,6 +860,7 @@ header {
   content: "";
 
   position: absolute;
+
   right: 25px;
   top: 25px;
 
@@ -820,6 +883,7 @@ header {
   color: var(--crimson);
 
   font-family: var(--sans);
+
   font-size: 10px;
   font-weight: 600;
 
@@ -846,6 +910,7 @@ header {
   color: var(--muted);
 
   font-family: var(--sans);
+
   font-size: 13px;
 }
 
@@ -856,6 +921,7 @@ header {
 
 footer {
   margin-top: 75px;
+
   padding: 32px 4px 15px;
 
   border-top: 1px solid var(--line);
@@ -863,6 +929,7 @@ footer {
 
 .footer-name {
   font-family: var(--sans);
+
   font-size: 9px;
   font-weight: 500;
 
@@ -875,6 +942,7 @@ footer {
   color: var(--muted);
 
   font-family: var(--sans);
+
   font-size: 8px;
 
   letter-spacing: 3px;
@@ -891,37 +959,24 @@ footer {
     padding: 34px 15px 65px;
   }
 
-  .top-decoration {
-    width: 150px;
-    height: 310px;
-  }
 
-  .deco-block {
-    width: 34px;
-    height: 126px;
-  }
-
-  .deco-circle {
-    right: 24px;
-    top: 77px;
-
-    width: 57px;
-    height: 57px;
-  }
-
-
-  /* TRUMPET */
+  /* -------------------------------------------------------
+     TRUMPET MOBILE
+     ★ 背景なし・マークのみ
+     ------------------------------------------------------- */
 
   .trumpet-mark {
-    top: 20px;
-    right: -1px;
+    top: 16px;
+    right: 2px;
 
-    transform: scale(.65);
+    transform: scale(.61);
     transform-origin: top right;
   }
 
 
-  /* HEADER */
+  /* -------------------------------------------------------
+     HEADER
+     ------------------------------------------------------- */
 
   header {
     padding: 30px 6px 67px;
@@ -933,36 +988,63 @@ footer {
     font-size: clamp(52px,15vw,70px);
 
     line-height: .86;
+
     letter-spacing: -2px;
   }
 
+
+  /* ★ スマホでも一本線だけ */
+
   .name-line {
-    width: 96px;
+    display: block;
+
+    width: 92px;
+    height: 1.5px;
+
     margin-top: 20px;
+
+    background: var(--crimson);
+
+    border: 0;
+    border-radius: 0;
   }
+
+  .name-line::before,
+  .name-line::after {
+    display: none !important;
+    content: none !important;
+  }
+
 
   .artist-role {
     margin-top: 17px;
 
     font-size: 11px;
+
     letter-spacing: 3.3px;
   }
 
 
-  /* SCHEDULE */
+  /* -------------------------------------------------------
+     SCHEDULE
+     ------------------------------------------------------- */
 
   .schedule-heading {
     gap: 7px;
+
     margin-bottom: 24px;
   }
 
   .schedule-title {
     font-size: clamp(34px,9.2vw,42px);
+
     letter-spacing: -1px;
   }
 
 
-  /* FILTER */
+  /* -------------------------------------------------------
+     FILTER
+     ------------------------------------------------------- */
 
   .month-filter {
     height: 25px;
@@ -974,11 +1056,14 @@ footer {
     padding: 0 4px;
 
     font-size: 6px;
+
     letter-spacing: .45px;
   }
 
 
-  /* EVENT */
+  /* -------------------------------------------------------
+     EVENT
+     ------------------------------------------------------- */
 
   .event {
     grid-template-columns: 84px minmax(0,1fr);
@@ -990,6 +1075,7 @@ footer {
     padding: 9px 5px;
 
     font-size: 8px;
+
     letter-spacing: 1.3px;
   }
 
@@ -1011,6 +1097,7 @@ footer {
 
   .event-day {
     font-size: 14px;
+
     letter-spacing: 1.5px;
   }
 
@@ -1026,21 +1113,25 @@ footer {
   .next-label,
   .label {
     font-size: 9px;
+
     letter-spacing: 2.2px;
   }
 
   .event-title {
     font-size: 18px;
+
     line-height: 1.45;
   }
 
   .event-title.english {
     font-size: 23px;
+
     line-height: 1.08;
   }
 
   .players {
     font-size: 12.5px;
+
     line-height: 1.8;
   }
 
@@ -1050,6 +1141,7 @@ footer {
 
   .actions {
     gap: 7px;
+
     margin-top: 18px;
   }
 
@@ -1061,6 +1153,7 @@ footer {
     padding: 11px 6px;
 
     font-size: 8px;
+
     letter-spacing: 1.1px;
   }
 
@@ -1087,6 +1180,7 @@ footer {
 
   .month-button {
     min-width: 30px;
+
     padding: 0 3px;
 
     font-size: 5.5px;
@@ -1122,45 +1216,39 @@ footer {
 
 
 <!-- =========================================================
-     HEADER ART
+     ★ トランペットだけ
+     背景の四角・円などは置かない
      ========================================================= -->
 
-<div class="top-decoration" aria-hidden="true">
+<div class="trumpet-mark" aria-hidden="true">
 
-  <div class="deco-block"></div>
-  <div class="deco-circle"></div>
+  <div class="trumpet-round"></div>
 
-  <div class="trumpet-mark">
+  <div class="trumpet-bell"></div>
+  <div class="trumpet-bell-rim"></div>
 
-    <div class="trumpet-round"></div>
+  <div class="trumpet-main-pipe"></div>
 
-    <div class="trumpet-bell"></div>
-    <div class="trumpet-bell-rim"></div>
+  <div class="valve-upper"></div>
+  <div class="valve-body"></div>
 
-    <div class="trumpet-main-pipe"></div>
+  <div class="trumpet-second-pipe"></div>
 
-    <div class="valve-upper"></div>
-    <div class="valve-body"></div>
+  <div class="valve-stem one"></div>
+  <div class="valve-stem two"></div>
+  <div class="valve-stem three"></div>
 
-    <div class="trumpet-second-pipe"></div>
+  <div class="valve-button one"></div>
+  <div class="valve-button two"></div>
+  <div class="valve-button three"></div>
 
-    <div class="valve-stem one"></div>
-    <div class="valve-stem two"></div>
-    <div class="valve-stem three"></div>
+  <div class="valve-joint one"></div>
+  <div class="valve-joint two"></div>
+  <div class="valve-joint three"></div>
 
-    <div class="valve-button one"></div>
-    <div class="valve-button two"></div>
-    <div class="valve-button three"></div>
-
-    <div class="valve-joint one"></div>
-    <div class="valve-joint two"></div>
-    <div class="valve-joint three"></div>
-
-    <div class="trumpet-left-lower"></div>
-    <div class="trumpet-center-lower"></div>
-    <div class="trumpet-right-lower"></div>
-
-  </div>
+  <div class="trumpet-left-lower"></div>
+  <div class="trumpet-center-lower"></div>
+  <div class="trumpet-right-lower"></div>
 
 </div>
 
@@ -1178,6 +1266,7 @@ footer {
       <span>Kokufukata</span>
     </h1>
 
+    <!-- ★ 一本線だけ -->
     <div class="name-line"></div>
 
   </div>
@@ -1190,7 +1279,7 @@ footer {
 
 
 <!-- =========================================================
-     SCHEDULE
+     LIVE SCHEDULE
      ========================================================= -->
 
 <section>
@@ -1207,7 +1296,6 @@ footer {
     ></div>
 
   </div>
-
 
   <div id="events">
 
@@ -1324,7 +1412,7 @@ function normalizeWebsiteURL(value = '') {
 
 
 /* =========================================================
-   DESCRIPTION PARSER
+   DESCRIPTION
    ========================================================= */
 
 function parseDescription(description = '') {
@@ -1360,8 +1448,6 @@ function parseDescription(description = '') {
   for (const line of lines) {
 
 
-    /* PLAYERS */
-
     if (/^players\s*:/i.test(line)) {
 
       readingPlayers = true;
@@ -1378,12 +1464,6 @@ function parseDescription(description = '') {
       continue;
     }
 
-
-    /*
-       重要:
-       別フィールドが始まったら
-       Players読み込みを終了する
-    */
 
     if (/^place\s*:/i.test(line)) {
 
@@ -1975,8 +2055,6 @@ function createEventCard(
       '';
 
 
-  /* LABELS */
-
   let topLabels = '';
 
 
@@ -2005,8 +2083,6 @@ function createEventCard(
 
   }
 
-
-  /* VENUE */
 
   const venueToDisplay =
     venue ||
@@ -2038,8 +2114,6 @@ function createEventCard(
 
   }
 
-
-  /* ACTIONS */
 
   const actions = [];
 
@@ -2253,8 +2327,6 @@ function renderEvents() {
     );
 
 
-  /* PAST SHOWS */
-
   if (selectedFilter === 'past') {
 
     if (!pastEvents.length) {
@@ -2296,8 +2368,6 @@ function renderEvents() {
 
   }
 
-
-  /* UPCOMING */
 
   const filtered =
     selectedFilter === 'all'
@@ -2349,15 +2419,13 @@ function renderEvents() {
 
 
 /* =========================================================
-   CLICKS
+   CLICK EVENTS
    ========================================================= */
 
 document.addEventListener(
   'click',
   function(event) {
 
-
-    /* SHOW MORE */
 
     const showMore =
       event.target.closest(
@@ -2406,8 +2474,6 @@ document.addEventListener(
     }
 
 
-    /* FILTER */
-
     const filterButton =
       event.target.closest(
         '.month-button'
@@ -2437,11 +2503,6 @@ async function loadCalendar() {
   const now =
     new Date();
 
-
-  /*
-     過去1年 ～ 未来2年
-     PAST表示用に過去イベントも取得
-  */
 
   const timeMinDate =
     new Date(now);
@@ -2526,8 +2587,6 @@ async function loadCalendar() {
         );
 
 
-    /* UPCOMING */
-
     upcomingEvents =
       events
         .filter(
@@ -2540,10 +2599,6 @@ async function loadCalendar() {
             eventStart(b)
         );
 
-
-    /* PAST
-       新しいライブから表示
-    */
 
     pastEvents =
       events
