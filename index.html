@@ -2,78 +2,42 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
+  <title>Akihiro Kokufukata | Live Schedule</title>
 
-  <title>
-    Akihiro Kokufukata | Live Schedule
-  </title>
-
-
-  <!-- ==========================================
-       FONTS
-       Bodoni Moda     : Main editorial typography
-       Space Grotesk   : Dates / labels / buttons
-       Noto Sans JP    : Japanese / event information
-       ========================================== -->
-
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
   <link
-    href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500;6..96,600&family=Noto+Sans+JP:wght@400;500;600&family=Space+Grotesk:wght@400;500;600&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Noto+Serif+JP:wght@400;500;600&family=Space+Grotesk:wght@400;500;600&display=swap"
     rel="stylesheet"
   >
 
-
   <style>
 
-    /* ==========================================
-       COLOR SYSTEM
-       ========================================== */
+    /* =========================================
+       DESIGN SYSTEM
+       ========================================= */
 
     :root {
+      --paper: #f3eee5;
+      --paper-card: #f7f2e9;
+      --ink: #181313;
+      --muted: #756b66;
 
-      --background: #100e0e;
+      --crimson: #8b1726;
+      --crimson-soft: #a73743;
+      --blush: #d8aaa5;
 
-      --card: #181414;
+      --line: #cfc2b6;
 
-      --card-hover: #1d1818;
-
-      --text: #eee9df;
-
-      --muted: #928a83;
-
-      --muted-dark: #6f6864;
-
-      --accent: #8a2434;
-
-      --accent-light: #b44a59;
-
-      --border: #332729;
-
-      --serif:
-        "Bodoni Moda",
-        Georgia,
-        serif;
-
-      --sans:
-        "Space Grotesk",
-        Arial,
-        sans-serif;
-
-      --jp:
-        "Noto Sans JP",
-        sans-serif;
+      --serif: "Cormorant Garamond", Georgia, serif;
+      --jp: "Noto Serif JP", serif;
+      --sans: "Space Grotesk", Arial, sans-serif;
     }
 
-
-    /* ==========================================
-       GLOBAL
-       ========================================== */
 
     * {
       box-sizing: border-box;
@@ -86,913 +50,1004 @@
 
 
     body {
-
       margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+    }
 
-      background:
-        var(--background);
 
-      color:
-        var(--text);
-
-      font-family:
-        var(--jp);
-
-      -webkit-font-smoothing:
-        antialiased;
+    button,
+    select,
+    a {
+      -webkit-tap-highlight-color: transparent;
     }
 
 
     main {
-
+      position: relative;
       width: 100%;
-
-      max-width: 760px;
-
-      margin:
-        0 auto;
-
-      padding:
-        48px 20px 90px;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 58px 30px 90px;
+      overflow: hidden;
     }
 
 
 
-    /* ==========================================
+    /* =========================================
+       DECORATION
+       ========================================= */
+
+    .top-decoration {
+      position: absolute;
+      top: 0;
+      right: 12px;
+      width: 300px;
+      height: 250px;
+      pointer-events: none;
+      opacity: .95;
+    }
+
+
+    .deco-block {
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 116px;
+      height: 160px;
+      background: var(--crimson);
+    }
+
+
+    .deco-circle {
+      position: absolute;
+      right: 82px;
+      top: 76px;
+      width: 92px;
+      height: 92px;
+      border-radius: 50%;
+      background: rgba(216, 170, 165, .62);
+    }
+
+
+    .deco-square {
+      position: absolute;
+      right: 150px;
+      top: 105px;
+      width: 88px;
+      height: 72px;
+      background: rgba(216, 170, 165, .38);
+    }
+
+
+
+    /* =========================================
+       ABSTRACT TRUMPET MARK
+       ========================================= */
+
+    .trumpet-mark {
+      position: absolute;
+      right: 25px;
+      top: 102px;
+      width: 210px;
+      height: 100px;
+    }
+
+
+    .trumpet-line {
+      position: absolute;
+      left: 0;
+      top: 48px;
+      width: 118px;
+      height: 2px;
+      background: var(--crimson);
+    }
+
+
+    .trumpet-valves {
+      position: absolute;
+      left: 105px;
+      top: 29px;
+      display: flex;
+      gap: 5px;
+    }
+
+
+    .trumpet-valves span {
+      position: relative;
+      width: 8px;
+      height: 42px;
+      background: var(--crimson);
+    }
+
+
+    .trumpet-valves span::before {
+      content: "";
+      position: absolute;
+      top: -9px;
+      left: -1px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--crimson);
+    }
+
+
+    .trumpet-bell {
+      position: absolute;
+      right: 0;
+      top: 17px;
+      width: 76px;
+      height: 64px;
+      border-top: 3px solid var(--crimson);
+      border-bottom: 3px solid var(--crimson);
+      border-right: 18px solid var(--crimson);
+      border-radius: 0 80% 80% 0;
+      transform: skewX(-18deg);
+    }
+
+
+
+    /* =========================================
        HEADER
-       ========================================== */
+       ========================================= */
 
     header {
-
-      padding:
-        18px 0 58px;
+      position: relative;
+      z-index: 2;
+      padding: 25px 10px 70px;
     }
 
 
     .artist-name {
-
       margin: 0;
+      max-width: 640px;
 
-      max-width: 680px;
-
-      color:
-        var(--text);
-
-      font-family:
-        var(--serif);
-
-      font-size:
-        clamp(
-          48px,
-          11vw,
-          82px
-        );
-
-      font-weight:
-        500;
-
-      line-height:
-        0.93;
-
-      letter-spacing:
-        -3px;
+      font-family: var(--serif);
+      font-size: clamp(58px, 8.5vw, 100px);
+      font-weight: 600;
+      line-height: .82;
+      letter-spacing: -3px;
     }
 
 
     .artist-name span {
-
       display: block;
     }
 
 
     .artist-role {
+      margin-top: 27px;
 
-      margin-top:
-        24px;
+      color: var(--crimson);
 
-      color:
-        var(--accent-light);
+      font-family: var(--sans);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 5px;
 
-      font-family:
-        var(--sans);
-
-      font-size:
-        11px;
-
-      font-weight:
-        600;
-
-      letter-spacing:
-        2.7px;
-
-      text-transform:
-        uppercase;
+      text-transform: uppercase;
     }
 
 
 
-    /* ==========================================
-       LIVE SCHEDULE HEADING
-       ========================================== */
+    /* =========================================
+       SCHEDULE HEADER
+       ========================================= */
 
-    .schedule-header {
+    .schedule-heading {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 30px;
 
-      margin-bottom:
-        28px;
+      margin-bottom: 27px;
     }
 
 
     .schedule-title {
+      margin: 0;
 
-      margin:
-        0 0 20px;
-
-      font-family:
-        var(--serif);
-
-      font-size:
-        clamp(
-          32px,
-          7vw,
-          46px
-        );
-
-      font-weight:
-        500;
-
-      line-height:
-        1;
-
-      letter-spacing:
-        -1.2px;
-    }
-
-
-    .schedule-rule {
-
-      width:
-        100%;
-
-      height:
-        1px;
-
-      background:
-        var(--accent);
+      font-family: var(--serif);
+      font-size: clamp(43px, 6vw, 65px);
+      font-weight: 600;
+      line-height: .95;
+      letter-spacing: -1.5px;
     }
 
 
 
-    /* ==========================================
-       EVENT CARD
-       ========================================== */
+    /* =========================================
+       MONTH FILTER
+       ========================================= */
+
+    .month-filter {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--crimson);
+    }
+
+
+    .month-button {
+      position: relative;
+
+      padding: 5px 2px;
+
+      border: 0;
+      background: transparent;
+
+      color: var(--ink);
+
+      font-family: var(--sans);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 1.5px;
+
+      cursor: pointer;
+    }
+
+
+    .month-button.active {
+      color: var(--crimson);
+    }
+
+
+    .month-button.active::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -9px;
+      height: 3px;
+      background: var(--crimson);
+    }
+
+
+    .month-select {
+      display: none;
+
+      padding: 8px 28px 8px 11px;
+
+      border: 1px solid var(--crimson);
+      border-radius: 0;
+
+      background: transparent;
+      color: var(--crimson);
+
+      font-family: var(--sans);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 1.2px;
+
+      text-transform: uppercase;
+    }
+
+
+
+    /* =========================================
+       EVENT
+       ========================================= */
 
     .event {
+      position: relative;
 
-      position:
-        relative;
+      display: grid;
+      grid-template-columns: 125px minmax(0, 1fr);
 
-      margin-bottom:
-        20px;
+      margin-bottom: 16px;
 
-      padding:
-        25px 24px 24px;
+      background: rgba(247, 242, 233, .66);
 
-      background:
-        var(--card);
+      border: 1px solid var(--line);
 
-      border:
-        1px solid var(--border);
-
-      border-radius:
-        6px;
-
-      transition:
-        background 0.2s ease,
-        border-color 0.2s ease;
+      overflow: hidden;
     }
 
 
-    @media (hover: hover) {
-
-      .event:hover {
-
-        background:
-          var(--card-hover);
-
-        border-color:
-          #493538;
-      }
+    .event.leader {
+      border-color: var(--crimson);
     }
 
 
 
-    /* ==========================================
-       DATE + TIME
+    /* =========================================
+       EVENT STATUS
+       ========================================= */
 
-       OCT 08
-       THU
+    .status {
+      position: absolute;
+      top: 0;
+      left: 0;
 
-       7:00 PM
-       -----------------
-       ========================================== */
+      min-width: 125px;
 
-    .event-meta {
+      padding: 10px 16px;
 
-      margin-bottom:
-        22px;
+      background: var(--crimson);
+      color: var(--paper);
+
+      font-family: var(--sans);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 2.3px;
+
+      text-align: center;
     }
 
 
-    .event-date {
 
-      color:
-        var(--text);
+    /* =========================================
+       DATE
+       ========================================= */
 
-      font-family:
-        var(--serif);
+    .event-date-column {
+      padding: 28px 22px 24px;
 
-      font-size:
-        27px;
+      border-right: 1px solid var(--line);
+    }
 
-      font-weight:
-        500;
 
-      line-height:
-        1;
+    .event.has-status .event-date-column {
+      padding-top: 63px;
+    }
+
+
+    .event-month {
+      font-family: var(--serif);
+      font-size: 19px;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+
+
+    .event-number {
+      margin-top: -3px;
+
+      color: var(--crimson);
+
+      font-family: var(--serif);
+      font-size: 55px;
+      font-weight: 600;
+      line-height: .92;
     }
 
 
     .event-day {
+      margin-top: 4px;
 
-      margin-top:
-        7px;
+      color: var(--crimson);
 
-      color:
-        var(--accent-light);
+      font-family: var(--serif);
+      font-size: 17px;
+      font-weight: 600;
+      letter-spacing: 2px;
+    }
 
-      font-family:
-        var(--sans);
 
-      font-size:
-        10px;
+    .date-rule {
+      width: 100%;
+      height: 1px;
 
-      font-weight:
-        600;
+      margin: 15px 0;
 
-      letter-spacing:
-        2.2px;
+      background: var(--line);
     }
 
 
     .event-time {
-
-      margin-top:
-        19px;
-
-      color:
-        var(--text);
-
-      font-family:
-        var(--sans);
-
-      font-size:
-        14px;
-
-      font-weight:
-        500;
-
-      letter-spacing:
-        0.5px;
-    }
-
-
-    .event-rule {
-
-      width:
-        100%;
-
-      height:
-        1px;
-
-      margin-top:
-        17px;
-
-      background:
-        var(--border);
+      font-family: var(--serif);
+      font-size: 17px;
+      font-weight: 500;
     }
 
 
 
-    /* ==========================================
-       EVENT TITLE
-       ========================================== */
+    /* =========================================
+       EVENT BODY
+       ========================================= */
+
+    .event-body {
+      position: relative;
+      padding: 27px 28px 25px;
+    }
+
+
+    .leader-label,
+    .next-label {
+      margin-bottom: 7px;
+
+      color: var(--crimson);
+
+      font-family: var(--sans);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 3px;
+
+      text-transform: uppercase;
+    }
+
 
     .event-title {
+      margin: 0 0 20px;
 
-      margin:
-        0 0 27px;
+      font-family: var(--jp);
+      font-size: clamp(20px, 3vw, 27px);
+      font-weight: 600;
+      line-height: 1.4;
+    }
 
-      color:
-        var(--text);
 
-      font-family:
-        var(--jp);
-
-      font-size:
-        clamp(
-          21px,
-          5vw,
-          26px
-        );
-
-      font-weight:
-        600;
-
-      line-height:
-        1.4;
-
-      letter-spacing:
-        -0.4px;
+    .event-title.english {
+      font-family: var(--serif);
+      font-size: clamp(26px, 3.3vw, 34px);
+      line-height: 1;
     }
 
 
 
-    /* ==========================================
-       LABEL
-       ========================================== */
+    /* =========================================
+       LABELS
+       ========================================= */
 
     .label {
+      margin-bottom: 7px;
 
-      margin-bottom:
-        8px;
+      color: var(--crimson);
 
-      color:
-        var(--accent-light);
+      font-family: var(--sans);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 3px;
 
-      font-family:
-        var(--sans);
-
-      font-size:
-        9px;
-
-      font-weight:
-        600;
-
-      letter-spacing:
-        2.2px;
-
-      text-transform:
-        uppercase;
+      text-transform: uppercase;
     }
 
 
 
-    /* ==========================================
+    /* =========================================
        PLAYERS
-       ========================================== */
+       ========================================= */
 
     .players {
+      margin-bottom: 20px;
 
-      margin-bottom:
-        27px;
+      color: #342c29;
 
-      color:
-        #d8d2ca;
-
-      font-family:
-        var(--jp);
-
-      font-size:
-        14px;
-
-      font-weight:
-        400;
-
-      line-height:
-        1.85;
+      font-family: var(--jp);
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.8;
     }
 
 
     .hidden-players {
-
-      display:
-        none;
+      display: none;
     }
 
 
     .hidden-players.open {
-
-      display:
-        block;
+      display: block;
     }
 
 
     .show-more {
+      margin-top: 9px;
+      padding: 0;
 
-      display:
-        inline-block;
+      border: 0;
+      background: transparent;
 
-      margin-top:
-        12px;
+      color: var(--crimson);
 
-      padding:
-        0;
+      font-family: var(--sans);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 1.4px;
 
-      border:
-        none;
-
-      background:
-        transparent;
-
-      color:
-        var(--accent-light);
-
-      font-family:
-        var(--sans);
-
-      font-size:
-        10px;
-
-      font-weight:
-        600;
-
-      letter-spacing:
-        1.4px;
-
-      cursor:
-        pointer;
-    }
-
-
-    .show-more:hover {
-
-      color:
-        var(--text);
+      cursor: pointer;
     }
 
 
 
-    /* ==========================================
+    /* =========================================
        VENUE
-       ========================================== */
+       ========================================= */
 
     .venue {
-
-      color:
-        var(--text);
-
-      font-family:
-        var(--jp);
-
-      font-size:
-        16px;
-
-      font-weight:
-        500;
-
-      line-height:
-        1.5;
+      font-family: var(--jp);
+      font-size: 15px;
+      font-weight: 500;
+      line-height: 1.5;
     }
 
 
     .place {
+      margin-top: 2px;
 
-      margin-top:
-        7px;
+      color: var(--muted);
 
-      color:
-        var(--muted);
-
-      font-family:
-        var(--jp);
-
-      font-size:
-        13px;
-
-      line-height:
-        1.5;
+      font-family: var(--jp);
+      font-size: 13px;
     }
 
 
 
-    /* ==========================================
-       MAP BUTTON
-       ========================================== */
+    /* =========================================
+       ACTIONS
+       ========================================= */
 
-    .map {
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
 
-      display:
-        inline-flex;
+      margin-top: 18px;
+    }
 
-      align-items:
-        center;
 
-      justify-content:
-        center;
+    .action {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
 
-      margin-top:
-        18px;
+      min-width: 108px;
 
-      min-width:
-        92px;
+      padding: 10px 16px;
 
-      padding:
-        10px 16px;
+      border: 1px solid var(--crimson);
 
-      border:
-        1px solid var(--accent);
+      color: var(--crimson);
+      background: transparent;
 
-      border-radius:
-        3px;
+      font-family: var(--sans);
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 1.7px;
 
-      background:
-        transparent;
-
-      color:
-        var(--accent-light);
-
-      font-family:
-        var(--sans);
-
-      font-size:
-        10px;
-
-      font-weight:
-        600;
-
-      letter-spacing:
-        1.5px;
-
-      text-decoration:
-        none;
+      text-decoration: none;
 
       transition:
-        background 0.18s ease,
-        color 0.18s ease,
-        border-color 0.18s ease;
+        background .18s ease,
+        color .18s ease;
     }
 
 
-    .map:hover {
-
-      background:
-        var(--accent);
-
-      border-color:
-        var(--accent);
-
-      color:
-        var(--text);
+    .action:hover {
+      background: var(--crimson);
+      color: var(--paper);
     }
 
 
-
-    /* ==========================================
-       PAST SHOWS
-       Functionality retained for later
-       ========================================== */
-
-    .past-button {
-
-      width:
-        100%;
-
-      margin-top:
-        35px;
-
-      padding:
-        16px;
-
-      border:
-        1px solid var(--border);
-
-      border-radius:
-        3px;
-
-      background:
-        transparent;
-
-      color:
-        var(--muted);
-
-      font-family:
-        var(--sans);
-
-      font-size:
-        10px;
-
-      font-weight:
-        600;
-
-      letter-spacing:
-        1.6px;
-
-      cursor:
-        pointer;
-    }
-
-
-    #past {
-
-      display:
-        none;
-
-      margin-top:
-        35px;
-    }
-
-
-    #past.open {
-
-      display:
-        block;
-    }
-
-
-    #past .event {
-
-      opacity:
-        0.55;
+    .action.email {
+      min-width: 130px;
     }
 
 
 
-    /* ==========================================
-       STATUS
-       ========================================== */
+    /* =========================================
+       LEADER DECORATION
+       ========================================= */
 
-    .loading {
+    .leader-shape {
+      position: absolute;
+      top: 0;
+      right: 0;
 
-      padding:
-        35px 0;
+      width: 115px;
+      height: 95px;
 
-      color:
-        var(--muted);
+      overflow: hidden;
 
-      font-family:
-        var(--sans);
-
-      font-size:
-        13px;
+      pointer-events: none;
+      opacity: .9;
     }
 
 
-    .error {
+    .leader-shape::before {
+      content: "";
 
-      padding:
-        35px 0;
+      position: absolute;
+      top: 0;
+      right: 0;
 
-      color:
-        var(--accent-light);
+      width: 58px;
+      height: 58px;
 
-      font-family:
-        var(--sans);
+      background: rgba(139, 23, 38, .82);
+    }
 
-      font-size:
-        13px;
 
-      line-height:
-        1.7;
+    .leader-shape::after {
+      content: "";
+
+      position: absolute;
+      right: 25px;
+      top: 25px;
+
+      width: 76px;
+      height: 76px;
+
+      border-radius: 50%;
+
+      background: rgba(216, 170, 165, .45);
     }
 
 
 
-    /* ==========================================
+    /* =========================================
+       EMPTY / ERROR
+       ========================================= */
+
+    .message {
+      padding: 40px 5px;
+
+      color: var(--muted);
+
+      font-family: var(--sans);
+      font-size: 13px;
+    }
+
+
+
+    /* =========================================
        FOOTER
-       Signature can be added here later.
-       ========================================== */
+       ========================================= */
 
     footer {
+      position: relative;
 
-      min-height:
-        35px;
+      margin-top: 75px;
+      padding: 32px 4px 15px;
 
-      margin-top:
-        65px;
+      border-top: 1px solid var(--line);
+    }
 
-      border-top:
-        1px solid var(--border);
+
+    .footer-name {
+      font-family: var(--sans);
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 4px;
+    }
+
+
+    .footer-role {
+      margin-top: 8px;
+
+      color: var(--muted);
+
+      font-family: var(--sans);
+      font-size: 8px;
+      letter-spacing: 3px;
     }
 
 
 
-    /* ==========================================
+    /* =========================================
        MOBILE
-       ========================================== */
+       ========================================= */
 
-    @media (
-      max-width: 520px
-    ) {
+    @media (max-width: 650px) {
 
       main {
+        padding: 34px 15px 65px;
+      }
 
-        padding:
-          34px 16px 70px;
+
+      .top-decoration {
+        right: -45px;
+        width: 190px;
+        height: 190px;
+      }
+
+
+      .deco-block {
+        width: 65px;
+        height: 110px;
+      }
+
+
+      .deco-circle {
+        right: 50px;
+        top: 62px;
+        width: 63px;
+        height: 63px;
+      }
+
+
+      .deco-square {
+        display: none;
+      }
+
+
+      .trumpet-mark {
+        right: -6px;
+        top: 92px;
+        transform: scale(.62);
+        transform-origin: right top;
       }
 
 
       header {
-
-        padding:
-          15px 4px 52px;
+        padding: 30px 6px 62px;
       }
 
 
       .artist-name {
+        max-width: 350px;
 
-        font-size:
-          clamp(
-            47px,
-            14.5vw,
-            68px
-          );
-
-        letter-spacing:
-          -2.5px;
+        font-size: clamp(52px, 15vw, 70px);
+        line-height: .86;
+        letter-spacing: -2px;
       }
 
 
       .artist-role {
+        margin-top: 21px;
 
-        margin-top:
-          21px;
+        font-size: 11px;
+        letter-spacing: 3.3px;
+      }
 
-        font-size:
-          9px;
 
-        letter-spacing:
-          2.3px;
+      .schedule-heading {
+        align-items: center;
+        gap: 12px;
       }
 
 
       .schedule-title {
+        font-size: 40px;
+      }
 
-        font-size:
-          36px;
+
+      .month-filter {
+        display: none;
+      }
+
+
+      .month-select {
+        display: block;
       }
 
 
       .event {
-
-        padding:
-          23px 20px 22px;
-
-        margin-bottom:
-          16px;
+        grid-template-columns: 91px minmax(0, 1fr);
       }
 
 
-      .event-date {
+      .status {
+        min-width: 91px;
+        padding: 9px 7px;
 
-        font-size:
-          25px;
+        font-size: 9px;
+        letter-spacing: 1.7px;
+      }
+
+
+      .event-date-column {
+        padding: 22px 13px;
+      }
+
+
+      .event.has-status .event-date-column {
+        padding-top: 57px;
+      }
+
+
+      .event-month {
+        font-size: 15px;
+      }
+
+
+      .event-number {
+        font-size: 44px;
+      }
+
+
+      .event-day {
+        font-size: 14px;
+      }
+
+
+      .event-time {
+        font-size: 14px;
+      }
+
+
+      .event-body {
+        padding: 22px 14px 20px;
+      }
+
+
+      .leader-label,
+      .next-label,
+      .label {
+        font-size: 9px;
+        letter-spacing: 2.3px;
       }
 
 
       .event-title {
+        font-size: 18px;
+        line-height: 1.45;
+      }
 
-        font-size:
-          21px;
+
+      .event-title.english {
+        font-size: 23px;
+      }
+
+
+      .players {
+        font-size: 13px;
+        line-height: 1.7;
+      }
+
+
+      .venue {
+        font-size: 14px;
+      }
+
+
+      .actions {
+        gap: 7px;
+      }
+
+
+      .action {
+        flex: 1 1 90px;
+
+        min-width: 0;
+
+        padding: 10px 8px;
+
+        font-size: 8px;
+        letter-spacing: 1.2px;
+      }
+
+
+      .action.email {
+        flex-basis: 100%;
+      }
+
+
+      .leader-shape {
+        width: 82px;
+        height: 72px;
+      }
+
+    }
+
+
+    @media (max-width: 380px) {
+
+      .schedule-title {
+        font-size: 34px;
+      }
+
+
+      .month-select {
+        max-width: 118px;
+      }
+
+
+      .event {
+        grid-template-columns: 82px minmax(0, 1fr);
+      }
+
+
+      .event-date-column {
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+
+
+      .status {
+        min-width: 82px;
       }
 
     }
 
   </style>
-
 </head>
-
 
 
 <body>
 
   <main>
 
+    <!-- Decorative header -->
+    <div class="top-decoration" aria-hidden="true">
+      <div class="deco-block"></div>
+      <div class="deco-circle"></div>
+      <div class="deco-square"></div>
 
-    <!-- ==========================================
-         HEADER
-         ========================================== -->
+      <div class="trumpet-mark">
+        <div class="trumpet-line"></div>
 
+        <div class="trumpet-valves">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+
+        <div class="trumpet-bell"></div>
+      </div>
+    </div>
+
+
+    <!-- Header -->
     <header>
 
       <h1 class="artist-name">
-
-        <span>
-          Akihiro
-        </span>
-
-        <span>
-          Kokufukata
-        </span>
-
+        <span>Akihiro</span>
+        <span>Kokufukata</span>
       </h1>
 
-
       <div class="artist-role">
-
         TRUMPETER / COMPOSER
-
       </div>
 
     </header>
 
 
-
-    <!-- ==========================================
-         LIVE SCHEDULE
-         ========================================== -->
-
+    <!-- Schedule -->
     <section>
 
-
-      <div class="schedule-header">
+      <div class="schedule-heading">
 
         <h2 class="schedule-title">
-
           Live Schedule
-
         </h2>
 
+        <div
+          class="month-filter"
+          id="monthFilter"
+        ></div>
 
-        <div class="schedule-rule"></div>
+        <select
+          class="month-select"
+          id="monthSelect"
+          aria-label="Choose month"
+        ></select>
 
       </div>
 
 
-
-      <div id="upcoming">
-
-        <div class="loading">
-
+      <div id="events">
+        <div class="message">
           Loading shows...
-
         </div>
-
       </div>
-
-
-
-      <!--
-        Past Shows functionality is retained.
-        We can redesign this later.
-      -->
-
-      <button
-        class="past-button"
-        id="pastButton"
-        type="button"
-      >
-
-        VIEW PAST SHOWS ↓
-
-      </button>
-
-
-
-      <div id="past">
-
-
-        <div class="schedule-header">
-
-          <h2 class="schedule-title">
-
-            Past Shows
-
-          </h2>
-
-          <div class="schedule-rule"></div>
-
-        </div>
-
-
-        <div id="pastEvents"></div>
-
-
-      </div>
-
 
     </section>
 
 
+    <footer>
 
-    <!--
-      Future:
-      Your handwritten signature can go here.
-    -->
+      <div class="footer-name">
+        AKIHIRO KOKUFUKATA
+      </div>
 
-    <footer></footer>
+      <div class="footer-role">
+        TRUMPETER / COMPOSER
+      </div>
 
+    </footer>
 
   </main>
 
 
-
   <script>
 
-    /* ==========================================
-       GOOGLE CALENDAR
-
-       CHANGE ONLY THESE TWO VALUES
-       ========================================== */
+    /* =========================================
+       ONLY EDIT THESE THREE VALUES
+       ========================================= */
 
     const API_KEY =
       'AIzaSyCB5WplBrKEb70d5WHZTrg3G46fTdl_A0Q';
@@ -1000,814 +1055,961 @@
     const CALENDAR_ID =
       'akihirokokufukatamusic@gmail.com';
 
-
-
-    /* ==========================================
-       ELEMENTS
-       ========================================== */
-
-    const upcomingElement =
-      document.getElementById(
-        'upcoming'
-      );
-
-
-    const pastElement =
-      document.getElementById(
-        'pastEvents'
-      );
+    const EMAIL_ADDRESS =
+      'akihirokokufukatamusic@gmail.com';
 
 
 
-    /* ==========================================
-       ESCAPE HTML
-       ========================================== */
+    /* =========================================
+       GLOBAL DATA
+       ========================================= */
 
-    function escapeHTML(
-      value = ''
-    ) {
+    let upcomingEvents = [];
+
+    let selectedMonth = 'all';
+
+
+
+    /* =========================================
+       HELPERS
+       ========================================= */
+
+    function escapeHTML(value = '') {
 
       return String(value)
 
-        .replaceAll(
-          '&',
-          '&amp;'
-        )
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#039;');
 
-        .replaceAll(
-          '<',
-          '&lt;'
-        )
-
-        .replaceAll(
-          '>',
-          '&gt;'
-        )
-
-        .replaceAll(
-          '"',
-          '&quot;'
-        )
-
-        .replaceAll(
-          "'",
-          '&#039;'
-        );
     }
 
 
 
-    /* ==========================================
-       DESCRIPTION PARSER
-
-       Example:
-
-       Players:
-       Player 1
-       Player 2
-
-       Place: Shinjuku Station
-       ========================================== */
-
-    function parseDescription(
-      description = ''
-    ) {
+    function parseDescription(description = '') {
 
       const lines =
         description
-          .replace(
-            /\r/g,
-            ''
-          )
-          .split(
-            '\n'
-          );
+          .replace(/\r/g, '')
+          .split('\n');
 
 
       const players = [];
 
       let place = '';
+      let website = '';
+      let leader = false;
 
-      let readingPlayers =
-        false;
+      let readingPlayers = false;
 
 
-
-      for (
-        const rawLine
-        of lines
-      ) {
+      for (const rawLine of lines) {
 
         const line =
           rawLine.trim();
 
 
+        if (/^players\s*:/i.test(line)) {
 
-        if (
-          /^players\s*:/i
-            .test(line)
-        ) {
+          readingPlayers = true;
 
-          readingPlayers =
-            true;
-
-
-          const sameLinePlayer =
+          const sameLine =
             line
-              .replace(
-                /^players\s*:/i,
-                ''
-              )
+              .replace(/^players\s*:/i, '')
               .trim();
 
-
-          if (
-            sameLinePlayer
-          ) {
-
-            players.push(
-              sameLinePlayer
-            );
+          if (sameLine) {
+            players.push(sameLine);
           }
-
 
           continue;
         }
 
 
+        if (/^place\s*:/i.test(line)) {
 
-        if (
-          /^place\s*:/i
-            .test(line)
-        ) {
-
-          readingPlayers =
-            false;
-
+          readingPlayers = false;
 
           place =
             line
-              .replace(
-                /^place\s*:/i,
-                ''
-              )
+              .replace(/^place\s*:/i, '')
               .trim();
-
 
           continue;
         }
 
 
+        if (/^website\s*:/i.test(line)) {
 
-        if (
-          readingPlayers &&
-          line
-        ) {
+          readingPlayers = false;
 
-          players.push(
+          website =
             line
-          );
+              .replace(/^website\s*:/i, '')
+              .trim();
+
+          continue;
+        }
+
+
+        if (/^leader\s*:/i.test(line)) {
+
+          readingPlayers = false;
+
+          const value =
+            line
+              .replace(/^leader\s*:/i, '')
+              .trim()
+              .toLowerCase();
+
+          leader =
+            ['yes', 'true', '1', 'leader']
+              .includes(value);
+
+          continue;
+        }
+
+
+        if (readingPlayers && line) {
+          players.push(line);
         }
 
       }
 
 
-
       return {
-
         players,
-        place
-
+        place,
+        website,
+        leader
       };
+
     }
 
 
 
-    /* ==========================================
-       VENUE
-       ========================================== */
+    function getVenue(location = '') {
 
-    function getVenue(
-      location = ''
-    ) {
-
-      if (
-        !location
-      ) {
-
+      if (!location) {
         return '';
       }
 
-
       return location
-        .split(
-          /[,、]/
-        )[0]
+        .split(/[,、]/)[0]
         .trim();
+
     }
 
 
 
-    /* ==========================================
-       EVENT DATE PARTS
-       ========================================== */
+    function eventStart(event) {
 
-    function getDateParts(
-      event
-    ) {
-
-      const raw =
-
+      return new Date(
         event.start.dateTime ||
+        event.start.date
+      );
 
-        event.start.date;
+    }
 
+
+
+    function eventEnd(event) {
+
+      return new Date(
+        event.end.dateTime ||
+        event.end.date
+      );
+
+    }
+
+
+
+    function localDateKey(date) {
+
+      return new Intl.DateTimeFormat(
+        'en-CA',
+        {
+          timeZone: 'Asia/Tokyo',
+          year: 'numeric',
+          month: '2-digit',
+          day: '2-digit'
+        }
+      ).format(date);
+
+    }
+
+
+
+    function isToday(event) {
+
+      const now =
+        new Date();
+
+      return (
+        localDateKey(eventStart(event)) ===
+        localDateKey(now)
+      );
+
+    }
+
+
+
+    function getDateParts(event) {
 
       const date =
-        new Date(raw);
-
+        eventStart(event);
 
 
       const month =
-
         new Intl.DateTimeFormat(
-
           'en-US',
-
           {
-
-            timeZone:
-              'Asia/Tokyo',
-
-            month:
-              'short'
-
+            timeZone: 'Asia/Tokyo',
+            month: 'short'
           }
-
         )
         .format(date)
         .toUpperCase();
 
 
-
-      const dayNumber =
-
+      const number =
         new Intl.DateTimeFormat(
-
           'en-US',
-
           {
-
-            timeZone:
-              'Asia/Tokyo',
-
-            day:
-              '2-digit'
-
+            timeZone: 'Asia/Tokyo',
+            day: '2-digit'
           }
-
         )
         .format(date);
 
 
-
       const weekday =
-
         new Intl.DateTimeFormat(
-
           'en-US',
-
           {
-
-            timeZone:
-              'Asia/Tokyo',
-
-            weekday:
-              'short'
-
+            timeZone: 'Asia/Tokyo',
+            weekday: 'short'
           }
-
         )
         .format(date)
         .toUpperCase();
 
 
-
       return {
-
         month,
-        dayNumber,
+        number,
         weekday
-
       };
+
     }
 
 
 
-    /* ==========================================
-       TIME
-       ========================================== */
+    function formatTime(event) {
 
-    function formatTime(
-      event
-    ) {
-
-      if (
-        !event.start.dateTime
-      ) {
-
+      if (!event.start.dateTime) {
         return 'ALL DAY';
       }
 
 
-
-      const date =
-        new Date(
-          event.start.dateTime
-        );
-
-
-
       return new Intl.DateTimeFormat(
-
         'en-US',
-
         {
-
-          timeZone:
-            'Asia/Tokyo',
-
-          hour:
-            'numeric',
-
-          minute:
-            '2-digit'
-
+          timeZone: 'Asia/Tokyo',
+          hour: 'numeric',
+          minute: '2-digit'
         }
-
       )
-      .format(date);
+      .format(
+        eventStart(event)
+      );
+
     }
 
 
 
-    /* ==========================================
+    function getMonthKey(event) {
+
+      const date =
+        eventStart(event);
+
+
+      const year =
+        new Intl.DateTimeFormat(
+          'en-US',
+          {
+            timeZone: 'Asia/Tokyo',
+            year: 'numeric'
+          }
+        )
+        .format(date);
+
+
+      const month =
+        new Intl.DateTimeFormat(
+          'en-US',
+          {
+            timeZone: 'Asia/Tokyo',
+            month: '2-digit'
+          }
+        )
+        .format(date);
+
+
+      return `${year}-${month}`;
+
+    }
+
+
+
+    function getMonthLabel(event) {
+
+      return new Intl.DateTimeFormat(
+        'en-US',
+        {
+          timeZone: 'Asia/Tokyo',
+          month: 'short',
+          year: 'numeric'
+        }
+      )
+      .format(
+        eventStart(event)
+      )
+      .toUpperCase();
+
+    }
+
+
+
+    function containsJapanese(text = '') {
+
+      return /[\u3040-\u30ff\u3400-\u9fff]/.test(text);
+
+    }
+
+
+
+    /* =========================================
        PLAYERS
-       ========================================== */
+       ========================================= */
 
-    function createPlayersHTML(
-      players
-    ) {
+    function createPlayersHTML(players) {
 
-      if (
-        !players.length
-      ) {
-
+      if (!players.length) {
         return '';
       }
 
 
-
-      const visiblePlayers =
-        players.slice(
-          0,
-          6
-        );
+      const visible =
+        players.slice(0, 6);
 
 
-      const hiddenPlayers =
-        players.slice(
-          6
-        );
+      const hidden =
+        players.slice(6);
 
 
+      let html = `
 
-      const visibleHTML =
+        <div class="label">
+          PLAYERS
+        </div>
 
-        visiblePlayers
+        <div class="players">
 
-          .map(
-            player =>
-              escapeHTML(
-                player
-              )
-          )
+          ${visible
+            .map(player => escapeHTML(player))
+            .join('<br>')}
 
-          .join(
-            '<br>'
-          );
+      `;
 
 
+      if (hidden.length) {
 
-      let hiddenHTML =
-        '';
+        html += `
 
+          <div class="hidden-players">
 
-
-      if (
-        hiddenPlayers.length
-      ) {
-
-        const extraPlayersHTML =
-
-          hiddenPlayers
-
-            .map(
-              player =>
-                escapeHTML(
-                  player
-                )
-            )
-
-            .join(
-              '<br>'
-            );
-
-
-
-        hiddenHTML = `
-
-          <div
-            class="hidden-players"
-          >
-
-            ${extraPlayersHTML}
+            ${hidden
+              .map(player => escapeHTML(player))
+              .join('<br>')}
 
           </div>
-
 
           <button
             class="show-more"
             type="button"
           >
-
             SHOW MORE ↓
-
           </button>
 
         `;
+
       }
 
 
-
-      return `
-
-        <div class="label">
-
-          PLAYERS
-
+      html += `
         </div>
-
-
-        <div class="players">
-
-          ${visibleHTML}
-
-          ${hiddenHTML}
-
-        </div>
-
       `;
+
+
+      return html;
+
     }
 
 
 
-    /* ==========================================
+    /* =========================================
        EVENT CARD
-       ========================================== */
+       ========================================= */
 
     function createEventCard(
-      event
+      event,
+      index
     ) {
 
       const info =
-
         parseDescription(
-
-          event.description ||
-          ''
-
+          event.description || ''
         );
-
 
 
       const venue =
-
         getVenue(
-
-          event.location ||
-          ''
-
+          event.location || ''
         );
 
 
+      const date =
+        getDateParts(event);
 
-      const dateParts =
 
-        getDateParts(
-          event
-        );
+      const tonight =
+        isToday(event);
 
+
+      const isNext =
+        index === 0 &&
+        !tonight;
 
 
       const mapURL =
-
         event.location
 
-          ?
+          ? 'https://www.google.com/maps/search/?api=1&query=' +
+            encodeURIComponent(event.location)
 
-          'https://www.google.com/maps/search/?api=1&query=' +
-
-          encodeURIComponent(
-            event.location
-          )
-
-          :
-
-          '';
+          : '';
 
 
-
-      const playersHTML =
-
-        createPlayersHTML(
-
-          info.players
-
-        );
+      const title =
+        event.summary || 'Live';
 
 
+      const titleClass =
+        containsJapanese(title)
+          ? ''
+          : ' english';
 
-      let venueHTML =
-        '';
+
+      const hasStatus =
+        tonight;
 
 
+      let topLabel = '';
 
-      if (
-        venue ||
-        info.place
-      ) {
+
+      if (info.leader) {
+
+        topLabel += `
+          <div class="leader-label">
+            LEADER SHOW
+          </div>
+        `;
+
+      }
+
+
+      if (isNext) {
+
+        topLabel += `
+          <div class="next-label">
+            NEXT SHOW
+          </div>
+        `;
+
+      }
+
+
+      let venueHTML = '';
+
+
+      if (venue || info.place) {
 
         venueHTML = `
 
           <div class="label">
-
             VENUE
-
           </div>
-
-
 
           ${
             venue
-
-              ?
-
+              ? `
+                <div class="venue">
+                  ${escapeHTML(venue)}
+                </div>
               `
-
-              <div class="venue">
-
-                ${escapeHTML(
-                  venue
-                )}
-
-              </div>
-
-              `
-
-              :
-
-              ''
+              : ''
           }
-
-
 
           ${
             info.place
-
-              ?
-
+              ? `
+                <div class="place">
+                  ${escapeHTML(info.place)}
+                </div>
               `
-
-              <div class="place">
-
-                ${escapeHTML(
-                  info.place
-                )}
-
-              </div>
-
-              `
-
-              :
-
-              ''
-          }
-
-
-
-          ${
-            mapURL
-
-              ?
-
-              `
-
-              <a
-                class="map"
-                href="${mapURL}"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-
-                MAP ↗
-
-              </a>
-
-              `
-
-              :
-
-              ''
+              : ''
           }
 
         `;
+
+      }
+
+
+
+      let actionsHTML = '';
+
+
+      const actions = [];
+
+
+      if (
+        info.leader &&
+        EMAIL_ADDRESS &&
+        EMAIL_ADDRESS !== 'YOUR_EMAIL_ADDRESS'
+      ) {
+
+        const subject =
+          encodeURIComponent(
+            `Live inquiry: ${title}`
+          );
+
+
+        actions.push(`
+
+          <a
+            class="action email"
+            href="mailto:${escapeHTML(EMAIL_ADDRESS)}?subject=${subject}"
+          >
+            EMAIL ME ↗
+          </a>
+
+        `);
+
+      }
+
+
+      if (info.website) {
+
+        actions.push(`
+
+          <a
+            class="action"
+            href="${escapeHTML(info.website)}"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            WEBSITE ↗
+          </a>
+
+        `);
+
+      }
+
+
+      if (mapURL) {
+
+        actions.push(`
+
+          <a
+            class="action"
+            href="${mapURL}"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            MAP ↗
+          </a>
+
+        `);
+
+      }
+
+
+      if (actions.length) {
+
+        actionsHTML = `
+          <div class="actions">
+            ${actions.join('')}
+          </div>
+        `;
+
       }
 
 
 
       return `
 
-        <article class="event">
+        <article
+          class="
+            event
+            ${info.leader ? 'leader' : ''}
+            ${hasStatus ? 'has-status' : ''}
+          "
+        >
+
+          ${
+            tonight
+              ? `
+                <div class="status">
+                  TONIGHT
+                </div>
+              `
+              : ''
+          }
 
 
-          <div class="event-meta">
+          <div class="event-date-column">
 
-
-            <div class="event-date">
-
-              ${dateParts.month}
-              ${dateParts.dayNumber}
-
+            <div class="event-month">
+              ${date.month}
             </div>
 
+            <div class="event-number">
+              ${date.number}
+            </div>
 
             <div class="event-day">
-
-              ${dateParts.weekday}
-
+              ${date.weekday}
             </div>
 
+            <div class="date-rule"></div>
 
             <div class="event-time">
-
-              ${formatTime(
-                event
-              )}
-
+              ${formatTime(event)}
             </div>
-
-
-            <div class="event-rule"></div>
-
 
           </div>
 
 
+          <div class="event-body">
 
-          <h3 class="event-title">
+            ${
+              info.leader
+                ? '<div class="leader-shape"></div>'
+                : ''
+            }
 
-            ${escapeHTML(
+            ${topLabel}
 
-              event.summary ||
-              'Live'
+            <h3 class="event-title${titleClass}">
+              ${escapeHTML(title)}
+            </h3>
 
-            )}
+            ${createPlayersHTML(info.players)}
 
-          </h3>
+            ${venueHTML}
 
+            ${actionsHTML}
 
-
-          ${playersHTML}
-
-
-
-          ${venueHTML}
-
+          </div>
 
         </article>
 
       `;
+
     }
 
 
 
-    /* ==========================================
-       SHOW MORE / SHOW LESS
-       ========================================== */
+    /* =========================================
+       MONTH FILTER
+       ========================================= */
+
+    function buildMonthFilters() {
+
+      const monthMap =
+        new Map();
+
+
+      upcomingEvents.forEach(event => {
+
+        const key =
+          getMonthKey(event);
+
+
+        if (!monthMap.has(key)) {
+
+          monthMap.set(
+            key,
+            getMonthLabel(event)
+          );
+
+        }
+
+      });
+
+
+      const months =
+        [...monthMap.entries()];
+
+
+      const filter =
+        document.getElementById(
+          'monthFilter'
+        );
+
+
+      const select =
+        document.getElementById(
+          'monthSelect'
+        );
+
+
+      filter.innerHTML = `
+
+        <button
+          class="month-button active"
+          data-month="all"
+          type="button"
+        >
+          ALL
+        </button>
+
+        ${months.map(
+          ([key, label]) => `
+
+            <button
+              class="month-button"
+              data-month="${key}"
+              type="button"
+            >
+              ${label}
+            </button>
+
+          `
+        ).join('')}
+
+      `;
+
+
+      select.innerHTML = `
+
+        <option value="all">
+          ALL MONTHS
+        </option>
+
+        ${months.map(
+          ([key, label]) => `
+
+            <option value="${key}">
+              ${label}
+            </option>
+
+          `
+        ).join('')}
+
+      `;
+
+    }
+
+
+
+    function setMonth(month) {
+
+      selectedMonth =
+        month;
+
+
+      document
+        .querySelectorAll(
+          '.month-button'
+        )
+        .forEach(button => {
+
+          button.classList.toggle(
+            'active',
+            button.dataset.month === month
+          );
+
+        });
+
+
+      const select =
+        document.getElementById(
+          'monthSelect'
+        );
+
+
+      select.value =
+        month;
+
+
+      renderEvents();
+
+    }
+
+
+
+    function renderEvents() {
+
+      const container =
+        document.getElementById(
+          'events'
+        );
+
+
+      const filtered =
+
+        selectedMonth === 'all'
+
+          ? upcomingEvents
+
+          : upcomingEvents.filter(
+              event =>
+                getMonthKey(event) ===
+                selectedMonth
+            );
+
+
+      if (!filtered.length) {
+
+        container.innerHTML = `
+          <div class="message">
+            No shows scheduled for this month.
+          </div>
+        `;
+
+        return;
+
+      }
+
+
+      /*
+        NEXT SHOW should always refer to the
+        actual next upcoming event, even when
+        a month filter is active.
+      */
+
+      container.innerHTML =
+
+        filtered
+
+          .map(event => {
+
+            const originalIndex =
+              upcomingEvents.indexOf(event);
+
+            return createEventCard(
+              event,
+              originalIndex
+            );
+
+          })
+
+          .join('');
+
+    }
+
+
+
+    /* =========================================
+       SHOW MORE
+       ========================================= */
 
     document.addEventListener(
-
       'click',
-
       function(event) {
 
-
-        const button =
-
+        const showMore =
           event.target.closest(
-
             '.show-more'
-
           );
 
 
+        if (showMore) {
 
-        if (
-          !button
-        ) {
-
-          return;
-        }
+          const hidden =
+            showMore.previousElementSibling;
 
 
-
-        const hiddenPlayers =
-
-          button
-            .previousElementSibling;
-
-
-
-        if (
-
-          !hiddenPlayers ||
-
-          !hiddenPlayers
-            .classList
-            .contains(
+          if (
+            !hidden ||
+            !hidden.classList.contains(
               'hidden-players'
             )
+          ) {
+            return;
+          }
 
-        ) {
+
+          const open =
+            hidden.classList.toggle(
+              'open'
+            );
+
+
+          showMore.textContent =
+            open
+              ? 'SHOW LESS ↑'
+              : 'SHOW MORE ↓';
+
 
           return;
-        }
-
-
-
-        const isOpen =
-
-          hiddenPlayers
-            .classList
-            .contains(
-              'open'
-            );
-
-
-
-        if (
-          isOpen
-        ) {
-
-          hiddenPlayers
-            .classList
-            .remove(
-              'open'
-            );
-
-
-          button.textContent =
-
-            'SHOW MORE ↓';
 
         }
 
 
-        else {
-
-          hiddenPlayers
-            .classList
-            .add(
-              'open'
-            );
+        const monthButton =
+          event.target.closest(
+            '.month-button'
+          );
 
 
-          button.textContent =
+        if (monthButton) {
 
-            'SHOW LESS ↑';
+          setMonth(
+            monthButton.dataset.month
+          );
 
         }
 
       }
-
     );
 
 
 
-    /* ==========================================
-       LOAD GOOGLE CALENDAR
-       ========================================== */
+    document
+      .getElementById(
+        'monthSelect'
+      )
+      .addEventListener(
+        'change',
+        function() {
+
+          setMonth(
+            this.value
+          );
+
+        }
+      );
+
+
+
+    /* =========================================
+       GOOGLE CALENDAR
+       ========================================= */
 
     async function loadCalendar() {
 
@@ -1815,35 +2017,13 @@
         new Date();
 
 
-
-      const timeMin =
-
-        new Date(
-
-          now.getFullYear() - 1,
-
-          now.getMonth(),
-
-          now.getDate()
-
-        )
-        .toISOString();
-
-
-
       const timeMax =
-
         new Date(
-
           now.getFullYear() + 2,
-
           now.getMonth(),
-
           now.getDate()
-
         )
         .toISOString();
-
 
 
       const url =
@@ -1869,7 +2049,7 @@
         '&timeMin=' +
 
         encodeURIComponent(
-          timeMin
+          now.toISOString()
         ) +
 
         '&timeMax=' +
@@ -1881,293 +2061,77 @@
         '&maxResults=250';
 
 
-
       try {
 
-
         const response =
-
-          await fetch(
-            url
-          );
+          await fetch(url);
 
 
-
-        if (
-          !response.ok
-        ) {
+        if (!response.ok) {
 
           const errorText =
-
             await response.text();
-
 
           console.error(
             errorText
           );
 
-
           throw new Error(
-
             'Calendar request failed'
-
           );
-        }
 
+        }
 
 
         const data =
-
           await response.json();
 
 
+        upcomingEvents =
+          (data.items || [])
 
-        const events =
+            .filter(event =>
+              event.start &&
+              event.end &&
+              eventEnd(event) >= now
+            );
 
-          data.items ||
-          [];
 
+        buildMonthFilters();
 
-
-        const upcoming =
-          [];
-
-
-        const past =
-          [];
-
-
-
-        events.forEach(
-
-          event => {
-
-
-            if (
-
-              !event.start ||
-
-              !event.end
-
-            ) {
-
-              return;
-            }
-
-
-
-            const endValue =
-
-              event.end.dateTime ||
-
-              event.end.date;
-
-
-
-            const endDate =
-
-              new Date(
-                endValue
-              );
-
-
-
-            if (
-
-              endDate <
-              now
-
-            ) {
-
-              past.push(
-                event
-              );
-
-            }
-
-
-            else {
-
-              upcoming.push(
-                event
-              );
-
-            }
-
-          }
-
-        );
-
-
-
-        if (
-          upcoming.length
-        ) {
-
-          upcomingElement.innerHTML =
-
-            upcoming
-
-              .map(
-                event =>
-                  createEventCard(
-                    event
-                  )
-              )
-
-              .join(
-                ''
-              );
-
-        }
-
-
-        else {
-
-          upcomingElement.innerHTML =
-
-            '<div class="loading">No upcoming shows.</div>';
-
-        }
-
-
-
-        past.reverse();
-
-
-
-        if (
-          past.length
-        ) {
-
-          pastElement.innerHTML =
-
-            past
-
-              .map(
-                event =>
-                  createEventCard(
-                    event
-                  )
-              )
-
-              .join(
-                ''
-              );
-
-        }
-
-
-        else {
-
-          pastElement.innerHTML =
-
-            '<div class="loading">No past shows.</div>';
-
-        }
+        renderEvents();
 
       }
 
 
-      catch (
-        error
-      ) {
+      catch (error) {
 
         console.error(
           error
         );
 
 
-        upcomingElement.innerHTML = `
+        document
+          .getElementById(
+            'events'
+          )
+          .innerHTML = `
 
-          <div class="error">
+            <div class="message">
+              Could not load the live schedule.
+            </div>
 
-            Could not load the live schedule.
+          `;
 
-          </div>
-
-        `;
       }
 
     }
 
 
 
-    /* ==========================================
-       PAST SHOWS
-       ========================================== */
-
-    document
-      .getElementById(
-        'pastButton'
-      )
-      .addEventListener(
-
-        'click',
-
-        function() {
-
-
-          const past =
-
-            document.getElementById(
-              'past'
-            );
-
-
-
-          const isOpen =
-
-            past
-              .classList
-              .contains(
-                'open'
-              );
-
-
-
-          if (
-            isOpen
-          ) {
-
-            past
-              .classList
-              .remove(
-                'open'
-              );
-
-
-            this.textContent =
-
-              'VIEW PAST SHOWS ↓';
-
-          }
-
-
-          else {
-
-            past
-              .classList
-              .add(
-                'open'
-              );
-
-
-            this.textContent =
-
-              'HIDE PAST SHOWS ↑';
-
-          }
-
-        }
-
-      );
-
-
-
-    /* ==========================================
+    /* =========================================
        START
-       ========================================== */
+       ========================================= */
 
     loadCalendar();
 
