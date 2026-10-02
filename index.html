@@ -2,344 +2,1128 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Akihiro Kokufukata | Live Schedule</title>
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>
+    Akihiro Kokufukata | Live Schedule
+  </title>
+
+
+  <!-- ==========================================
+       FONTS
+       Bodoni Moda     : Main editorial typography
+       Space Grotesk   : Dates / labels / buttons
+       Noto Sans JP    : Japanese / event information
+       ========================================== -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500;6..96,600&family=Noto+Sans+JP:wght@400;500;600&family=Space+Grotesk:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  >
+
 
   <style>
+
+    /* ==========================================
+       COLOR SYSTEM
+       ========================================== */
+
+    :root {
+
+      --background: #100e0e;
+
+      --card: #181414;
+
+      --card-hover: #1d1818;
+
+      --text: #eee9df;
+
+      --muted: #928a83;
+
+      --muted-dark: #6f6864;
+
+      --accent: #8a2434;
+
+      --accent-light: #b44a59;
+
+      --border: #332729;
+
+      --serif:
+        "Bodoni Moda",
+        Georgia,
+        serif;
+
+      --sans:
+        "Space Grotesk",
+        Arial,
+        sans-serif;
+
+      --jp:
+        "Noto Sans JP",
+        sans-serif;
+    }
+
+
+    /* ==========================================
+       GLOBAL
+       ========================================== */
+
     * {
       box-sizing: border-box;
     }
 
-    body {
-      margin: 0;
-      background: #0d0d0d;
-      color: #f5f5f5;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
-                   "Helvetica Neue", Arial, sans-serif;
+
+    html {
+      scroll-behavior: smooth;
     }
+
+
+    body {
+
+      margin: 0;
+
+      background:
+        var(--background);
+
+      color:
+        var(--text);
+
+      font-family:
+        var(--jp);
+
+      -webkit-font-smoothing:
+        antialiased;
+    }
+
 
     main {
+
+      width: 100%;
+
       max-width: 760px;
-      margin: 0 auto;
-      padding: 38px 20px 80px;
+
+      margin:
+        0 auto;
+
+      padding:
+        48px 20px 90px;
     }
+
+
+
+    /* ==========================================
+       HEADER
+       ========================================== */
 
     header {
-      margin-bottom: 42px;
+
+      padding:
+        18px 0 58px;
     }
 
-    h1 {
+
+    .artist-name {
+
       margin: 0;
-      font-size: clamp(30px, 7vw, 44px);
-      letter-spacing: -1.5px;
+
+      max-width: 680px;
+
+      color:
+        var(--text);
+
+      font-family:
+        var(--serif);
+
+      font-size:
+        clamp(
+          48px,
+          11vw,
+          82px
+        );
+
+      font-weight:
+        500;
+
+      line-height:
+        0.93;
+
+      letter-spacing:
+        -3px;
     }
 
-    .subtitle {
-      margin-top: 7px;
-      color: #999;
-      font-size: 18px;
+
+    .artist-name span {
+
+      display: block;
     }
 
-    .section-title {
-      margin: 35px 0 18px;
-      color: #aaa;
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 2px;
+
+    .artist-role {
+
+      margin-top:
+        24px;
+
+      color:
+        var(--accent-light);
+
+      font-family:
+        var(--sans);
+
+      font-size:
+        11px;
+
+      font-weight:
+        600;
+
+      letter-spacing:
+        2.7px;
+
+      text-transform:
+        uppercase;
     }
 
-    /* =========================
+
+
+    /* ==========================================
+       LIVE SCHEDULE HEADING
+       ========================================== */
+
+    .schedule-header {
+
+      margin-bottom:
+        28px;
+    }
+
+
+    .schedule-title {
+
+      margin:
+        0 0 20px;
+
+      font-family:
+        var(--serif);
+
+      font-size:
+        clamp(
+          32px,
+          7vw,
+          46px
+        );
+
+      font-weight:
+        500;
+
+      line-height:
+        1;
+
+      letter-spacing:
+        -1.2px;
+    }
+
+
+    .schedule-rule {
+
+      width:
+        100%;
+
+      height:
+        1px;
+
+      background:
+        var(--accent);
+    }
+
+
+
+    /* ==========================================
        EVENT CARD
-       ========================= */
+       ========================================== */
 
     .event {
-      background: #191919;
-      border: 1px solid #292929;
-      border-radius: 20px;
-      padding: 22px;
-      margin-bottom: 18px;
+
+      position:
+        relative;
+
+      margin-bottom:
+        20px;
+
+      padding:
+        25px 24px 24px;
+
+      background:
+        var(--card);
+
+      border:
+        1px solid var(--border);
+
+      border-radius:
+        6px;
+
+      transition:
+        background 0.2s ease,
+        border-color 0.2s ease;
     }
+
+
+    @media (hover: hover) {
+
+      .event:hover {
+
+        background:
+          var(--card-hover);
+
+        border-color:
+          #493538;
+      }
+    }
+
+
+
+    /* ==========================================
+       DATE + TIME
+
+       OCT 08
+       THU
+
+       7:00 PM
+       -----------------
+       ========================================== */
+
+    .event-meta {
+
+      margin-bottom:
+        22px;
+    }
+
 
     .event-date {
-      color: #d7aa74;
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 1.2px;
-      margin-bottom: 9px;
+
+      color:
+        var(--text);
+
+      font-family:
+        var(--serif);
+
+      font-size:
+        27px;
+
+      font-weight:
+        500;
+
+      line-height:
+        1;
     }
+
+
+    .event-day {
+
+      margin-top:
+        7px;
+
+      color:
+        var(--accent-light);
+
+      font-family:
+        var(--sans);
+
+      font-size:
+        10px;
+
+      font-weight:
+        600;
+
+      letter-spacing:
+        2.2px;
+    }
+
+
+    .event-time {
+
+      margin-top:
+        19px;
+
+      color:
+        var(--text);
+
+      font-family:
+        var(--sans);
+
+      font-size:
+        14px;
+
+      font-weight:
+        500;
+
+      letter-spacing:
+        0.5px;
+    }
+
+
+    .event-rule {
+
+      width:
+        100%;
+
+      height:
+        1px;
+
+      margin-top:
+        17px;
+
+      background:
+        var(--border);
+    }
+
+
+
+    /* ==========================================
+       EVENT TITLE
+       ========================================== */
 
     .event-title {
-      margin: 0 0 20px;
-      font-size: 23px;
-      line-height: 1.25;
-      letter-spacing: -0.4px;
+
+      margin:
+        0 0 27px;
+
+      color:
+        var(--text);
+
+      font-family:
+        var(--jp);
+
+      font-size:
+        clamp(
+          21px,
+          5vw,
+          26px
+        );
+
+      font-weight:
+        600;
+
+      line-height:
+        1.4;
+
+      letter-spacing:
+        -0.4px;
     }
+
+
+
+    /* ==========================================
+       LABEL
+       ========================================== */
 
     .label {
-      color: #777;
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 1.5px;
-      margin-bottom: 6px;
+
+      margin-bottom:
+        8px;
+
+      color:
+        var(--accent-light);
+
+      font-family:
+        var(--sans);
+
+      font-size:
+        9px;
+
+      font-weight:
+        600;
+
+      letter-spacing:
+        2.2px;
+
+      text-transform:
+        uppercase;
     }
 
-    /* =========================
+
+
+    /* ==========================================
        PLAYERS
-       ========================= */
+       ========================================== */
 
     .players {
-      font-size: 15px;
-      line-height: 1.7;
-      margin-bottom: 20px;
+
+      margin-bottom:
+        27px;
+
+      color:
+        #d8d2ca;
+
+      font-family:
+        var(--jp);
+
+      font-size:
+        14px;
+
+      font-weight:
+        400;
+
+      line-height:
+        1.85;
     }
+
 
     .hidden-players {
-      display: none;
+
+      display:
+        none;
     }
+
 
     .hidden-players.open {
-      display: block;
+
+      display:
+        block;
     }
+
 
     .show-more {
-      display: inline-block;
-      margin-top: 10px;
-      padding: 0;
-      border: none;
-      background: transparent;
-      color: #d7aa74;
-      font-family: inherit;
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 1px;
-      cursor: pointer;
+
+      display:
+        inline-block;
+
+      margin-top:
+        12px;
+
+      padding:
+        0;
+
+      border:
+        none;
+
+      background:
+        transparent;
+
+      color:
+        var(--accent-light);
+
+      font-family:
+        var(--sans);
+
+      font-size:
+        10px;
+
+      font-weight:
+        600;
+
+      letter-spacing:
+        1.4px;
+
+      cursor:
+        pointer;
     }
 
-    /* =========================
+
+    .show-more:hover {
+
+      color:
+        var(--text);
+    }
+
+
+
+    /* ==========================================
        VENUE
-       ========================= */
+       ========================================== */
 
     .venue {
-      font-size: 17px;
-      font-weight: 650;
-      line-height: 1.4;
+
+      color:
+        var(--text);
+
+      font-family:
+        var(--jp);
+
+      font-size:
+        16px;
+
+      font-weight:
+        500;
+
+      line-height:
+        1.5;
     }
+
 
     .place {
-      color: #aaa;
-      margin-top: 5px;
-      font-size: 14px;
+
+      margin-top:
+        7px;
+
+      color:
+        var(--muted);
+
+      font-family:
+        var(--jp);
+
+      font-size:
+        13px;
+
+      line-height:
+        1.5;
     }
+
+
+
+    /* ==========================================
+       MAP BUTTON
+       ========================================== */
 
     .map {
-      display: inline-block;
-      margin-top: 14px;
-      color: #d7aa74;
-      text-decoration: none;
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 1px;
+
+      display:
+        inline-flex;
+
+      align-items:
+        center;
+
+      justify-content:
+        center;
+
+      margin-top:
+        18px;
+
+      min-width:
+        92px;
+
+      padding:
+        10px 16px;
+
+      border:
+        1px solid var(--accent);
+
+      border-radius:
+        3px;
+
+      background:
+        transparent;
+
+      color:
+        var(--accent-light);
+
+      font-family:
+        var(--sans);
+
+      font-size:
+        10px;
+
+      font-weight:
+        600;
+
+      letter-spacing:
+        1.5px;
+
+      text-decoration:
+        none;
+
+      transition:
+        background 0.18s ease,
+        color 0.18s ease,
+        border-color 0.18s ease;
     }
 
-    /* =========================
+
+    .map:hover {
+
+      background:
+        var(--accent);
+
+      border-color:
+        var(--accent);
+
+      color:
+        var(--text);
+    }
+
+
+
+    /* ==========================================
        PAST SHOWS
-       ========================= */
+       Functionality retained for later
+       ========================================== */
 
     .past-button {
-      width: 100%;
-      margin-top: 30px;
-      padding: 17px;
-      border: 1px solid #333;
-      border-radius: 14px;
-      background: transparent;
-      color: #aaa;
-      font-size: 14px;
-      cursor: pointer;
+
+      width:
+        100%;
+
+      margin-top:
+        35px;
+
+      padding:
+        16px;
+
+      border:
+        1px solid var(--border);
+
+      border-radius:
+        3px;
+
+      background:
+        transparent;
+
+      color:
+        var(--muted);
+
+      font-family:
+        var(--sans);
+
+      font-size:
+        10px;
+
+      font-weight:
+        600;
+
+      letter-spacing:
+        1.6px;
+
+      cursor:
+        pointer;
     }
+
 
     #past {
-      display: none;
-      margin-top: 20px;
+
+      display:
+        none;
+
+      margin-top:
+        35px;
     }
+
 
     #past.open {
-      display: block;
+
+      display:
+        block;
     }
+
 
     #past .event {
-      opacity: 0.5;
+
+      opacity:
+        0.55;
     }
 
-    /* =========================
+
+
+    /* ==========================================
        STATUS
-       ========================= */
+       ========================================== */
 
     .loading {
-      color: #888;
-      padding: 30px 0;
+
+      padding:
+        35px 0;
+
+      color:
+        var(--muted);
+
+      font-family:
+        var(--sans);
+
+      font-size:
+        13px;
     }
+
 
     .error {
-      color: #d98b8b;
-      padding: 25px 0;
-      line-height: 1.6;
+
+      padding:
+        35px 0;
+
+      color:
+        var(--accent-light);
+
+      font-family:
+        var(--sans);
+
+      font-size:
+        13px;
+
+      line-height:
+        1.7;
     }
 
-    /* =========================
-       MOBILE
-       ========================= */
 
-    @media (max-width: 500px) {
+
+    /* ==========================================
+       FOOTER
+       Signature can be added here later.
+       ========================================== */
+
+    footer {
+
+      min-height:
+        35px;
+
+      margin-top:
+        65px;
+
+      border-top:
+        1px solid var(--border);
+    }
+
+
+
+    /* ==========================================
+       MOBILE
+       ========================================== */
+
+    @media (
+      max-width: 520px
+    ) {
 
       main {
-        padding: 30px 16px 70px;
+
+        padding:
+          34px 16px 70px;
       }
+
+
+      header {
+
+        padding:
+          15px 4px 52px;
+      }
+
+
+      .artist-name {
+
+        font-size:
+          clamp(
+            47px,
+            14.5vw,
+            68px
+          );
+
+        letter-spacing:
+          -2.5px;
+      }
+
+
+      .artist-role {
+
+        margin-top:
+          21px;
+
+        font-size:
+          9px;
+
+        letter-spacing:
+          2.3px;
+      }
+
+
+      .schedule-title {
+
+        font-size:
+          36px;
+      }
+
 
       .event {
-        padding: 20px;
+
+        padding:
+          23px 20px 22px;
+
+        margin-bottom:
+          16px;
       }
 
-      .event-title {
-        font-size: 21px;
+
+      .event-date {
+
+        font-size:
+          25px;
       }
+
+
+      .event-title {
+
+        font-size:
+          21px;
+      }
+
     }
+
   </style>
+
 </head>
+
 
 
 <body>
 
   <main>
 
+
+    <!-- ==========================================
+         HEADER
+         ========================================== -->
+
     <header>
-      <h1>Akihiro Kokufukata</h1>
-      <div class="subtitle">Live Schedule</div>
+
+      <h1 class="artist-name">
+
+        <span>
+          Akihiro
+        </span>
+
+        <span>
+          Kokufukata
+        </span>
+
+      </h1>
+
+
+      <div class="artist-role">
+
+        TRUMPETER / COMPOSER
+
+      </div>
+
     </header>
 
 
-    <div class="section-title">
-      UPCOMING SHOWS
-    </div>
+
+    <!-- ==========================================
+         LIVE SCHEDULE
+         ========================================== -->
+
+    <section>
 
 
-    <div id="upcoming">
-      <div class="loading">
-        Loading shows...
-      </div>
-    </div>
+      <div class="schedule-header">
+
+        <h2 class="schedule-title">
+
+          Live Schedule
+
+        </h2>
 
 
-    <button
-      class="past-button"
-      id="pastButton"
-      type="button"
-    >
-      VIEW PAST SHOWS ↓
-    </button>
+        <div class="schedule-rule"></div>
 
-
-    <div id="past">
-
-      <div class="section-title">
-        PAST SHOWS
       </div>
 
-      <div id="pastEvents"></div>
 
-    </div>
+
+      <div id="upcoming">
+
+        <div class="loading">
+
+          Loading shows...
+
+        </div>
+
+      </div>
+
+
+
+      <!--
+        Past Shows functionality is retained.
+        We can redesign this later.
+      -->
+
+      <button
+        class="past-button"
+        id="pastButton"
+        type="button"
+      >
+
+        VIEW PAST SHOWS ↓
+
+      </button>
+
+
+
+      <div id="past">
+
+
+        <div class="schedule-header">
+
+          <h2 class="schedule-title">
+
+            Past Shows
+
+          </h2>
+
+          <div class="schedule-rule"></div>
+
+        </div>
+
+
+        <div id="pastEvents"></div>
+
+
+      </div>
+
+
+    </section>
+
+
+
+    <!--
+      Future:
+      Your handwritten signature can go here.
+    -->
+
+    <footer></footer>
+
 
   </main>
 
 
+
   <script>
 
-    /* ==================================================
+    /* ==========================================
        GOOGLE CALENDAR
 
-       ↓ この2ヶ所だけ自分の情報に変更してください ↓
-       ================================================== */
+       CHANGE ONLY THESE TWO VALUES
+       ========================================== */
 
-    const API_KEY = 'AIzaSyCB5WplBrKEb70d5WHZTrg3G46fTdl_A0Q';
+    const API_KEY =
+      'AIzaSyCB5WplBrKEb70d5WHZTrg3G46fTdl_A0Q';
 
-    const CALENDAR_ID = 'akihirokokufukatamusic@gmail.com';
+    const CALENDAR_ID =
+      'akihirokokufukatamusic@gmail.com';
 
 
-    /* ==================================================
+
+    /* ==========================================
        ELEMENTS
-       ================================================== */
+       ========================================== */
 
     const upcomingElement =
-      document.getElementById('upcoming');
+      document.getElementById(
+        'upcoming'
+      );
+
 
     const pastElement =
-      document.getElementById('pastEvents');
+      document.getElementById(
+        'pastEvents'
+      );
 
 
-    /* ==================================================
-       SECURITY / TEXT
-       ================================================== */
 
-    function escapeHTML(value = '') {
+    /* ==========================================
+       ESCAPE HTML
+       ========================================== */
+
+    function escapeHTML(
+      value = ''
+    ) {
 
       return String(value)
-        .replaceAll('&', '&amp;')
-        .replaceAll('<', '&lt;')
-        .replaceAll('>', '&gt;')
-        .replaceAll('"', '&quot;')
-        .replaceAll("'", '&#039;');
+
+        .replaceAll(
+          '&',
+          '&amp;'
+        )
+
+        .replaceAll(
+          '<',
+          '&lt;'
+        )
+
+        .replaceAll(
+          '>',
+          '&gt;'
+        )
+
+        .replaceAll(
+          '"',
+          '&quot;'
+        )
+
+        .replaceAll(
+          "'",
+          '&#039;'
+        );
     }
 
 
-    /* ==================================================
-       DESCRIPTION
 
-       Google Calendarの説明欄：
+    /* ==========================================
+       DESCRIPTION PARSER
+
+       Example:
 
        Players:
        Player 1
        Player 2
-       Player 3
 
        Place: Shinjuku Station
+       ========================================== */
 
-       ================================================== */
-
-    function parseDescription(description = '') {
+    function parseDescription(
+      description = ''
+    ) {
 
       const lines =
         description
-          .replace(/\r/g, '')
-          .split('\n');
+          .replace(
+            /\r/g,
+            ''
+          )
+          .split(
+            '\n'
+          );
 
 
       const players = [];
 
       let place = '';
 
-      let readingPlayers = false;
+      let readingPlayers =
+        false;
 
 
-      for (const rawLine of lines) {
+
+      for (
+        const rawLine
+        of lines
+      ) {
 
         const line =
           rawLine.trim();
 
 
-        /* ---------- Players: ---------- */
 
-        if (/^players\s*:/i.test(line)) {
+        if (
+          /^players\s*:/i
+            .test(line)
+        ) {
 
-          readingPlayers = true;
+          readingPlayers =
+            true;
 
 
           const sameLinePlayer =
             line
-              .replace(/^players\s*:/i, '')
+              .replace(
+                /^players\s*:/i,
+                ''
+              )
               .trim();
 
 
-          if (sameLinePlayer) {
+          if (
+            sameLinePlayer
+          ) {
 
             players.push(
               sameLinePlayer
@@ -351,16 +1135,22 @@
         }
 
 
-        /* ---------- Place: ---------- */
 
-        if (/^place\s*:/i.test(line)) {
+        if (
+          /^place\s*:/i
+            .test(line)
+        ) {
 
-          readingPlayers = false;
+          readingPlayers =
+            false;
 
 
           place =
             line
-              .replace(/^place\s*:/i, '')
+              .replace(
+                /^place\s*:/i,
+                ''
+              )
               .trim();
 
 
@@ -368,60 +1158,68 @@
         }
 
 
-        /* ---------- Player names ---------- */
 
         if (
           readingPlayers &&
           line
         ) {
 
-          players.push(line);
+          players.push(
+            line
+          );
         }
+
       }
 
 
+
       return {
+
         players,
         place
+
       };
     }
 
 
-    /* ==================================================
-       VENUE NAME
 
-       Google CalendarのLocationが
+    /* ==========================================
+       VENUE
+       ========================================== */
 
-       Jazz Dining B-flat, 東京都...
+    function getVenue(
+      location = ''
+    ) {
 
-       なら
+      if (
+        !location
+      ) {
 
-       Jazz Dining B-flat
-
-       だけを表示
-       ================================================== */
-
-    function getVenue(location = '') {
-
-      if (!location) {
         return '';
       }
 
 
       return location
-        .split(/[,、]/)[0]
+        .split(
+          /[,、]/
+        )[0]
         .trim();
     }
 
 
-    /* ==================================================
-       DATE
-       ================================================== */
 
-    function formatDate(event) {
+    /* ==========================================
+       EVENT DATE PARTS
+       ========================================== */
+
+    function getDateParts(
+      event
+    ) {
 
       const raw =
+
         event.start.dateTime ||
+
         event.start.date;
 
 
@@ -429,30 +1227,98 @@
         new Date(raw);
 
 
-      return new Intl.DateTimeFormat(
-        'en-US',
-        {
-          timeZone: 'Asia/Tokyo',
-          weekday: 'short',
-          month: 'short',
-          day: 'numeric'
-        }
-      )
-      .format(date)
-      .toUpperCase();
+
+      const month =
+
+        new Intl.DateTimeFormat(
+
+          'en-US',
+
+          {
+
+            timeZone:
+              'Asia/Tokyo',
+
+            month:
+              'short'
+
+          }
+
+        )
+        .format(date)
+        .toUpperCase();
+
+
+
+      const dayNumber =
+
+        new Intl.DateTimeFormat(
+
+          'en-US',
+
+          {
+
+            timeZone:
+              'Asia/Tokyo',
+
+            day:
+              '2-digit'
+
+          }
+
+        )
+        .format(date);
+
+
+
+      const weekday =
+
+        new Intl.DateTimeFormat(
+
+          'en-US',
+
+          {
+
+            timeZone:
+              'Asia/Tokyo',
+
+            weekday:
+              'short'
+
+          }
+
+        )
+        .format(date)
+        .toUpperCase();
+
+
+
+      return {
+
+        month,
+        dayNumber,
+        weekday
+
+      };
     }
 
 
-    /* ==================================================
+
+    /* ==========================================
        TIME
-       ================================================== */
+       ========================================== */
 
-    function formatTime(event) {
+    function formatTime(
+      event
+    ) {
 
-      if (!event.start.dateTime) {
+      if (
+        !event.start.dateTime
+      ) {
 
         return 'ALL DAY';
       }
+
 
 
       const date =
@@ -461,94 +1327,137 @@
         );
 
 
+
       return new Intl.DateTimeFormat(
+
         'en-US',
+
         {
-          timeZone: 'Asia/Tokyo',
-          hour: 'numeric',
-          minute: '2-digit'
+
+          timeZone:
+            'Asia/Tokyo',
+
+          hour:
+            'numeric',
+
+          minute:
+            '2-digit'
+
         }
+
       )
       .format(date);
     }
 
 
-    /* ==================================================
+
+    /* ==========================================
        PLAYERS
-       ================================================== */
+       ========================================== */
 
-    function createPlayersHTML(players) {
+    function createPlayersHTML(
+      players
+    ) {
 
-      if (!players.length) {
+      if (
+        !players.length
+      ) {
 
         return '';
       }
 
 
-      /*
-        最初の6人を表示
-      */
 
       const visiblePlayers =
-        players.slice(0, 6);
+        players.slice(
+          0,
+          6
+        );
 
-
-      /*
-        7人目以降
-      */
 
       const hiddenPlayers =
-        players.slice(6);
+        players.slice(
+          6
+        );
+
 
 
       const visibleHTML =
+
         visiblePlayers
-          .map(player =>
-            escapeHTML(player)
+
+          .map(
+            player =>
+              escapeHTML(
+                player
+              )
           )
-          .join('<br>');
+
+          .join(
+            '<br>'
+          );
 
 
-      let hiddenHTML = '';
+
+      let hiddenHTML =
+        '';
 
 
-      /*
-        7人以上いる場合だけ
-        SHOW MOREボタンを作る
-      */
 
-      if (hiddenPlayers.length) {
+      if (
+        hiddenPlayers.length
+      ) {
 
         const extraPlayersHTML =
+
           hiddenPlayers
-            .map(player =>
-              escapeHTML(player)
+
+            .map(
+              player =>
+                escapeHTML(
+                  player
+                )
             )
-            .join('<br>');
+
+            .join(
+              '<br>'
+            );
+
 
 
         hiddenHTML = `
 
-          <div class="hidden-players">
+          <div
+            class="hidden-players"
+          >
+
             ${extraPlayersHTML}
+
           </div>
+
 
           <button
             class="show-more"
             type="button"
           >
+
             SHOW MORE ↓
+
           </button>
 
         `;
       }
 
 
+
       return `
 
         <div class="label">
+
           PLAYERS
+
         </div>
+
 
         <div class="players">
 
@@ -562,51 +1471,76 @@
     }
 
 
-    /* ==================================================
-       EVENT CARD
-       ================================================== */
 
-    function createEventCard(event) {
+    /* ==========================================
+       EVENT CARD
+       ========================================== */
+
+    function createEventCard(
+      event
+    ) {
 
       const info =
+
         parseDescription(
-          event.description || ''
+
+          event.description ||
+          ''
+
         );
+
 
 
       const venue =
+
         getVenue(
-          event.location || ''
+
+          event.location ||
+          ''
+
         );
 
 
-      /*
-        Google Maps URL
 
-        完全な住所は画面には表示しないが、
-        MAPを押した時にはGoogle Mapsに渡す
-      */
+      const dateParts =
+
+        getDateParts(
+          event
+        );
+
+
 
       const mapURL =
+
         event.location
-          ? 'https://www.google.com/maps/search/?api=1&query=' +
-            encodeURIComponent(
-              event.location
-            )
-          : '';
+
+          ?
+
+          'https://www.google.com/maps/search/?api=1&query=' +
+
+          encodeURIComponent(
+            event.location
+          )
+
+          :
+
+          '';
 
 
-      /* ---------- PLAYERS ---------- */
 
       const playersHTML =
+
         createPlayersHTML(
+
           info.players
+
         );
 
 
-      /* ---------- VENUE ---------- */
 
-      let venueHTML = '';
+      let venueHTML =
+        '';
+
 
 
       if (
@@ -617,78 +1551,145 @@
         venueHTML = `
 
           <div class="label">
+
             VENUE
+
           </div>
+
 
 
           ${
             venue
-              ? `
-                <div class="venue">
-                  ${escapeHTML(venue)}
-                </div>
+
+              ?
+
               `
-              : ''
+
+              <div class="venue">
+
+                ${escapeHTML(
+                  venue
+                )}
+
+              </div>
+
+              `
+
+              :
+
+              ''
           }
+
 
 
           ${
             info.place
-              ? `
-                <div class="place">
-                  📍 ${escapeHTML(info.place)}
-                </div>
+
+              ?
+
               `
-              : ''
+
+              <div class="place">
+
+                ${escapeHTML(
+                  info.place
+                )}
+
+              </div>
+
+              `
+
+              :
+
+              ''
           }
+
 
 
           ${
             mapURL
-              ? `
-                <a
-                  class="map"
-                  href="${mapURL}"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  MAP ↗
-                </a>
+
+              ?
+
               `
-              : ''
+
+              <a
+                class="map"
+                href="${mapURL}"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+
+                MAP ↗
+
+              </a>
+
+              `
+
+              :
+
+              ''
           }
 
         `;
       }
 
 
-      /* ---------- CARD ---------- */
 
       return `
 
         <article class="event">
 
-          <div class="event-date">
 
-            ${formatDate(event)}
+          <div class="event-meta">
 
-            &nbsp;·&nbsp;
 
-            ${formatTime(event)}
+            <div class="event-date">
+
+              ${dateParts.month}
+              ${dateParts.dayNumber}
+
+            </div>
+
+
+            <div class="event-day">
+
+              ${dateParts.weekday}
+
+            </div>
+
+
+            <div class="event-time">
+
+              ${formatTime(
+                event
+              )}
+
+            </div>
+
+
+            <div class="event-rule"></div>
+
 
           </div>
 
 
-          <h2 class="event-title">
+
+          <h3 class="event-title">
 
             ${escapeHTML(
-              event.summary || 'Live'
+
+              event.summary ||
+              'Live'
+
             )}
 
-          </h2>
+          </h3>
+
 
 
           ${playersHTML}
+
 
 
           ${venueHTML}
@@ -700,81 +1701,113 @@
     }
 
 
-    /* ==================================================
-       SHOW MORE / SHOW LESS
 
-       Event delegationを使うので、
-       Calendar読み込み後に作られたボタンでも動く
-       ================================================== */
+    /* ==========================================
+       SHOW MORE / SHOW LESS
+       ========================================== */
 
     document.addEventListener(
+
       'click',
+
       function(event) {
 
+
         const button =
+
           event.target.closest(
+
             '.show-more'
+
           );
 
 
-        if (!button) {
-
-          return;
-        }
-
-
-        const hiddenPlayers =
-          button.previousElementSibling;
-
 
         if (
-          !hiddenPlayers ||
-          !hiddenPlayers.classList.contains(
-            'hidden-players'
-          )
+          !button
         ) {
 
           return;
         }
 
 
+
+        const hiddenPlayers =
+
+          button
+            .previousElementSibling;
+
+
+
+        if (
+
+          !hiddenPlayers ||
+
+          !hiddenPlayers
+            .classList
+            .contains(
+              'hidden-players'
+            )
+
+        ) {
+
+          return;
+        }
+
+
+
         const isOpen =
-          hiddenPlayers
-            .classList
-            .contains('open');
-
-
-        if (isOpen) {
 
           hiddenPlayers
             .classList
-            .remove('open');
+            .contains(
+              'open'
+            );
+
+
+
+        if (
+          isOpen
+        ) {
+
+          hiddenPlayers
+            .classList
+            .remove(
+              'open'
+            );
 
 
           button.textContent =
+
             'SHOW MORE ↓';
 
         }
+
 
         else {
 
           hiddenPlayers
             .classList
-            .add('open');
+            .add(
+              'open'
+            );
 
 
           button.textContent =
+
             'SHOW LESS ↑';
 
         }
 
       }
+
     );
 
 
-    /* ==================================================
-       GOOGLE CALENDAR
-       ================================================== */
+
+    /* ==========================================
+       LOAD GOOGLE CALENDAR
+       ========================================== */
 
     async function loadCalendar() {
 
@@ -782,30 +1815,35 @@
         new Date();
 
 
-      /*
-        過去1年
-        ↓
-        未来2年
-
-        のイベントを取得
-      */
 
       const timeMin =
+
         new Date(
+
           now.getFullYear() - 1,
+
           now.getMonth(),
+
           now.getDate()
+
         )
         .toISOString();
+
 
 
       const timeMax =
+
         new Date(
+
           now.getFullYear() + 2,
+
           now.getMonth(),
+
           now.getDate()
+
         )
         .toISOString();
+
 
 
       const url =
@@ -843,15 +1881,24 @@
         '&maxResults=250';
 
 
+
       try {
 
+
         const response =
-          await fetch(url);
+
+          await fetch(
+            url
+          );
 
 
-        if (!response.ok) {
+
+        if (
+          !response.ok
+        ) {
 
           const errorText =
+
             await response.text();
 
 
@@ -861,70 +1908,97 @@
 
 
           throw new Error(
+
             'Calendar request failed'
+
           );
         }
 
 
+
         const data =
+
           await response.json();
 
 
+
         const events =
-          data.items || [];
+
+          data.items ||
+          [];
 
 
-        const upcoming = [];
 
-        const past = [];
+        const upcoming =
+          [];
 
 
-        /* ---------- SPLIT EVENTS ---------- */
+        const past =
+          [];
 
-        events.forEach(event => {
 
-          if (
-            !event.start ||
-            !event.end
-          ) {
 
-            return;
+        events.forEach(
+
+          event => {
+
+
+            if (
+
+              !event.start ||
+
+              !event.end
+
+            ) {
+
+              return;
+            }
+
+
+
+            const endValue =
+
+              event.end.dateTime ||
+
+              event.end.date;
+
+
+
+            const endDate =
+
+              new Date(
+                endValue
+              );
+
+
+
+            if (
+
+              endDate <
+              now
+
+            ) {
+
+              past.push(
+                event
+              );
+
+            }
+
+
+            else {
+
+              upcoming.push(
+                event
+              );
+
+            }
+
           }
 
-
-          const endValue =
-
-            event.end.dateTime ||
-
-            event.end.date;
+        );
 
 
-          const endDate =
-            new Date(
-              endValue
-            );
-
-
-          if (
-            endDate < now
-          ) {
-
-            past.push(event);
-
-          }
-
-          else {
-
-            upcoming.push(event);
-
-          }
-
-        });
-
-
-        /* ==================================================
-           UPCOMING
-           ================================================== */
 
         if (
           upcoming.length
@@ -933,12 +2007,20 @@
           upcomingElement.innerHTML =
 
             upcoming
-              .map(event =>
-                createEventCard(event)
+
+              .map(
+                event =>
+                  createEventCard(
+                    event
+                  )
               )
-              .join('');
+
+              .join(
+                ''
+              );
 
         }
+
 
         else {
 
@@ -949,13 +2031,9 @@
         }
 
 
-        /* ==================================================
-           PAST
-
-           新しいライブから順番に表示
-           ================================================== */
 
         past.reverse();
+
 
 
         if (
@@ -965,12 +2043,20 @@
           pastElement.innerHTML =
 
             past
-              .map(event =>
-                createEventCard(event)
+
+              .map(
+                event =>
+                  createEventCard(
+                    event
+                  )
               )
-              .join('');
+
+              .join(
+                ''
+              );
 
         }
+
 
         else {
 
@@ -982,7 +2068,10 @@
 
       }
 
-      catch (error) {
+
+      catch (
+        error
+      ) {
 
         console.error(
           error
@@ -998,66 +2087,87 @@
           </div>
 
         `;
-
       }
+
     }
 
 
-    /* ==================================================
-       PAST SHOWS BUTTON
-       ================================================== */
+
+    /* ==========================================
+       PAST SHOWS
+       ========================================== */
 
     document
       .getElementById(
         'pastButton'
       )
       .addEventListener(
+
         'click',
+
         function() {
 
+
           const past =
+
             document.getElementById(
               'past'
             );
 
 
+
           const isOpen =
-            past
-              .classList
-              .contains('open');
-
-
-          if (isOpen) {
 
             past
               .classList
-              .remove('open');
+              .contains(
+                'open'
+              );
+
+
+
+          if (
+            isOpen
+          ) {
+
+            past
+              .classList
+              .remove(
+                'open'
+              );
 
 
             this.textContent =
+
               'VIEW PAST SHOWS ↓';
 
           }
+
 
           else {
 
             past
               .classList
-              .add('open');
+              .add(
+                'open'
+              );
 
 
             this.textContent =
+
               'HIDE PAST SHOWS ↑';
 
           }
 
         }
+
       );
 
 
-    /* ==================================================
+
+    /* ==========================================
        START
-       ================================================== */
+       ========================================== */
 
     loadCalendar();
 
