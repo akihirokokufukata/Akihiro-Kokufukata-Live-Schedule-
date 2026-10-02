@@ -88,6 +88,24 @@
       margin-bottom: 20px;
     }
 
+    .more-players {
+  margin-top: 0;
+}
+
+.show-more {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 0;
+  border: none;
+  background: none;
+  color: #d7aa74;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  cursor: pointer;
+}
+    
     .venue {
       font-size: 17px;
       font-weight: 650;
@@ -397,33 +415,45 @@
 
       if (players.length) {
 
-        /*
-          7人以上なら最初の6人だけ表示
-        */
-
-        if (players.length > 6) {
-
-          players =
-            players.slice(0, 6);
-
-          players.push('…and more');
-        }
+        
 
 
-        playersHTML = `
-          <div class="label">
-            PLAYERS
-          </div>
+      const visiblePlayers = players.slice(0, 6);
+const hiddenPlayers = players.slice(6);
 
-          <div class="players">
-            ${players
-              .map(player =>
-                escapeHTML(player)
-              )
+playersHTML = `
+  <div class="label">
+    PLAYERS
+  </div>
+
+  <div class="players">
+
+    ${visiblePlayers
+      .map(player => escapeHTML(player))
+      .join('<br>')}
+
+    ${
+      hiddenPlayers.length
+        ? `
+          <div class="more-players" style="display:none;">
+            ${hiddenPlayers
+              .map(player => escapeHTML(player))
               .join('<br>')}
           </div>
-        `;
-      }
+
+          <button
+            class="show-more"
+            type="button"
+            onclick="togglePlayers(this)"
+          >
+            SHOW MORE ↓
+          </button>
+        `
+        : ''
+    }
+
+  </div>
+`;
 
 
       /* VENUE */
@@ -499,7 +529,23 @@
       `;
     }
 
+function togglePlayers(button) {
 
+  const morePlayers =
+    button.previousElementSibling;
+
+  const isOpen =
+    morePlayers.style.display === 'block';
+
+  morePlayers.style.display =
+    isOpen ? 'none' : 'block';
+
+  button.textContent =
+    isOpen
+      ? 'SHOW MORE ↓'
+      : 'SHOW LESS ↑';
+}
+        
     /* Google Calendarを読み込む */
 
     async function loadCalendar() {
