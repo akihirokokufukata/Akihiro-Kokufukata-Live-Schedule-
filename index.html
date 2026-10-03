@@ -682,6 +682,28 @@ button.action {
 
 
 /* =========================================================
+   INLINE FLYER
+   ========================================================= */
+
+.event-flyer { margin-top: 22px; }
+.event-flyer-button {
+  display:block; width:100%; padding:0; border:0;
+  background:transparent; cursor:zoom-in; text-align:left;
+}
+.event-flyer-image {
+  display:block; width:100%; max-width:430px; height:auto;
+  max-height:620px; object-fit:contain; object-position:left top;
+  border:1px solid var(--line); background:var(--card);
+  transition:opacity .18s ease;
+}
+.event-flyer-button:hover .event-flyer-image { opacity:.92; }
+.event-flyer-hint {
+  margin-top:7px; color:var(--muted); font-family:var(--sans);
+  font-size:7px; font-weight:600; letter-spacing:1.4px;
+  text-transform:uppercase;
+}
+
+/* =========================================================
    FLYER
    ========================================================= */
 
@@ -963,6 +985,10 @@ footer {
   .action.email {
     flex-basis: 100%;
   }
+
+  .event-flyer { margin-top:20px; }
+  .event-flyer-image { width:100%; max-width:none; max-height:none; }
+  .event-flyer-hint { font-size:6.5px; letter-spacing:1.1px; }
 
 }
 
@@ -2100,20 +2126,31 @@ function createEventCard(
   }
 
 
+  let flyerHTML = '';
+
   if (info.image) {
 
-    actions.push(`
+    flyerHTML = `
 
-      <button
-        class="action flyer-button"
-        type="button"
-        data-flyer="${escapeHTML(info.image)}"
-        data-title="${escapeHTML(title)}"
-      >
-        FLYER ↗
-      </button>
+      <div class="event-flyer">
+        <button
+          class="event-flyer-button"
+          type="button"
+          data-flyer="${escapeHTML(info.image)}"
+          data-title="${escapeHTML(title)}"
+          aria-label="Open ${escapeHTML(title)} flyer"
+        >
+          <img
+            class="event-flyer-image"
+            src="${escapeHTML(info.image)}"
+            alt="${escapeHTML(title)} flyer"
+            loading="lazy"
+          >
+        </button>
+        <div class="event-flyer-hint">TAP IMAGE TO ENLARGE ↗</div>
+      </div>
 
-    `);
+    `;
 
   }
 
@@ -2240,6 +2277,9 @@ function createEventCard(
 
 
         ${venueHTML}
+
+
+        ${flyerHTML}
 
 
         ${actionsHTML}
@@ -2473,7 +2513,7 @@ document.addEventListener(
 
     const flyerButton =
       event.target.closest(
-        '.flyer-button'
+        '.event-flyer-button'
       );
 
     if (flyerButton) {
