@@ -794,12 +794,13 @@ body.flyer-open {
   position: fixed;
   top: 50%;
   z-index: 102;
-  width: 34px;
-  height: 46px;
-  border: 1px solid rgba(243,238,229,.72);
-  background: rgba(24,19,19,.58);
+  width: 28px;
+  height: 38px;
+  border: 0;
+  background: transparent;
   color: var(--paper);
-  font-size: 25px;
+  font-size: 22px;
+  text-shadow: 0 1px 5px rgba(0,0,0,.85);
   line-height: 1;
   transform: translateY(-50%);
   cursor: pointer;
@@ -810,9 +811,9 @@ body.flyer-open {
 
 @media (max-width:650px) {
   .flyer-nav {
-    width: 30px;
-    height: 42px;
-    font-size: 17px;
+    width: 24px;
+    height: 34px;
+    font-size: 16px;
   }
   .flyer-nav-prev { left: 5px; }
   .flyer-nav-next { right: 5px; }
