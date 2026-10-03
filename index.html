@@ -681,6 +681,34 @@ button.action {
 
 
 
+
+/* MEDIA ARCHIVE */
+.event-media{margin-top:22px}
+.event-media-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:9px}
+.event-media-title,.event-media-count{font-family:var(--sans);font-size:8px;font-weight:600;letter-spacing:1.7px;color:var(--crimson)}
+.event-media-count{color:var(--muted);letter-spacing:1px}
+.event-media-viewport{position:relative}
+.event-media-track{display:flex;gap:12px;overflow-x:auto;padding:0 36px 9px 0;scroll-snap-type:x mandatory;scrollbar-width:thin;scrollbar-color:var(--crimson) transparent;-webkit-overflow-scrolling:touch}
+.event-media-track::-webkit-scrollbar{height:3px}.event-media-track::-webkit-scrollbar-thumb{background:var(--crimson)}
+.event-media-item{position:relative;flex:0 0 min(430px,86%);scroll-snap-align:start;border:1px solid var(--line);background:var(--card);overflow:hidden}
+.event-media-item.single{flex-basis:min(430px,100%)}
+.event-media-image-button{display:block;width:100%;padding:0;border:0;background:transparent;cursor:zoom-in}
+.event-media-image{display:block;width:100%;height:360px;object-fit:contain;background:var(--card)}
+.event-media-item.photo .event-media-image{object-fit:cover}
+.event-media-badge{position:absolute;top:10px;left:10px;z-index:3;padding:6px 8px 5px;background:rgba(152,24,42,.92);color:var(--paper);font-family:var(--sans);font-size:7px;font-weight:600;letter-spacing:1.3px;pointer-events:none}
+.event-media-video{width:100%;aspect-ratio:16/9;min-height:240px;background:#181313}
+.event-media-video iframe{display:block;width:100%;height:100%;min-height:240px;border:0}
+.event-media-link{display:flex;align-items:center;justify-content:center;width:100%;min-height:240px;padding:42px 22px 28px;background:linear-gradient(135deg,rgba(152,24,42,.96),rgba(118,16,31,.96));color:var(--paper);text-decoration:none;text-align:center}
+.event-media-link-inner{font-family:var(--sans);font-size:10px;font-weight:600;letter-spacing:1.7px;line-height:1.7}
+.event-media-play{display:block;margin-bottom:12px;font-family:var(--serif);font-size:38px;line-height:1}
+.event-media-more{position:absolute;top:50%;right:0;z-index:4;display:flex;align-items:center;justify-content:center;width:31px;height:54px;border:1px solid var(--crimson);background:rgba(243,238,229,.94);color:var(--crimson);font-family:var(--sans);font-size:16px;transform:translateY(-50%);pointer-events:none;transition:opacity .18s}
+.event-media-more.hidden{opacity:0}
+.event-media-dots{display:flex;gap:6px;align-items:center;margin-top:8px}
+.event-media-dot{width:5px;height:5px;padding:0;border:1px solid var(--crimson);border-radius:50%;background:transparent;cursor:pointer}
+.event-media-dot.active{background:var(--crimson)}
+.event-media-hint{margin-top:7px;color:var(--muted);font-family:var(--sans);font-size:7px;font-weight:600;letter-spacing:1.3px}
+@media(max-width:650px){.event-media{margin-top:20px}.event-media-track{gap:9px;padding-right:26px}.event-media-item{flex-basis:88%}.event-media-item.single{flex-basis:100%}.event-media-image{height:310px}.event-media-video,.event-media-video iframe,.event-media-link{min-height:190px}.event-media-title,.event-media-count{font-size:7px}.event-media-more{width:27px;height:48px}}
+
 /* =========================================================
    INLINE FLYER
    ========================================================= */
@@ -1333,6 +1361,31 @@ function normalizeImagePath(value = '') {
 }
 
 
+
+function normalizeVideoURL(value=''){
+  const text=String(value).trim();
+  if(!text)return '';
+  const md=text.match(/\]\((https?:\/\/[^)\s]+)\)/i);
+  const hit=md?md[1]:(text.match(/https?:\/\/[^\s<>"')\]]+/i)||[])[0];
+  if(!hit)return '';
+  try{const u=new URL(hit);return (u.protocol==='https:'||u.protocol==='http:')?u.href:''}catch{return ''}
+}
+function getYouTubeEmbedURL(value=''){
+  try{
+    const u=new URL(value);let id='';
+    if(u.hostname==='youtu.be')id=u.pathname.split('/').filter(Boolean)[0]||'';
+    if(['youtube.com','www.youtube.com','m.youtube.com'].includes(u.hostname)){
+      if(u.pathname==='/watch')id=u.searchParams.get('v')||'';
+      else if(/^\/(shorts|embed|live)\//.test(u.pathname))id=u.pathname.split('/').filter(Boolean)[1]||'';
+    }
+    return /^[A-Za-z0-9_-]{6,}$/.test(id)?`https://www.youtube-nocookie.com/embed/${id}`:'';
+  }catch{return ''}
+}
+function getVideoPlatform(value=''){
+  try{const h=new URL(value).hostname.replace(/^www\./,'').toLowerCase();if(['youtube.com','m.youtube.com','youtu.be'].includes(h))return 'YOUTUBE';if(['instagram.com','instagr.am'].includes(h))return 'INSTAGRAM'}catch{}
+  return 'VIDEO';
+}
+
 /* =========================================================
    DESCRIPTION
    ========================================================= */
@@ -1359,10 +1412,12 @@ function parseDescription(description = '') {
 
 
   const players = [];
+  const images = [];
+  const photos = [];
+  const videos = [];
 
   let place = '';
   let website = '';
-  let image = '';
   let leader = false;
 
   let readingPlayers = false;
@@ -1421,16 +1476,23 @@ function parseDescription(description = '') {
 
 
     if (/^image\s*:/i.test(line)) {
-
       readingPlayers = false;
+      const value = normalizeImagePath(line.replace(/^image\s*:/i,'').trim());
+      if(value) images.push(value);
+      continue;
+    }
 
-      image =
-        normalizeImagePath(
-          line
-            .replace(/^image\s*:/i, '')
-            .trim()
-        );
+    if (/^photo\s*:/i.test(line)) {
+      readingPlayers = false;
+      const value = normalizeImagePath(line.replace(/^photo\s*:/i,'').trim());
+      if(value) photos.push(value);
+      continue;
+    }
 
+    if (/^video\s*:/i.test(line)) {
+      readingPlayers = false;
+      const value = normalizeVideoURL(line.replace(/^video\s*:/i,'').trim());
+      if(value) videos.push(value);
       continue;
     }
 
@@ -1473,7 +1535,10 @@ function parseDescription(description = '') {
     players,
     place,
     website,
-    image,
+    image: images[0] || '',
+    images,
+    photos,
+    videos,
     leader
   };
 
@@ -2039,6 +2104,23 @@ function createPlayersHTML(players) {
 
 
 
+
+function createEventMediaHTML(info,title){
+  const items=[];
+  (info.videos||[]).forEach(video=>{
+    const embed=getYouTubeEmbedURL(video), platform=getVideoPlatform(video);
+    if(embed) items.push(`<div class="event-media-item video"><div class="event-media-badge">▶ VIDEO · ${platform}</div><div class="event-media-video"><iframe src="${escapeHTML(embed)}" title="${escapeHTML(title)} video" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div></div>`);
+    else items.push(`<div class="event-media-item video"><div class="event-media-badge">▶ VIDEO · ${platform}</div><a class="event-media-link" href="${escapeHTML(video)}" target="_blank" rel="noopener noreferrer"><span class="event-media-link-inner"><span class="event-media-play">▶</span>WATCH ON ${platform} ↗</span></a></div>`);
+  });
+  (info.images||[]).forEach((image,i)=>items.push(`<div class="event-media-item flyer"><div class="event-media-badge">${info.images.length>1?`FLYER ${i+1}`:'FLYER'}</div><button class="event-media-image-button" type="button" data-flyer="${escapeHTML(image)}" data-title="${escapeHTML(title)}"><img class="event-media-image" src="${escapeHTML(image)}" alt="${escapeHTML(title)} flyer" loading="lazy"></button></div>`));
+  (info.photos||[]).forEach((photo,i)=>items.push(`<div class="event-media-item photo"><div class="event-media-badge">LIVE PHOTO ${i+1}</div><button class="event-media-image-button" type="button" data-flyer="${escapeHTML(photo)}" data-title="${escapeHTML(title)} live photo ${i+1}"><img class="event-media-image" src="${escapeHTML(photo)}" alt="${escapeHTML(title)} live photo ${i+1}" loading="lazy"></button></div>`));
+  if(!items.length)return '';
+  const multi=items.length>1;
+  const rendered=items.map(x=>multi?x:x.replace('event-media-item ','event-media-item single ')).join('');
+  const dots=multi?`<div class="event-media-dots">${items.map((_,i)=>`<button class="event-media-dot ${i===0?'active':''}" type="button" data-media-dot="${i}" aria-label="Show media ${i+1}"></button>`).join('')}</div><div class="event-media-hint">SWIPE / SCROLL FOR MORE →</div>`:`<div class="event-media-hint">TAP IMAGE TO ENLARGE ↗</div>`;
+  return `<div class="event-media" data-media-gallery><div class="event-media-head"><div class="event-media-title">MEDIA</div><div class="event-media-count"><span data-media-current>1</span> / ${items.length}</div></div><div class="event-media-viewport"><div class="event-media-track" data-media-track>${rendered}</div>${multi?'<div class="event-media-more" data-media-more aria-hidden="true">→</div>':''}</div>${dots}</div>`;
+}
+
 /* =========================================================
    EVENT CARD
    ========================================================= */
@@ -2201,33 +2283,7 @@ function createEventCard(
   }
 
 
-  let flyerHTML = '';
-
-  if (info.image) {
-
-    flyerHTML = `
-
-      <div class="event-flyer">
-        <button
-          class="event-flyer-button"
-          type="button"
-          data-flyer="${escapeHTML(info.image)}"
-          data-title="${escapeHTML(title)}"
-          aria-label="Open ${escapeHTML(title)} flyer"
-        >
-          <img
-            class="event-flyer-image"
-            src="${escapeHTML(info.image)}"
-            alt="${escapeHTML(title)} flyer"
-            loading="lazy"
-          >
-        </button>
-        <div class="event-flyer-hint">TAP IMAGE TO ENLARGE ↗</div>
-      </div>
-
-    `;
-
-  }
+  const mediaHTML = createEventMediaHTML(info, title);
 
 
   if (info.website) {
@@ -2354,7 +2410,7 @@ function createEventCard(
         ${venueHTML}
 
 
-        ${flyerHTML}
+        ${mediaHTML}
 
 
         ${actionsHTML}
@@ -2892,6 +2948,21 @@ buildMonthFilters();
 
 loadCalendar();
 
+
+
+function updateMediaGallery(gallery){
+  const track=gallery.querySelector('[data-media-track]');
+  const items=[...gallery.querySelectorAll('.event-media-item')];
+  if(!track||!items.length)return;
+  const left=track.getBoundingClientRect().left;
+  let idx=0,dist=Infinity;
+  items.forEach((item,i)=>{const d=Math.abs(item.getBoundingClientRect().left-left);if(d<dist){dist=d;idx=i}});
+  const current=gallery.querySelector('[data-media-current]');if(current)current.textContent=String(idx+1);
+  gallery.querySelectorAll('[data-media-dot]').forEach((dot,i)=>dot.classList.toggle('active',i===idx));
+  const more=gallery.querySelector('[data-media-more]');if(more)more.classList.toggle('hidden',track.scrollLeft+track.clientWidth>=track.scrollWidth-8);
+}
+document.addEventListener('scroll',e=>{const track=e.target.closest?.('[data-media-track]');if(track){const g=track.closest('[data-media-gallery]');if(g)updateMediaGallery(g)}},true);
+document.addEventListener('click',e=>{const dot=e.target.closest('[data-media-dot]');if(!dot)return;const g=dot.closest('[data-media-gallery]'),track=g?.querySelector('[data-media-track]'),items=g?[...g.querySelectorAll('.event-media-item')]:[],i=Number(dot.dataset.mediaDot);if(track&&items[i])track.scrollTo({left:items[i].offsetLeft,behavior:'smooth'})});
 
 </script>
 
