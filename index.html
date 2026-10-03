@@ -1261,6 +1261,34 @@ function normalizeWebsiteURL(value = '') {
 
 
 /* =========================================================
+   IMAGE PATH
+   ========================================================= */
+
+function normalizeImagePath(value = '') {
+
+  const text = String(value).trim();
+
+  if (!text) {
+    return '';
+  }
+
+  /* Full external URL: keep as-is */
+  if (/^https?:\/\//i.test(text)) {
+    return text;
+  }
+
+  /* Already points to the images folder: keep as-is */
+  if (/^images\//i.test(text)) {
+    return text;
+  }
+
+  /* Filename only: automatically look inside /images */
+  return `images/${text.replace(/^\.\//, '')}`;
+
+}
+
+
+/* =========================================================
    DESCRIPTION
    ========================================================= */
 
@@ -1352,9 +1380,11 @@ function parseDescription(description = '') {
       readingPlayers = false;
 
       image =
-        line
-          .replace(/^image\s*:/i, '')
-          .trim();
+        normalizeImagePath(
+          line
+            .replace(/^image\s*:/i, '')
+            .trim()
+        );
 
       continue;
     }
