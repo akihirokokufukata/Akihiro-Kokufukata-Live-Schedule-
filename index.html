@@ -1839,7 +1839,11 @@ function createEventCard(
     );
 
 
+  // Venue name shown on the site:
+  // 1. Prefer "Place:" from the Google Calendar description.
+  // 2. If Place: is missing, fall back to the Calendar location field.
   const venue =
+    info.place ||
     getVenue(
       event.location || ''
     );
@@ -1913,8 +1917,7 @@ function createEventCard(
 
 
   const venueToDisplay =
-    venue ||
-    info.place;
+    venue;
 
 
   let venueHTML = '';
