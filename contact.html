@@ -4,19 +4,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Contact | Akihiro Kokufukata</title>
+
 <script>
 const SETTINGS = {
-  LIVE_SCHEDULE_URL: 'index.html',
-  BIO_URL: '',
-  MUSIC_URL: '',
-  CONTACT_URL: 'contact.html',
   EMAIL_ADDRESS: 'akihirokokufukatamusic@gmail.com',
   INSTAGRAM_URL: 'https://www.instagram.com/akihiro_kokufukata?stkn=cmM5N2Z5cmUzcHl4'
 };
 </script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Noto+Serif+JP:wght@400;500;600&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+
 <style>
 :root{--paper:#f3eee5;--card:#f7f2e9;--ink:#181313;--muted:#756b66;--crimson:#98182a;--crimson-dark:#76101f;--line:#cfc2b6;--serif:"Cormorant Garamond",Georgia,serif;--jp:"Noto Serif JP",serif;--sans:"Space Grotesk",Arial,sans-serif}
 *{box-sizing:border-box} html{scroll-behavior:smooth}
@@ -33,6 +32,7 @@ header{position:relative;padding:25px 10px 70px}.name-wrap{display:inline-block}
 .site-menu{position:fixed;top:0;right:0;z-index:25;width:min(360px,84vw);height:100vh;padding:125px 42px 40px;background:var(--card);border-left:1px solid var(--line);transform:translateX(102%);transition:transform .28s ease;box-shadow:-12px 0 35px rgba(24,19,19,.08)}
 .site-menu.open{transform:translateX(0)}.site-menu a{display:block;padding:20px 0;border-bottom:1px solid var(--line);color:var(--ink);font-family:var(--serif);font-size:30px;font-weight:600;text-decoration:none}
 .site-menu a:hover,.site-menu a.current{color:var(--crimson)}
+.site-menu a.disabled{opacity:.38;cursor:default}
 .menu-backdrop{position:fixed;inset:0;z-index:20;background:rgba(24,19,19,.22);opacity:0;visibility:hidden;transition:opacity .25s ease,visibility .25s ease}
 .menu-backdrop.open{opacity:1;visibility:visible}
 .contact{max-width:820px;margin:0 auto}.contact-title{margin:0;font-family:var(--serif);font-size:clamp(50px,7vw,76px);font-weight:600;line-height:.95;letter-spacing:-1.5px}
@@ -49,17 +49,20 @@ footer{margin-top:75px;padding:32px 4px 15px;border-top:1px solid var(--line)}.f
 @media(max-width:650px){main{padding:34px 15px 65px}header{padding:30px 6px 62px}.artist-name{max-width:350px;font-size:clamp(52px,15vw,70px);line-height:.86;letter-spacing:-2px}.name-line{margin-top:20px}.artist-role{margin-top:17px;font-size:11px;letter-spacing:3.3px}.menu-toggle{top:29px;right:18px;width:39px}.site-menu{padding:105px 28px 35px}.site-menu a{font-size:27px}.contact{padding:0 6px}.contact-rule{margin:18px 0 25px}.contact-intro{margin-bottom:34px}.contact-intro-jp{font-size:12px}.field textarea{min-height:155px}.submit-button{width:100%}.social-links{gap:24px}}
 </style>
 </head>
+
 <body>
 <main>
 <header>
 <button class="menu-toggle" id="menuToggle" type="button" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
 <div class="menu-backdrop" id="menuBackdrop"></div>
+
 <nav class="site-menu" id="siteMenu" aria-label="Site navigation">
-<a href="index.html" data-menu-link="live">LIVE SCHEDULE</a>
-<a href="#" data-menu-link="bio">BIO</a>
-<a href="#" data-menu-link="music">MUSIC</a>
-<a href="contact.html" class="current" data-menu-link="contact">CONTACT</a>
+  <a href="index.html">LIVE SCHEDULE</a>
+  <a href="bio.html">BIO</a>
+  <a href="#" class="disabled" id="musicLink">MUSIC</a>
+  <a href="contact.html" class="current">CONTACT</a>
 </nav>
+
 <div class="name-wrap"><h1 class="artist-name"><span>Akihiro</span><span>Kokufukata</span></h1><div class="name-line"></div></div>
 <div class="artist-role">TRUMPETER / COMPOSER</div>
 </header>
@@ -89,14 +92,38 @@ footer{margin-top:75px;padding:32px 4px 15px;border-top:1px solid var(--line)}.f
 
 <footer><div class="footer-name">AKIHIRO KOKUFUKATA</div><div class="footer-role">TRUMPETER / COMPOSER</div></footer>
 </main>
+
 <script>
-const menuToggle=document.getElementById('menuToggle'),siteMenu=document.getElementById('siteMenu'),menuBackdrop=document.getElementById('menuBackdrop');
-function setMenu(open){menuToggle.classList.toggle('open',open);siteMenu.classList.toggle('open',open);menuBackdrop.classList.toggle('open',open);menuToggle.setAttribute('aria-expanded',String(open));menuToggle.setAttribute('aria-label',open?'Close menu':'Open menu')}
-menuToggle.addEventListener('click',()=>setMenu(!siteMenu.classList.contains('open')));menuBackdrop.addEventListener('click',()=>setMenu(false));document.addEventListener('keydown',e=>{if(e.key==='Escape')setMenu(false)});
-const MENU_URLS={live:SETTINGS.LIVE_SCHEDULE_URL||'index.html',bio:SETTINGS.BIO_URL||'',music:SETTINGS.MUSIC_URL||'',contact:SETTINGS.CONTACT_URL||'contact.html'};
-document.querySelectorAll('[data-menu-link]').forEach(link=>{const url=MENU_URLS[link.dataset.menuLink];if(url){link.href=url}else{link.addEventListener('click',e=>e.preventDefault());link.style.opacity='.38';link.style.cursor='default'}});
-const emailLink=document.getElementById('emailLink');if(SETTINGS.EMAIL_ADDRESS){emailLink.href=`mailto:${SETTINGS.EMAIL_ADDRESS}`;emailLink.hidden=false}
-const instagramLink=document.getElementById('instagramLink');if(SETTINGS.INSTAGRAM_URL){instagramLink.href=SETTINGS.INSTAGRAM_URL;instagramLink.hidden=false}
+const menuToggle=document.getElementById('menuToggle');
+const siteMenu=document.getElementById('siteMenu');
+const menuBackdrop=document.getElementById('menuBackdrop');
+
+function setMenu(open){
+  menuToggle.classList.toggle('open',open);
+  siteMenu.classList.toggle('open',open);
+  menuBackdrop.classList.toggle('open',open);
+  menuToggle.setAttribute('aria-expanded',String(open));
+  menuToggle.setAttribute('aria-label',open?'Close menu':'Open menu');
+}
+
+menuToggle.addEventListener('click',()=>setMenu(!siteMenu.classList.contains('open')));
+menuBackdrop.addEventListener('click',()=>setMenu(false));
+document.addEventListener('keydown',e=>{if(e.key==='Escape')setMenu(false)});
+
+/* MUSIC is intentionally disabled until music.html is created. */
+document.getElementById('musicLink').addEventListener('click',e=>e.preventDefault());
+
+const emailLink=document.getElementById('emailLink');
+if(SETTINGS.EMAIL_ADDRESS){
+  emailLink.href=`mailto:${SETTINGS.EMAIL_ADDRESS}`;
+  emailLink.hidden=false;
+}
+
+const instagramLink=document.getElementById('instagramLink');
+if(SETTINGS.INSTAGRAM_URL){
+  instagramLink.href=SETTINGS.INSTAGRAM_URL;
+  instagramLink.hidden=false;
+}
 </script>
 </body>
 </html>
