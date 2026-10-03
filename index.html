@@ -2075,19 +2075,19 @@ function createEventMediaHTML(info,title){
     const platform=getVideoPlatform(video);
 
     if(embed){
-      items.push(`<div class="event-media-item video"><div class="event-media-badge">▶ VIDEO · YOUTUBE</div><div class="event-media-video youtube"><iframe src="${escapeHTML(embed)}" title="${escapeHTML(title)} video" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div></div>`);
+      items.push(`<div class="event-media-item video"><div class="event-media-video youtube"><iframe src="${escapeHTML(embed)}" title="${escapeHTML(title)} video" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div></div>`);
     }else{
       const cls=platform==='INSTAGRAM'?'instagram':(platform==='YOUTUBE'?'youtube':'video');
-      items.push(`<div class="event-media-item video"><div class="event-media-badge">▶ VIDEO · ${platform}</div><a class="event-media-link ${cls}" href="${escapeHTML(video)}" target="_blank" rel="noopener noreferrer"><span class="event-media-link-inner"><span class="event-media-play">▶</span>WATCH ON ${platform} ↗</span></a></div>`);
+      items.push(`<div class="event-media-item video"><a class="event-media-link ${cls}" href="${escapeHTML(video)}" target="_blank" rel="noopener noreferrer"><span class="event-media-link-inner"><span class="event-media-play">▶</span>WATCH ON ${platform} ↗</span></a></div>`);
     }
   });
 
   (info.images||[]).forEach((image,i)=>{
-    items.push(`<div class="event-media-item flyer"><div class="event-media-badge">${info.images.length>1?`FLYER ${i+1}`:'FLYER'}</div><button class="event-media-image-button" type="button" data-flyer="${escapeHTML(image)}" data-title="${escapeHTML(title)}"><img class="event-media-image" src="${escapeHTML(image)}" alt="${escapeHTML(title)} flyer" loading="lazy"></button></div>`);
+    items.push(`<div class="event-media-item flyer"><button class="event-media-image-button" type="button" data-flyer="${escapeHTML(image)}" data-title="${escapeHTML(title)}"><img class="event-media-image" src="${escapeHTML(image)}" alt="${escapeHTML(title)} flyer" loading="lazy"></button></div>`);
   });
 
   (info.photos||[]).forEach((photo,i)=>{
-    items.push(`<div class="event-media-item photo"><div class="event-media-badge">LIVE PHOTO ${i+1}</div><button class="event-media-image-button" type="button" data-flyer="${escapeHTML(photo)}" data-title="${escapeHTML(title)} live photo ${i+1}"><img class="event-media-image" src="${escapeHTML(photo)}" alt="${escapeHTML(title)} live photo ${i+1}" loading="lazy"></button></div>`);
+    items.push(`<div class="event-media-item photo"><button class="event-media-image-button" type="button" data-flyer="${escapeHTML(photo)}" data-title="${escapeHTML(title)} live photo ${i+1}"><img class="event-media-image" src="${escapeHTML(photo)}" alt="${escapeHTML(title)} live photo ${i+1}" loading="lazy"></button></div>`);
   });
 
   if(!items.length)return '';
