@@ -967,10 +967,10 @@ footer {
 <button class="menu-toggle" id="menuToggle" type="button" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
 <div class="menu-backdrop" id="menuBackdrop"></div>
 <nav class="site-menu" id="siteMenu" aria-label="Site navigation">
-  <a href="index.html" data-menu-link="live">LIVE SCHEDULE</a>
-  <a href="#" data-menu-link="bio">BIO</a>
-  <a href="#" data-menu-link="music">MUSIC</a>
-  <a href="#" data-menu-link="contact">CONTACT</a>
+  <a href="index.html">LIVE SCHEDULE</a>
+  <a href="bio.html">BIO</a>
+  <a href="#" title="Coming soon">MUSIC</a>
+  <a href="contact.html">CONTACT</a>
 </nav>
 <div class="trumpet-mark removed" aria-hidden="true">
 
@@ -2602,16 +2602,8 @@ menuToggle.addEventListener('click', () => setMenu(!siteMenu.classList.contains(
 menuBackdrop.addEventListener('click', () => setMenu(false));
 document.addEventListener('keydown', e => { if(e.key === 'Escape') setMenu(false); });
 
-const MENU_URLS = { live: SETTINGS.LIVE_SCHEDULE_URL || 'index.html', bio: SETTINGS.BIO_URL || '', music: SETTINGS.MUSIC_URL || '', contact: SETTINGS.CONTACT_URL || 'contact.html' };
-document.querySelectorAll('[data-menu-link]').forEach(link => {
-  const key = link.dataset.menuLink;
-  const url = MENU_URLS[key];
-  if(url){ link.href = url; }
-  else {
-    link.addEventListener('click', e => { e.preventDefault(); setMenu(false); });
-    link.setAttribute('title', 'Link coming soon');
-  }
-});
+// Navigation links are defined directly in the HTML above.
+
 
 
 buildMonthFilters();
