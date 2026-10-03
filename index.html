@@ -9,7 +9,7 @@
 
 <!-- =========================================================
      SETTINGS
-     ★ ここだけ自分の情報に変更
+     ★ この3か所だけ自分の情報を入れてください
      ========================================================= -->
 
 <script>
@@ -19,6 +19,7 @@ const SETTINGS = {
   EMAIL_ADDRESS: 'akihirokokufukatamusic@gmail.com'
 };
 </script>
+
 
 <!-- =========================================================
      FONTS
@@ -32,7 +33,12 @@ const SETTINGS = {
   rel="stylesheet"
 >
 
+
 <style>
+
+/* =========================================================
+   COLORS / FONTS
+   ========================================================= */
 
 :root {
   --paper: #f3eee5;
@@ -49,39 +55,50 @@ const SETTINGS = {
   --sans: "Space Grotesk", Arial, sans-serif;
 }
 
+
 * {
   box-sizing: border-box;
 }
+
 
 html {
   scroll-behavior: smooth;
 }
 
+
 body {
   margin: 0;
+
   background: var(--paper);
   color: var(--ink);
+
   -webkit-font-smoothing: antialiased;
 }
+
 
 button,
 a {
   -webkit-tap-highlight-color: transparent;
 }
 
+
 main {
   position: relative;
+
   width: 100%;
   max-width: 1100px;
+
   margin: 0 auto;
+
   padding: 58px 30px 90px;
+
   overflow-x: clip;
 }
 
 
+
 /* =========================================================
    TRUMPET MARK
-   ★ 背景装飾なし
    ========================================================= */
 
 .trumpet-mark {
@@ -98,10 +115,6 @@ main {
   pointer-events: none;
 }
 
-
-/* ---------------------------------------------------------
-   BELL
-   --------------------------------------------------------- */
 
 .trumpet-bell {
   position: absolute;
@@ -134,6 +147,7 @@ main {
   );
 }
 
+
 .trumpet-bell-rim {
   position: absolute;
 
@@ -146,10 +160,6 @@ main {
   background: var(--crimson);
 }
 
-
-/* ---------------------------------------------------------
-   MAIN PIPE
-   --------------------------------------------------------- */
 
 .trumpet-main-pipe {
   position: absolute;
@@ -164,10 +174,6 @@ main {
 }
 
 
-/* ---------------------------------------------------------
-   VALVE BLOCK
-   --------------------------------------------------------- */
-
 .valve-body {
   position: absolute;
 
@@ -179,6 +185,7 @@ main {
 
   background: rgba(118,16,31,.95);
 }
+
 
 .valve-upper {
   position: absolute;
@@ -193,10 +200,6 @@ main {
 }
 
 
-/* ---------------------------------------------------------
-   SECOND PIPE
-   --------------------------------------------------------- */
-
 .trumpet-second-pipe {
   position: absolute;
 
@@ -210,10 +213,6 @@ main {
 }
 
 
-/* ---------------------------------------------------------
-   VALVE STEMS
-   --------------------------------------------------------- */
-
 .valve-stem {
   position: absolute;
 
@@ -225,22 +224,21 @@ main {
   background: var(--crimson-dark);
 }
 
+
 .valve-stem.one {
   top: 124px;
 }
+
 
 .valve-stem.two {
   top: 157px;
 }
 
+
 .valve-stem.three {
   top: 190px;
 }
 
-
-/* ---------------------------------------------------------
-   VALVE BUTTONS
-   --------------------------------------------------------- */
 
 .valve-button {
   position: absolute;
@@ -253,22 +251,21 @@ main {
   background: var(--crimson-dark);
 }
 
+
 .valve-button.one {
   top: 119px;
 }
+
 
 .valve-button.two {
   top: 152px;
 }
 
+
 .valve-button.three {
   top: 185px;
 }
 
-
-/* ---------------------------------------------------------
-   VALVE JOINTS
-   --------------------------------------------------------- */
 
 .valve-joint {
   position: absolute;
@@ -281,22 +278,21 @@ main {
   background: rgba(152,24,42,.88);
 }
 
+
 .valve-joint.one {
   top: 121px;
 }
+
 
 .valve-joint.two {
   top: 154px;
 }
 
+
 .valve-joint.three {
   top: 187px;
 }
 
-
-/* ---------------------------------------------------------
-   LARGE ROUND TUBE / CIRCLE
-   --------------------------------------------------------- */
 
 .trumpet-round {
   position: absolute;
@@ -313,10 +309,6 @@ main {
 }
 
 
-/* ---------------------------------------------------------
-   LOWER PIPES
-   --------------------------------------------------------- */
-
 .trumpet-left-lower {
   position: absolute;
 
@@ -329,6 +321,7 @@ main {
   background: rgba(118,16,31,.95);
 }
 
+
 .trumpet-center-lower {
   position: absolute;
 
@@ -340,6 +333,7 @@ main {
 
   background: var(--crimson);
 }
+
 
 .trumpet-right-lower {
   position: absolute;
@@ -354,6 +348,7 @@ main {
 }
 
 
+
 /* =========================================================
    HEADER
    ========================================================= */
@@ -365,9 +360,11 @@ header {
   padding: 25px 10px 78px;
 }
 
+
 .name-wrap {
   display: inline-block;
 }
+
 
 .artist-name {
   margin: 0;
@@ -383,19 +380,18 @@ header {
   letter-spacing: -3px;
 }
 
+
 .artist-name span {
   display: block;
 }
 
 
-/* =========================================================
-   ★ 名前下は一本線のみ
-   ========================================================= */
+/* ★ 名前と同じ幅の一本線 */
 
 .name-line {
   display: block;
 
-  width: 112px;
+  width: 100%;
   height: 1.5px;
 
   margin-top: 24px;
@@ -403,8 +399,8 @@ header {
   background: var(--crimson);
 
   border: 0;
-  border-radius: 0;
 }
+
 
 .artist-role {
   margin-top: 19px;
@@ -422,8 +418,9 @@ header {
 }
 
 
+
 /* =========================================================
-   SCHEDULE HEADING
+   LIVE SCHEDULE HEADING
    ========================================================= */
 
 .schedule-heading {
@@ -436,6 +433,7 @@ header {
 
   margin-bottom: 27px;
 }
+
 
 .schedule-title {
   margin: 0;
@@ -452,6 +450,7 @@ header {
 }
 
 
+
 /* =========================================================
    FILTER
    ========================================================= */
@@ -465,6 +464,7 @@ header {
 
   border: 1px solid var(--crimson);
 }
+
 
 .month-button {
   min-width: 47px;
@@ -488,9 +488,11 @@ header {
   cursor: pointer;
 }
 
+
 .month-button:last-child {
   border-right: 0;
 }
+
 
 .month-button.active {
   background: var(--crimson);
@@ -498,8 +500,9 @@ header {
 }
 
 
+
 /* =========================================================
-   EVENT
+   EVENT CARD
    ========================================================= */
 
 .event {
@@ -518,9 +521,11 @@ header {
   overflow: hidden;
 }
 
+
 .event.leader {
   border-color: var(--crimson);
 }
+
 
 
 /* =========================================================
@@ -538,7 +543,6 @@ header {
   padding: 10px 16px;
 
   background: var(--crimson);
-
   color: var(--paper);
 
   font-family: var(--sans);
@@ -554,6 +558,7 @@ header {
 }
 
 
+
 /* =========================================================
    DATE
    ========================================================= */
@@ -564,9 +569,11 @@ header {
   border-right: 1px solid var(--line);
 }
 
+
 .event.has-status .event-date-column {
   padding-top: 63px;
 }
+
 
 .event-month {
   font-family: var(--serif);
@@ -576,6 +583,7 @@ header {
 
   letter-spacing: 1px;
 }
+
 
 .event-number {
   margin-top: -3px;
@@ -590,6 +598,7 @@ header {
   line-height: .92;
 }
 
+
 .event-day {
   margin-top: 4px;
 
@@ -603,6 +612,7 @@ header {
   letter-spacing: 2px;
 }
 
+
 .date-rule {
   width: 100%;
   height: 1px;
@@ -612,12 +622,14 @@ header {
   background: var(--line);
 }
 
+
 .event-time {
   font-family: var(--serif);
 
   font-size: 17px;
   font-weight: 500;
 }
+
 
 
 /* =========================================================
@@ -631,6 +643,7 @@ header {
 
   padding: 27px 28px 25px;
 }
+
 
 .leader-label,
 .next-label {
@@ -652,6 +665,7 @@ header {
   text-transform: uppercase;
 }
 
+
 .event-title {
   position: relative;
 
@@ -669,6 +683,7 @@ header {
   overflow-wrap: anywhere;
 }
 
+
 .event-title.english {
   font-family: var(--serif);
 
@@ -676,6 +691,7 @@ header {
 
   line-height: 1.05;
 }
+
 
 
 /* =========================================================
@@ -698,6 +714,7 @@ header {
 }
 
 
+
 /* =========================================================
    PLAYERS
    ========================================================= */
@@ -705,6 +722,7 @@ header {
 .players-section {
   margin-bottom: 24px;
 }
+
 
 .players {
   color: #342c29;
@@ -718,17 +736,21 @@ header {
   overflow-wrap: anywhere;
 }
 
+
 .player {
   display: block;
 }
+
 
 .hidden-players {
   display: none;
 }
 
+
 .hidden-players.open {
   display: block;
 }
+
 
 .show-more {
   display: inline-block;
@@ -753,6 +775,7 @@ header {
 }
 
 
+
 /* =========================================================
    VENUE
    ========================================================= */
@@ -760,6 +783,7 @@ header {
 .venue-section {
   margin-top: 4px;
 }
+
 
 .venue {
   font-family: var(--jp);
@@ -771,6 +795,7 @@ header {
 
   overflow-wrap: anywhere;
 }
+
 
 
 /* =========================================================
@@ -785,6 +810,7 @@ header {
 
   margin-top: 20px;
 }
+
 
 .action {
   display: inline-flex;
@@ -812,14 +838,17 @@ header {
   text-decoration: none;
 }
 
+
 .action:hover {
   background: var(--crimson);
   color: var(--paper);
 }
 
+
 .action.email {
   min-width: 130px;
 }
+
 
 
 /* =========================================================
@@ -842,6 +871,7 @@ header {
   opacity: .9;
 }
 
+
 .leader-shape::before {
   content: "";
 
@@ -855,6 +885,7 @@ header {
 
   background: rgba(152,24,42,.82);
 }
+
 
 .leader-shape::after {
   content: "";
@@ -871,6 +902,7 @@ header {
 
   background: rgba(216,170,165,.45);
 }
+
 
 
 /* =========================================================
@@ -890,14 +922,17 @@ header {
   letter-spacing: 3px;
 }
 
+
 .past-event {
   opacity: .78;
 }
+
 
 .past-event .event-number,
 .past-event .event-day {
   color: var(--muted);
 }
+
 
 
 /* =========================================================
@@ -915,6 +950,7 @@ header {
 }
 
 
+
 /* =========================================================
    FOOTER
    ========================================================= */
@@ -927,6 +963,7 @@ footer {
   border-top: 1px solid var(--line);
 }
 
+
 .footer-name {
   font-family: var(--sans);
 
@@ -935,6 +972,7 @@ footer {
 
   letter-spacing: 4px;
 }
+
 
 .footer-role {
   margin-top: 8px;
@@ -949,6 +987,7 @@ footer {
 }
 
 
+
 /* =========================================================
    MOBILE
    ========================================================= */
@@ -960,11 +999,6 @@ footer {
   }
 
 
-  /* -------------------------------------------------------
-     TRUMPET MOBILE
-     ★ 背景なし・マークのみ
-     ------------------------------------------------------- */
-
   .trumpet-mark {
     top: 16px;
     right: 2px;
@@ -974,13 +1008,10 @@ footer {
   }
 
 
-  /* -------------------------------------------------------
-     HEADER
-     ------------------------------------------------------- */
-
   header {
     padding: 30px 6px 67px;
   }
+
 
   .artist-name {
     max-width: 350px;
@@ -993,12 +1024,8 @@ footer {
   }
 
 
-  /* ★ スマホでも一本線だけ */
-
   .name-line {
-    display: block;
-
-    width: 92px;
+    width: 100%;
     height: 1.5px;
 
     margin-top: 20px;
@@ -1006,8 +1033,8 @@ footer {
     background: var(--crimson);
 
     border: 0;
-    border-radius: 0;
   }
+
 
   .name-line::before,
   .name-line::after {
@@ -1025,15 +1052,12 @@ footer {
   }
 
 
-  /* -------------------------------------------------------
-     SCHEDULE
-     ------------------------------------------------------- */
-
   .schedule-heading {
     gap: 7px;
 
     margin-bottom: 24px;
   }
+
 
   .schedule-title {
     font-size: clamp(34px,9.2vw,42px);
@@ -1042,13 +1066,10 @@ footer {
   }
 
 
-  /* -------------------------------------------------------
-     FILTER
-     ------------------------------------------------------- */
-
   .month-filter {
     height: 25px;
   }
+
 
   .month-button {
     min-width: 34px;
@@ -1061,13 +1082,10 @@ footer {
   }
 
 
-  /* -------------------------------------------------------
-     EVENT
-     ------------------------------------------------------- */
-
   .event {
     grid-template-columns: 84px minmax(0,1fr);
   }
+
 
   .status {
     min-width: 84px;
@@ -1079,21 +1097,26 @@ footer {
     letter-spacing: 1.3px;
   }
 
+
   .event-date-column {
     padding: 22px 11px;
   }
+
 
   .event.has-status .event-date-column {
     padding-top: 57px;
   }
 
+
   .event-month {
     font-size: 15px;
   }
 
+
   .event-number {
     font-size: 43px;
   }
+
 
   .event-day {
     font-size: 14px;
@@ -1101,13 +1124,16 @@ footer {
     letter-spacing: 1.5px;
   }
 
+
   .event-time {
     font-size: 14px;
   }
 
+
   .event-body {
     padding: 22px 15px 21px;
   }
+
 
   .leader-label,
   .next-label,
@@ -1117,11 +1143,13 @@ footer {
     letter-spacing: 2.2px;
   }
 
+
   .event-title {
     font-size: 18px;
 
     line-height: 1.45;
   }
+
 
   .event-title.english {
     font-size: 23px;
@@ -1129,21 +1157,25 @@ footer {
     line-height: 1.08;
   }
 
+
   .players {
     font-size: 12.5px;
 
     line-height: 1.8;
   }
 
+
   .venue {
     font-size: 14px;
   }
+
 
   .actions {
     gap: 7px;
 
     margin-top: 18px;
   }
+
 
   .action {
     flex: 1 1 calc(50% - 4px);
@@ -1157,11 +1189,13 @@ footer {
     letter-spacing: 1.1px;
   }
 
+
   .action.email {
     flex-basis: 100%;
   }
 
 }
+
 
 
 /* =========================================================
@@ -1174,9 +1208,11 @@ footer {
     font-size: 30px;
   }
 
+
   .month-filter {
     height: 23px;
   }
+
 
   .month-button {
     min-width: 30px;
@@ -1186,18 +1222,22 @@ footer {
     font-size: 5.5px;
   }
 
+
   .event {
     grid-template-columns: 78px minmax(0,1fr);
   }
+
 
   .event-date-column {
     padding-left: 9px;
     padding-right: 9px;
   }
 
+
   .status {
     min-width: 78px;
   }
+
 
   .event-body {
     padding-left: 13px;
@@ -1210,14 +1250,14 @@ footer {
 </head>
 
 
+
 <body>
 
 <main>
 
 
 <!-- =========================================================
-     ★ トランペットだけ
-     背景の四角・円などは置かない
+     TRUMPET MARK
      ========================================================= -->
 
 <div class="trumpet-mark" aria-hidden="true">
@@ -1253,6 +1293,7 @@ footer {
 </div>
 
 
+
 <!-- =========================================================
      HEADER
      ========================================================= -->
@@ -1266,16 +1307,17 @@ footer {
       <span>Kokufukata</span>
     </h1>
 
-    <!-- ★ 一本線だけ -->
     <div class="name-line"></div>
 
   </div>
+
 
   <div class="artist-role">
     TRUMPETER / COMPOSER
   </div>
 
 </header>
+
 
 
 <!-- =========================================================
@@ -1297,6 +1339,7 @@ footer {
 
   </div>
 
+
   <div id="events">
 
     <div class="message">
@@ -1306,6 +1349,7 @@ footer {
   </div>
 
 </section>
+
 
 
 <footer>
@@ -1322,6 +1366,7 @@ footer {
 
 
 </main>
+
 
 
 <script>
@@ -1346,6 +1391,7 @@ let pastEvents = [];
 let selectedFilter = 'all';
 
 
+
 /* =========================================================
    ESCAPE HTML
    ========================================================= */
@@ -1362,6 +1408,7 @@ function escapeHTML(value = '') {
 }
 
 
+
 /* =========================================================
    WEBSITE URL
    ========================================================= */
@@ -1375,6 +1422,7 @@ function normalizeWebsiteURL(value = '') {
   const markdown =
     text.match(/\]\((https?:\/\/[^)\s]+)\)/i);
 
+
   if (markdown) {
     text = markdown[1];
   }
@@ -1382,6 +1430,7 @@ function normalizeWebsiteURL(value = '') {
 
   const plain =
     text.match(/https?:\/\/[^\s<>"')\]]+/i);
+
 
   if (!plain) {
     return '';
@@ -1393,12 +1442,14 @@ function normalizeWebsiteURL(value = '') {
     const url =
       new URL(plain[0]);
 
+
     if (
       url.protocol !== 'https:' &&
       url.protocol !== 'http:'
     ) {
       return '';
     }
+
 
     return url.href;
 
@@ -1409,6 +1460,7 @@ function normalizeWebsiteURL(value = '') {
   }
 
 }
+
 
 
 /* =========================================================
@@ -1457,9 +1509,11 @@ function parseDescription(description = '') {
           .replace(/^players\s*:/i, '')
           .trim();
 
+
       if (sameLine) {
         players.push(sameLine);
       }
+
 
       continue;
     }
@@ -1504,6 +1558,7 @@ function parseDescription(description = '') {
           .trim()
           .toLowerCase();
 
+
       leader =
         ['yes','true','1','leader']
           .includes(value);
@@ -1537,6 +1592,7 @@ function parseDescription(description = '') {
 }
 
 
+
 /* =========================================================
    VENUE
    ========================================================= */
@@ -1547,11 +1603,13 @@ function getVenue(location = '') {
     return '';
   }
 
+
   return location
     .split(/[,、]/)[0]
     .trim();
 
 }
+
 
 
 /* =========================================================
@@ -1577,6 +1635,11 @@ function eventEnd(event) {
 
 }
 
+
+
+/* =========================================================
+   TOKYO DATE
+   ========================================================= */
 
 function tokyoDateKey(date) {
 
@@ -1620,6 +1683,7 @@ function isToday(event) {
   );
 
 }
+
 
 
 /* =========================================================
@@ -1676,6 +1740,7 @@ function getDateParts(event) {
 }
 
 
+
 /* =========================================================
    TIME
    ========================================================= */
@@ -1700,6 +1765,7 @@ function formatTime(event) {
   );
 
 }
+
 
 
 /* =========================================================
@@ -1811,6 +1877,7 @@ function getMonthName(year, month) {
 }
 
 
+
 /* =========================================================
    FILTER BUTTONS
    ========================================================= */
@@ -1901,6 +1968,7 @@ function buildMonthFilters() {
 }
 
 
+
 /* =========================================================
    JAPANESE
    ========================================================= */
@@ -1911,6 +1979,7 @@ function containsJapanese(text = '') {
     .test(text);
 
 }
+
 
 
 /* =========================================================
@@ -1993,6 +2062,7 @@ function createPlayersHTML(players) {
   return html;
 
 }
+
 
 
 /* =========================================================
@@ -2189,9 +2259,9 @@ function createEventCard(
     actions.length
       ?
       `
-      <div class="actions">
-        ${actions.join('')}
-      </div>
+        <div class="actions">
+          ${actions.join('')}
+        </div>
       `
       :
       '';
@@ -2212,9 +2282,9 @@ function createEventCard(
         tonight
           ?
           `
-          <div class="status">
-            TONIGHT
-          </div>
+            <div class="status">
+              TONIGHT
+            </div>
           `
           :
           ''
@@ -2281,8 +2351,9 @@ function createEventCard(
 }
 
 
+
 /* =========================================================
-   FILTER
+   SET FILTER
    ========================================================= */
 
 function setFilter(filter) {
@@ -2313,6 +2384,7 @@ function setFilter(filter) {
   renderEvents();
 
 }
+
 
 
 /* =========================================================
@@ -2405,6 +2477,7 @@ function renderEvents() {
             upcomingEvents
               .indexOf(event);
 
+
           return createEventCard(
             event,
             originalIndex,
@@ -2416,6 +2489,7 @@ function renderEvents() {
       .join('');
 
 }
+
 
 
 /* =========================================================
@@ -2494,8 +2568,12 @@ document.addEventListener(
 );
 
 
+
 /* =========================================================
    GOOGLE CALENDAR
+
+   ★ 2018年から取得
+   ★ 250件を超えても全ページ取得
    ========================================================= */
 
 async function loadCalendar() {
@@ -2505,81 +2583,99 @@ async function loadCalendar() {
 
 
   const timeMinDate =
-    new Date(now);
-
-  timeMinDate.setFullYear(
-    timeMinDate.getFullYear() - 1
-  );
+    new Date(
+      '2018-01-01T00:00:00+09:00'
+    );
 
 
   const timeMaxDate =
     new Date(now);
+
 
   timeMaxDate.setFullYear(
     timeMaxDate.getFullYear() + 2
   );
 
 
-  const url =
-    'https://www.googleapis.com/calendar/v3/calendars/'
-    +
-    encodeURIComponent(
-      CALENDAR_ID
-    )
-    +
-    '/events'
-    +
-    '?key='
-    +
-    encodeURIComponent(
-      API_KEY
-    )
-    +
-    '&singleEvents=true'
-    +
-    '&orderBy=startTime'
-    +
-    '&timeMin='
-    +
-    encodeURIComponent(
-      timeMinDate.toISOString()
-    )
-    +
-    '&timeMax='
-    +
-    encodeURIComponent(
-      timeMaxDate.toISOString()
-    )
-    +
-    '&maxResults=250';
-
-
   try {
 
-    const response =
-      await fetch(url);
+    const allEvents = [];
+
+    let pageToken = '';
 
 
-    if (!response.ok) {
+    do {
 
-      const errorText =
-        await response.text();
+      const params =
+        new URLSearchParams({
+          key: API_KEY,
+          singleEvents: 'true',
+          orderBy: 'startTime',
+          timeMin: timeMinDate.toISOString(),
+          timeMax: timeMaxDate.toISOString(),
+          maxResults: '250'
+        });
 
-      console.error(errorText);
 
-      throw new Error(
-        'Calendar request failed'
+      if (pageToken) {
+
+        params.set(
+          'pageToken',
+          pageToken
+        );
+
+      }
+
+
+      const url =
+        'https://www.googleapis.com/calendar/v3/calendars/'
+        +
+        encodeURIComponent(
+          CALENDAR_ID
+        )
+        +
+        '/events?'
+        +
+        params.toString();
+
+
+      const response =
+        await fetch(url);
+
+
+      if (!response.ok) {
+
+        const errorText =
+          await response.text();
+
+        console.error(errorText);
+
+
+        throw new Error(
+          'Calendar request failed'
+        );
+
+      }
+
+
+      const data =
+        await response.json();
+
+
+      allEvents.push(
+        ...(data.items || [])
       );
 
-    }
+
+      pageToken =
+        data.nextPageToken || '';
 
 
-    const data =
-      await response.json();
+    } while (pageToken);
 
 
     const events =
-      (data.items || [])
+      allEvents
         .filter(
           event =>
             event.start &&
@@ -2640,6 +2736,7 @@ async function loadCalendar() {
   }
 
 }
+
 
 
 /* =========================================================
