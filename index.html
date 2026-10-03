@@ -1266,23 +1266,68 @@ function normalizeWebsiteURL(value = '') {
 
 function normalizeImagePath(value = '') {
 
-  const text = String(value).trim();
+  let text = String(value).trim();
 
   if (!text) {
     return '';
   }
 
-  /* Full external URL: keep as-is */
+  /* GitHubの画像ページURL（/blob/）を直接画像URLへ自動変換 */
+  try {
+
+    const url = new URL(text);
+
+    if (
+      url.hostname === 'github.com' &&
+      url.pathname.includes('/blob/')
+    ) {
+
+      const parts =
+        url.pathname
+          .split('/')
+          .filter(Boolean);
+
+      const blobIndex =
+        parts.indexOf('blob');
+
+      if (
+        blobIndex >= 2 &&
+        parts.length > blobIndex + 2
+      ) {
+
+        const owner = parts[0];
+        const repo = parts[1];
+        const branch = parts[blobIndex + 1];
+        const filePath =
+          parts
+            .slice(blobIndex + 2)
+            .join('/');
+
+        return (
+          `https://raw.githubusercontent.com/`
+          + `${owner}/${repo}/${branch}/${filePath}`
+        );
+
+      }
+
+    }
+
+  }
+  catch {
+    /* URLでなければ通常処理へ */
+  }
+
+  /* 直接画像URLはそのまま使用 */
   if (/^https?:\/\//i.test(text)) {
     return text;
   }
 
-  /* Already points to the images folder: keep as-is */
+  /* すでに images/ が付いている場合 */
   if (/^images\//i.test(text)) {
     return text;
   }
 
-  /* Filename only: automatically look inside /images */
+  /* ファイル名だけなら自動的に images/ を付ける */
   return `images/${text.replace(/^\.\//, '')}`;
 
 }
