@@ -691,7 +691,7 @@ button.action {
 .event-media-track{display:flex;width:100%;gap:0;overflow-x:auto;overflow-y:hidden;padding:0;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
 .event-media-track::-webkit-scrollbar{display:none}
 .event-media-item{position:relative;flex:0 0 100%;width:100%;min-width:100%;scroll-snap-align:start;scroll-snap-stop:always;background:var(--card);overflow:hidden}
-.event-media-image-button{display:block;width:100%;padding:0;border:0;background:transparent;cursor:zoom-in}
+.event-media-image-button{display:block;width:100%;padding:0;border:0;background:transparent;cursor:zoom-in;touch-action:manipulation}
 .event-media-image{display:block;width:100%;height:auto;object-fit:contain;background:var(--card)}
 .event-media-item.photo .event-media-image{width:100%;height:auto;object-fit:contain}
 .event-media-badge{position:absolute;top:10px;left:10px;z-index:3;padding:6px 8px 5px;background:rgba(152,24,42,.92);color:var(--paper);font-family:var(--sans);font-size:7px;font-weight:600;letter-spacing:1.3px;pointer-events:none}
@@ -2619,17 +2619,17 @@ document.addEventListener(
   function(event) {
 
 
-    /* FLYER */
+    /* FLYER / LIVE PHOTO */
 
     const flyerButton =
       event.target.closest(
-        '.event-flyer-button'
+        '.event-flyer-button, .event-media-image-button'
       );
 
     if (flyerButton) {
       openFlyer(
         flyerButton.dataset.flyer,
-        flyerButton.dataset.title || 'Event flyer'
+        flyerButton.dataset.title || 'Image'
       );
       return;
     }
