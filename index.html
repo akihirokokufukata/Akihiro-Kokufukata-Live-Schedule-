@@ -2602,7 +2602,7 @@ menuToggle.addEventListener('click', () => setMenu(!siteMenu.classList.contains(
 menuBackdrop.addEventListener('click', () => setMenu(false));
 document.addEventListener('keydown', e => { if(e.key === 'Escape') setMenu(false); });
 
-const MENU_URLS = { live: SETTINGS.LIVE_SCHEDULE_URL || 'index.html', bio: SETTINGS.BIO_URL || '', music: SETTINGS.MUSIC_URL || '', contact: SETTINGS.CONTACT_URL || '' };
+const MENU_URLS = { live: SETTINGS.LIVE_SCHEDULE_URL || 'index.html', bio: SETTINGS.BIO_URL || '', music: SETTINGS.MUSIC_URL || '', contact: SETTINGS.CONTACT_URL || 'contact.html' };
 document.querySelectorAll('[data-menu-link]').forEach(link => {
   const key = link.dataset.menuLink;
   const url = MENU_URLS[key];
