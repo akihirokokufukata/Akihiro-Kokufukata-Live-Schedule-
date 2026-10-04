@@ -1049,6 +1049,100 @@ body.reservation-open{overflow:hidden}
 
 
 
+
+/* =========================================================
+   SEARCH SHOWS
+   ========================================================= */
+.show-search{
+  margin:0 0 30px;
+}
+.show-search-label{
+  display:block;
+  margin-bottom:9px;
+  color:var(--crimson);
+  font-family:var(--sans);
+  font-size:9px;
+  font-weight:600;
+  letter-spacing:2.4px;
+}
+.show-search-row{
+  position:relative;
+  display:flex;
+  align-items:center;
+  border-bottom:1px solid var(--crimson);
+}
+.show-search-input{
+  width:100%;
+  padding:10px 72px 11px 0;
+  border:0;
+  border-radius:0;
+  outline:0;
+  background:transparent;
+  color:var(--ink);
+  font-family:var(--serif);
+  font-size:22px;
+  font-weight:500;
+}
+.show-search-input::placeholder{
+  color:var(--muted);
+  opacity:.72;
+}
+.show-search-input:focus-visible{
+  outline:0;
+}
+.show-search-row:focus-within{
+  border-bottom-width:2px;
+}
+.show-search-clear{
+  position:absolute;
+  right:0;
+  bottom:10px;
+  padding:2px 0 2px 12px;
+  border:0;
+  background:var(--paper);
+  color:var(--crimson);
+  font-family:var(--sans);
+  font-size:8px;
+  font-weight:600;
+  letter-spacing:1.4px;
+  cursor:pointer;
+}
+.show-search-clear[hidden]{display:none}
+.search-results-head{
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  gap:16px;
+  margin:0 0 16px;
+  padding-bottom:10px;
+  border-bottom:1px solid var(--line);
+}
+.search-results-title{
+  color:var(--crimson);
+  font-family:var(--sans);
+  font-size:9px;
+  font-weight:600;
+  letter-spacing:2.4px;
+}
+.search-results-count{
+  color:var(--muted);
+  font-family:var(--sans);
+  font-size:8px;
+  font-weight:600;
+  letter-spacing:1.2px;
+}
+.search-results-query{
+  font-family:var(--jp);
+  text-transform:none;
+}
+@media(max-width:650px){
+  .show-search{margin-bottom:25px}
+  .show-search-label{font-size:8px;letter-spacing:2px}
+  .show-search-input{font-size:19px;padding-top:8px;padding-bottom:9px}
+  .show-search-clear{bottom:9px;font-size:7px}
+  .search-results-head{margin-bottom:13px}
+}
+
 /* ACCESSIBILITY */
 a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--crimson);outline-offset:4px}
 .site-menu .menu-disabled{display:block;padding:20px 0;border-bottom:1px solid var(--line);color:var(--ink);font-family:var(--serif);font-size:30px;font-weight:600;letter-spacing:.5px;opacity:.38;cursor:default}
@@ -1136,8 +1230,23 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 
   </div>
 
+  <div class="show-search" role="search" aria-label="Search shows">
+    <label class="show-search-label" for="showSearch">SEARCH SHOWS</label>
+    <div class="show-search-row">
+      <input
+        class="show-search-input"
+        id="showSearch"
+        type="search"
+        placeholder="Player, venue, or keyword..."
+        autocomplete="off"
+        spellcheck="false"
+        aria-controls="events"
+      >
+      <button class="show-search-clear" id="showSearchClear" type="button" hidden>CLEAR ×</button>
+    </div>
+  </div>
 
-  <div id="events">
+  <div id="events" aria-live="polite">
 
     <div class="message">
       Loading shows...
@@ -1216,6 +1325,7 @@ let upcomingEvents = [];
 let pastEvents = [];
 
 let selectedFilter = 'all';
+let searchQuery = '';
 
 /* ★ PAST内の月 */
 let selectedPastMonth = 'all';
@@ -2407,6 +2517,76 @@ function setFilter(filter) {
 
 
 /* =========================================================
+   SEARCH SHOWS
+   ========================================================= */
+
+function normalizeSearchText(value = '') {
+  return String(value)
+    .normalize('NFKC')
+    .toLocaleLowerCase('ja-JP')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function eventSearchText(event) {
+  const info = parseDescription(event.description || '');
+  const venue = getVenue(event.location || '');
+  const fields = [
+    event.summary || '',
+    ...(info.players || []),
+    venue,
+    info.place || '',
+    event.location || ''
+  ];
+  return normalizeSearchText(fields.join(' '));
+}
+
+function eventMatchesSearch(event, query) {
+  const normalized = normalizeSearchText(query);
+  if (!normalized) return true;
+
+  const words = normalized.split(' ').filter(Boolean);
+  const haystack = eventSearchText(event);
+
+  return words.every(word => haystack.includes(word));
+}
+
+function renderSearchResults(container) {
+  const query = searchQuery.trim();
+  const allEvents = [...upcomingEvents, ...pastEvents];
+
+  const matches = allEvents
+    .filter(event => eventMatchesSearch(event, query))
+    .sort((a, b) => eventStart(b) - eventStart(a));
+
+  container.innerHTML = `
+    <div class="search-results-head">
+      <div class="search-results-title">
+        SEARCH RESULTS
+        <span class="search-results-query">— ${escapeHTML(query)}</span>
+      </div>
+      <div class="search-results-count">
+        ${matches.length} ${matches.length === 1 ? 'SHOW' : 'SHOWS'}
+      </div>
+    </div>
+
+    ${
+      matches.length
+        ? matches.map(event => {
+            const isPast = eventEnd(event) < new Date();
+            const upcomingIndex = isPast ? -1 : upcomingEvents.indexOf(event);
+            return createEventCard(event, upcomingIndex, isPast);
+          }).join('')
+        : `
+          <div class="message">
+            No shows found for “${escapeHTML(query)}”.
+          </div>
+        `
+    }
+  `;
+}
+
+/* =========================================================
    RENDER
    ========================================================= */
 
@@ -2416,6 +2596,11 @@ function renderEvents() {
     document.getElementById(
       'events'
     );
+
+  if (searchQuery.trim()) {
+    renderSearchResults(container);
+    return;
+  }
 
 
   /* =======================================================
@@ -3012,6 +3197,38 @@ async function loadCalendar() {
 }
 
 
+
+/* =========================================================
+   SEARCH INPUT
+   ========================================================= */
+
+const showSearch = document.getElementById('showSearch');
+const showSearchClear = document.getElementById('showSearchClear');
+
+function updateShowSearch() {
+  searchQuery = showSearch.value;
+  showSearchClear.hidden = !searchQuery.trim();
+  renderEvents();
+}
+
+showSearch.addEventListener('input', updateShowSearch);
+
+showSearchClear.addEventListener('click', () => {
+  showSearch.value = '';
+  searchQuery = '';
+  showSearchClear.hidden = true;
+  renderEvents();
+  showSearch.focus();
+});
+
+showSearch.addEventListener('keydown', event => {
+  if (event.key === 'Escape' && showSearch.value) {
+    showSearch.value = '';
+    searchQuery = '';
+    showSearchClear.hidden = true;
+    renderEvents();
+  }
+});
 
 /* =========================================================
    START
