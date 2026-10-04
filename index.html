@@ -30,7 +30,7 @@
 </script>
 
 <script>
-const PLAYER_PARSER_VERSION = '2026-10-04-v4';
+const PLAYER_PARSER_VERSION = '2026-10-04-v5-safe-boundaries';
 const SETTINGS = {
   API_KEY: 'AIzaSyCB5WplBrKEb70d5WHZTrg3G46fTdl_A0Q',
   CALENDAR_ID: 'akihirokokufukatamusic@gmail.com',
@@ -2306,7 +2306,7 @@ const PLAYER_ROLE_PATTERN =
   'Tb|Tbn|Trombone|Bass-Tb|BassTb|Sax|Saxophones?|A\\.?Sax|T\\.?Sax|B\\.?Sax|S\\.?Sax|Ts|As|Ss|Bs|' +
   'P|Pf|Piano|Key|Keyb|Keys|Keyboard|Synth|Org|Organ|G|Gt|Gtr|Guitar|' +
   'B|Ba|Bass|Db|Dr|Ds|D|Drum|Drums|Perc|Per|Percussion|Lp|Latin\\s*Percussion|Cond|Conductor|Arr|Arrange|Arranger|Rap|Per\\.?Synt|Perc\\.?Synt|' +
-  'Vo|Vocals?|Cho|Chorus|Vln|Violin|Cello|Vc|Fl|Flute)';
+  'Vo|Vocals?|Cho|Chorus|Vln|Violin|Cello|Vc|Fl|Flute|Picc|Piccolo|DJ|Dance)';
 
 const PLAYER_ROLE_TOKEN = new RegExp(`^${PLAYER_ROLE_PATTERN}\\.?$`, 'i');
 
@@ -2356,11 +2356,18 @@ function extractPlayerNote(text = '') {
     note = m[1].trim();
     value = value.slice(0, m.index).trim();
   }
+  const guest = value.match(/\s*&\s*(Guests?)\s*$/i);
+  if (guest) {
+    note = note ? `${guest[1]} ${note}` : guest[1];
+    value = value.slice(0, guest.index).trim();
+  }
+
   return { value, note };
 }
 
 function splitPlayerDisplay(player = '', inheritedRole = '') {
   let text = String(player).trim().replace(/^[*＊•・]\s*/, '').trim();
+  text = text.replace(/\s*[\(（\[【]\s*$/, '').trim();
   if (!text) return { name:'', role:'', note:'' };
 
   const noted = extractPlayerNote(text);
@@ -2393,6 +2400,18 @@ function splitPlayerDisplay(player = '', inheritedRole = '') {
   if (attached && attached[1].trim().length >= 2)
     return { name:attached[1].trim(), role:normalizeRoleList(attached[2]), note };
 
+  // Safe no-space suffix parsing for legacy Japanese entries only.
+  // Example: 櫻井智則sax -> 櫻井智則 - Sax.
+  // Crucially, Latin words such as BIGBAND must NEVER become BIGBAN - D.
+  const attachedJapanese = text.match(/^(.+[\u3040-\u30ff\u3400-\u9fff々〆ヵヶ])\s*(sax|tp|tpt|tb|tbn|as|ts|ss|bs|pf|ds|dr|drums|perc|per|bass|synth|vo|flh|flute)$/i);
+  if (attachedJapanese) {
+    return {
+      name: attachedJapanese[1].trim(),
+      role: normalizeRoleList(attachedJapanese[2]),
+      note
+    };
+  }
+
   // Generic parenthesized/bracketed role, after note extraction.
   // Examples: 岡部洋一 (Per), 挾間美帆 (Cond), 松原慎之介 (Cond/As), 守屋純子 (P/Arr)
   const genericBracket = text.match(/^(.*?)\s*[\(（\[【]\s*([^\)）\]】]+?)\s*[\)）\]】]\s*$/);
@@ -2409,6 +2428,12 @@ function splitPlayerDisplay(player = '', inheritedRole = '') {
   }
 
   return { name:text, role:normalizeRoleList(inheritedRole), note };
+}
+
+function isNonPersonRosterLabel(value = '') {
+  const v = normalizeSearchText(value).replace(/\s+/g, ' ').trim();
+  return /^(?:ほか|他|その他)(?:\s+(?:orchestra|band|ensemble)?\s*members?)?$/i.test(v) ||
+         /^(?:others?|other\s+members?|orchestra\s+members?|band\s+members?|ensemble\s+members?|guests?)$/i.test(v);
 }
 
 function splitPlayersIntoPeople(players = []) {
@@ -2460,7 +2485,7 @@ function splitPlayersIntoPeople(players = []) {
   for (let segment of segments) {
     segment = segment.replace(/^[*＊•・]\s*/, '').trim();
     if (!segment) continue;
-    if (/^(?:ほか|他|その他|others?|and\s+others|etc\.?)$/i.test(segment)) {
+    if (isNonPersonRosterLabel(segment) || /^(?:and\s+others|etc\.?)$/i.test(segment)) {
       forwardRole = '';
       continue;
     }
