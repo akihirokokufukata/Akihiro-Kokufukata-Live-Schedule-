@@ -1277,6 +1277,42 @@ body.reservation-open{overflow:hidden}
   .search-profile-name{font-size:29px}
 }
 
+
+/* =========================================================
+   EVENT ACTIONS — THREE-COLUMN ROW
+   ========================================================= */
+.event-actions,
+.actions{
+  display:grid !important;
+  grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+  gap:8px !important;
+}
+.event-actions .action,
+.actions .action{
+  width:100% !important;
+  min-width:0 !important;
+  margin:0 !important;
+  padding-left:5px !important;
+  padding-right:5px !important;
+  white-space:nowrap;
+  text-align:center;
+  justify-content:center;
+}
+@media(max-width:650px){
+  .event-actions,
+  .actions{
+    grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+    gap:6px !important;
+  }
+  .event-actions .action,
+  .actions .action{
+    padding-left:3px !important;
+    padding-right:3px !important;
+    font-size:6.7px !important;
+    letter-spacing:.8px !important;
+  }
+}
+
 /* ACCESSIBILITY */
 a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--crimson);outline-offset:4px}
 .site-menu .menu-disabled{display:block;padding:20px 0;border-bottom:1px solid var(--line);color:var(--ink);font-family:var(--serif);font-size:30px;font-weight:600;letter-spacing:.5px;opacity:.38;cursor:default}
@@ -2322,6 +2358,22 @@ function splitLegacyRoleSeparatedPeople(text = '') {
 
 function splitPlayerDisplay(player = '') {
   const text = String(player).trim();
+
+  // Legacy prefix-role format:
+  // "Tp:田中哲也" / "Sax：辻野進輔" / "Tb:角田健一"
+  // => clickable name only, role kept separately.
+  const prefixRoleRegex = new RegExp(
+    `^(${PLAYER_ROLE_PATTERN})(?:\\.)?\\s*[:：]\\s*(.+)$`,
+    'i'
+  );
+  const prefixRole = text.match(prefixRoleRegex);
+
+  if (prefixRole) {
+    return {
+      name: prefixRole[2].trim(),
+      role: prefixRole[1].trim()
+    };
+  }
 
   // Keep multi-instrument roles together:
   // "Melraw (As,G)" => name "Melraw", role "(As,G)"
