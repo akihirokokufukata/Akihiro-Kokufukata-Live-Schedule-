@@ -30,6 +30,7 @@
 </script>
 
 <script>
+const PLAYER_PARSER_VERSION = '2026-10-04-v4';
 const SETTINGS = {
   API_KEY: 'AIzaSyCB5WplBrKEb70d5WHZTrg3G46fTdl_A0Q',
   CALENDAR_ID: 'akihirokokufukatamusic@gmail.com',
@@ -2302,9 +2303,9 @@ function containsJapanese(text = '') {
 
 const PLAYER_ROLE_PATTERN =
   '(?:Con\\.?\\s*Arr\\.?\\s*Tb|Con\\.?Arr\\.?Tb|Tp|Tpt|Trumpet|Flh|Flugelhorn|' +
-  'Tb|Tbn|Trombone|Bass-Tb|BassTb|Sax|Saxophones?|Ts|As|Ss|Bs|' +
+  'Tb|Tbn|Trombone|Bass-Tb|BassTb|Sax|Saxophones?|A\\.?Sax|T\\.?Sax|B\\.?Sax|S\\.?Sax|Ts|As|Ss|Bs|' +
   'P|Pf|Piano|Key|Keyb|Keys|Keyboard|Synth|Org|Organ|G|Gt|Gtr|Guitar|' +
-  'B|Ba|Bass|Db|Dr|Ds|D|Drums|Perc|Percussion|Lp|Latin\\s*Percussion|' +
+  'B|Ba|Bass|Db|Dr|Ds|D|Drum|Drums|Perc|Per|Percussion|Lp|Latin\\s*Percussion|Cond|Conductor|Arr|Arrange|Arranger|Rap|Per\\.?Synt|Perc\\.?Synt|' +
   'Vo|Vocals?|Cho|Chorus|Vln|Violin|Cello|Vc|Fl|Flute)';
 
 const PLAYER_ROLE_TOKEN = new RegExp(`^${PLAYER_ROLE_PATTERN}\\.?$`, 'i');
@@ -2323,6 +2324,10 @@ function canonicalizeRoleToken(token = '') {
   const compact = raw.replace(/\s+/g, '').replace(/\./g, '').toLowerCase();
   if (compact === 'conarrtb') return 'Con.Arr.Tb';
   if (compact === 'latinpercussion' || compact === 'lp') return 'Lp';
+  if (compact === 'asax') return 'As';
+  if (compact === 'tsax') return 'Ts';
+  if (compact === 'bsax') return 'Bs';
+  if (compact === 'ssax') return 'Ss';
   return raw;
 }
 
@@ -2338,6 +2343,7 @@ function looksLikeRoleList(value = '') {
   const cleaned = cleanPlayerRole(value);
   if (!cleaned) return false;
   if (/^Con\.?\s*Arr\.?\s*Tb\.?$/i.test(cleaned)) return true;
+  if (/^(?:Cond|P|Pf|Per|Perc|D|Dr|Ds|As|Ts|Bs|Ss)(?:\s*[\/／]\s*(?:Cond|Arr|As|Ts|Bs|Ss|P|Pf|Key|Keyb|Per|Perc|Synt))*$/i.test(cleaned)) return true;
   const tokens = cleaned.split(/\s*[,，、\/／]\s*/).map(v => v.trim()).filter(Boolean);
   return tokens.length > 0 && tokens.every(token => PLAYER_ROLE_TOKEN.test(token));
 }
@@ -2387,13 +2393,37 @@ function splitPlayerDisplay(player = '', inheritedRole = '') {
   if (attached && attached[1].trim().length >= 2)
     return { name:attached[1].trim(), role:normalizeRoleList(attached[2]), note };
 
+  // Generic parenthesized/bracketed role, after note extraction.
+  // Examples: 岡部洋一 (Per), 挾間美帆 (Cond), 松原慎之介 (Cond/As), 守屋純子 (P/Arr)
+  const genericBracket = text.match(/^(.*?)\s*[\(（\[【]\s*([^\)）\]】]+?)\s*[\)）\]】]\s*$/);
+  if (genericBracket && looksLikeRoleList(genericBracket[2])) {
+    return { name:genericBracket[1].trim(), role:normalizeRoleList(genericBracket[2]), note };
+  }
+
+  // "Thiago Rabello (D) and others": keep "and others" as note, never identity.
+  const andOthers = text.match(/^(.*?)\s+(and\s+others)$/i);
+  if (andOthers) {
+    const base = splitPlayerDisplay(andOthers[1], inheritedRole);
+    base.note = base.note ? `${base.note} ${andOthers[2]}` : andOthers[2];
+    return base;
+  }
+
   return { name:text, role:normalizeRoleList(inheritedRole), note };
 }
 
 function splitPlayersIntoPeople(players = []) {
-  const source = (players || []).map(v => String(v || '').trim()).filter(Boolean).join(' / ');
+  const source = (players || [])
+    .map(v => String(v || '').trim())
+    .filter(Boolean)
+    .join(' / ');
+
   if (!source) return [];
 
+  // Split only on slash/newline OUTSIDE brackets.
+  // [Pf/Keyb] therefore remains a single role expression.
+  // Normalize comma-separated roster lines such as:
+  // 唐治谷雄大 Sax, 國府方章弘 Tp, 河野真貴 Pf, 蓼川祐紀 Bass, 渡瀬春翔 Drum
+  // Commas inside brackets are untouched by the scanner below.
   const segments = [];
   let current = '', round = 0, square = 0;
 
@@ -2401,11 +2431,12 @@ function splitPlayersIntoPeople(players = []) {
     if (ch === '(' || ch === '（') round++;
     if (ch === '[' || ch === '【') square++;
 
-    if (!round && !square && /[\/／\n\r]/.test(ch)) {
+    if (!round && !square && /[\/／\n\r,，、]/.test(ch)) {
       if (current.trim()) segments.push(current.trim());
       current = '';
       continue;
     }
+
     current += ch;
 
     if ((ch === ')' || ch === '）') && round) round--;
@@ -2414,33 +2445,89 @@ function splitPlayersIntoPeople(players = []) {
   if (current.trim()) segments.push(current.trim());
 
   const people = [];
-  let inheritedRole = '';
+  let forwardRole = '';
+  let pendingUnassigned = [];
+
+  function flushPending(role = '') {
+    if (!pendingUnassigned.length) return;
+    pendingUnassigned.forEach(person => {
+      if (!person.role && role) person.role = role;
+      people.push(person);
+    });
+    pendingUnassigned = [];
+  }
 
   for (let segment of segments) {
     segment = segment.replace(/^[*＊•・]\s*/, '').trim();
     if (!segment) continue;
+    if (/^(?:ほか|他|その他|others?|and\s+others|etc\.?)$/i.test(segment)) {
+      forwardRole = '';
+      continue;
+    }
 
-    const header = segment.match(/^(.+?)\s*[:：]\s*(.+)$/);
-    if (header && looksLikeRoleList(header[1])) {
-      inheritedRole = normalizeRoleList(header[1]);
-      const person = splitPlayerDisplay(header[2], inheritedRole);
-      person.role = person.role || inheritedRole;
+    // FORWARD notation:
+    // Tp:田中哲也 / 松木理三郎 / 國府方章弘
+    // Tp-田中哲也 / 松木理三郎 / 國府方章弘
+    let m = segment.match(/^(.+?)\s*[:：]\s*(.+)$/);
+    if (m && looksLikeRoleList(m[1])) {
+      flushPending();
+      forwardRole = normalizeRoleList(m[1]);
+      const person = splitPlayerDisplay(m[2], forwardRole);
+      person.role = person.role || forwardRole;
       if (person.name) people.push(person);
       continue;
     }
 
-    const roleDash = segment.match(/^(.+?)\s*(?:-|–|—)\s*(.+)$/);
-    if (roleDash && looksLikeRoleList(roleDash[1])) {
-      inheritedRole = normalizeRoleList(roleDash[1]);
-      const person = splitPlayerDisplay(roleDash[2], inheritedRole);
-      person.role = person.role || inheritedRole;
+    m = segment.match(/^(.+?)\s*(?:-|–|—)\s*(.+)$/);
+    if (m && looksLikeRoleList(m[1])) {
+      flushPending();
+      forwardRole = normalizeRoleList(m[1]);
+      const person = splitPlayerDisplay(m[2], forwardRole);
+      person.role = person.role || forwardRole;
       if (person.name) people.push(person);
       continue;
     }
 
-    const person = splitPlayerDisplay(segment, inheritedRole);
-    if (person.name) people.push(person);
+    // BACKWARD notation:
+    // 佐瀬悠輔 / 山田丈造 / 菊地立起 / 國府方章弘-Tp
+    // The final "-Tp" closes the preceding unlabelled section and assigns
+    // the same role to all pending members.
+    m = segment.match(/^(.*?)\s*(?:-|–|—)\s*(.+)$/);
+    if (m && looksLikeRoleList(m[2])) {
+      const backwardRole = normalizeRoleList(m[2]);
+
+      if (pendingUnassigned.length) {
+        flushPending(backwardRole);
+      }
+
+      const person = splitPlayerDisplay(m[1]);
+      person.role = backwardRole;
+      if (person.name) people.push(person);
+
+      // A trailing role is treated as the end of that group, not as a
+      // forward header for the next group.
+      forwardRole = '';
+      continue;
+    }
+
+    const person = splitPlayerDisplay(segment, forwardRole);
+
+    if (!person.name) continue;
+
+    if (person.role) {
+      // Explicit bracket/suffix role such as Name [A.Sax] is self-contained.
+      flushPending();
+      people.push(person);
+    } else if (forwardRole) {
+      person.role = forwardRole;
+      people.push(person);
+    } else {
+      // Hold temporarily: a later "Name-Tp" may define this whole group.
+      pendingUnassigned.push(person);
+    }
   }
+
+  flushPending();
   return people;
 }
 
@@ -2453,8 +2540,8 @@ function createPlayerLineHTML(person) {
   return `
     <span class="player">
       <button class="player-search" type="button"
-        data-player-search="${escapeHTML(name)}"
-        aria-label="Search shows with ${escapeHTML(name)}"
+        data-player-search="${escapeHTML(cleanPlayerSearchIdentity(name))}"
+        aria-label="Search shows with ${escapeHTML(cleanPlayerSearchIdentity(name))}"
       >${escapeHTML(name)}</button>${role ? ` <span class="player-separator">-</span> <span class="player-instrument">${escapeHTML(role)}</span>` : ''}${note ? ` <span class="player-note">${escapeHTML(note)}</span>` : ''}
     </span>
   `;
@@ -2922,6 +3009,21 @@ function normalizeSearchText(value = '') {
   Keep the visible Calendar spelling unchanged, but ignore whitespace when comparing
   names that contain Japanese characters.
 */
+function cleanPlayerSearchIdentity(value = '') {
+  let v = String(value || '').trim();
+  v = v.replace(/\s+(?:and\s+others)$/i, '').trim();
+
+  // Strip a recognized trailing bracket role from the search identity.
+  const b = v.match(/^(.*?)\s*[\(（\[【]\s*([^\)）\]】]+)\s*[\)）\]】]\s*$/);
+  if (b && looksLikeRoleList(b[2])) v = b[1].trim();
+
+  // Strip a recognized plain trailing role.
+  const s = v.match(new RegExp(`^(.*?)\\s+(${PLAYER_ROLE_PATTERN})(?:\\.)?$`, 'i'));
+  if (s) v = s[1].trim();
+
+  return v;
+}
+
 function normalizePlayerName(value = '') {
   const normalized = normalizeSearchText(value);
 
