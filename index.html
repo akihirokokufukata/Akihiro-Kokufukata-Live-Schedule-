@@ -6,6 +6,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Akihiro Kokufukata | Live Schedule</title>
+<meta name="description" content="Akihiro Kokufukata — Trumpeter / Composer. Live schedule, performance media and reservations.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Akihiro Kokufukata | Live Schedule">
+<meta property="og:description" content="Live schedule, performance media and reservations for trumpeter / composer Akihiro Kokufukata.">
+<meta property="og:url" content="https://akihirokokufukata.github.io/Akihiro-Kokufukata-Live-Schedule-/">
+<meta property="og:image" content="https://akihirokokufukata.github.io/Akihiro-Kokufukata-Live-Schedule-/images/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image">
 
 <script>
 const SETTINGS = {
@@ -1102,6 +1109,25 @@ footer {
 .menu-backdrop.open { opacity:1; visibility:visible; }
 @media(max-width:650px){ .menu-toggle{ top:29px; right:18px; width:39px; } .site-menu{ padding:105px 28px 35px; } .site-menu a{ font-size:27px; } }
 
+
+
+/* RESERVATION + SOCIAL */
+.action.reservation{flex-basis:100%;width:100%;background:var(--crimson);color:var(--paper);border-color:var(--crimson);padding:13px 18px}
+.action.reservation:hover{background:var(--crimson-dark);border-color:var(--crimson-dark)}
+.reservation-modal{position:fixed;inset:0;z-index:120;display:flex;align-items:center;justify-content:center;padding:22px;background:rgba(24,19,19,.76);opacity:0;visibility:hidden;transition:opacity .2s ease,visibility .2s ease}
+.reservation-modal.open{opacity:1;visibility:visible}
+.reservation-panel{position:relative;width:min(520px,94vw);max-height:90vh;overflow:auto;padding:32px;background:var(--card);border:1px solid var(--line)}
+.reservation-close{position:absolute;top:12px;right:14px;border:0;background:transparent;color:var(--crimson);font-family:var(--sans);font-size:10px;font-weight:600;letter-spacing:1.6px;cursor:pointer}
+.reservation-kicker{margin-bottom:7px;color:var(--crimson);font-family:var(--sans);font-size:9px;font-weight:600;letter-spacing:2.4px}
+.reservation-show{margin:0 28px 22px 0;font-family:var(--serif);font-size:25px;line-height:1.05}
+.reservation-form label{display:block;margin:15px 0 6px;color:var(--muted);font-family:var(--sans);font-size:8px;font-weight:600;letter-spacing:1.5px}
+.reservation-form input,.reservation-form select,.reservation-form textarea{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:0;background:var(--paper);color:var(--ink);font:14px var(--jp)}
+.reservation-form textarea{min-height:92px;resize:vertical}
+.reservation-submit{width:100%;margin-top:20px;padding:13px;border:1px solid var(--crimson);background:var(--crimson);color:var(--paper);font-family:var(--sans);font-size:9px;font-weight:600;letter-spacing:1.7px;cursor:pointer}
+body.reservation-open{overflow:hidden}
+.footer-instagram{display:inline-block;margin-top:18px;color:var(--crimson);font-family:var(--sans);font-size:9px;font-weight:600;letter-spacing:2px;text-decoration:none}
+.footer-instagram:hover{text-decoration:underline}
+
 </style>
 </head>
 
@@ -1209,6 +1235,23 @@ footer {
   </div>
 </div>
 
+
+<div class="reservation-modal" id="reservationModal" aria-hidden="true">
+  <div class="reservation-panel" role="dialog" aria-modal="true" aria-labelledby="reservationTitle">
+    <button class="reservation-close" id="reservationClose" type="button">CLOSE ×</button>
+    <div class="reservation-kicker">RESERVATION</div>
+    <h3 class="reservation-show" id="reservationTitle"></h3>
+    <form class="reservation-form" id="reservationForm">
+      <input type="hidden" id="reservationLive">
+      <label for="reservationName">NAME</label><input id="reservationName" type="text" required>
+      <label for="reservationEmail">EMAIL</label><input id="reservationEmail" type="email" required>
+      <label for="reservationGuests">NUMBER OF GUESTS</label><select id="reservationGuests"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option></select>
+      <label for="reservationMessage">MESSAGE</label><textarea id="reservationMessage"></textarea>
+      <button class="reservation-submit" type="submit">SEND RESERVATION →</button>
+    </form>
+  </div>
+</div>
+
 <footer>
 
   <div class="footer-name">
@@ -1218,6 +1261,7 @@ footer {
   <div class="footer-role">
     TRUMPETER / COMPOSER
   </div>
+  <a class="footer-instagram" href="https://www.instagram.com/akihirokokufukata/" target="_blank" rel="noopener noreferrer">INSTAGRAM ↗</a>
 
 </footer>
 
@@ -1411,6 +1455,7 @@ function parseDescription(description = '') {
 
   let place = '';
   let website = '';
+  let reservation = '';
   let leader = false;
 
   let readingPlayers = false;
@@ -1490,6 +1535,14 @@ function parseDescription(description = '') {
     }
 
 
+    if (/^reservation\s*:/i.test(line)) {
+      readingPlayers = false;
+      const raw = line.replace(/^reservation\s*:/i, '').trim();
+      reservation = /^me$/i.test(raw) ? 'me' : normalizeWebsiteURL(raw);
+      continue;
+    }
+
+
     if (/^leader\s*:/i.test(line)) {
 
       readingPlayers = false;
@@ -1532,6 +1585,7 @@ function parseDescription(description = '') {
     images,
     photos,
     videos,
+    reservation,
     leader
   };
 
@@ -2257,39 +2311,13 @@ function createEventCard(
   const actions = [];
 
 
-  /* =======================================================
-     ★ EMAIL ME
-     未来のLEADER SHOWだけ表示
-     過去ライブでは表示しない
-     ======================================================= */
-
-  if (
-    !isPast &&
-    info.leader &&
-    EMAIL_ADDRESS &&
-    EMAIL_ADDRESS !==
-      'YOUR_EMAIL_ADDRESS'
-  ) {
-
-    const subject =
-      encodeURIComponent(
-        `Live inquiry: ${title}`
-      );
-
-
-    actions.push(`
-
-      <a
-        class="action email"
-        href="mailto:${escapeHTML(
-          EMAIL_ADDRESS
-        )}?subject=${subject}"
-      >
-        EMAIL ME ↗
-      </a>
-
-    `);
-
+  /* RESERVATION: Calendar description controls the destination. */
+  if (!isPast && info.reservation) {
+    if (info.reservation === 'me') {
+      actions.push(`<button class="action reservation" type="button" data-reservation-me data-reservation-title="${escapeHTML(title)}" data-reservation-date="${escapeHTML(date.month + ' ' + date.number + ' / ' + formatTime(event))}">RESERVATION →</button>`);
+    } else {
+      actions.push(`<a class="action reservation" href="${escapeHTML(info.reservation)}" target="_blank" rel="noopener noreferrer">RESERVATION →</a>`);
+    }
   }
 
 
@@ -3096,6 +3124,7 @@ function updateMediaGallery(gallery){
 document.addEventListener('scroll',e=>{const track=e.target.closest?.('[data-media-track]');if(track){const g=track.closest('[data-media-gallery]');if(g)updateMediaGallery(g)}},true);
 document.addEventListener('click',e=>{const dot=e.target.closest('[data-media-dot]');if(!dot)return;const g=dot.closest('[data-media-gallery]'),track=g?.querySelector('[data-media-track]'),items=g?[...g.querySelectorAll('.event-media-item')]:[],i=Number(dot.dataset.mediaDot);if(track&&items[i])track.scrollTo({left:items[i].offsetLeft,behavior:'smooth'})});
 
+\n\n/* RESERVATION MODAL */\nconst reservationModal=document.getElementById('reservationModal');\nconst reservationClose=document.getElementById('reservationClose');\nconst reservationForm=document.getElementById('reservationForm');\nconst reservationTitle=document.getElementById('reservationTitle');\nconst reservationLive=document.getElementById('reservationLive');\n\ndocument.addEventListener('click',e=>{\n  const button=e.target.closest('[data-reservation-me]');\n  if(!button)return;\n  const title=button.dataset.reservationTitle||'Live';\n  const date=button.dataset.reservationDate||'';\n  reservationTitle.textContent=title;\n  reservationLive.value=[date,title].filter(Boolean).join(' — ');\n  reservationModal.classList.add('open');\n  reservationModal.setAttribute('aria-hidden','false');\n  document.body.classList.add('reservation-open');\n});\nfunction closeReservation(){reservationModal.classList.remove('open');reservationModal.setAttribute('aria-hidden','true');document.body.classList.remove('reservation-open')}\nreservationClose.addEventListener('click',closeReservation);\nreservationModal.addEventListener('click',e=>{if(e.target===reservationModal)closeReservation()});\nreservationForm.addEventListener('submit',e=>{\n  e.preventDefault();\n  const live=reservationLive.value;\n  const name=document.getElementById('reservationName').value.trim();\n  const reply=document.getElementById('reservationEmail').value.trim();\n  const guests=document.getElementById('reservationGuests').value;\n  const message=document.getElementById('reservationMessage').value.trim();\n  const subject=encodeURIComponent(`Reservation: ${live}`);\n  const body=encodeURIComponent(`LIVE: ${live}\\nNAME: ${name}\\nEMAIL: ${reply}\\nNUMBER OF GUESTS: ${guests}\\n\\nMESSAGE:\\n${message}`);\n  window.location.href=`mailto:${EMAIL_ADDRESS}?subject=${subject}&body=${body}`;\n});\n
 </script>
 
 </body>
