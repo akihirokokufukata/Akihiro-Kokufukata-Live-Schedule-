@@ -1201,12 +1201,6 @@ body.reservation-open{overflow:hidden}
   font-size:8px;
   letter-spacing:1.2px;
 }
-.past-year-button .filter-count,
-.past-month-button .filter-count{
-  margin-left:4px;
-  opacity:.65;
-  font-size:.9em;
-}
 .event-permalink{
   display:inline-flex;
   align-items:center;
@@ -2187,7 +2181,7 @@ function createPastMonthFilterHTML() {
           data-past-year="all"
           type="button"
         >
-          ALL <span class="filter-count">${pastEvents.length}</span>
+          ALL
         </button>
 
         ${years.map(year => `
@@ -2197,7 +2191,6 @@ function createPastMonthFilterHTML() {
             type="button"
           >
             ${year}
-            <span class="filter-count">${pastEvents.filter(event => getMonthKey(event).startsWith(`${year}-`)).length}</span>
           </button>
         `).join('')}
       </div>
@@ -2218,7 +2211,6 @@ function createPastMonthFilterHTML() {
             type="button"
           >
             ${getPastMonthLabel(key)}
-            <span class="filter-count">${pastEvents.filter(event => getMonthKey(event) === key).length}</span>
           </button>
         `).join('')}
       </div>
@@ -2248,26 +2240,67 @@ function containsJapanese(text = '') {
 function splitPlayerDisplay(player = '') {
   const text = String(player).trim();
 
-  // Treat only a trailing parenthetical as the instrument/role.
-  // Example: "大坂昌彦 (Drums)" -> name "大坂昌彦", role "(Drums)".
-  const match = text.match(/^(.*?)\s*(\([^()]+\))\s*$/);
-
-  if (!match) {
-    return { name: text, role: '' };
+  // Instrument/role formats used across old and new Calendar entries:
+  // Name (Drums), Name [Sax], Name Ba., Name Dr., Name Trumpet, etc.
+  const bracket = text.match(/^(.*?)\s*(\([^()]+\)|\[[^\[\]]+\])\s*$/);
+  if (bracket) {
+    return {
+      name: bracket[1].trim(),
+      role: bracket[2].trim()
+    };
   }
 
-  return {
-    name: match[1].trim(),
-    role: match[2].trim()
-  };
+  const role = text.match(
+    /^(.*?)\s+((?:Tp|Tpt|Trumpet|Tb|Tbn|Trombone|Sax|Saxophones?|Ts|As|Ss|Bs|P|Pf|Piano|Key|Keys|Keyboard|Synth|Org|Organ|G|Gt|Gtr|Guitar|B|Ba|Bass|Db|Dr|Ds|D|Drums|Perc|Percussion|Vo|Vocals?|Cho|Chorus|Vln|Violin|Cello|Vc)\.?)$/i
+  );
+
+  if (role) {
+    return {
+      name: role[1].trim(),
+      role: role[2].trim()
+    };
+  }
+
+  return { name:text, role:'' };
 }
 
-function createPlayerLineHTML(player) {
-  const { name, role } = splitPlayerDisplay(player);
+function splitPlayersIntoPeople(players = []) {
+  const people = [];
 
-  if (!name) {
-    return `<span class="player">${escapeHTML(player)}</span>`;
-  }
+  players.forEach(raw => {
+    let text = String(raw || '').trim();
+    if (!text) return;
+
+    // Old Calendar entries sometimes stored an entire band on one Players line.
+    // Split only on clear person separators. Do NOT split ordinary spaces.
+    let chunks = text
+      .split(/\s*(?:\/|／|,|，|、|\n|\r|;|；)\s*/)
+      .map(v => v.trim())
+      .filter(Boolean);
+
+    // Some legacy entries use " and " before the final player.
+    chunks = chunks.flatMap(chunk =>
+      chunk.split(/\s+\band\b\s+/i).map(v => v.trim()).filter(Boolean)
+    );
+
+    chunks.forEach(chunk => {
+      // Strip harmless leading bullets/asterisks from imported old data.
+      chunk = chunk.replace(/^[*＊•・]\s*/, '').trim();
+      if (!chunk) return;
+
+      const parsed = splitPlayerDisplay(chunk);
+      if (parsed.name) people.push(parsed);
+    });
+  });
+
+  return people;
+}
+
+function createPlayerLineHTML(person) {
+  const name = person.name || '';
+  const role = person.role || '';
+
+  if (!name) return '';
 
   return `
     <span class="player">
@@ -2283,12 +2316,14 @@ function createPlayerLineHTML(player) {
 
 function createPlayersHTML(players) {
 
-  if (!players.length) {
+  const people = splitPlayersIntoPeople(players);
+
+  if (!people.length) {
     return '';
   }
 
-  const visible = players.slice(0,6);
-  const hidden = players.slice(6);
+  const visible = people.slice(0,6);
+  const hidden = people.slice(6);
 
   let html = `
     <div class="players-section">
@@ -2765,6 +2800,7 @@ function eventSearchText(event) {
   const fields = [
     event.summary || '',
     ...(info.players || []),
+    ...splitPlayersIntoPeople(info.players || []).flatMap(p => [p.name, p.role]),
     venue,
     info.place || '',
     event.location || '',
@@ -2827,10 +2863,9 @@ function findExactPlayer(query) {
   const events = [...upcomingEvents, ...pastEvents];
   for (const event of events) {
     const info = parseDescription(event.description || '');
-    for (const raw of info.players || []) {
-      const p = splitPlayerDisplay(raw);
+    for (const p of splitPlayersIntoPeople(info.players || [])) {
       if (normalizeSearchText(p.name) === q) {
-        return { name:p.name, role:p.role.replace(/^\(|\)$/g,'') };
+        return { name:p.name, role:p.role.replace(/^[\(\[]|[\)\]]$/g,'') };
       }
     }
   }
@@ -3631,8 +3666,7 @@ function getArchiveData() {
   [...upcomingEvents, ...pastEvents].forEach(event => {
     const info = parseDescription(event.description || '');
 
-    (info.players || []).forEach(raw => {
-      const p = splitPlayerDisplay(raw);
+    splitPlayersIntoPeople(info.players || []).forEach(p => {
       if (!p.name) return;
       const key = normalizeSearchText(p.name);
       if (!players.has(key)) players.set(key, { name:p.name, role:p.role, count:0 });
@@ -3668,8 +3702,7 @@ function getArchiveStatsHTML() {
   pastEvents.forEach(event => {
     const info = parseDescription(event.description || '');
 
-    (info.players || []).forEach(raw => {
-      const p = splitPlayerDisplay(raw);
+    splitPlayersIntoPeople(info.players || []).forEach(p => {
       if (p.name) players.add(normalizeSearchText(p.name));
     });
 
