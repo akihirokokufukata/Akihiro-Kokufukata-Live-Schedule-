@@ -30,7 +30,7 @@
 </script>
 
 <script>
-const PLAYER_PARSER_VERSION = '2026-10-04-v7-gallery-bass-trombone';
+const PLAYER_PARSER_VERSION = '2026-10-04-v8-adaptive-instrument-names';
 const SETTINGS = {
   API_KEY: 'AIzaSyCB5WplBrKEb70d5WHZTrg3G46fTdl_A0Q',
   CALENDAR_ID: 'akihirokokufukatamusic@gmail.com',
@@ -2303,7 +2303,7 @@ function containsJapanese(text = '') {
 
 const PLAYER_ROLE_PATTERN =
   '(?:Con\\.?\\s*Arr\\.?\\s*Tb|Con\\.?Arr\\.?Tb|Tp|Tpt|Trumpet|Flh|Flugelhorn|' +
-  'Tb|Tbn|Trombone|Bass-Tb|BassTb|Sax|Saxophones?|A\\.?Sax|T\\.?Sax|B\\.?Sax|S\\.?Sax|Ts|As|Ss|Bs|' +
+  'Tb|Tbn|Trombone|Bass-Tb|BassTb|Bass\\s*Trombone|Sax|Saxophones?|Alto\\s*Sax(?:ophone)?|Tenor\\s*Sax(?:ophone)?|Soprano\\s*Sax(?:ophone)?|Baritone\\s*Sax(?:ophone)?|A\\.?Sax|T\\.?Sax|B\\.?Sax|S\\.?Sax|Ts|As|Ss|Bs|Cl|Clarinet|B\\.?Cl|Bass\\s*Clarinet|' +
   'P|Pf|Piano|Key|Keyb|Keys|Keyboard|Synth|Synt|Org|Organ|G|Gt|Gtr|Guitar|' +
   'B|Ba|Bass|Db|Dr|Ds|D|Drum|Drums|Perc|Per|Percussion|Lp|Latin\\s*Percussion|Cond|Conductor|Arr|Arrange|Arranger|Rap|Per\\.?Synt|Perc\\.?Synt|' +
   'Vo|Vocals?|Cho|Chorus|Vln|Violin|Cello|Vc|Fl|Flute|Picc|Piccolo|DJ|Dance)';
@@ -2563,9 +2563,159 @@ function splitPlayersIntoPeople(players = []) {
   return people;
 }
 
-function createPlayerLineHTML(person) {
+
+/* =========================================================
+   INSTRUMENT DISPLAY
+   1-9 players  : full instrument names
+   10+ players  : compact big-band abbreviations
+   Calendar source notation can stay abbreviated.
+   ========================================================= */
+
+function roleKey(token = '') {
+  return String(token)
+    .trim()
+    .replace(/\.$/, '')
+    .replace(/[.\s_-]+/g, '')
+    .toLowerCase();
+}
+
+const ROLE_DISPLAY_NAMES = {
+  trumpet:       { full:'Trumpet',          short:'Tp' },
+  tp:            { full:'Trumpet',          short:'Tp' },
+  tpt:           { full:'Trumpet',          short:'Tp' },
+
+  flugelhorn:    { full:'Flugelhorn',       short:'Flh' },
+  flh:           { full:'Flugelhorn',       short:'Flh' },
+
+  trombone:      { full:'Trombone',         short:'Tb' },
+  tb:            { full:'Trombone',         short:'Tb' },
+  tbn:           { full:'Trombone',         short:'Tb' },
+
+  basstb:        { full:'Bass Trombone',    short:'B.Tb' },
+  basstrombone:  { full:'Bass Trombone',    short:'B.Tb' },
+
+  altosaxophone: { full:'Alto Saxophone',   short:'A.Sax' },
+  altosax:       { full:'Alto Saxophone',   short:'A.Sax' },
+  asax:          { full:'Alto Saxophone',   short:'A.Sax' },
+  as:            { full:'Alto Saxophone',   short:'A.Sax' },
+
+  tenorsaxophone:{ full:'Tenor Saxophone',  short:'T.Sax' },
+  tenorsax:      { full:'Tenor Saxophone',  short:'T.Sax' },
+  tsax:          { full:'Tenor Saxophone',  short:'T.Sax' },
+  ts:            { full:'Tenor Saxophone',  short:'T.Sax' },
+
+  sopranosaxophone:{ full:'Soprano Saxophone', short:'S.Sax' },
+  sopranosax:    { full:'Soprano Saxophone',short:'S.Sax' },
+  ssax:          { full:'Soprano Saxophone',short:'S.Sax' },
+  ss:            { full:'Soprano Saxophone',short:'S.Sax' },
+
+  baritonesaxophone:{ full:'Baritone Saxophone', short:'B.Sax' },
+  baritonesax:   { full:'Baritone Saxophone',short:'B.Sax' },
+  bsax:          { full:'Baritone Saxophone',short:'B.Sax' },
+  bs:            { full:'Baritone Saxophone',short:'B.Sax' },
+
+  saxophone:     { full:'Saxophone',         short:'Sax' },
+  sax:           { full:'Saxophone',         short:'Sax' },
+
+  flute:         { full:'Flute',             short:'Fl' },
+  fl:            { full:'Flute',             short:'Fl' },
+  piccolo:       { full:'Piccolo',           short:'Picc' },
+  picc:          { full:'Piccolo',           short:'Picc' },
+  clarinet:      { full:'Clarinet',          short:'Cl' },
+  cl:            { full:'Clarinet',          short:'Cl' },
+  bassclarinet:  { full:'Bass Clarinet',     short:'B.Cl' },
+  bcl:           { full:'Bass Clarinet',     short:'B.Cl' },
+
+  piano:         { full:'Piano',             short:'P' },
+  p:             { full:'Piano',             short:'P' },
+  pf:            { full:'Piano',             short:'P' },
+
+  keyboard:      { full:'Keyboard',          short:'Key' },
+  keyboards:     { full:'Keyboard',          short:'Key' },
+  key:           { full:'Keyboard',          short:'Key' },
+  keyb:          { full:'Keyboard',          short:'Key' },
+  keys:          { full:'Keyboard',          short:'Key' },
+
+  synthesizer:   { full:'Synthesizer',       short:'Synth' },
+  synthesiser:   { full:'Synthesizer',       short:'Synth' },
+  synth:         { full:'Synthesizer',       short:'Synth' },
+  synt:          { full:'Synthesizer',       short:'Synth' },
+
+  organ:         { full:'Organ',             short:'Org' },
+  org:           { full:'Organ',             short:'Org' },
+
+  guitar:        { full:'Guitar',            short:'G' },
+  g:             { full:'Guitar',            short:'G' },
+  gt:            { full:'Guitar',            short:'G' },
+  gtr:           { full:'Guitar',            short:'G' },
+
+  bass:          { full:'Bass',              short:'B' },
+  b:             { full:'Bass',              short:'B' },
+  ba:            { full:'Bass',              short:'B' },
+  doublebass:    { full:'Double Bass',       short:'Db' },
+  db:            { full:'Double Bass',       short:'Db' },
+
+  drums:         { full:'Drums',             short:'Ds' },
+  drum:          { full:'Drums',             short:'Ds' },
+  ds:            { full:'Drums',             short:'Ds' },
+  dr:            { full:'Drums',             short:'Ds' },
+  d:             { full:'Drums',             short:'Ds' },
+
+  percussion:    { full:'Percussion',        short:'Perc' },
+  perc:          { full:'Percussion',        short:'Perc' },
+  per:           { full:'Percussion',        short:'Perc' },
+  latinpercussion:{ full:'Latin Percussion', short:'L.Perc' },
+  lp:            { full:'Latin Percussion',  short:'L.Perc' },
+
+  vocal:         { full:'Vocal',             short:'Vo' },
+  vocals:        { full:'Vocal',             short:'Vo' },
+  vo:            { full:'Vocal',             short:'Vo' },
+
+  violin:        { full:'Violin',            short:'Vln' },
+  vln:           { full:'Violin',            short:'Vln' },
+  cello:         { full:'Cello',             short:'Vc' },
+  vc:            { full:'Cello',             short:'Vc' },
+
+  conductor:     { full:'Conductor',         short:'Cond' },
+  cond:          { full:'Conductor',         short:'Cond' },
+  arranger:      { full:'Arranger',          short:'Arr' },
+  arrange:       { full:'Arranger',          short:'Arr' },
+  arr:           { full:'Arranger',          short:'Arr' },
+
+  rap:           { full:'Rap',               short:'Rap' },
+  dj:            { full:'DJ',                short:'DJ' },
+  dance:         { full:'Dance',             short:'Dance' }
+};
+
+function formatRoleForDisplay(role = '', compact = false) {
+  const normalized = normalizeRoleList(role);
+  if (!normalized) return '';
+
+  // Preserve the special combined conductor/arranger/trombone notation,
+  // but make it readable in small ensembles.
+  if (/^Con\.?Arr\.?Tb$/i.test(normalized)) {
+    return compact ? 'Cond / Arr / Tb' : 'Conductor / Arranger / Trombone';
+  }
+
+  // Bass-Tb is ONE instrument. Never split its hyphen.
+  if (/^Bass-Tb$/i.test(normalized)) {
+    return compact ? 'B.Tb' : 'Bass Trombone';
+  }
+
+  return normalized
+    .split('/')
+    .map(part => {
+      const raw = part.trim();
+      const mapped = ROLE_DISPLAY_NAMES[roleKey(raw)];
+      return mapped ? (compact ? mapped.short : mapped.full) : raw;
+    })
+    .filter(Boolean)
+    .join(' / ');
+}
+
+function createPlayerLineHTML(person, compactRoles = false) {
   const name = person.name || '';
-  const role = normalizeRoleList(person.role || '');
+  const role = formatRoleForDisplay(person.role || '', compactRoles);
   const note = person.note || '';
   if (!name) return '';
 
@@ -2583,17 +2733,20 @@ function createPlayersHTML(players) {
   const people = splitPlayersIntoPeople(players);
   if (!people.length) return '';
 
+  // 1-9 people: spell instruments out.
+  // 10+ people: use compact big-band abbreviations.
+  const compactRoles = people.length >= 10;
   const visible = people.slice(0,6);
   const hidden = people.slice(6);
   let html = `
     <div class="players-section">
       <div class="label">PLAYERS</div>
       <div class="players">
-        ${visible.map(createPlayerLineHTML).join('')}
+        ${visible.map(person => createPlayerLineHTML(person, compactRoles)).join('')}
   `;
   if (hidden.length) {
     html += `
-      <div class="hidden-players">${hidden.map(createPlayerLineHTML).join('')}</div>
+      <div class="hidden-players">${hidden.map(person => createPlayerLineHTML(person, compactRoles)).join('')}</div>
       <button class="show-more" type="button" aria-expanded="false">SHOW MORE ↓</button>
     `;
   }
