@@ -30,7 +30,7 @@
 </script>
 
 <script>
-const PLAYER_PARSER_VERSION = '2026-10-04-v6-bass-trombone-synth';
+const PLAYER_PARSER_VERSION = '2026-10-04-v7-gallery-bass-trombone';
 const SETTINGS = {
   API_KEY: 'AIzaSyCB5WplBrKEb70d5WHZTrg3G46fTdl_A0Q',
   CALENDAR_ID: 'akihirokokufukatamusic@gmail.com',
@@ -2347,6 +2347,7 @@ function looksLikeRoleList(value = '') {
   const cleaned = cleanPlayerRole(value);
   if (!cleaned) return false;
   if (/^Con\.?\s*Arr\.?\s*Tb\.?$/i.test(cleaned)) return true;
+  if (/^Bass\s*[-–—]?\s*(?:Tb|Tbn|Trombone)\.?$/i.test(cleaned)) return true;
   if (/^(?:Cond|P|Pf|Per|Perc|D|Dr|Ds|As|Ts|Bs|Ss)(?:\s*[\/／]\s*(?:Cond|Arr|As|Ts|Bs|Ss|P|Pf|Key|Keyb|Per|Perc|Synt))*$/i.test(cleaned)) return true;
   const tokens = cleaned.split(/\s*[,，、\/／]\s*/).map(v => v.trim()).filter(Boolean);
   return tokens.length > 0 && tokens.every(token => PLAYER_ROLE_TOKEN.test(token));
@@ -2382,8 +2383,13 @@ function splitPlayerDisplay(player = '', inheritedRole = '') {
   if (prefix) return { name:prefix[2].trim(), role:normalizeRoleList(prefix[1]), note };
 
   const bracket = text.match(/^(.*?)\s*[\(（\[【]\s*([^\)）\]】]+?)\s*[\)）\]】]\s*$/);
-  if (bracket && looksLikeRoleList(bracket[2]))
-    return { name:bracket[1].trim(), role:normalizeRoleList(bracket[2]), note };
+  if (bracket) {
+    const rawRole = bracket[2].trim();
+    if (/^Bass\s*[-–—]?\s*(?:Tb|Tbn|Trombone)\.?$/i.test(rawRole))
+      return { name:bracket[1].trim(), role:'Bass-Tb', note };
+    if (looksLikeRoleList(rawRole))
+      return { name:bracket[1].trim(), role:normalizeRoleList(rawRole), note };
+  }
 
   const roleDashName = text.match(/^(.+?)\s*(?:-|–|—)\s*(.+)$/);
   if (roleDashName && looksLikeRoleList(roleDashName[1]))
@@ -2623,7 +2629,7 @@ function createEventMediaHTML(info,title){
   const multi=items.length>1;
 
   return `<div class="event-media" data-media-gallery>
-    <div class="event-media-head"><div class="event-media-title">MEDIA</div><div class="event-media-count"><span data-media-current>1</span> / ${items.length}</div></div>
+    <div class="event-media-head"><div class="event-media-title">GALLERY</div><div class="event-media-count"><span data-media-current>1</span> / ${items.length}</div></div>
     <div class="event-media-viewport"><button class="event-media-nav prev" type="button" aria-label="Previous media" hidden>‹</button><div class="event-media-track" data-media-track>${items.join('')}</div><button class="event-media-nav next" type="button" aria-label="Next media">›</button></div>
     ${multi?`<div class="event-media-dots">${items.map((_,i)=>`<button class="event-media-dot ${i===0?'active':''}" type="button" data-media-dot="${i}" aria-label="Show media ${i+1}"></button>`).join('')}</div><div class="event-media-hint">SWIPE / SCROLL FOR MORE →</div>`:`<div class="event-media-hint">TAP IMAGE TO ENLARGE ↗</div>`}
   </div>`;
