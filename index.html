@@ -2720,6 +2720,7 @@ function createEventCard(
             class="venue-search"
             type="button"
             data-venue-search="${escapeHTML(venueToDisplay)}"
+            data-venue-key="${escapeHTML(normalizeVenueLocation(event.location || venueToDisplay))}"
             aria-label="Search shows at ${escapeHTML(venueToDisplay)}"
           >${escapeHTML(venueToDisplay)}</button>
         </div>
@@ -2960,6 +2961,26 @@ function normalizePlayerName(value = '') {
   return normalized;
 }
 
+function normalizeVenueLocation(value = '') {
+  return normalizeSearchText(value)
+    .replace(/[〒\-‐‑‒–—―ー\s,，、.．・]/g, '')
+    .replace(/(?:japan|日本)$/i, '');
+}
+
+function getEventVenueIdentity(event) {
+  const info = parseDescription(event.description || '');
+  const display = info.place || getVenue(event.location || '');
+  const location = event.location || '';
+  return {
+    display,
+    location,
+    key: normalizeVenueLocation(location || display)
+  };
+}
+
+let activeVenueSearchKey = '';
+
+
 function eventSearchText(event) {
   const info = parseDescription(event.description || '');
   const venue = getVenue(event.location || '');
@@ -2986,6 +3007,13 @@ function eventSearchText(event) {
 function eventMatchesSearch(event, query) {
   const normalized = normalizeSearchText(query);
   if (!normalized) return true;
+
+  if (activeVenueSearchKey) {
+    const identity = getEventVenueIdentity(event);
+    if (identity.key && identity.key === activeVenueSearchKey) {
+      return true;
+    }
+  }
 
   const haystack = eventSearchText(event);
 
@@ -3056,10 +3084,15 @@ function findExactPlayer(query) {
 function findExactVenue(query) {
   const q = normalizeSearchText(query);
   if (!q) return null;
+
   for (const event of [...upcomingEvents, ...pastEvents]) {
-    const info = parseDescription(event.description || '');
-    const venue = info.place || getVenue(event.location || '');
-    if (venue && normalizeSearchText(venue) === q) return venue;
+    const identity = getEventVenueIdentity(event);
+    if (
+      (identity.display && normalizeSearchText(identity.display) === q) ||
+      (activeVenueSearchKey && identity.key === activeVenueSearchKey)
+    ) {
+      return query;
+    }
   }
   return null;
 }
@@ -3468,6 +3501,7 @@ document.addEventListener(
 
     if (venueSearchButton) {
       const venueName = venueSearchButton.dataset.venueSearch || '';
+      activeVenueSearchKey = venueSearchButton.dataset.venueKey || '';
       if (venueName) {
         setSearchQuery(venueName);
         document.querySelector('.show-search')?.scrollIntoView({
@@ -3486,6 +3520,7 @@ document.addEventListener(
       event.target.closest('.player-search');
 
     if (playerSearchButton) {
+      activeVenueSearchKey = '';
       const playerName = playerSearchButton.dataset.playerSearch || '';
       const input = document.getElementById('showSearch');
 
