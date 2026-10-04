@@ -3124,7 +3124,47 @@ function updateMediaGallery(gallery){
 document.addEventListener('scroll',e=>{const track=e.target.closest?.('[data-media-track]');if(track){const g=track.closest('[data-media-gallery]');if(g)updateMediaGallery(g)}},true);
 document.addEventListener('click',e=>{const dot=e.target.closest('[data-media-dot]');if(!dot)return;const g=dot.closest('[data-media-gallery]'),track=g?.querySelector('[data-media-track]'),items=g?[...g.querySelectorAll('.event-media-item')]:[],i=Number(dot.dataset.mediaDot);if(track&&items[i])track.scrollTo({left:items[i].offsetLeft,behavior:'smooth'})});
 
-\n\n/* RESERVATION MODAL */\nconst reservationModal=document.getElementById('reservationModal');\nconst reservationClose=document.getElementById('reservationClose');\nconst reservationForm=document.getElementById('reservationForm');\nconst reservationTitle=document.getElementById('reservationTitle');\nconst reservationLive=document.getElementById('reservationLive');\n\ndocument.addEventListener('click',e=>{\n  const button=e.target.closest('[data-reservation-me]');\n  if(!button)return;\n  const title=button.dataset.reservationTitle||'Live';\n  const date=button.dataset.reservationDate||'';\n  reservationTitle.textContent=title;\n  reservationLive.value=[date,title].filter(Boolean).join(' — ');\n  reservationModal.classList.add('open');\n  reservationModal.setAttribute('aria-hidden','false');\n  document.body.classList.add('reservation-open');\n});\nfunction closeReservation(){reservationModal.classList.remove('open');reservationModal.setAttribute('aria-hidden','true');document.body.classList.remove('reservation-open')}\nreservationClose.addEventListener('click',closeReservation);\nreservationModal.addEventListener('click',e=>{if(e.target===reservationModal)closeReservation()});\nreservationForm.addEventListener('submit',e=>{\n  e.preventDefault();\n  const live=reservationLive.value;\n  const name=document.getElementById('reservationName').value.trim();\n  const reply=document.getElementById('reservationEmail').value.trim();\n  const guests=document.getElementById('reservationGuests').value;\n  const message=document.getElementById('reservationMessage').value.trim();\n  const subject=encodeURIComponent(`Reservation: ${live}`);\n  const body=encodeURIComponent(`LIVE: ${live}\\nNAME: ${name}\\nEMAIL: ${reply}\\nNUMBER OF GUESTS: ${guests}\\n\\nMESSAGE:\\n${message}`);\n  window.location.href=`mailto:${EMAIL_ADDRESS}?subject=${subject}&body=${body}`;\n});\n
+
+
+/* RESERVATION MODAL */
+const reservationModal=document.getElementById('reservationModal');
+const reservationClose=document.getElementById('reservationClose');
+const reservationForm=document.getElementById('reservationForm');
+const reservationTitle=document.getElementById('reservationTitle');
+const reservationLive=document.getElementById('reservationLive');
+
+document.addEventListener('click',e=>{
+  const button=e.target.closest('[data-reservation-me]');
+  if(!button)return;
+  const title=button.dataset.reservationTitle||'Live';
+  const date=button.dataset.reservationDate||'';
+  reservationTitle.textContent=title;
+  reservationLive.value=[date,title].filter(Boolean).join(' — ');
+  reservationModal.classList.add('open');
+  reservationModal.setAttribute('aria-hidden','false');
+  document.body.classList.add('reservation-open');
+});
+function closeReservation(){reservationModal.classList.remove('open');reservationModal.setAttribute('aria-hidden','true');document.body.classList.remove('reservation-open')}
+reservationClose.addEventListener('click',closeReservation);
+reservationModal.addEventListener('click',e=>{if(e.target===reservationModal)closeReservation()});
+reservationForm.addEventListener('submit',e=>{
+  e.preventDefault();
+  const live=reservationLive.value;
+  const name=document.getElementById('reservationName').value.trim();
+  const reply=document.getElementById('reservationEmail').value.trim();
+  const guests=document.getElementById('reservationGuests').value;
+  const message=document.getElementById('reservationMessage').value.trim();
+  const subject=encodeURIComponent(`Reservation: ${live}`);
+  const body=encodeURIComponent(`LIVE: ${live}\
+NAME: ${name}\
+EMAIL: ${reply}\
+NUMBER OF GUESTS: ${guests}\
+\
+MESSAGE:\
+${message}`);
+  window.location.href=`mailto:${EMAIL_ADDRESS}?subject=${subject}&body=${body}`;
+});
+
 </script>
 
 </body>
