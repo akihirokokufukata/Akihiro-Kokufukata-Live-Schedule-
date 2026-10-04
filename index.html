@@ -13,6 +13,21 @@
 <meta property="og:url" content="https://akihirokokufukata.github.io/Akihiro-Kokufukata-Live-Schedule-/">
 <meta property="og:image" content="https://akihirokokufukata.github.io/Akihiro-Kokufukata-Live-Schedule-/images/og-image.jpg">
 <meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://akihirokokufukata.github.io/Akihiro-Kokufukata-Live-Schedule-/">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "@id": "https://akihirokokufukata.github.io/Akihiro-Kokufukata-Live-Schedule-/#person",
+  "name": "Akihiro Kokufukata",
+  "alternateName": ["國府方章弘", "国府方章弘"],
+  "url": "https://akihirokokufukata.github.io/Akihiro-Kokufukata-Live-Schedule-/",
+  "image": "https://akihirokokufukata.github.io/Akihiro-Kokufukata-Live-Schedule-/images/og-image.jpg",
+  "jobTitle": ["Trumpeter", "Composer"],
+  "sameAs": ["https://www.instagram.com/akihiro_kokufukata/"]
+}
+</script>
 
 <script>
 const SETTINGS = {
@@ -1032,6 +1047,14 @@ body.reservation-open{overflow:hidden}
   vector-effect:non-scaling-stroke;
 }
 
+
+
+/* ACCESSIBILITY */
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--crimson);outline-offset:4px}
+.site-menu .menu-disabled{display:block;padding:20px 0;border-bottom:1px solid var(--line);color:var(--ink);font-family:var(--serif);font-size:30px;font-weight:600;letter-spacing:.5px;opacity:.38;cursor:default}
+@media(max-width:650px){.site-menu .menu-disabled{font-size:27px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+
 </style>
 </head>
 
@@ -1041,12 +1064,12 @@ body.reservation-open{overflow:hidden}
 <main>
 
 
-<button class="menu-toggle" id="menuToggle" type="button" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+<button class="menu-toggle" id="menuToggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="siteMenu"><span></span><span></span><span></span></button>
 <div class="menu-backdrop" id="menuBackdrop"></div>
 <nav class="site-menu" id="siteMenu" aria-label="Site navigation">
-  <a href="index.html">LIVE SCHEDULE</a>
+  <a href="index.html" aria-current="page">LIVE SCHEDULE</a>
   <a href="bio.html">BIO</a>
-  <a href="#" title="Coming soon">MUSIC</a>
+  <span class="menu-disabled" aria-disabled="true">MUSIC</span>
   <a href="contact.html">CONTACT</a>
 </nav>
 <div class="trumpet-bell"></div>
