@@ -30,7 +30,7 @@
 </script>
 
 <script>
-const PLAYER_PARSER_VERSION = '2026-10-04-v5-safe-boundaries';
+const PLAYER_PARSER_VERSION = '2026-10-04-v6-bass-trombone-synth';
 const SETTINGS = {
   API_KEY: 'AIzaSyCB5WplBrKEb70d5WHZTrg3G46fTdl_A0Q',
   CALENDAR_ID: 'akihirokokufukatamusic@gmail.com',
@@ -2304,7 +2304,7 @@ function containsJapanese(text = '') {
 const PLAYER_ROLE_PATTERN =
   '(?:Con\\.?\\s*Arr\\.?\\s*Tb|Con\\.?Arr\\.?Tb|Tp|Tpt|Trumpet|Flh|Flugelhorn|' +
   'Tb|Tbn|Trombone|Bass-Tb|BassTb|Sax|Saxophones?|A\\.?Sax|T\\.?Sax|B\\.?Sax|S\\.?Sax|Ts|As|Ss|Bs|' +
-  'P|Pf|Piano|Key|Keyb|Keys|Keyboard|Synth|Org|Organ|G|Gt|Gtr|Guitar|' +
+  'P|Pf|Piano|Key|Keyb|Keys|Keyboard|Synth|Synt|Org|Organ|G|Gt|Gtr|Guitar|' +
   'B|Ba|Bass|Db|Dr|Ds|D|Drum|Drums|Perc|Per|Percussion|Lp|Latin\\s*Percussion|Cond|Conductor|Arr|Arrange|Arranger|Rap|Per\\.?Synt|Perc\\.?Synt|' +
   'Vo|Vocals?|Cho|Chorus|Vln|Violin|Cello|Vc|Fl|Flute|Picc|Piccolo|DJ|Dance)';
 
@@ -2323,6 +2323,10 @@ function canonicalizeRoleToken(token = '') {
   const raw = String(token).trim().replace(/\.$/, '');
   const compact = raw.replace(/\s+/g, '').replace(/\./g, '').toLowerCase();
   if (compact === 'conarrtb') return 'Con.Arr.Tb';
+  // Bass-Tb means one instrument: Bass Trombone.
+  if (compact === 'basstb' || compact === 'basstrombone') return 'Bass-Tb';
+  if (compact === 'percussion' || compact === 'perc' || compact === 'per') return 'Per';
+  if (compact === 'synthesizer' || compact === 'synthesiser' || compact === 'synth' || compact === 'synt') return 'Synt';
   if (compact === 'latinpercussion' || compact === 'lp') return 'Lp';
   if (compact === 'asax') return 'As';
   if (compact === 'tsax') return 'Ts';
@@ -2396,14 +2400,11 @@ function splitPlayerDisplay(player = '', inheritedRole = '') {
   const suffix = text.match(new RegExp(`^(.*?)\\s+(${PLAYER_ROLE_PATTERN})(?:\\.)?$`, 'i'));
   if (suffix) return { name:suffix[1].trim(), role:normalizeRoleList(suffix[2]), note };
 
-  const attached = text.match(new RegExp(`^(.+?)(${PLAYER_ROLE_PATTERN})(?:\\.)?$`, 'i'));
-  if (attached && attached[1].trim().length >= 2)
-    return { name:attached[1].trim(), role:normalizeRoleList(attached[2]), note };
 
   // Safe no-space suffix parsing for legacy Japanese entries only.
   // Example: 櫻井智則sax -> 櫻井智則 - Sax.
   // Crucially, Latin words such as BIGBAND must NEVER become BIGBAN - D.
-  const attachedJapanese = text.match(/^(.+[\u3040-\u30ff\u3400-\u9fff々〆ヵヶ])\s*(sax|tp|tpt|tb|tbn|as|ts|ss|bs|pf|ds|dr|drums|perc|per|bass|synth|vo|flh|flute)$/i);
+  const attachedJapanese = text.match(/^(.+[\u3040-\u30ff\u3400-\u9fff々〆ヵヶ])\s*(sax|tp|tpt|tb|tbn|as|ts|ss|bs|pf|ds|dr|drums|perc|per|bass|synth|synt|vo|flh|flute)$/i);
   if (attachedJapanese) {
     return {
       name: attachedJapanese[1].trim(),
