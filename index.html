@@ -2237,11 +2237,95 @@ function containsJapanese(text = '') {
    PLAYERS
    ========================================================= */
 
+const PLAYER_ROLE_PATTERN =
+  '(?:Tp|Tpt|Trumpet|Flh|Flugelhorn|Tb|Tbn|Trombone|Bass-Tb|BassTb|' +
+  'Sax|Saxophones?|Ts|As|Ss|Bs|P|Pf|Piano|Key|Keys|Keyboard|Synth|' +
+  'Org|Organ|G|Gt|Gtr|Guitar|B|Ba|Bass|Db|Dr|Ds|D|Drums|Perc|' +
+  'Percussion|Vo|Vocals?|Cho|Chorus|Vln|Violin|Cello|Vc)';
+
+function splitOutsideBrackets(text = '') {
+  const parts = [];
+  let current = '';
+  let roundDepth = 0;
+  let squareDepth = 0;
+
+  for (let i = 0; i < text.length; i++) {
+    const ch = text[i];
+
+    if (ch === '(') roundDepth++;
+    if (ch === '[') squareDepth++;
+
+    // Commas/slashes etc. separate people ONLY when outside instrument brackets.
+    if (
+      roundDepth === 0 &&
+      squareDepth === 0 &&
+      /[,，、\/／;；\n\r]/.test(ch)
+    ) {
+      if (current.trim()) parts.push(current.trim());
+      current = '';
+      continue;
+    }
+
+    current += ch;
+
+    if (ch === ')' && roundDepth > 0) roundDepth--;
+    if (ch === ']' && squareDepth > 0) squareDepth--;
+  }
+
+  if (current.trim()) parts.push(current.trim());
+  return parts;
+}
+
+function splitLegacyRoleSeparatedPeople(text = '') {
+  /*
+    Legacy big-band entries sometimes look like:
+    "Name (Tp) Name (Tb) Name (As)"
+    or:
+    "Name Tp. Name Tb. Name As."
+    with only whitespace between people.
+
+    First split safely after a CLOSED bracketed role when another name follows.
+  */
+  let chunks = text
+    .replace(/\)\s+(?=[^\s()[\],，、\/／;；]+(?:\s+[^\s()[\],，、\/／;；]+)*\s*(?:\(|\[))/g, ')\n')
+    .replace(/\]\s+(?=[^\s()[\],，、\/／;；]+(?:\s+[^\s()[\],，、\/／;；]+)*\s*(?:\(|\[))/g, ']\n')
+    .split(/\n+/)
+    .map(v => v.trim())
+    .filter(Boolean);
+
+  const roleEnd = new RegExp(
+    `^(.*?)\\s+(${PLAYER_ROLE_PATTERN})(?:\\.)?\\s+(?=\\S)`,
+    'i'
+  );
+
+  // For unbracketed roles, repeatedly peel off "Name ROLE" segments.
+  const result = [];
+  for (const original of chunks) {
+    let rest = original.trim();
+    let guard = 0;
+
+    while (rest && guard++ < 100) {
+      const match = rest.match(roleEnd);
+      if (!match) break;
+
+      const candidate = `${match[1].trim()} ${match[2].trim()}`;
+      // Avoid treating a bare role word as a person's name.
+      if (match[1].trim()) result.push(candidate);
+      rest = rest.slice(match[0].length).trim();
+    }
+
+    if (rest) result.push(rest);
+  }
+
+  return result;
+}
+
 function splitPlayerDisplay(player = '') {
   const text = String(player).trim();
 
-  // Instrument/role formats used across old and new Calendar entries:
-  // Name (Drums), Name [Sax], Name Ba., Name Dr., Name Trumpet, etc.
+  // Keep multi-instrument roles together:
+  // "Melraw (As,G)" => name "Melraw", role "(As,G)"
+  // "Name [Tp, Flh]" => name "Name", role "[Tp, Flh]"
   const bracket = text.match(/^(.*?)\s*(\([^()]+\)|\[[^\[\]]+\])\s*$/);
   if (bracket) {
     return {
@@ -2250,9 +2334,12 @@ function splitPlayerDisplay(player = '') {
     };
   }
 
-  const role = text.match(
-    /^(.*?)\s+((?:Tp|Tpt|Trumpet|Tb|Tbn|Trombone|Sax|Saxophones?|Ts|As|Ss|Bs|P|Pf|Piano|Key|Keys|Keyboard|Synth|Org|Organ|G|Gt|Gtr|Guitar|B|Ba|Bass|Db|Dr|Ds|D|Drums|Perc|Percussion|Vo|Vocals?|Cho|Chorus|Vln|Violin|Cello|Vc)\.?)$/i
+  // Unbracketed single role at the end: "TOKIE Ba", "TADASHI IWAMARU Dr."
+  const roleRegex = new RegExp(
+    `^(.*?)\\s+(${PLAYER_ROLE_PATTERN})(?:\\.)?$`,
+    'i'
   );
+  const role = text.match(roleRegex);
 
   if (role) {
     return {
@@ -2271,20 +2358,20 @@ function splitPlayersIntoPeople(players = []) {
     let text = String(raw || '').trim();
     if (!text) return;
 
-    // Old Calendar entries sometimes stored an entire band on one Players line.
-    // Split only on clear person separators. Do NOT split ordinary spaces.
-    let chunks = text
-      .split(/\s*(?:\/|／|,|，|、|\n|\r|;|；)\s*/)
-      .map(v => v.trim())
-      .filter(Boolean);
+    // 1) Split only separators OUTSIDE () / [].
+    //    Thus "Melraw (As,G)" remains one person.
+    let chunks = splitOutsideBrackets(text);
 
-    // Some legacy entries use " and " before the final player.
+    // 2) Handle legacy entries where people are separated only by whitespace,
+    //    using each person's instrument/role marker as the boundary.
+    chunks = chunks.flatMap(splitLegacyRoleSeparatedPeople);
+
+    // 3) "and" is a person separator only outside bracket parsing above.
     chunks = chunks.flatMap(chunk =>
       chunk.split(/\s+\band\b\s+/i).map(v => v.trim()).filter(Boolean)
     );
 
     chunks.forEach(chunk => {
-      // Strip harmless leading bullets/asterisks from imported old data.
       chunk = chunk.replace(/^[*＊•・]\s*/, '').trim();
       if (!chunk) return;
 
