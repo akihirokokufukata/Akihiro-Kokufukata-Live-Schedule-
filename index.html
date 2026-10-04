@@ -201,31 +201,23 @@ header {
 .past-month-wrap {
   width: 100%;
   margin: -3px 0 24px;
-  overflow-x: auto;
-  overflow-y: hidden;
-  scrollbar-width: thin;
-  scrollbar-color: var(--crimson) transparent;
-  -webkit-overflow-scrolling: touch;
 }
 
-.past-month-wrap::-webkit-scrollbar {
-  height: 3px;
-}
-
-.past-month-wrap::-webkit-scrollbar-thumb {
-  background: var(--crimson);
-}
-
+.past-year-filter,
 .past-month-filter {
   display: flex;
-  width: max-content;
-  min-width: 100%;
+  flex-wrap: wrap;
   border-bottom: 1px solid var(--line);
 }
 
+.past-month-filter {
+  margin-top: 8px;
+}
+
+.past-year-button,
 .past-month-button {
   flex: 0 0 auto;
-  padding: 10px 13px 9px;
+  padding: 10px 15px 9px;
   border: 0;
   border-right: 1px solid var(--line);
   background: transparent;
@@ -238,15 +230,17 @@ header {
   white-space: nowrap;
 }
 
+.past-year-button:first-child,
 .past-month-button:first-child {
   padding-left: 4px;
-  padding-right: 17px;
 }
 
+.past-year-button.active,
 .past-month-button.active {
   color: var(--crimson);
 }
 
+.past-year-button.active::after,
 .past-month-button.active::after {
   content: "";
   display: block;
@@ -254,6 +248,10 @@ header {
   height: 2px;
   margin-top: 7px;
   background: var(--crimson);
+}
+
+.past-month-filter[hidden] {
+  display: none;
 }
 
 
@@ -540,7 +538,7 @@ button.action {
 .event-media-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:9px}
 .event-media-title,.event-media-count{font-family:var(--sans);font-size:8px;font-weight:600;letter-spacing:1.7px;color:var(--crimson)}
 .event-media-count{color:var(--muted);letter-spacing:1px}
-.event-media-viewport{position:relative;width:100%;overflow:hidden}
+.event-media-viewport{position:relative;width:100%;padding:0 25px;overflow:hidden}
 .event-media-track{display:flex;width:100%;gap:0;overflow-x:auto;overflow-y:hidden;padding:0;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
 .event-media-track::-webkit-scrollbar{display:none}
 .event-media-item{position:relative;flex:0 0 100%;width:100%;min-width:100%;scroll-snap-align:start;scroll-snap-stop:always;background:var(--card);overflow:hidden}
@@ -571,7 +569,7 @@ button.action {
   border:0;
   outline:0;
   background:transparent;
-  color:var(--paper);
+  color:var(--crimson);
   font-family:Georgia,serif;
   font-size:30px;
   line-height:1;
@@ -591,16 +589,16 @@ button.action {
 .event-media-nav:active{
   transform:translateY(-50%) scale(.9);
 }
-.event-media-nav.prev{left:7px}
-.event-media-nav.next{right:7px}
+.event-media-nav.prev{left:-2px}
+.event-media-nav.next{right:-2px}
 .event-media-nav[hidden]{display:none}
 @media(max-width:650px){
   .event-media-nav{width:28px;height:40px;font-size:25px}
-  .event-media-nav.prev{left:4px}
-  .event-media-nav.next{right:4px}
+  .event-media-nav.prev{left:-2px}
+  .event-media-nav.next{right:-2px}
 }
 
-@media(max-width:650px){.event-media{margin-top:20px}.event-media-title,.event-media-count{font-size:7px}.event-media-badge{top:8px;left:8px}.event-media-link-inner{font-size:9px}}
+@media(max-width:650px){.event-media-viewport{padding:0 21px}.event-media{margin-top:20px}.event-media-title,.event-media-count{font-size:7px}.event-media-badge{top:8px;left:8px}.event-media-link-inner{font-size:9px}}
 
 /* =========================================================
    INLINE FLYER
@@ -1198,6 +1196,7 @@ let selectedFilter = 'all';
 
 /* ★ PAST内の月 */
 let selectedPastMonth = 'all';
+let selectedPastYear = 'all';
 
 
 
@@ -1873,95 +1872,83 @@ function buildMonthFilters() {
    ========================================================= */
 
 function getPastMonths() {
-
   return [
     ...new Set(
-      pastEvents.map(
-        event =>
-          getMonthKey(event)
-      )
+      pastEvents.map(event => getMonthKey(event))
     )
   ];
-
 }
 
+function getPastYears() {
+  return [
+    ...new Set(
+      getPastMonths().map(key => key.split('-')[0])
+    )
+  ];
+}
 
 function getPastMonthLabel(key) {
-
-  const [
-    year,
-    month
-  ] =
-    key
-      .split('-')
-      .map(Number);
-
-
-  return (
-    `${getMonthName(year, month)} ${year}`
-  );
-
+  const [year, month] = key.split('-').map(Number);
+  return getMonthName(year, month);
 }
 
-
 function createPastMonthFilterHTML() {
+  const months = getPastMonths();
+  const years = getPastYears();
 
-  const months =
-    getPastMonths();
+  if (!months.length) return '';
 
-
-  if (!months.length) {
-    return '';
-  }
-
+  const monthsForYear =
+    selectedPastYear === 'all'
+      ? []
+      : months.filter(key => key.startsWith(`${selectedPastYear}-`));
 
   return `
-
     <div class="past-month-wrap">
 
-      <div class="past-month-filter">
-
+      <div class="past-year-filter">
         <button
-          class="past-month-button ${
-            selectedPastMonth === 'all'
-              ? 'active'
-              : ''
-          }"
+          class="past-year-button ${selectedPastYear === 'all' ? 'active' : ''}"
+          data-past-year="all"
+          type="button"
+        >
+          ALL
+        </button>
+
+        ${years.map(year => `
+          <button
+            class="past-year-button ${selectedPastYear === year ? 'active' : ''}"
+            data-past-year="${year}"
+            type="button"
+          >
+            ${year}
+          </button>
+        `).join('')}
+      </div>
+
+      <div class="past-month-filter" ${selectedPastYear === 'all' ? 'hidden' : ''}>
+        <button
+          class="past-month-button ${selectedPastMonth === 'all' ? 'active' : ''}"
           data-past-month="all"
           type="button"
         >
-          ALL PAST
+          ALL ${selectedPastYear === 'all' ? '' : selectedPastYear}
         </button>
 
-        ${months
-          .map(
-            month => `
-
-              <button
-                class="past-month-button ${
-                  selectedPastMonth === month
-                    ? 'active'
-                    : ''
-                }"
-                data-past-month="${month}"
-                type="button"
-              >
-                ${getPastMonthLabel(month)}
-              </button>
-
-            `
-          )
-          .join('')
-        }
-
+        ${monthsForYear.map(key => `
+          <button
+            class="past-month-button ${selectedPastMonth === key ? 'active' : ''}"
+            data-past-month="${key}"
+            type="button"
+          >
+            ${getPastMonthLabel(key)}
+          </button>
+        `).join('')}
       </div>
 
     </div>
-
   `;
-
 }
-
 
 
 /* =========================================================
@@ -2384,6 +2371,7 @@ function setFilter(filter) {
 
   if (filter !== 'past') {
     selectedPastMonth = 'all';
+    selectedPastYear = 'all';
   }
 
 
@@ -2429,15 +2417,11 @@ function renderEvents() {
 
 
     const filteredPastEvents =
-      selectedPastMonth === 'all'
-        ?
-        pastEvents
-        :
-        pastEvents.filter(
-          event =>
-            getMonthKey(event) ===
-              selectedPastMonth
-        );
+      selectedPastMonth !== 'all'
+        ? pastEvents.filter(event => getMonthKey(event) === selectedPastMonth)
+        : selectedPastYear !== 'all'
+          ? pastEvents.filter(event => getMonthKey(event).startsWith(`${selectedPastYear}-`))
+          : pastEvents;
 
 
     container.innerHTML = `
@@ -2791,6 +2775,22 @@ document.addEventListener(
           .filter
       );
 
+      return;
+    }
+
+
+    /* PAST YEAR FILTER */
+
+    const pastYearButton =
+      event.target.closest(
+        '.past-year-button'
+      );
+
+    if (pastYearButton) {
+      selectedPastYear =
+        pastYearButton.dataset.pastYear;
+      selectedPastMonth = 'all';
+      renderEvents();
       return;
     }
 
