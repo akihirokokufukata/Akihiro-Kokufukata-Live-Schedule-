@@ -2790,6 +2790,22 @@ function normalizeSearchText(value = '') {
     .trim();
 }
 
+/*
+  Player-name normalization:
+  Japanese names may be stored with or without a space between surname/given name.
+  Keep the visible Calendar spelling unchanged, but ignore whitespace when comparing
+  names that contain Japanese characters.
+*/
+function normalizePlayerName(value = '') {
+  const normalized = normalizeSearchText(value);
+
+  if (/[\u3040-\u30ff\u3400-\u9fff]/.test(normalized)) {
+    return normalized.replace(/\s+/g, '');
+  }
+
+  return normalized;
+}
+
 function eventSearchText(event) {
   const info = parseDescription(event.description || '');
   const venue = getVenue(event.location || '');
@@ -2817,9 +2833,20 @@ function eventMatchesSearch(event, query) {
   const normalized = normalizeSearchText(query);
   if (!normalized) return true;
 
-  const words = normalized.split(' ').filter(Boolean);
   const haystack = eventSearchText(event);
 
+  // If the query contains Japanese characters, also compare a whitespace-free
+  // version so "大坂 昌彦" and "大坂昌彦" match each other.
+  if (/[\u3040-\u30ff\u3400-\u9fff]/.test(normalized)) {
+    const compactQuery = normalized.replace(/\s+/g, '');
+    const compactHaystack = haystack.replace(/\s+/g, '');
+
+    if (compactHaystack.includes(compactQuery)) {
+      return true;
+    }
+  }
+
+  const words = normalized.split(' ').filter(Boolean);
   return words.every(word => haystack.includes(word));
 }
 
@@ -2864,7 +2891,7 @@ function findExactPlayer(query) {
   for (const event of events) {
     const info = parseDescription(event.description || '');
     for (const p of splitPlayersIntoPeople(info.players || [])) {
-      if (normalizeSearchText(p.name) === q) {
+      if (normalizePlayerName(p.name) === normalizePlayerName(query)) {
         return { name:p.name, role:p.role.replace(/^[\(\[]|[\)\]]$/g,'') };
       }
     }
@@ -3668,7 +3695,7 @@ function getArchiveData() {
 
     splitPlayersIntoPeople(info.players || []).forEach(p => {
       if (!p.name) return;
-      const key = normalizeSearchText(p.name);
+      const key = normalizePlayerName(p.name);
       if (!players.has(key)) players.set(key, { name:p.name, role:p.role, count:0 });
       players.get(key).count++;
     });
@@ -3703,7 +3730,7 @@ function getArchiveStatsHTML() {
     const info = parseDescription(event.description || '');
 
     splitPlayersIntoPeople(info.players || []).forEach(p => {
-      if (p.name) players.add(normalizeSearchText(p.name));
+      if (p.name) players.add(normalizePlayerName(p.name));
     });
 
     const venue = info.place || getVenue(event.location || '');
@@ -3726,7 +3753,13 @@ function getSuggestions(query) {
   const results = [];
 
   data.players.forEach(p => {
-    if (normalizeSearchText(p.name).includes(q)) results.push({name:p.name,type:'PLAYER'});
+    const playerName = normalizeSearchText(p.name);
+    const compactPlayer = normalizePlayerName(p.name);
+    const compactQuery = normalizePlayerName(query);
+
+    if (playerName.includes(q) || compactPlayer.includes(compactQuery)) {
+      results.push({name:p.name,type:'PLAYER'});
+    }
   });
   data.venues.forEach(v => {
     if (normalizeSearchText(v.name).includes(q)) results.push({name:v.name,type:'VENUE'});
