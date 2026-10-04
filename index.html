@@ -1234,7 +1234,7 @@ body.reservation-open{overflow:hidden}
    EXPLORE / AUTOCOMPLETE / ARCHIVE TOOLS
    ========================================================= */
 .archive-stats{
-  display:flex;flex-wrap:wrap;gap:8px 18px;margin:-12px 0 26px;
+  display:flex;flex-wrap:wrap;gap:8px 18px;margin:10px 0 22px;
   color:var(--muted);font-family:var(--sans);font-size:8px;font-weight:600;letter-spacing:1.5px
 }
 .archive-stats strong{color:var(--crimson);font-weight:600}
@@ -1254,26 +1254,16 @@ body.reservation-open{overflow:hidden}
 .search-suggestion:hover,.search-suggestion.active{background:rgba(152,24,42,.06)}
 .search-suggestion-name{font-family:var(--jp);font-size:13px}
 .search-suggestion-type{color:var(--crimson);font-family:var(--sans);font-size:7px;font-weight:600;letter-spacing:1.4px}
-.explore-archive{margin:-10px 0 30px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-.explore-toggle{
-  display:flex;align-items:center;justify-content:space-between;width:100%;padding:13px 0;
-  border:0;background:transparent;color:var(--crimson);font-family:var(--sans);
-  font-size:8px;font-weight:600;letter-spacing:2px;cursor:pointer
-}
-.explore-panel{padding:0 0 17px}
-.explore-panel[hidden]{display:none}
-.explore-tabs{display:flex;gap:16px;margin-bottom:14px}
-.explore-tab{
-  padding:0 0 5px;border:0;border-bottom:1px solid transparent;background:transparent;
-  color:var(--muted);font-family:var(--sans);font-size:8px;font-weight:600;letter-spacing:1.4px;cursor:pointer
-}
-.explore-tab.active{color:var(--crimson);border-bottom-color:var(--crimson)}
-.explore-items{display:flex;flex-wrap:wrap;gap:7px 8px}
-.explore-item{
-  padding:7px 9px;border:1px solid var(--line);background:transparent;color:var(--ink);
-  font-family:var(--jp);font-size:11px;cursor:pointer
-}
-.explore-item:hover{border-color:var(--crimson);color:var(--crimson)}
+
+
+
+
+
+
+
+
+
+
 .venue-search{
   padding:0;border:0;border-bottom:1px solid transparent;background:transparent;
   color:inherit;font:inherit;text-align:left;cursor:pointer
@@ -1282,13 +1272,13 @@ body.reservation-open{overflow:hidden}
 .search-profile{margin:0 0 18px;padding:18px 0;border-bottom:1px solid var(--line)}
 .search-profile-name{font-family:var(--serif);font-size:34px;font-weight:600;line-height:1}
 .search-profile-meta{margin-top:7px;color:var(--muted);font-family:var(--sans);font-size:8px;font-weight:600;letter-spacing:1.4px}
-.archive-tools{display:flex;align-items:center;gap:12px;margin:0 0 18px}
-.media-only-label{display:inline-flex;align-items:center;gap:8px;color:var(--muted);font-family:var(--sans);font-size:8px;font-weight:600;letter-spacing:1.3px;cursor:pointer}
-.media-only-label input{accent-color:var(--crimson)}
+
+
+
 .action.add-calendar{background:transparent}
 @media(max-width:650px){
-  .archive-stats{margin-top:-8px;font-size:7px;gap:7px 13px}
-  .explore-archive{margin-top:-7px}
+  .archive-stats{margin:9px 0 18px;font-size:7px;gap:7px 13px}
+  
   .search-suggestion-name{font-size:12px}
   .search-profile-name{font-size:29px}
 }
@@ -1380,9 +1370,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 
   </div>
 
-  <div class="archive-stats" id="archiveStats" aria-live="polite"></div>
-
-  <div class="show-search" role="search" aria-label="Search shows">
+<div class="show-search" role="search" aria-label="Search shows">
     <label class="show-search-label" for="showSearch">SEARCH SHOWS</label>
     <div class="show-search-row">
       <input
@@ -1399,28 +1387,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
     </div>
   </div>
 
-  <div class="explore-archive">
-    <button class="explore-toggle" id="exploreToggle" type="button" aria-expanded="false" aria-controls="explorePanel">
-      <span>EXPLORE ARCHIVE</span><span id="exploreSymbol">＋</span>
-    </button>
-    <div class="explore-panel" id="explorePanel" hidden>
-      <div class="explore-tabs" role="tablist" aria-label="Explore archive">
-        <button class="explore-tab active" type="button" data-explore-tab="players">PLAYERS</button>
-        <button class="explore-tab" type="button" data-explore-tab="venues">VENUES</button>
-        <button class="explore-tab" type="button" data-explore-tab="years">YEARS</button>
-      </div>
-      <div class="explore-items" id="exploreItems"></div>
-    </div>
-  </div>
-
-  <div class="archive-tools">
-    <label class="media-only-label">
-      <input id="mediaOnly" type="checkbox">
-      MEDIA ONLY
-    </label>
-  </div>
-
-  <div id="events" aria-live="polite">
+<div id="events" aria-live="polite">
 
     <div class="message">
       Loading shows...
@@ -1500,7 +1467,6 @@ let pastEvents = [];
 
 let selectedFilter = 'all';
 let searchQuery = '';
-let mediaOnly = false;
 let activeSuggestionIndex = -1;
 
 /* ★ PAST内の月 */
@@ -2448,14 +2414,6 @@ function getGoogleCalendarURL(event) {
   return `https://calendar.google.com/calendar/render?${params.toString()}`;
 }
 
-function eventHasMedia(event) {
-  const info = parseDescription(event.description || '');
-  return Boolean(
-    (info.images && info.images.length) ||
-    (info.photos && info.photos.length) ||
-    (info.videos && info.videos.length)
-  );
-}
 
 
 /* =========================================================
@@ -2915,12 +2873,10 @@ function renderSearchResults(container) {
 
   const upcomingMatches = upcomingEvents
     .filter(event => eventMatchesSearch(event, query))
-    .filter(event => !mediaOnly || eventHasMedia(event))
     .sort((a,b) => eventStart(a) - eventStart(b));
 
   const pastMatches = pastEvents
     .filter(event => eventMatchesSearch(event, query))
-    .filter(event => !mediaOnly || eventHasMedia(event))
     .sort((a,b) => eventStart(b) - eventStart(a));
 
   const total = upcomingMatches.length + pastMatches.length;
@@ -2998,10 +2954,6 @@ function renderEvents() {
           ? pastEvents.filter(event => getMonthKey(event).startsWith(`${selectedPastYear}-`))
           : pastEvents;
 
-    if (mediaOnly) {
-      filteredPastEvents = filteredPastEvents.filter(eventHasMedia);
-    }
-
 
     container.innerHTML = `
 
@@ -3011,6 +2963,8 @@ function renderEvents() {
           ${filteredPastEvents.length} ${filteredPastEvents.length === 1 ? 'SHOW' : 'SHOWS'}
         </span>
       </div>
+
+      ${getArchiveStatsHTML()}
 
       ${createPastMonthFilterHTML()}
 
@@ -3057,10 +3011,6 @@ function renderEvents() {
           getMonthKey(event) ===
             selectedFilter
       );
-
-  if (mediaOnly) {
-    filtered = filtered.filter(eventHasMedia);
-  }
 
 
   if (!filtered.length) {
@@ -3629,7 +3579,6 @@ async function loadCalendar() {
 
 
     buildMonthFilters();
-    updateArchiveStats();
 
     renderEvents();
 
@@ -3708,41 +3657,33 @@ function getArchiveData() {
   };
 }
 
-function updateArchiveStats() {
+function getArchiveStatsHTML() {
   const data = getArchiveData();
-  const shows = upcomingEvents.length + pastEvents.length;
-  document.getElementById('archiveStats').innerHTML = `
-    <span><strong>${shows}</strong> SHOWS</span>
-    <span><strong>${data.players.length}</strong> PLAYERS</span>
-    <span><strong>${data.venues.length}</strong> VENUES</span>
+  const shows = pastEvents.length;
+
+  // Count only players and venues appearing in past shows.
+  const players = new Set();
+  const venues = new Set();
+
+  pastEvents.forEach(event => {
+    const info = parseDescription(event.description || '');
+
+    (info.players || []).forEach(raw => {
+      const p = splitPlayerDisplay(raw);
+      if (p.name) players.add(normalizeSearchText(p.name));
+    });
+
+    const venue = info.place || getVenue(event.location || '');
+    if (venue) venues.add(normalizeSearchText(venue));
+  });
+
+  return `
+    <div class="archive-stats">
+      <span><strong>${shows}</strong> SHOWS</span>
+      <span><strong>${players.size}</strong> PLAYERS</span>
+      <span><strong>${venues.size}</strong> VENUES</span>
+    </div>
   `;
-}
-
-let activeExploreTab = 'players';
-
-function renderExplore() {
-  const data = getArchiveData();
-  const box = document.getElementById('exploreItems');
-
-  if (activeExploreTab === 'players') {
-    box.innerHTML = data.players.map(p => `
-      <button class="explore-item" type="button" data-explore-search="${escapeHTML(p.name)}">
-        ${escapeHTML(p.name)} <small>(${p.count})</small>
-      </button>
-    `).join('');
-  } else if (activeExploreTab === 'venues') {
-    box.innerHTML = data.venues.map(v => `
-      <button class="explore-item" type="button" data-explore-search="${escapeHTML(v.name)}">
-        ${escapeHTML(v.name)} <small>(${v.count})</small>
-      </button>
-    `).join('');
-  } else {
-    box.innerHTML = data.years.map(([year,count]) => `
-      <button class="explore-item" type="button" data-explore-search="${escapeHTML(year)}">
-        ${escapeHTML(year)} <small>(${count})</small>
-      </button>
-    `).join('');
-  }
 }
 
 function getSuggestions(query) {
@@ -3780,49 +3721,6 @@ function renderSuggestions() {
   `).join('');
   box.hidden = false;
 }
-
-const exploreToggle = document.getElementById('exploreToggle');
-const explorePanel = document.getElementById('explorePanel');
-const exploreSymbol = document.getElementById('exploreSymbol');
-
-exploreToggle.addEventListener('click', () => {
-  const open = explorePanel.hidden;
-  explorePanel.hidden = !open;
-  exploreToggle.setAttribute('aria-expanded', String(open));
-  exploreSymbol.textContent = open ? '−' : '＋';
-  if (open) renderExplore();
-});
-
-document.addEventListener('click', event => {
-  const tab = event.target.closest('[data-explore-tab]');
-  if (tab) {
-    activeExploreTab = tab.dataset.exploreTab;
-    document.querySelectorAll('[data-explore-tab]').forEach(b => b.classList.toggle('active', b === tab));
-    renderExplore();
-    return;
-  }
-
-  const exploreItem = event.target.closest('[data-explore-search]');
-  if (exploreItem) {
-    setSearchQuery(exploreItem.dataset.exploreSearch || '');
-    explorePanel.hidden = true;
-    exploreToggle.setAttribute('aria-expanded','false');
-    exploreSymbol.textContent = '＋';
-    document.querySelector('.show-search')?.scrollIntoView({behavior:'smooth',block:'start'});
-    return;
-  }
-
-  const suggestion = event.target.closest('[data-suggestion]');
-  if (suggestion) {
-    setSearchQuery(suggestion.dataset.suggestion || '');
-    document.getElementById('searchSuggestions').hidden = true;
-    return;
-  }
-
-  if (!event.target.closest('.show-search-row')) {
-    document.getElementById('searchSuggestions').hidden = true;
-  }
-});
 
 /* =========================================================
    SEARCH INPUT + URL STATE
@@ -3896,12 +3794,6 @@ showSearch.addEventListener('keydown', event => {
     }
   }
 });
-
-document.getElementById('mediaOnly').addEventListener('change', event => {
-  mediaOnly = event.target.checked;
-  renderEvents();
-});
-
 /* =========================================================
    START
    ========================================================= */
