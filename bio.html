@@ -4,322 +4,79 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Bio | Akihiro Kokufukata</title>
-
-<script>
-const SETTINGS = {
-  LIVE_SCHEDULE_URL: 'index.html',
-  BIO_URL: 'bio.html',
-  MUSIC_URL: '',
-  CONTACT_URL: 'contact.html'
-};
+<meta name="description" content="Biography of Akihiro Kokufukata (國府方章弘 / 国府方章弘), Japanese trumpeter and composer. 日本語・English biography.">
+<link rel="canonical" href="https://akihirokokufukata.github.io/Akihiro-Kokufukata-Live-Schedule-/bio.html">
+<meta property="og:type" content="profile">
+<meta property="og:title" content="Bio | Akihiro Kokufukata">
+<meta property="og:description" content="Biography of trumpeter / composer Akihiro Kokufukata (國府方章弘 / 国府方章弘).">
+<meta property="og:url" content="https://akihirokokufukata.github.io/Akihiro-Kokufukata-Live-Schedule-/bio.html">
+<meta property="og:image" content="https://akihirokokufukata.github.io/Akihiro-Kokufukata-Live-Schedule-/images/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Person",
+  "@id":"https://akihirokokufukata.github.io/Akihiro-Kokufukata-Live-Schedule-/#person",
+  "name":"Akihiro Kokufukata",
+  "alternateName":["國府方章弘","国府方章弘"],
+  "url":"https://akihirokokufukata.github.io/Akihiro-Kokufukata-Live-Schedule-/",
+  "image":"https://akihirokokufukata.github.io/Akihiro-Kokufukata-Live-Schedule-/images/og-image.jpg",
+  "jobTitle":["Trumpeter","Composer"],
+  "sameAs":["https://www.instagram.com/akihiro_kokufukata/"]
+}
 </script>
-
+<script>
+const SETTINGS={LIVE_SCHEDULE_URL:'index.html',BIO_URL:'bio.html',MUSIC_URL:'',CONTACT_URL:'contact.html'};
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Noto+Serif+JP:wght@400;500;600&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
-
 <style>
-:root{
-  --paper:#f3eee5;
-  --card:#f7f2e9;
-  --ink:#181313;
-  --muted:#756b66;
-  --crimson:#98182a;
-  --crimson-dark:#76101f;
-  --line:#cfc2b6;
-  --serif:"Cormorant Garamond",Georgia,serif;
-  --jp:"Noto Serif JP",serif;
-  --sans:"Space Grotesk",Arial,sans-serif;
-}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{
-  margin:0;
-  background:var(--paper);
-  color:var(--ink);
-  -webkit-font-smoothing:antialiased;
-}
-button,a{-webkit-tap-highlight-color:transparent}
-main{
-  width:100%;
-  max-width:1100px;
-  margin:0 auto;
-  padding:58px 30px 90px;
-}
-header{
-  position:relative;
-  padding:25px 10px 70px;
-}
-.name-wrap{display:inline-block}
-.artist-name{
-  margin:0;
-  max-width:640px;
-  font-family:var(--serif);
-  font-size:clamp(58px,8.5vw,100px);
-  font-weight:600;
-  line-height:.82;
-  letter-spacing:-3px;
-}
-.artist-name span{display:block}
-.name-line{
-  display:block;
-  width:100%;
-  height:1.5px;
-  margin-top:24px;
-  background:var(--crimson);
-}
-.artist-role{
-  margin-top:19px;
-  color:var(--crimson);
-  font-family:var(--sans);
-  font-size:13px;
-  font-weight:600;
-  letter-spacing:5px;
-  text-transform:uppercase;
-}
-
-/* MENU */
-.menu-toggle{
-  position:absolute;
-  top:42px;
-  right:32px;
-  z-index:30;
-  width:46px;
-  height:38px;
-  padding:5px 3px;
-  border:0;
-  background:transparent;
-  cursor:pointer;
-}
-.menu-toggle span{
-  display:block;
-  width:100%;
-  height:2px;
-  margin:7px 0;
-  background:var(--crimson);
-  transition:transform .25s ease,opacity .2s ease;
-}
-.menu-toggle.open span:nth-child(1){transform:translateY(9px) rotate(45deg)}
-.menu-toggle.open span:nth-child(2){opacity:0}
-.menu-toggle.open span:nth-child(3){transform:translateY(-9px) rotate(-45deg)}
-.site-menu{
-  position:fixed;
-  top:0;
-  right:0;
-  z-index:25;
-  width:min(360px,84vw);
-  height:100vh;
-  padding:125px 42px 40px;
-  background:var(--card);
-  border-left:1px solid var(--line);
-  transform:translateX(102%);
-  transition:transform .28s ease;
-  box-shadow:-12px 0 35px rgba(24,19,19,.08);
-}
-.site-menu.open{transform:translateX(0)}
-.site-menu a{
-  display:block;
-  padding:20px 0;
-  border-bottom:1px solid var(--line);
-  color:var(--ink);
-  font-family:var(--serif);
-  font-size:30px;
-  font-weight:600;
-  text-decoration:none;
-}
-.site-menu a:hover,.site-menu a.current{color:var(--crimson)}
-.menu-backdrop{
-  position:fixed;
-  inset:0;
-  z-index:20;
-  background:rgba(24,19,19,.22);
-  opacity:0;
-  visibility:hidden;
-  transition:opacity .25s ease,visibility .25s ease;
-}
-.menu-backdrop.open{opacity:1;visibility:visible}
-
-/* BIO */
-.bio{
-  max-width:820px;
-  margin:0 auto;
-}
-.bio-title{
-  margin:0;
-  font-family:var(--serif);
-  font-size:clamp(50px,7vw,76px);
-  font-weight:600;
-  line-height:.95;
-  letter-spacing:-1.5px;
-}
-.bio-rule{
-  width:100%;
-  height:1px;
-  margin:22px 0 34px;
-  background:var(--crimson);
-}
-.bio-name{
-  margin:0 0 28px;
-  font-family:var(--serif);
-  font-size:clamp(25px,3.4vw,34px);
-  font-weight:600;
-  line-height:1.2;
-}
-.bio-text{
-  font-family:var(--jp);
-  font-size:14px;
-  font-weight:400;
-  line-height:2.15;
-  letter-spacing:.035em;
-}
-.bio-text p{
-  margin:0 0 1.65em;
-}
-.bio-text p:last-child{margin-bottom:0}
-.bio-text em{
-  font-style:normal;
-  color:var(--crimson-dark);
-}
-
-footer{
-  margin-top:75px;
-  padding:32px 4px 15px;
-  border-top:1px solid var(--line);
-}
-.footer-name{
-  font-family:var(--sans);
-  font-size:9px;
-  font-weight:500;
-  letter-spacing:4px;
-}
-.footer-role{
-  margin-top:8px;
-  color:var(--muted);
-  font-family:var(--sans);
-  font-size:8px;
-  letter-spacing:3px;
-}
-
-@media(max-width:650px){
-  main{padding:34px 15px 65px}
-  header{padding:30px 6px 62px}
-  .artist-name{
-    max-width:350px;
-    font-size:clamp(52px,15vw,70px);
-    line-height:.86;
-    letter-spacing:-2px;
-  }
-  .name-line{margin-top:20px}
-  .artist-role{
-    margin-top:17px;
-    font-size:11px;
-    letter-spacing:3.3px;
-  }
-  .menu-toggle{top:29px;right:18px;width:39px}
-  .site-menu{padding:105px 28px 35px}
-  .site-menu a{font-size:27px}
-  .bio{padding:0 6px}
-  .bio-rule{margin:18px 0 28px}
-  .bio-name{margin-bottom:24px}
-  .bio-text{
-    font-size:13px;
-    line-height:2.05;
-    letter-spacing:.02em;
-  }
-}
+:root{--paper:#f3eee5;--card:#f7f2e9;--ink:#181313;--muted:#756b66;--crimson:#98182a;--crimson-dark:#76101f;--line:#cfc2b6;--serif:"Cormorant Garamond",Georgia,serif;--jp:"Noto Serif JP",serif;--sans:"Space Grotesk",Arial,sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);-webkit-font-smoothing:antialiased}button,a{-webkit-tap-highlight-color:transparent}main{width:100%;max-width:1100px;margin:0 auto;padding:58px 30px 90px}header{position:relative;padding:25px 10px 78px}.name-wrap{display:inline-block}.artist-name{margin:0;max-width:640px;font-family:var(--serif);font-size:clamp(58px,8.5vw,100px);font-weight:600;line-height:.82;letter-spacing:-3px}.artist-name span{display:block}.name-line{display:block;width:100%;height:1.5px;margin-top:24px;background:var(--crimson)}.artist-role{margin-top:19px;color:var(--crimson);font-family:var(--sans);font-size:13px;font-weight:600;letter-spacing:5px;text-transform:uppercase}
+.menu-toggle{position:absolute;top:42px;right:32px;z-index:30;width:46px;height:38px;padding:5px 3px;border:0;background:transparent;cursor:pointer}.menu-toggle span{display:block;width:100%;height:2px;margin:7px 0;background:var(--crimson);transition:transform .25s ease,opacity .2s ease}.menu-toggle.open span:nth-child(1){transform:translateY(9px) rotate(45deg)}.menu-toggle.open span:nth-child(2){opacity:0}.menu-toggle.open span:nth-child(3){transform:translateY(-9px) rotate(-45deg)}.site-menu{position:fixed;top:0;right:0;z-index:25;width:min(360px,84vw);height:100vh;padding:125px 42px 40px;background:var(--card);border-left:1px solid var(--line);transform:translateX(102%);transition:transform .28s ease;box-shadow:-12px 0 35px rgba(24,19,19,.08)}.site-menu.open{transform:translateX(0)}.site-menu a,.site-menu .menu-disabled{display:block;padding:20px 0;border-bottom:1px solid var(--line);color:var(--ink);font-family:var(--serif);font-size:30px;font-weight:600;text-decoration:none}.site-menu a:hover,.site-menu a.current{color:var(--crimson)}.site-menu .menu-disabled{opacity:.38;cursor:default}.menu-backdrop{position:fixed;inset:0;z-index:20;background:rgba(24,19,19,.22);opacity:0;visibility:hidden;transition:opacity .25s ease,visibility .25s ease}.menu-backdrop.open{opacity:1;visibility:visible}
+.bio{max-width:820px;margin:0 auto}.bio-title{margin:0;font-family:var(--serif);font-size:clamp(50px,7vw,76px);font-weight:600;line-height:.95;letter-spacing:-1.5px}.bio-rule{width:100%;height:1px;margin:22px 0 34px;background:var(--crimson)}.bio-name{margin:0 0 28px;font-family:var(--serif);font-size:clamp(25px,3.4vw,34px);font-weight:600;line-height:1.2}.bio-text{font-family:var(--jp);font-size:14px;font-weight:400;line-height:2.15;letter-spacing:.035em}.bio-text p{margin:0 0 1.65em}.bio-text p:last-child{margin-bottom:0}.bio-language{margin:42px 0 22px;padding-top:28px;border-top:1px solid var(--line);color:var(--crimson);font-family:var(--sans);font-size:10px;font-weight:600;letter-spacing:2.4px}.bio-text-en{font-family:var(--serif);font-size:18px;line-height:1.72;letter-spacing:.005em}.bio-text-en p{margin:0 0 1.4em}.bio-text-en p:last-child{margin-bottom:0}
+footer{margin-top:75px;padding:32px 4px 15px;border-top:1px solid var(--line)}.footer-name{font-family:var(--sans);font-size:9px;font-weight:500;letter-spacing:4px}.footer-role{margin-top:8px;color:var(--muted);font-family:var(--sans);font-size:8px;letter-spacing:3px}
+a:focus-visible,button:focus-visible{outline:2px solid var(--crimson);outline-offset:4px}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+@media(max-width:650px){main{padding:34px 15px 65px}header{padding:30px 6px 67px}.artist-name{max-width:350px;font-size:clamp(52px,15vw,70px);line-height:.86;letter-spacing:-2px}.name-line{margin-top:20px}.artist-role{margin-top:17px;font-size:11px;letter-spacing:3.3px}.menu-toggle{top:29px;right:18px;width:39px}.site-menu{padding:105px 28px 35px}.site-menu a,.site-menu .menu-disabled{font-size:27px}.bio{padding:0 6px}.bio-rule{margin:18px 0 28px}.bio-name{margin-bottom:24px}.bio-text{font-size:13px;line-height:2.05;letter-spacing:.02em}.bio-language{margin-top:36px}.bio-text-en{font-size:17px;line-height:1.65}}
 </style>
 </head>
-
 <body>
 <main>
-  <header>
-    <button class="menu-toggle" id="menuToggle" type="button" aria-label="Open menu" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
-
-    <div class="menu-backdrop" id="menuBackdrop"></div>
-
-    <nav class="site-menu" id="siteMenu" aria-label="Site navigation">
-      <a href="index.html" data-menu-link="live">LIVE SCHEDULE</a>
-      <a href="bio.html" class="current" data-menu-link="bio">BIO</a>
-      <a href="#" data-menu-link="music">MUSIC</a>
-      <a href="contact.html" data-menu-link="contact">CONTACT</a>
-    </nav>
-
-    <div class="name-wrap">
-      <h1 class="artist-name">
-        <span>Akihiro</span>
-        <span>Kokufukata</span>
-      </h1>
-      <div class="name-line"></div>
-    </div>
-
-    <div class="artist-role">TRUMPETER / COMPOSER</div>
-  </header>
-
-  <section class="bio">
-    <h2 class="bio-title">Bio</h2>
-    <div class="bio-rule"></div>
-
-    <h3 class="bio-name">Akihiro Kokufukata</h3>
-
-    <div class="bio-text">
-      <p>トランペット奏者、作曲家。</p>
-
-      <p>東京藝術大学、甲陽音楽院を経て、全額奨学金を獲得しBerklee College of Musicに進学。同大学を卒業。</p>
-
-      <p>在学中、「DownBeat 47th Annual Student Music Awards」においてOutstanding Performance賞を受賞。ボストンを拠点に演奏活動を行い、Snarky PuppyのMike “Maz” Maherをはじめ、Bijon Watsonらグラミー賞受賞ミュージシャンが在籍するBT ALC Big Bandに約1年間リードトランペットとして参加。同バンド在籍時にはBoston Music Awardsの「Live Artist of the Year」「Jazz Artist of the Year」の2部門にノミネートされた。</p>
-
-      <p>また、Zhengtao Pan Jazz Orchestraではリードトランペットを務め、アルバム『Day By Day』に参加。Steve Wilson、Rufus Reid、Adam Birnbaumらと共演する。</p>
-
-      <p>現在は日本を拠点に、ジャズコンボからビッグバンド、ポップスのサポート、レコーディングまで幅広く活動。セクションプレイヤーとしてALIのライブサポートおよびレコーディングに参加するほか、角田健一、守屋純子、宮木謙介、Mark Tourianらのビッグバンドに参加。コンボでは大坂昌彦、Banksia Trio、小林陽一らと共演している。</p>
-
-      <p>また、自身のプロジェクトをはじめ、ジャズを軸としたさまざまな編成で演奏・作曲活動を展開している。</p>
-    </div>
-  </section>
-
-  <footer>
-    <div class="footer-name">AKIHIRO KOKUFUKATA</div>
-    <div class="footer-role">TRUMPETER / COMPOSER</div>
-  </footer>
+<header>
+<button class="menu-toggle" id="menuToggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="siteMenu"><span></span><span></span><span></span></button>
+<div class="menu-backdrop" id="menuBackdrop"></div>
+<nav class="site-menu" id="siteMenu" aria-label="Site navigation">
+<a href="index.html">LIVE SCHEDULE</a><a href="bio.html" class="current" aria-current="page">BIO</a><span class="menu-disabled" aria-disabled="true">MUSIC</span><a href="contact.html">CONTACT</a>
+</nav>
+<div class="name-wrap"><h1 class="artist-name" lang="en"><span>Akihiro</span><span>Kokufukata</span></h1><div class="name-line"></div></div><div class="artist-role" lang="en">TRUMPETER / COMPOSER</div>
+</header>
+<section class="bio" aria-labelledby="bioTitle">
+<h2 class="bio-title" id="bioTitle" lang="en">Bio</h2><div class="bio-rule"></div><h3 class="bio-name" lang="en">Akihiro Kokufukata</h3>
+<div class="bio-text" lang="ja">
+<p>トランペット奏者、作曲家。</p>
+<p>東京藝術大学、甲陽音楽院を経て、全額奨学金を獲得しBerklee College of Musicに進学。同大学を卒業。</p>
+<p>在学中、「DownBeat 47th Annual Student Music Awards」においてOutstanding Performance賞を受賞。ボストンを拠点に演奏活動を行い、Snarky PuppyのMike “Maz” Maherをはじめ、Bijon Watsonらグラミー賞受賞ミュージシャンが在籍するBT ALC Big Bandに約1年間リードトランペットとして参加。同バンド在籍時にはBoston Music Awardsの「Live Artist of the Year」「Jazz Artist of the Year」の2部門にノミネートされた。</p>
+<p>また、Zhengtao Pan Jazz Orchestraではリードトランペットを務め、アルバム『Day By Day』に参加。Steve Wilson、Rufus Reid、Adam Birnbaumらと共演する。</p>
+<p>現在は日本を拠点に、ジャズコンボからビッグバンド、ポップスのサポート、レコーディングまで幅広く活動。セクションプレイヤーとしてALIのライブサポートおよびレコーディングに参加するほか、角田健一、守屋純子、宮木謙介、Mark Tourianらのビッグバンドに参加。コンボでは大坂昌彦、Banksia Trio、小林陽一らと共演している。</p>
+<p>また、自身のプロジェクトをはじめ、ジャズを軸としたさまざまな編成で演奏・作曲活動を展開している。</p>
+</div>
+<div class="bio-language" lang="en">ENGLISH</div>
+<div class="bio-text-en" lang="en">
+<p>Akihiro Kokufukata is a trumpeter and composer.</p>
+<p>After studying at Tokyo University of the Arts and Koyo Conservatory of Music, he received a full scholarship to attend Berklee College of Music, where he graduated.</p>
+<p>While at Berklee, he received an Outstanding Performance award in the DownBeat 47th Annual Student Music Awards. Based in Boston, he performed extensively and spent approximately one year as lead trumpeter with the BT ALC Big Band, whose members include Grammy Award-winning musicians such as Snarky Puppy’s Mike “Maz” Maher and Bijon Watson. During his time with the band, BT ALC Big Band was nominated for both Live Artist of the Year and Jazz Artist of the Year at the Boston Music Awards.</p>
+<p>He also served as lead trumpeter with the Zhengtao Pan Jazz Orchestra and appeared on the album <em>Day By Day</em>, performing alongside Steve Wilson, Rufus Reid, Adam Birnbaum and others.</p>
+<p>Now based in Japan, Kokufukata works across a wide range of settings, from jazz combos and big bands to pop support and recording sessions. As a section player, he has performed live and recorded with ALI, and has appeared with big bands led by Kenichi Tsunoda, Junko Moriya, Kensuke Miyaki and Mark Tourian. In small-group settings, he has performed with Masahiko Osaka, Banksia Trio, Yoichi Kobayashi and others.</p>
+<p>Alongside these activities, he continues to perform and compose through his own projects and a variety of jazz-centered ensembles.</p>
+</div>
+</section>
+<footer><div class="footer-name">AKIHIRO KOKUFUKATA</div><div class="footer-role">TRUMPETER / COMPOSER</div></footer>
 </main>
-
 <script>
-const menuToggle = document.getElementById('menuToggle');
-const siteMenu = document.getElementById('siteMenu');
-const menuBackdrop = document.getElementById('menuBackdrop');
-
-function setMenu(open){
-  menuToggle.classList.toggle('open',open);
-  siteMenu.classList.toggle('open',open);
-  menuBackdrop.classList.toggle('open',open);
-  menuToggle.setAttribute('aria-expanded',String(open));
-  menuToggle.setAttribute('aria-label',open ? 'Close menu' : 'Open menu');
-}
-menuToggle.addEventListener('click',()=>setMenu(!siteMenu.classList.contains('open')));
-menuBackdrop.addEventListener('click',()=>setMenu(false));
-document.addEventListener('keydown',event=>{
-  if(event.key === 'Escape') setMenu(false);
-});
-
-const MENU_URLS = {
-  live: SETTINGS.LIVE_SCHEDULE_URL || 'index.html',
-  bio: SETTINGS.BIO_URL || 'bio.html',
-  music: SETTINGS.MUSIC_URL || '',
-  contact: SETTINGS.CONTACT_URL || 'contact.html'
-};
-
-document.querySelectorAll('[data-menu-link]').forEach(link=>{
-  const key = link.dataset.menuLink;
-  const url = MENU_URLS[key];
-  if(url){
-    link.href = url;
-  }else{
-    link.addEventListener('click',event=>event.preventDefault());
-    link.style.opacity = '.38';
-    link.style.cursor = 'default';
-  }
-});
+const menuToggle=document.getElementById('menuToggle'),siteMenu=document.getElementById('siteMenu'),menuBackdrop=document.getElementById('menuBackdrop');
+function setMenu(open){menuToggle.classList.toggle('open',open);siteMenu.classList.toggle('open',open);menuBackdrop.classList.toggle('open',open);menuToggle.setAttribute('aria-expanded',String(open));menuToggle.setAttribute('aria-label',open?'Close menu':'Open menu');if(open){siteMenu.querySelector('a')?.focus();}else{menuToggle.focus();}}
+menuToggle.addEventListener('click',()=>setMenu(!siteMenu.classList.contains('open')));menuBackdrop.addEventListener('click',()=>setMenu(false));document.addEventListener('keydown',e=>{if(e.key==='Escape'&&siteMenu.classList.contains('open'))setMenu(false)});
 </script>
 </body>
 </html>
