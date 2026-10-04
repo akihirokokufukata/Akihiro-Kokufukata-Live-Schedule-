@@ -1143,6 +1143,92 @@ body.reservation-open{overflow:hidden}
   .search-results-head{margin-bottom:13px}
 }
 
+
+/* =========================================================
+   LIVE ARCHIVE ENHANCEMENTS
+   ========================================================= */
+.player-search{
+  display:inline;
+  padding:0;
+  border:0;
+  border-bottom:1px solid transparent;
+  background:transparent;
+  color:inherit;
+  font:inherit;
+  line-height:inherit;
+  text-align:left;
+  cursor:pointer;
+}
+.player-search:hover,
+.player-search:focus-visible{
+  color:var(--crimson);
+  border-bottom-color:currentColor;
+  outline:0;
+}
+.player-instrument{color:var(--muted)}
+.search-group{margin-bottom:34px}
+.search-group-heading{
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  gap:15px;
+  margin:20px 0 13px;
+  padding-bottom:8px;
+  border-bottom:1px solid var(--line);
+}
+.search-group-title{
+  color:var(--crimson);
+  font-family:var(--sans);
+  font-size:9px;
+  font-weight:600;
+  letter-spacing:2.4px;
+}
+.search-group-count{
+  color:var(--muted);
+  font-family:var(--sans);
+  font-size:8px;
+  font-weight:600;
+  letter-spacing:1.2px;
+}
+.past-heading{
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  gap:14px;
+}
+.past-heading-count{
+  color:var(--muted);
+  font-size:8px;
+  letter-spacing:1.2px;
+}
+.past-year-button .filter-count,
+.past-month-button .filter-count{
+  margin-left:4px;
+  opacity:.65;
+  font-size:.9em;
+}
+.event-permalink{
+  display:inline-flex;
+  align-items:center;
+  margin-top:18px;
+  color:var(--muted);
+  font-family:var(--sans);
+  font-size:7px;
+  font-weight:600;
+  letter-spacing:1.25px;
+  text-decoration:none;
+}
+.event-permalink:hover{color:var(--crimson)}
+.event:target{
+  border-color:var(--crimson);
+  box-shadow:0 0 0 1px var(--crimson);
+}
+@media(max-width:650px){
+  .search-group{margin-bottom:27px}
+  .search-group-heading{margin-top:16px}
+  .event-permalink{font-size:6.5px}
+}
+
 /* ACCESSIBILITY */
 a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--crimson);outline-offset:4px}
 .site-menu .menu-disabled{display:block;padding:20px 0;border-bottom:1px solid var(--line);color:var(--ink);font-family:var(--serif);font-size:30px;font-weight:600;letter-spacing:.5px;opacity:.38;cursor:default}
@@ -2045,7 +2131,7 @@ function createPastMonthFilterHTML() {
           data-past-year="all"
           type="button"
         >
-          ALL
+          ALL <span class="filter-count">${pastEvents.length}</span>
         </button>
 
         ${years.map(year => `
@@ -2055,6 +2141,7 @@ function createPastMonthFilterHTML() {
             type="button"
           >
             ${year}
+            <span class="filter-count">${pastEvents.filter(event => getMonthKey(event).startsWith(`${year}-`)).length}</span>
           </button>
         `).join('')}
       </div>
@@ -2075,6 +2162,7 @@ function createPastMonthFilterHTML() {
             type="button"
           >
             ${getPastMonthLabel(key)}
+            <span class="filter-count">${pastEvents.filter(event => getMonthKey(event) === key).length}</span>
           </button>
         `).join('')}
       </div>
@@ -2101,55 +2189,62 @@ function containsJapanese(text = '') {
    PLAYERS
    ========================================================= */
 
+function splitPlayerDisplay(player = '') {
+  const text = String(player).trim();
+
+  // Treat only a trailing parenthetical as the instrument/role.
+  // Example: "大坂昌彦 (Drums)" -> name "大坂昌彦", role "(Drums)".
+  const match = text.match(/^(.*?)\s*(\([^()]+\))\s*$/);
+
+  if (!match) {
+    return { name: text, role: '' };
+  }
+
+  return {
+    name: match[1].trim(),
+    role: match[2].trim()
+  };
+}
+
+function createPlayerLineHTML(player) {
+  const { name, role } = splitPlayerDisplay(player);
+
+  if (!name) {
+    return `<span class="player">${escapeHTML(player)}</span>`;
+  }
+
+  return `
+    <span class="player">
+      <button
+        class="player-search"
+        type="button"
+        data-player-search="${escapeHTML(name)}"
+        aria-label="Search shows with ${escapeHTML(name)}"
+      >${escapeHTML(name)}</button>${role ? ` <span class="player-instrument">${escapeHTML(role)}</span>` : ''}
+    </span>
+  `;
+}
+
 function createPlayersHTML(players) {
 
   if (!players.length) {
     return '';
   }
 
-
-  const visible =
-    players.slice(0,6);
-
-  const hidden =
-    players.slice(6);
-
+  const visible = players.slice(0,6);
+  const hidden = players.slice(6);
 
   let html = `
-
     <div class="players-section">
-
-      <div class="label">
-        PLAYERS
-      </div>
-
+      <div class="label">PLAYERS</div>
       <div class="players">
-
-        ${visible
-          .map(
-            player =>
-              `<span class="player">${escapeHTML(player)}</span>`
-          )
-          .join('')
-        }
-
+        ${visible.map(createPlayerLineHTML).join('')}
   `;
 
-
   if (hidden.length) {
-
     html += `
-
       <div class="hidden-players">
-
-        ${hidden
-          .map(
-            player =>
-              `<span class="player">${escapeHTML(player)}</span>`
-          )
-          .join('')
-        }
-
+        ${hidden.map(createPlayerLineHTML).join('')}
       </div>
 
       <button
@@ -2159,25 +2254,16 @@ function createPlayersHTML(players) {
       >
         SHOW MORE ↓
       </button>
-
     `;
-
   }
 
-
   html += `
-
       </div>
-
     </div>
-
   `;
 
-
   return html;
-
 }
-
 
 
 
@@ -2212,6 +2298,47 @@ function createEventMediaHTML(info,title){
     <div class="event-media-viewport"><button class="event-media-nav prev" type="button" aria-label="Previous media" hidden>‹</button><div class="event-media-track" data-media-track>${items.join('')}</div><button class="event-media-nav next" type="button" aria-label="Next media">›</button></div>
     ${multi?`<div class="event-media-dots">${items.map((_,i)=>`<button class="event-media-dot ${i===0?'active':''}" type="button" data-media-dot="${i}" aria-label="Show media ${i+1}"></button>`).join('')}</div><div class="event-media-hint">SWIPE / SCROLL FOR MORE →</div>`:`<div class="event-media-hint">TAP IMAGE TO ENLARGE ↗</div>`}
   </div>`;
+}
+
+
+function getEventYear(event) {
+  return new Intl.DateTimeFormat(
+    'en-US',
+    { timeZone:'Asia/Tokyo', year:'numeric' }
+  ).format(eventStart(event));
+}
+
+function getEventMonthLong(event) {
+  return new Intl.DateTimeFormat(
+    'en-US',
+    { timeZone:'Asia/Tokyo', month:'long' }
+  ).format(eventStart(event));
+}
+
+function getEventStableId(event) {
+  if (event.id) {
+    return `show-${String(event.id).replace(/[^A-Za-z0-9_-]/g,'')}`;
+  }
+
+  const fallback = [
+    tokyoDateKey(eventStart(event)),
+    event.summary || 'live',
+    event.location || ''
+  ].join('-')
+   .normalize('NFKD')
+   .replace(/[^\w-]+/g,'-')
+   .replace(/-+/g,'-')
+   .replace(/^-|-$/g,'')
+   .toLowerCase();
+
+  return `show-${fallback || 'live'}`;
+}
+
+function getShowPermalink(event) {
+  const url = new URL(window.location.href);
+  url.search = '';
+  url.hash = getEventStableId(event);
+  return url.href;
 }
 
 /* =========================================================
@@ -2406,6 +2533,7 @@ function createEventCard(
   return `
 
     <article
+      id="${getEventStableId(event)}"
       class="
         event
         ${info.leader ? 'leader' : ''}
@@ -2482,6 +2610,14 @@ function createEventCard(
 
         ${actionsHTML}
 
+        <a
+          class="event-permalink"
+          href="#${getEventStableId(event)}"
+          aria-label="Direct link to ${escapeHTML(title)}"
+        >
+          SHARE SHOW ↗
+        </a>
+
       </div>
 
     </article>
@@ -2531,13 +2667,22 @@ function normalizeSearchText(value = '') {
 function eventSearchText(event) {
   const info = parseDescription(event.description || '');
   const venue = getVenue(event.location || '');
+  const year = getEventYear(event);
+  const monthLong = getEventMonthLong(event);
+  const monthShort = monthLong.slice(0,3);
+
   const fields = [
     event.summary || '',
     ...(info.players || []),
     venue,
     info.place || '',
-    event.location || ''
+    event.location || '',
+    year,
+    monthLong,
+    monthShort,
+    getMonthKey(event)
   ];
+
   return normalizeSearchText(fields.join(' '));
 }
 
@@ -2551,13 +2696,51 @@ function eventMatchesSearch(event, query) {
   return words.every(word => haystack.includes(word));
 }
 
+function syncSearchURL() {
+  const url = new URL(window.location.href);
+  const query = searchQuery.trim();
+
+  if (query) {
+    url.searchParams.set('search', query);
+  } else {
+    url.searchParams.delete('search');
+  }
+
+  history.replaceState(null, '', url.pathname + url.search + url.hash);
+}
+
+function renderSearchGroup(title, events, isPast) {
+  if (!events.length) return '';
+
+  return `
+    <section class="search-group" aria-label="${title.toLowerCase()} search results">
+      <div class="search-group-heading">
+        <div class="search-group-title">${title}</div>
+        <div class="search-group-count">
+          ${events.length} ${events.length === 1 ? 'SHOW' : 'SHOWS'}
+        </div>
+      </div>
+
+      ${events.map(event => {
+        const originalIndex = isPast ? -1 : upcomingEvents.indexOf(event);
+        return createEventCard(event, originalIndex, isPast);
+      }).join('')}
+    </section>
+  `;
+}
+
 function renderSearchResults(container) {
   const query = searchQuery.trim();
-  const allEvents = [...upcomingEvents, ...pastEvents];
 
-  const matches = allEvents
+  const upcomingMatches = upcomingEvents
     .filter(event => eventMatchesSearch(event, query))
-    .sort((a, b) => eventStart(b) - eventStart(a));
+    .sort((a,b) => eventStart(a) - eventStart(b));
+
+  const pastMatches = pastEvents
+    .filter(event => eventMatchesSearch(event, query))
+    .sort((a,b) => eventStart(b) - eventStart(a));
+
+  const total = upcomingMatches.length + pastMatches.length;
 
   container.innerHTML = `
     <div class="search-results-head">
@@ -2566,17 +2749,16 @@ function renderSearchResults(container) {
         <span class="search-results-query">— ${escapeHTML(query)}</span>
       </div>
       <div class="search-results-count">
-        ${matches.length} ${matches.length === 1 ? 'SHOW' : 'SHOWS'}
+        ${total} ${total === 1 ? 'SHOW' : 'SHOWS'}
       </div>
     </div>
 
     ${
-      matches.length
-        ? matches.map(event => {
-            const isPast = eventEnd(event) < new Date();
-            const upcomingIndex = isPast ? -1 : upcomingEvents.indexOf(event);
-            return createEventCard(event, upcomingIndex, isPast);
-          }).join('')
+      total
+        ? `
+          ${renderSearchGroup('UPCOMING', upcomingMatches, false)}
+          ${renderSearchGroup('PAST', pastMatches, true)}
+        `
         : `
           <div class="message">
             No shows found for “${escapeHTML(query)}”.
@@ -2635,7 +2817,10 @@ function renderEvents() {
     container.innerHTML = `
 
       <div class="past-heading">
-        PAST SHOWS
+        <span>PAST SHOWS</span>
+        <span class="past-heading-count">
+          ${filteredPastEvents.length} ${filteredPastEvents.length === 1 ? 'SHOW' : 'SHOWS'}
+        </span>
       </div>
 
       ${createPastMonthFilterHTML()}
@@ -2918,6 +3103,62 @@ document.addEventListener(
     }
 
 
+    /* PLAYER SEARCH */
+
+    const playerSearchButton =
+      event.target.closest('.player-search');
+
+    if (playerSearchButton) {
+      const playerName = playerSearchButton.dataset.playerSearch || '';
+      const input = document.getElementById('showSearch');
+
+      if (input && playerName) {
+        input.value = playerName;
+        searchQuery = playerName;
+
+        const clear = document.getElementById('showSearchClear');
+        if (clear) clear.hidden = false;
+
+        syncSearchURL();
+        renderEvents();
+
+        document.querySelector('.show-search')?.scrollIntoView({
+          behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+          block: 'start'
+        });
+
+        input.focus({ preventScroll:true });
+      }
+
+      return;
+    }
+
+
+
+    /* SHARE SHOW */
+
+    const permalink = event.target.closest('.event-permalink');
+
+    if (permalink) {
+      event.preventDefault();
+      const url = new URL(permalink.getAttribute('href'), window.location.href).href;
+
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(url).then(() => {
+          const original = permalink.textContent;
+          permalink.textContent = 'LINK COPIED ✓';
+          setTimeout(() => { permalink.textContent = original; }, 1400);
+        }).catch(() => {
+          window.location.hash = permalink.getAttribute('href').slice(1);
+        });
+      } else {
+        window.location.hash = permalink.getAttribute('href').slice(1);
+      }
+
+      return;
+    }
+
+
     /* SHOW MORE */
 
     const showMore =
@@ -3172,6 +3413,17 @@ async function loadCalendar() {
 
     renderEvents();
 
+    if (window.location.hash) {
+      requestAnimationFrame(() => {
+        const target = document.getElementById(
+          decodeURIComponent(window.location.hash.slice(1))
+        );
+        if (target) {
+          target.scrollIntoView({ block:'center' });
+        }
+      });
+    }
+
   }
 
 
@@ -3199,34 +3451,50 @@ async function loadCalendar() {
 
 
 /* =========================================================
-   SEARCH INPUT
+   SEARCH INPUT + URL STATE
    ========================================================= */
 
 const showSearch = document.getElementById('showSearch');
 const showSearchClear = document.getElementById('showSearchClear');
 
-function updateShowSearch() {
-  searchQuery = showSearch.value;
+function setSearchQuery(value, { updateURL = true } = {}) {
+  searchQuery = String(value || '');
+  showSearch.value = searchQuery;
   showSearchClear.hidden = !searchQuery.trim();
+
+  if (updateURL) {
+    syncSearchURL();
+  }
+
   renderEvents();
 }
 
-showSearch.addEventListener('input', updateShowSearch);
+function initializeSearchFromURL() {
+  const params = new URLSearchParams(window.location.search);
+  const initialSearch = params.get('search') || '';
+
+  if (initialSearch) {
+    searchQuery = initialSearch;
+    showSearch.value = initialSearch;
+    showSearchClear.hidden = false;
+  }
+}
+
+showSearch.addEventListener('input', () => {
+  searchQuery = showSearch.value;
+  showSearchClear.hidden = !searchQuery.trim();
+  syncSearchURL();
+  renderEvents();
+});
 
 showSearchClear.addEventListener('click', () => {
-  showSearch.value = '';
-  searchQuery = '';
-  showSearchClear.hidden = true;
-  renderEvents();
+  setSearchQuery('');
   showSearch.focus();
 });
 
 showSearch.addEventListener('keydown', event => {
   if (event.key === 'Escape' && showSearch.value) {
-    showSearch.value = '';
-    searchQuery = '';
-    showSearchClear.hidden = true;
-    renderEvents();
+    setSearchQuery('');
   }
 });
 
@@ -3253,6 +3521,8 @@ document.addEventListener('keydown', e => { if(e.key === 'Escape') setMenu(false
 // Navigation links are defined directly in the HTML above.
 
 
+
+initializeSearchFromURL();
 
 buildMonthFilters();
 
