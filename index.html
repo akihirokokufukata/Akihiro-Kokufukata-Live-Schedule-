@@ -560,6 +560,12 @@ button.action {
 .event-media-dot{width:5px;height:5px;padding:0;border:1px solid var(--crimson);border-radius:50%;background:transparent;cursor:pointer}
 .event-media-dot.active{background:var(--crimson)}
 .event-media-hint{margin-top:7px;color:var(--muted);font-family:var(--sans);font-size:7px;font-weight:600;letter-spacing:1.3px}
+
+.event-media-nav{position:absolute;top:50%;z-index:6;width:28px;height:36px;padding:0;border:1px solid rgba(243,238,229,.55);background:rgba(24,19,19,.42);color:var(--paper);font-family:Georgia,serif;font-size:20px;line-height:1;display:flex;align-items:center;justify-content:center;transform:translateY(-50%);cursor:pointer;backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);transition:opacity .18s ease,background .18s ease}
+.event-media-nav:hover{background:rgba(152,24,42,.82)}
+.event-media-nav.prev{left:7px}.event-media-nav.next{right:7px}.event-media-nav[hidden]{display:none}
+@media(max-width:650px){.event-media-nav{width:24px;height:32px;font-size:17px}.event-media-nav.prev{left:5px}.event-media-nav.next{right:5px}}
+
 @media(max-width:650px){.event-media{margin-top:20px}.event-media-title,.event-media-count{font-size:7px}.event-media-badge{top:8px;left:8px}.event-media-link-inner{font-size:9px}}
 
 /* =========================================================
@@ -2049,7 +2055,7 @@ function createEventMediaHTML(info,title){
 
   return `<div class="event-media" data-media-gallery>
     <div class="event-media-head"><div class="event-media-title">MEDIA</div><div class="event-media-count"><span data-media-current>1</span> / ${items.length}</div></div>
-    <div class="event-media-viewport"><div class="event-media-track" data-media-track>${items.join('')}</div></div>
+    <div class="event-media-viewport"><button class="event-media-nav prev" type="button" aria-label="Previous media" hidden>‹</button><div class="event-media-track" data-media-track>${items.join('')}</div><button class="event-media-nav next" type="button" aria-label="Next media">›</button></div>
     ${multi?`<div class="event-media-dots">${items.map((_,i)=>`<button class="event-media-dot ${i===0?'active':''}" type="button" data-media-dot="${i}" aria-label="Show media ${i+1}"></button>`).join('')}</div><div class="event-media-hint">SWIPE / SCROLL FOR MORE →</div>`:`<div class="event-media-hint">TAP IMAGE TO ENLARGE ↗</div>`}
   </div>`;
 }
@@ -3033,6 +3039,43 @@ MESSAGE:\
 ${message}`);
   window.location.href=`mailto:${EMAIL_ADDRESS}?subject=${subject}&body=${body}`;
 });
+
+
+/* MEDIA CAROUSEL ARROWS */
+function updateMediaNav(viewport){
+  if(!viewport)return;
+  const track=viewport.querySelector('.event-media-track');
+  const prev=viewport.querySelector('.event-media-nav.prev');
+  const next=viewport.querySelector('.event-media-nav.next');
+  if(!track||!prev||!next)return;
+  const count=track.querySelectorAll('.event-media-item').length;
+  if(count<=1){prev.hidden=true;next.hidden=true;return;}
+  const max=Math.max(0,track.scrollWidth-track.clientWidth);
+  prev.hidden=track.scrollLeft<=2;
+  next.hidden=track.scrollLeft>=max-2;
+}
+function refreshAllMediaNav(){
+  document.querySelectorAll('.event-media-viewport').forEach(updateMediaNav);
+}
+document.addEventListener('click',e=>{
+  const button=e.target.closest('.event-media-nav');
+  if(!button)return;
+  e.preventDefault();e.stopPropagation();
+  const viewport=button.closest('.event-media-viewport');
+  const track=viewport&&viewport.querySelector('.event-media-track');
+  if(!track)return;
+  track.scrollBy({left:(button.classList.contains('prev')?-1:1)*track.clientWidth,behavior:'smooth'});
+  setTimeout(()=>updateMediaNav(viewport),400);
+});
+document.addEventListener('scroll',e=>{
+  const track=e.target;
+  if(track instanceof Element&&track.classList.contains('event-media-track')){
+    updateMediaNav(track.closest('.event-media-viewport'));
+  }
+},true);
+window.addEventListener('resize',refreshAllMediaNav);
+const mediaNavObserver=new MutationObserver(refreshAllMediaNav);
+mediaNavObserver.observe(document.getElementById('events'),{childList:true,subtree:true});
 
 </script>
 
