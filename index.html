@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Akihiro Kokufukata | 國府方章弘 — Live Schedule</title>
+<title>Show Details | Akihiro Kokufukata</title>
 <meta name="description" content="Jazz trumpeter and composer Akihiro Kokufukata（國府方章弘・国府方章弘）の公式ライブスケジュール。出演情報、会場、共演者、写真・フライヤー・映像を掲載。">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Akihiro Kokufukata | 國府方章弘 — Live Schedule">
@@ -30,7 +30,7 @@
 </script>
 
 <script>
-const PLAYER_PARSER_VERSION = '2026-10-04-v8-adaptive-instrument-names';
+const PLAYER_PARSER_VERSION = '2026-10-05-v10-event-pages-structured-data';
 const SETTINGS = {
   API_KEY: 'AIzaSyCB5WplBrKEb70d5WHZTrg3G46fTdl_A0Q',
   CALENDAR_ID: 'akihirokokufukatamusic@gmail.com',
@@ -38,7 +38,8 @@ const SETTINGS = {
   BIO_URL: 'bio.html',
   MUSIC_URL: '',
   CONTACT_URL: 'contact.html',
-  LIVE_SCHEDULE_URL: 'index.html'
+  LIVE_SCHEDULE_URL: 'index.html',
+  EVENT_URL: 'event.html'
 };
 </script>
 
@@ -1347,6 +1348,40 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 @media(max-width:650px){.site-menu .menu-disabled{font-size:27px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
 
+
+/* =========================================================
+   EVENT DETAIL PAGE
+   ========================================================= */
+.event-detail-page .month-filter,
+.event-detail-page .show-search{
+  display:none !important;
+}
+.event-detail-page .schedule-heading{
+  margin-bottom:16px;
+}
+.event-detail-page .event-detail-back{
+  display:inline-block;
+  margin:0 0 20px;
+  color:var(--crimson);
+  font-family:var(--sans);
+  font-size:8px;
+  font-weight:600;
+  letter-spacing:1.6px;
+  text-decoration:none;
+}
+.event-detail-page .event-detail-back:hover{
+  text-decoration:underline;
+}
+.event-detail-page .event{
+  margin-bottom:24px;
+}
+@media(max-width:650px){
+  .event-detail-page .event-detail-back{
+    margin-bottom:16px;
+    font-size:7px;
+  }
+}
+
 </style>
   <meta name="robots" content="index, follow, max-image-preview:large">
   <meta name="twitter:title" content="Akihiro Kokufukata | 國府方章弘 — Live Schedule">
@@ -1364,10 +1399,11 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
   "publisher": {"@id": "https://akihirokokufukata.github.io/Akihiro-Kokufukata-Live-Schedule-/#person"}
 }
 </script>
+  <script id="eventStructuredData" type="application/ld+json">{}</script>
 </head>
 
 
-<body>
+<body class="event-detail-page">
 
 <main>
 
@@ -1434,7 +1470,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
   <div class="schedule-heading">
 
     <h2 class="schedule-title">
-      Live Schedule
+      Show Details
     </h2>
 
     <div
@@ -1460,6 +1496,8 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
       <div class="search-suggestions" id="searchSuggestions" role="listbox" hidden></div>
     </div>
   </div>
+
+<a class="event-detail-back" href="index.html">← LIVE SCHEDULE</a>
 
 <div id="events" aria-live="polite">
 
@@ -2838,11 +2876,22 @@ function getEventStableId(event) {
   return `show-${fallback || 'live'}`;
 }
 
-function getShowPermalink(event) {
-  const url = new URL(window.location.href);
+function getEventDetailURL(event) {
+  const url = new URL(SETTINGS.EVENT_URL || 'event.html', window.location.href);
   url.search = '';
-  url.hash = getEventStableId(event);
+  url.hash = '';
+
+  if (event?.id) {
+    url.searchParams.set('id', event.id);
+  } else {
+    url.searchParams.set('show', getEventStableId(event));
+  }
+
   return url.href;
+}
+
+function getShowPermalink(event) {
+  return getEventDetailURL(event);
 }
 
 function toGoogleCalendarDate(date) {
@@ -3152,8 +3201,8 @@ function createEventCard(
 
         <a
           class="event-permalink"
-          href="#${getEventStableId(event)}"
-          aria-label="Direct link to ${escapeHTML(title)}"
+          href="${escapeHTML(getEventDetailURL(event))}"
+          aria-label="Share or open details for ${escapeHTML(title)}"
         >
           SHARE SHOW ↗
         </a>
@@ -3843,10 +3892,10 @@ document.addEventListener(
           permalink.textContent = 'LINK COPIED ✓';
           setTimeout(() => { permalink.textContent = original; }, 1400);
         }).catch(() => {
-          window.location.hash = permalink.getAttribute('href').slice(1);
+          window.location.href = url;
         });
       } else {
-        window.location.hash = permalink.getAttribute('href').slice(1);
+        window.location.href = url;
       }
 
       return;
@@ -3970,7 +4019,214 @@ document.addEventListener(
    ★ 250件を超えても全件取得
    ========================================================= */
 
+
+/* =========================================================
+   EVENT DETAIL PAGE + EVENT STRUCTURED DATA
+   ========================================================= */
+
+const IS_EVENT_DETAIL_PAGE =
+  document.body.classList.contains('event-detail-page');
+
+function absoluteSiteURL(value = '') {
+  const text = String(value || '').trim();
+  if (!text) return '';
+  try {
+    return new URL(text, window.location.href).href;
+  } catch {
+    return '';
+  }
+}
+
+function eventSchemaStartDate(event) {
+  return event?.start?.dateTime || event?.start?.date || '';
+}
+
+function eventSchemaEndDate(event) {
+  if (event?.end?.dateTime) return event.end.dateTime;
+
+  // Google Calendar all-day end dates are exclusive.
+  if (event?.end?.date) {
+    const end = new Date(`${event.end.date}T00:00:00+09:00`);
+    end.setDate(end.getDate() - 1);
+    return tokyoDateKey(end);
+  }
+
+  return '';
+}
+
+function buildEventStructuredData(event) {
+  const info = parseDescription(event.description || '');
+  const venue = info.place || getVenue(event.location || '');
+  const eventURL = getEventDetailURL(event);
+  const people = splitPlayersIntoPeople(info.players || [])
+    .filter(person => person?.name)
+    .map(person => ({
+      "@type": "Person",
+      "name": person.name
+    }));
+
+  const images = [
+    ...(info.images || []),
+    ...(info.photos || [])
+  ]
+    .map(absoluteSiteURL)
+    .filter(Boolean);
+
+  const data = {
+    "@context": "https://schema.org",
+    "@type": "Event",
+    "@id": `${eventURL}#event`,
+    "name": event.summary || "Live",
+    "startDate": eventSchemaStartDate(event),
+    "eventStatus":
+      event.status === "cancelled"
+        ? "https://schema.org/EventCancelled"
+        : "https://schema.org/EventScheduled",
+    "eventAttendanceMode":
+      "https://schema.org/OfflineEventAttendanceMode",
+    "url": eventURL,
+    "mainEntityOfPage": eventURL
+  };
+
+  const endDate = eventSchemaEndDate(event);
+  if (endDate) data.endDate = endDate;
+
+  if (venue) {
+    data.location = {
+      "@type": "Place",
+      "name": venue,
+      "address": {
+        "@type": "PostalAddress",
+        "name": event.location || venue
+      }
+    };
+  }
+
+  if (images.length) {
+    data.image = [...new Set(images)];
+  }
+
+  if (people.length) {
+    data.performer = people;
+  }
+
+  return data;
+}
+
+function updateEventDetailMetadata(event) {
+  const info = parseDescription(event.description || '');
+  const venue = info.place || getVenue(event.location || '');
+  const title = event.summary || 'Live';
+  const date = getDateParts(event);
+  const time = formatTime(event);
+  const eventURL = getEventDetailURL(event);
+
+  const description = [
+    title,
+    `${date.month} ${date.number}`,
+    time !== 'ALL DAY' ? time : '',
+    venue ? `at ${venue}` : '',
+    '— Akihiro Kokufukata live schedule.'
+  ].filter(Boolean).join(' ');
+
+  document.title = `${title} | Akihiro Kokufukata`;
+
+  const setMeta = (selector, value) => {
+    const element = document.querySelector(selector);
+    if (element && value) element.setAttribute('content', value);
+  };
+
+  setMeta('meta[name="description"]', description);
+  setMeta('meta[property="og:title"]', `${title} | Akihiro Kokufukata`);
+  setMeta('meta[property="og:description"]', description);
+  setMeta('meta[property="og:url"]', eventURL);
+  setMeta('meta[name="twitter:title"]', `${title} | Akihiro Kokufukata`);
+  setMeta('meta[name="twitter:description"]', description);
+
+  const detailImage =
+    [...(info.images || []), ...(info.photos || [])]
+      .map(absoluteSiteURL)
+      .find(Boolean);
+
+  if (detailImage) {
+    setMeta('meta[property="og:image"]', detailImage);
+    setMeta('meta[name="twitter:image"]', detailImage);
+  }
+
+  const canonical = document.querySelector('link[rel="canonical"]');
+  if (canonical) canonical.setAttribute('href', eventURL);
+
+  const schema = document.getElementById('eventStructuredData');
+  if (schema) {
+    schema.textContent =
+      JSON.stringify(buildEventStructuredData(event), null, 2);
+  }
+}
+
+function renderEventDetailError(message) {
+  const container = document.getElementById('events');
+  if (container) {
+    container.innerHTML = `
+      <div class="message">${escapeHTML(message)}</div>
+    `;
+  }
+
+  const robots = document.querySelector('meta[name="robots"]');
+  if (robots) robots.setAttribute('content', 'noindex, follow');
+}
+
+async function loadEventDetail() {
+  const params = new URLSearchParams(window.location.search);
+  const eventId = params.get('id');
+
+  if (!eventId) {
+    renderEventDetailError('This show link is incomplete.');
+    return;
+  }
+
+  const requestURL =
+    'https://www.googleapis.com/calendar/v3/calendars/'
+    + encodeURIComponent(CALENDAR_ID)
+    + '/events/'
+    + encodeURIComponent(eventId)
+    + '?'
+    + new URLSearchParams({ key: API_KEY }).toString();
+
+  try {
+    const response = await fetch(requestURL);
+
+    if (!response.ok) {
+      throw new Error('Event request failed');
+    }
+
+    const event = await response.json();
+
+    if (!event?.start || !event?.end) {
+      throw new Error('Event data is incomplete');
+    }
+
+    const isPast = eventEnd(event) < new Date();
+    document.getElementById('events').innerHTML =
+      createEventCard(event, -1, isPast);
+
+    updateEventDetailMetadata(event);
+  }
+
+  catch (error) {
+    console.error(error);
+    renderEventDetailError(
+      'Could not load this show. Please return to the live schedule.'
+    );
+  }
+}
+
+
 async function loadCalendar() {
+
+  if (IS_EVENT_DETAIL_PAGE) {
+    await loadEventDetail();
+    return;
+  }
 
   const now =
     new Date();
@@ -4107,7 +4363,7 @@ async function loadCalendar() {
 
     renderEvents();
 
-    if (window.location.hash) {
+    if (!IS_EVENT_DETAIL_PAGE && window.location.hash) {
       requestAnimationFrame(() => {
         const target = document.getElementById(
           decodeURIComponent(window.location.hash.slice(1))
