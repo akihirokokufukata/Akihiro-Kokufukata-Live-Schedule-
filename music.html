@@ -165,8 +165,8 @@ header{position:relative;padding:25px 10px 78px}
   font-size:23px;font-weight:600;line-height:1.05;
 }
 .release-artist{
-  margin-top:5px;color:var(--muted);
-  font-family:var(--jp);font-size:9px;line-height:1.5;
+  margin-top:6px;color:var(--muted);
+  font-family:var(--jp);font-size:11px;line-height:1.55;
 }
 .release-note,.release-credit{
   margin-top:4px;color:var(--crimson);
@@ -300,8 +300,8 @@ header{position:relative;padding:25px 10px 78px}
   font-family:var(--serif);font-size:24px;font-weight:600;line-height:1.05;
 }
 .video-subtitle{
-  margin-top:5px;color:var(--muted);
-  font-family:var(--sans);font-size:8px;letter-spacing:1px;line-height:1.5;
+  margin-top:7px;color:var(--muted);
+  font-family:var(--sans);font-size:10px;letter-spacing:.85px;line-height:1.6;
 }
 
 footer{
@@ -316,9 +316,18 @@ footer{
   font-family:var(--sans);font-size:8px;letter-spacing:3px;
 }
 .footer-instagram{
-  display:inline-block;margin-top:18px;
+  display:inline-flex;align-items:center;gap:9px;margin-top:18px;
   color:var(--crimson);text-decoration:none;
   font-family:var(--sans);font-size:9px;font-weight:600;letter-spacing:2px;
+}
+.footer-instagram:hover{text-decoration:underline}
+.footer-instagram-icon{
+  width:22px;height:22px;display:block;flex:0 0 auto;
+}
+.footer-instagram-icon rect,
+.footer-instagram-icon circle{
+  fill:none;stroke:currentColor;stroke-width:1.55;
+  vector-effect:non-scaling-stroke;
 }
 
 @media(max-width:650px){
@@ -345,11 +354,13 @@ footer{
   }
   .release-card{flex-basis:42vw}
   .release-title{font-size:18px}
-  .release-artist,.release-note,.release-credit{font-size:8px}
+  .release-artist{font-size:10px;line-height:1.55}
+  .release-note,.release-credit{font-size:9px;line-height:1.5}
   .release-action{font-size:6.5px;padding:6px 8px;margin-top:8px}
 
   .video-grid{grid-template-columns:1fr;gap:30px}
   .video-title{font-size:22px}
+  .video-subtitle{font-size:10px;line-height:1.6;letter-spacing:.75px}
 
   .discography-modal{padding:0}
   .discography-sheet{
@@ -433,11 +444,18 @@ footer{
 <footer>
   <div class="footer-name">AKIHIRO KOKUFUKATA</div>
   <div class="footer-role">TRUMPETER / COMPOSER</div>
-  <a class="footer-instagram" href="https://www.instagram.com/akihiro_kokufukata/" target="_blank" rel="noopener noreferrer">INSTAGRAM ↗</a>
+  <a class="footer-instagram" href="https://www.instagram.com/akihiro_kokufukata/" target="_blank" rel="noopener noreferrer" aria-label="Akihiro Kokufukata on Instagram">
+    <svg class="footer-instagram-icon" viewBox="0 0 32 32" aria-hidden="true">
+      <rect x="4" y="4" width="24" height="24" rx="6"></rect>
+      <circle cx="16" cy="16" r="5.5"></circle>
+      <circle cx="23.2" cy="8.8" r="1.15" style="fill:currentColor;stroke:none"></circle>
+    </svg>
+    <span>INSTAGRAM</span>
+  </a>
 </footer>
 </main>
 
-<script src="music-data.js"></script>
+<script src="music-data.js?v=20261006-2"></script>
 <script>
 const menuToggle = document.getElementById('menuToggle');
 const siteMenu = document.getElementById('siteMenu');
