@@ -13,7 +13,6 @@
 <meta property="og:url" content="https://akihirokokufukata.github.io/Akihiro-Kokufukata-Live-Schedule-/">
 <meta property="og:image" content="https://akihirokokufukata.github.io/Akihiro-Kokufukata-Live-Schedule-/images/og-image.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="canonical" href="https://akihirokokufukata.github.io/Akihiro-Kokufukata-Live-Schedule-/">
 
 <script type="application/ld+json">
 {
@@ -30,7 +29,7 @@
 </script>
 
 <script>
-const PLAYER_PARSER_VERSION = '2026-10-05-v10-event-pages-structured-data';
+const PLAYER_PARSER_VERSION = '2026-10-05-v11-event-metadata-controls';
 const SETTINGS = {
   API_KEY: 'AIzaSyCB5WplBrKEb70d5WHZTrg3G46fTdl_A0Q',
   CALENDAR_ID: 'akihirokokufukatamusic@gmail.com',
@@ -1382,6 +1381,79 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
   }
 }
 
+
+/* EVENT TIME + OPTIONAL EVENT DETAILS */
+.event-time-stack{display:flex;flex-direction:column;gap:8px}
+.event-time-row{display:flex;flex-direction:column;gap:1px}
+.event-time-label{
+  color:var(--muted);
+  font-family:var(--sans);
+  font-size:6px;
+  font-weight:600;
+  letter-spacing:1.2px;
+}
+.event-time-value{
+  font-family:var(--serif);
+  font-size:16px;
+  font-weight:500;
+  line-height:1.05;
+  white-space:nowrap;
+}
+.event-time-all-day{font-size:15px}
+.venue-address{
+  margin-top:5px;
+  color:var(--muted);
+  font-family:var(--jp);
+  font-size:11px;
+  line-height:1.55;
+}
+.event-description-section{
+  margin-top:22px;
+  padding-top:18px;
+  border-top:1px solid var(--line);
+}
+.event-description-text{
+  color:#342c29;
+  font-family:var(--jp);
+  font-size:13px;
+  line-height:1.8;
+  white-space:pre-wrap;
+}
+.event-extra{
+  margin-top:20px;
+  padding-top:14px;
+  border-top:1px solid var(--line);
+}
+.event-extra-row{
+  display:grid;
+  grid-template-columns:105px minmax(0,1fr);
+  gap:14px;
+  padding:5px 0;
+}
+.event-extra-label{
+  color:var(--crimson);
+  font-family:var(--sans);
+  font-size:7px;
+  font-weight:600;
+  letter-spacing:1.4px;
+}
+.event-extra-value{
+  color:var(--ink);
+  font-family:var(--jp);
+  font-size:12px;
+  line-height:1.5;
+}
+.event-extra-value a{color:inherit;text-decoration:none}
+.event-extra-value a:hover{color:var(--crimson);text-decoration:underline}
+@media(max-width:650px){
+  .event-time-stack{gap:7px}
+  .event-time-label{font-size:5.5px;letter-spacing:.9px}
+  .event-time-value{font-size:13px}
+  .event-extra-row{grid-template-columns:88px minmax(0,1fr);gap:10px}
+  .event-extra-label{font-size:6.5px}
+  .event-extra-value,.event-description-text{font-size:11.5px}
+}
+
 </style>
   <meta name="robots" content="index, follow, max-image-preview:large">
   <meta name="twitter:title" content="Akihiro Kokufukata | 國府方章弘 — Live Schedule">
@@ -1726,22 +1798,16 @@ function parseDescription(description = '') {
 
   const text =
     String(description)
-
       .replace(/\r/g, '')
-
       .replace(/<br\s*\/?>/gi, '\n')
-
       .replace(/<\/p>/gi, '\n')
-
       .replace(/<[^>]+>/g, '');
-
 
   const lines =
     text
       .split('\n')
       .map(line => line.trim())
       .filter(Boolean);
-
 
   const players = [];
   const images = [];
@@ -1753,82 +1819,154 @@ function parseDescription(description = '') {
   let reservation = '';
   let leader = false;
 
-  let readingPlayers = false;
+  // Optional Event / detail metadata.
+  let descriptionText = '';
+  let address = '';
+  let open = '';
+  let organizerPerson = '';
+  let organizerOrg = '';
+  let organizerURL = '';
+  let ticketURL = '';
+  let price = '';
+  let currency = '';
+  let availability = '';
+  let free = null;
+  let status = '';
+  let previousStart = '';
 
+  let readingPlayers = false;
 
   for (const line of lines) {
 
-
     if (/^players\s*:/i.test(line)) {
-
       readingPlayers = true;
-
-      const sameLine =
-        line
-          .replace(/^players\s*:/i, '')
-          .trim();
-
-
-      if (sameLine) {
-        players.push(sameLine);
-      }
-
-
+      const sameLine = line.replace(/^players\s*:/i, '').trim();
+      if (sameLine) players.push(sameLine);
       continue;
     }
-
 
     if (/^place\s*:/i.test(line)) {
-
       readingPlayers = false;
+      place = line.replace(/^place\s*:/i, '').trim();
+      continue;
+    }
 
-      place =
-        line
-          .replace(/^place\s*:/i, '')
-          .trim();
+    if (/^address\s*:/i.test(line)) {
+      readingPlayers = false;
+      address = line.replace(/^address\s*:/i, '').trim();
+      continue;
+    }
+
+    if (/^open\s*:/i.test(line)) {
+      readingPlayers = false;
+      open = line.replace(/^open\s*:/i, '').trim();
+      continue;
+    }
+
+    if (/^description\s*:/i.test(line)) {
+      readingPlayers = false;
+      descriptionText = line.replace(/^description\s*:/i, '').trim();
+      continue;
+    }
+
+    if (/^organizer-person\s*:/i.test(line)) {
+      readingPlayers = false;
+      organizerPerson = line.replace(/^organizer-person\s*:/i, '').trim();
+      continue;
+    }
+
+    if (/^organizer-org\s*:/i.test(line)) {
+      readingPlayers = false;
+      organizerOrg = line.replace(/^organizer-org\s*:/i, '').trim();
+      continue;
+    }
+
+    if (/^organizer-url\s*:/i.test(line)) {
+      readingPlayers = false;
+      organizerURL = normalizeWebsiteURL(
+        line.replace(/^organizer-url\s*:/i, '').trim()
+      );
+      continue;
+    }
+
+    if (/^ticket-url\s*:/i.test(line)) {
+      readingPlayers = false;
+      ticketURL = normalizeWebsiteURL(
+        line.replace(/^ticket-url\s*:/i, '').trim()
+      );
+      continue;
+    }
+
+    if (/^price\s*:/i.test(line)) {
+      readingPlayers = false;
+      price = line.replace(/^price\s*:/i, '').trim();
+      continue;
+    }
+
+    if (/^currency\s*:/i.test(line)) {
+      readingPlayers = false;
+      currency = line.replace(/^currency\s*:/i, '').trim().toUpperCase();
+      continue;
+    }
+
+    if (/^availability\s*:/i.test(line)) {
+      readingPlayers = false;
+      availability = line.replace(/^availability\s*:/i, '').trim().toLowerCase();
+      continue;
+    }
+
+    if (/^free\s*:/i.test(line)) {
+      readingPlayers = false;
+      const value = line.replace(/^free\s*:/i, '').trim().toLowerCase();
+
+      if (['yes','true','1','free'].includes(value)) {
+        free = true;
+      } else if (['no','false','0','paid'].includes(value)) {
+        free = false;
+      }
 
       continue;
     }
 
+    if (/^status\s*:/i.test(line)) {
+      readingPlayers = false;
+      status = line.replace(/^status\s*:/i, '').trim().toLowerCase();
+      continue;
+    }
+
+    if (/^previous-start\s*:/i.test(line)) {
+      readingPlayers = false;
+      previousStart = line.replace(/^previous-start\s*:/i, '').trim();
+      continue;
+    }
 
     if (/^(website|venueurl)\s*:/i.test(line)) {
-
       readingPlayers = false;
-
-      const raw =
-        line
-          .replace(/^(website|venueurl)\s*:/i, '')
-          .trim();
-
-
-      website =
-        normalizeWebsiteURL(raw);
-
+      const raw = line.replace(/^(website|venueurl)\s*:/i, '').trim();
+      website = normalizeWebsiteURL(raw);
       continue;
     }
-
 
     if (/^image\s*:/i.test(line)) {
       readingPlayers = false;
       const value = normalizeImagePath(line.replace(/^image\s*:/i,'').trim());
-      if(value) images.push(value);
+      if (value) images.push(value);
       continue;
     }
 
     if (/^photo\s*:/i.test(line)) {
       readingPlayers = false;
       const value = normalizeImagePath(line.replace(/^photo\s*:/i,'').trim());
-      if(value) photos.push(value);
+      if (value) photos.push(value);
       continue;
     }
 
     if (/^video\s*:/i.test(line)) {
       readingPlayers = false;
       const value = normalizeVideoURL(line.replace(/^video\s*:/i,'').trim());
-      if(value) videos.push(value);
+      if (value) videos.push(value);
       continue;
     }
-
 
     if (/^reservation\s*:/i.test(line)) {
       readingPlayers = false;
@@ -1837,40 +1975,23 @@ function parseDescription(description = '') {
       continue;
     }
 
-
     if (/^leader\s*:/i.test(line)) {
-
       readingPlayers = false;
-
-      const value =
-        line
-          .replace(/^leader\s*:/i, '')
-          .trim()
-          .toLowerCase();
-
-
-      leader =
-        ['yes','true','1','leader']
-          .includes(value);
-
+      const value = line.replace(/^leader\s*:/i, '').trim().toLowerCase();
+      leader = ['yes','true','1','leader'].includes(value);
       continue;
     }
 
-
+    // Legacy fields kept ignored for compatibility.
     if (/^(reserveurl|email)\s*:/i.test(line)) {
-
       readingPlayers = false;
-
       continue;
     }
-
 
     if (readingPlayers) {
       players.push(line);
     }
-
   }
-
 
   return {
     players,
@@ -1881,12 +2002,24 @@ function parseDescription(description = '') {
     photos,
     videos,
     reservation,
-    leader
+    leader,
+
+    descriptionText,
+    address,
+    open,
+    organizerPerson,
+    organizerOrg,
+    organizerURL,
+    ticketURL,
+    price,
+    currency,
+    availability,
+    free,
+    status,
+    previousStart
   };
 
 }
-
-
 
 /* =========================================================
    VENUE
@@ -2030,28 +2163,197 @@ function getDateParts(event) {
 }
 
 
+function normalizeClockValue(value = '') {
+  const match = String(value || '').trim().match(/^([01]?\d|2[0-3]):([0-5]\d)$/);
+  if (!match) return '';
+  return `${String(match[1]).padStart(2,'0')}:${match[2]}`;
+}
+
+function formatClock12(value = '') {
+  const normalized = normalizeClockValue(value);
+  if (!normalized) return '';
+
+  const [hourText, minute] = normalized.split(':');
+  const hour24 = Number(hourText);
+  const suffix = hour24 >= 12 ? 'PM' : 'AM';
+  const hour12 = hour24 % 12 || 12;
+
+  return `${hour12}:${minute} ${suffix}`;
+}
+
 function formatTime(event) {
 
   if (!event.start.dateTime) {
     return 'ALL DAY';
   }
 
+  // Preserve the wall-clock time stored in Google Calendar.
+  // This avoids converting an overseas show into Tokyo time.
+  const direct =
+    String(event.start.dateTime)
+      .match(/T(\d{2}):(\d{2})/);
+
+  if (direct) {
+    return formatClock12(`${direct[1]}:${direct[2]}`);
+  }
 
   return new Intl.DateTimeFormat(
     'en-US',
     {
-      timeZone: 'Asia/Tokyo',
+      timeZone: event.start.timeZone || 'Asia/Tokyo',
       hour: 'numeric',
       minute: '2-digit'
     }
   )
-  .format(
-    eventStart(event)
-  );
+  .format(eventStart(event));
 
 }
 
+function getEventStatusKey(info = {}, event = {}) {
+  const explicit = String(info.status || '').trim().toLowerCase();
 
+  if (['cancelled','canceled'].includes(explicit)) return 'cancelled';
+  if (explicit === 'postponed') return 'postponed';
+  if (explicit === 'rescheduled') return 'rescheduled';
+  if (explicit === 'scheduled') return 'scheduled';
+
+  if (event.status === 'cancelled') return 'cancelled';
+
+  return 'scheduled';
+}
+
+function getEventStatusLabel(info = {}, event = {}) {
+  const key = getEventStatusKey(info, event);
+  if (key === 'cancelled') return 'CANCELLED';
+  if (key === 'postponed') return 'POSTPONED';
+  if (key === 'rescheduled') return 'RESCHEDULED';
+  return '';
+}
+
+function getAvailabilityLabel(value = '') {
+  const key = String(value || '').trim().toLowerCase().replace(/[\s_-]+/g,'');
+  if (['instock','available'].includes(key)) return 'AVAILABLE';
+  if (['soldout','outofstock'].includes(key)) return 'SOLD OUT';
+  if (['preorder','presale'].includes(key)) return 'PRE-SALE';
+  if (['limited','limitedavailability'].includes(key)) return 'LIMITED';
+  return value ? String(value).toUpperCase() : '';
+}
+
+function getSchemaAvailabilityURL(value = '') {
+  const key = String(value || '').trim().toLowerCase().replace(/[\s_-]+/g,'');
+  if (['instock','available'].includes(key)) return 'https://schema.org/InStock';
+  if (['soldout','outofstock'].includes(key)) return 'https://schema.org/SoldOut';
+  if (['preorder','presale'].includes(key)) return 'https://schema.org/PreOrder';
+  if (['limited','limitedavailability'].includes(key)) return 'https://schema.org/LimitedAvailability';
+  return '';
+}
+
+function createEventTimeHTML(event, info = {}) {
+  if (!event.start.dateTime) {
+    return `<div class="event-time event-time-all-day">ALL DAY</div>`;
+  }
+
+  const openTime = formatClock12(info.open || '');
+  const startTime = formatTime(event);
+
+  return `
+    <div class="event-time-stack">
+      ${
+        openTime
+          ? `
+            <div class="event-time-row">
+              <span class="event-time-label">OPEN</span>
+              <span class="event-time-value">${escapeHTML(openTime)}</span>
+            </div>
+          `
+          : ''
+      }
+      <div class="event-time-row">
+        <span class="event-time-label">START</span>
+        <span class="event-time-value">${escapeHTML(startTime)}</span>
+      </div>
+    </div>
+  `;
+}
+
+function createEventDetailInfoHTML(info = {}) {
+  if (!document.body.classList.contains('event-detail-page')) return '';
+
+  const organizerName = info.organizerOrg || info.organizerPerson || '';
+  const availabilityLabel = getAvailabilityLabel(info.availability);
+  const priceLabel =
+    info.free === true
+      ? 'FREE'
+      : (
+          info.price
+            ? `${info.currency ? `${info.currency} ` : ''}${info.price}`
+            : ''
+        );
+
+  const rows = [];
+
+  if (organizerName) {
+    const organizerHTML =
+      info.organizerURL
+        ? `<a href="${escapeHTML(info.organizerURL)}" target="_blank" rel="noopener noreferrer">${escapeHTML(organizerName)} ↗</a>`
+        : escapeHTML(organizerName);
+
+    rows.push(`
+      <div class="event-extra-row">
+        <div class="event-extra-label">ORGANIZER</div>
+        <div class="event-extra-value">${organizerHTML}</div>
+      </div>
+    `);
+  }
+
+  if (priceLabel) {
+    rows.push(`
+      <div class="event-extra-row">
+        <div class="event-extra-label">ADMISSION</div>
+        <div class="event-extra-value">${escapeHTML(priceLabel)}</div>
+      </div>
+    `);
+  }
+
+  if (availabilityLabel) {
+    rows.push(`
+      <div class="event-extra-row">
+        <div class="event-extra-label">TICKETS</div>
+        <div class="event-extra-value">${escapeHTML(availabilityLabel)}</div>
+      </div>
+    `);
+  }
+
+  if (info.previousStart && getEventStatusKey(info) === 'rescheduled') {
+    rows.push(`
+      <div class="event-extra-row">
+        <div class="event-extra-label">PREVIOUS DATE</div>
+        <div class="event-extra-value">${escapeHTML(info.previousStart)}</div>
+      </div>
+    `);
+  }
+
+  const descriptionHTML =
+    info.descriptionText
+      ? `
+        <div class="event-description-section">
+          <div class="label">ABOUT THIS SHOW</div>
+          <div class="event-description-text">${escapeHTML(info.descriptionText)}</div>
+        </div>
+      `
+      : '';
+
+  if (!rows.length && !descriptionHTML) return '';
+
+  return `
+    ${descriptionHTML}
+    ${
+      rows.length
+        ? `<div class="event-extra">${rows.join('')}</div>`
+        : ''
+    }
+  `;
+}
 
 /* =========================================================
    MONTH HELPERS
@@ -2965,17 +3267,28 @@ function createEventCard(
       : ' english';
 
 
+  const mapQuery =
+    info.address ||
+    event.location ||
+    venue ||
+    '';
+
   const mapURL =
-    event.location
+    mapQuery
       ?
       'https://www.google.com/maps/search/?api=1&query='
       +
-      encodeURIComponent(
-        event.location
-      )
+      encodeURIComponent(mapQuery)
       :
       '';
 
+
+  const explicitStatusLabel =
+    getEventStatusLabel(info, event);
+
+  const cardStatusLabel =
+    explicitStatusLabel ||
+    (tonight ? 'TONIGHT' : '');
 
   let topLabels = '';
 
@@ -3031,6 +3344,11 @@ function createEventCard(
             data-venue-key="${escapeHTML(normalizeVenueLocation(event.location || venueToDisplay))}"
             aria-label="Search shows at ${escapeHTML(venueToDisplay)}"
           >${escapeHTML(venueToDisplay)}</button>
+          ${
+            document.body.classList.contains('event-detail-page') && info.address
+              ? `<div class="venue-address">${escapeHTML(info.address)}</div>`
+              : ''
+          }
         </div>
 
       </div>
@@ -3054,6 +3372,19 @@ function createEventCard(
 
 
   const mediaHTML = createEventMediaHTML(info, title);
+
+  if (!isPast && info.ticketURL) {
+    actions.push(`
+      <a
+        class="action"
+        href="${escapeHTML(info.ticketURL)}"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        TICKETS ↗
+      </a>
+    `);
+  }
 
   if (!isPast) {
     actions.push(`
@@ -3126,17 +3457,17 @@ function createEventCard(
       class="
         event
         ${info.leader ? 'leader' : ''}
-        ${tonight ? 'has-status' : ''}
+        ${cardStatusLabel ? 'has-status' : ''}
         ${isPast ? 'past-event' : ''}
       "
     >
 
       ${
-        tonight
+        cardStatusLabel
           ?
           `
             <div class="status">
-              TONIGHT
+              ${escapeHTML(cardStatusLabel)}
             </div>
           `
           :
@@ -3160,9 +3491,7 @@ function createEventCard(
 
         <div class="date-rule"></div>
 
-        <div class="event-time">
-          ${formatTime(event)}
-        </div>
+        ${createEventTimeHTML(event, info)}
 
       </div>
 
@@ -3192,6 +3521,9 @@ function createEventCard(
 
 
         ${venueHTML}
+
+
+        ${createEventDetailInfoHTML(info)}
 
 
         ${mediaHTML}
@@ -4054,10 +4386,115 @@ function eventSchemaEndDate(event) {
   return '';
 }
 
+function getEventStartOffset(event) {
+  const value = String(event?.start?.dateTime || '');
+  const hit = value.match(/(Z|[+-]\d{2}:\d{2})$/);
+  return hit ? hit[1] : '+09:00';
+}
+
+function eventSchemaDoorTime(event, openValue = '') {
+  const clock = normalizeClockValue(openValue);
+  const start = String(event?.start?.dateTime || '');
+  if (!clock || !start) return '';
+
+  const dateMatch = start.match(/^(\d{4}-\d{2}-\d{2})T/);
+  if (!dateMatch) return '';
+
+  return `${dateMatch[1]}T${clock}:00${getEventStartOffset(event)}`;
+}
+
+function normalizePreviousStartForSchema(event, value = '') {
+  const raw = String(value || '').trim();
+  if (!raw) return '';
+
+  // Already an ISO/RFC3339-like datetime.
+  if (/^\d{4}-\d{2}-\d{2}T/.test(raw)) {
+    if (/(Z|[+-]\d{2}:\d{2})$/.test(raw)) return raw;
+    return `${raw}${getEventStartOffset(event)}`;
+  }
+
+  // Friendly "YYYY-MM-DD HH:MM" input.
+  const simple = raw.match(/^(\d{4}-\d{2}-\d{2})\s+([0-2]?\d:[0-5]\d)$/);
+  if (simple) {
+    const clock = normalizeClockValue(simple[2]);
+    if (clock) return `${simple[1]}T${clock}:00${getEventStartOffset(event)}`;
+  }
+
+  return raw;
+}
+
+function schemaEventStatus(info = {}, event = {}) {
+  const key = getEventStatusKey(info, event);
+
+  if (key === 'cancelled') return 'https://schema.org/EventCancelled';
+  if (key === 'postponed') return 'https://schema.org/EventPostponed';
+  if (key === 'rescheduled') return 'https://schema.org/EventRescheduled';
+
+  return 'https://schema.org/EventScheduled';
+}
+
+function buildOrganizerData(info = {}) {
+  const result = [];
+
+  if (info.organizerPerson) {
+    const person = {
+      "@type": "Person",
+      "name": info.organizerPerson
+    };
+    if (info.organizerURL) person.url = info.organizerURL;
+    result.push(person);
+  }
+
+  if (info.organizerOrg) {
+    const org = {
+      "@type": "Organization",
+      "name": info.organizerOrg
+    };
+    if (info.organizerURL) org.url = info.organizerURL;
+    result.push(org);
+  }
+
+  if (!result.length) return null;
+  return result.length === 1 ? result[0] : result;
+}
+
+function buildOfferData(info = {}, eventURL = '') {
+  if (!info.ticketURL && !info.price && !info.availability) return null;
+
+  const offer = {
+    "@type": "Offer"
+  };
+
+  if (info.ticketURL) offer.url = info.ticketURL;
+  else if (eventURL) offer.url = eventURL;
+
+  const numericPrice =
+    String(info.price || '')
+      .replace(/[,\s¥￥$€£]/g, '');
+
+  if (/^\d+(?:\.\d+)?$/.test(numericPrice)) {
+    offer.price = numericPrice;
+  }
+
+  if (info.currency) {
+    offer.priceCurrency = info.currency;
+  }
+
+  const availabilityURL =
+    getSchemaAvailabilityURL(info.availability);
+
+  if (availabilityURL) {
+    offer.availability = availabilityURL;
+  }
+
+  return offer;
+}
+
 function buildEventStructuredData(event) {
   const info = parseDescription(event.description || '');
   const venue = info.place || getVenue(event.location || '');
   const eventURL = getEventDetailURL(event);
+
   const people = splitPlayersIntoPeople(info.players || [])
     .filter(person => person?.name)
     .map(person => ({
@@ -4078,10 +4515,7 @@ function buildEventStructuredData(event) {
     "@id": `${eventURL}#event`,
     "name": event.summary || "Live",
     "startDate": eventSchemaStartDate(event),
-    "eventStatus":
-      event.status === "cancelled"
-        ? "https://schema.org/EventCancelled"
-        : "https://schema.org/EventScheduled",
+    "eventStatus": schemaEventStatus(info, event),
     "eventAttendanceMode":
       "https://schema.org/OfflineEventAttendanceMode",
     "url": eventURL,
@@ -4091,15 +4525,30 @@ function buildEventStructuredData(event) {
   const endDate = eventSchemaEndDate(event);
   if (endDate) data.endDate = endDate;
 
+  const doorTime = eventSchemaDoorTime(event, info.open);
+  if (doorTime) data.doorTime = doorTime;
+
+  if (info.descriptionText) {
+    data.description = info.descriptionText;
+  }
+
   if (venue) {
     data.location = {
       "@type": "Place",
-      "name": venue,
-      "address": {
-        "@type": "PostalAddress",
-        "name": event.location || venue
-      }
+      "name": venue
     };
+
+    const addressText =
+      info.address ||
+      event.location ||
+      '';
+
+    if (addressText) {
+      data.location.address = {
+        "@type": "PostalAddress",
+        "streetAddress": addressText
+      };
+    }
   }
 
   if (images.length) {
@@ -4108,6 +4557,25 @@ function buildEventStructuredData(event) {
 
   if (people.length) {
     data.performer = people;
+  }
+
+  const organizer = buildOrganizerData(info);
+  if (organizer) {
+    data.organizer = organizer;
+  }
+
+  const offer = buildOfferData(info, eventURL);
+  if (offer) {
+    data.offers = offer;
+  }
+
+  if (typeof info.free === 'boolean') {
+    data.isAccessibleForFree = info.free;
+  }
+
+  if (getEventStatusKey(info, event) === 'rescheduled' && info.previousStart) {
+    data.previousStartDate =
+      normalizePreviousStartForSchema(event, info.previousStart);
   }
 
   return data;
@@ -4121,13 +4589,15 @@ function updateEventDetailMetadata(event) {
   const time = formatTime(event);
   const eventURL = getEventDetailURL(event);
 
-  const description = [
-    title,
-    `${date.month} ${date.number}`,
-    time !== 'ALL DAY' ? time : '',
-    venue ? `at ${venue}` : '',
-    '— Akihiro Kokufukata live schedule.'
-  ].filter(Boolean).join(' ');
+  const description =
+    info.descriptionText ||
+    [
+      title,
+      `${date.month} ${date.number}`,
+      time !== 'ALL DAY' ? `START ${time}` : '',
+      venue ? `at ${venue}` : '',
+      '— Akihiro Kokufukata live schedule.'
+    ].filter(Boolean).join(' ');
 
   document.title = `${title} | Akihiro Kokufukata`;
 
@@ -4153,8 +4623,15 @@ function updateEventDetailMetadata(event) {
     setMeta('meta[name="twitter:image"]', detailImage);
   }
 
-  const canonical = document.querySelector('link[rel="canonical"]');
-  if (canonical) canonical.setAttribute('href', eventURL);
+  let canonical = document.querySelector('link[rel="canonical"]');
+
+  if (!canonical) {
+    canonical = document.createElement('link');
+    canonical.setAttribute('rel', 'canonical');
+    document.head.appendChild(canonical);
+  }
+
+  canonical.setAttribute('href', eventURL);
 
   const schema = document.getElementById('eventStructuredData');
   if (schema) {
