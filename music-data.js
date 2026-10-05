@@ -5,11 +5,8 @@ window.MUSIC_DATA = {
       artist: "Pritesh Walia & Henry Godfrey Jazz Orchestra",
       year: "2026",
       coverCandidates: [
-        "images/music/Pritesh Walia & Henry Godfrey Jazz Orchestra - Journey To Nowhere.jpg",
-        "images/music/Pritesh Walia & Henry Godfrey Jazz Orchestra - Journey to Nowhere.jpg",
-        "images/music/Pritesh Walia & Henry Godfrey Jazz Orchestra – Journey To Nowhere.jpg",
-        "images/music/Pritesh Walia & Henry Godfrey Jazz Orchestra - Journey To Nowhere.jpeg",
-        "images/music/Pritesh Walia & Henry Godfrey Jazz Orchestra - Journey To Nowhere.png"
+        "images/music/Pritesh",
+       
       ],
       links: [
         { label: "SPOTIFY", url: "https://open.spotify.com/album/6SnNEBG38zzVaiYduXiFoz" },
