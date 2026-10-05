@@ -159,6 +159,22 @@ header{position:relative;padding:25px 10px 78px}
 .release-cover-button img{
   display:block;width:100%;height:100%;object-fit:cover;
 }
+
+.release-cover-placeholder{
+  width:100%;height:100%;display:flex;align-items:center;justify-content:center;
+  padding:18px;text-align:center;background:var(--card);color:var(--muted);
+  font-family:var(--serif);font-size:20px;line-height:1.05;
+}
+.album-info-cover-placeholder{
+  width:100%;height:100%;display:flex;align-items:center;justify-content:center;
+  padding:14px;text-align:center;background:var(--paper);color:var(--muted);
+  font-family:var(--serif);font-size:22px;line-height:1.05;
+}
+.album-track-note{
+  margin-left:5px;color:var(--muted);
+  font-family:var(--sans);font-size:9px;letter-spacing:.3px;
+}
+
 .release-meta{padding:11px 1px 0}
 .release-title{
   margin:0;font-family:var(--serif);
@@ -517,7 +533,7 @@ footer{
 </footer>
 </main>
 
-<script src="music-data.js?v=20261006-3"></script>
+<script src="music-data.js?v=20261006-5"></script>
 <script>
 const menuToggle = document.getElementById('menuToggle');
 const siteMenu = document.getElementById('siteMenu');
@@ -550,6 +566,37 @@ function esc(value=''){
     .replaceAll("'","&#039;");
 }
 
+function coverMarkup(item, mode='card'){
+  if(item.cover){
+    return `<img src="${esc(item.cover)}" alt="${esc(item.title)} album cover">`;
+  }
+  const cls = mode === 'modal' ? 'album-info-cover-placeholder' : 'release-cover-placeholder';
+  return `<div class="${cls}">${esc(item.title || 'Album cover')}</div>`;
+}
+
+function getPeopleDirectory(){
+  return Array.isArray(DATA.people) ? DATA.people : [];
+}
+
+function getPersonIdentity(name){
+  const q = String(name || '').trim().toLowerCase();
+  if(!q) return null;
+
+  return getPeopleDirectory().find(person => {
+    const names = [person.name, ...(person.aliases || [])]
+      .filter(Boolean)
+      .map(value => String(value).trim().toLowerCase());
+    return names.includes(q);
+  }) || null;
+}
+
+function personSearchName(person){
+  if(person?.searchName) return person.searchName;
+  const identity = getPersonIdentity(person?.name || '');
+  return identity?.name || person?.name || '';
+}
+
+
 /* ---------- Discography ---------- */
 const releaseTrack = document.getElementById('releaseTrack');
 const releases = Array.isArray(DATA.releases) ? DATA.releases : [];
@@ -562,11 +609,10 @@ releaseTrack.innerHTML = releases.map((item,index)=>`
       data-album-info="${index}"
       aria-label="View album information for ${esc(item.title)}"
     >
-      <img
-        src="${esc(item.cover)}"
-        alt="${esc(item.title)} album cover"
-        loading="${index < 2 ? 'eager' : 'lazy'}"
-      >
+      ${item.cover
+        ? `<img src="${esc(item.cover)}" alt="${esc(item.title)} album cover" loading="${index < 2 ? 'eager' : 'lazy'}">`
+        : coverMarkup(item, 'card')
+      }
     </button>
 
     <div class="release-meta">
@@ -618,7 +664,11 @@ function buildAlbumInfoSections(item){
         <h5 class="album-info-label">TRACKS</h5>
         <ol class="album-info-list">
           ${tracks.map(track => `
-            <li>${track.number ? `<span>${esc(track.number)}. </span>` : ''}${esc(track.title || track)}</li>
+            <li>
+              ${track.number ? `<span>${esc(track.number)}. </span>` : ''}
+              ${esc(track.title || track)}
+              ${track.note ? `<span class="album-track-note">— ${esc(track.note)}</span>` : ''}
+            </li>
           `).join('')}
         </ol>
       </section>
@@ -629,12 +679,13 @@ function buildAlbumInfoSections(item){
   if(personnel.length){
     sections.push(`
       <section class="album-info-section">
-        <h5 class="album-info-label">PERSONNEL</h5>
+        <h5 class="album-info-label">${esc(item.personnelLabel || 'PERSONNEL')}</h5>
         <ul class="album-info-list">
           ${personnel.map(person => {
             const name = typeof person === 'string' ? person : (person.name || '');
             const role = typeof person === 'string' ? '' : (person.role || '');
-            return `<li><a class="album-player-link" href="${playerSearchURL(name)}">${esc(name)}</a>${role ? ` — ${esc(role)}` : ''}</li>`;
+            const searchName = typeof person === 'string' ? person : personSearchName(person);
+            return `<li><a class="album-player-link" href="${playerSearchURL(searchName)}">${esc(name)}</a>${role ? ` — ${esc(role)}` : ''}</li>`;
           }).join('')}
         </ul>
       </section>
@@ -663,7 +714,7 @@ function openAlbumInfo(index){
   const item = releases[index];
   if(!item) return;
 
-  albumInfoCover.innerHTML = `<img src="${esc(item.cover)}" alt="${esc(item.title)} album cover">`;
+  albumInfoCover.innerHTML = coverMarkup(item, 'modal');
   albumInfoTitle.textContent = item.title || '';
   albumInfoArtist.textContent = [item.artist,item.year].filter(Boolean).join(' · ');
 
@@ -716,7 +767,7 @@ function openReleaseModal(index){
   const item = releases[index];
   if(!item) return;
 
-  modalCover.innerHTML = `<img src="${esc(item.cover)}" alt="${esc(item.title)} album cover">`;
+  modalCover.innerHTML = coverMarkup(item, 'modal');
   modalTitle.textContent = item.title || '';
   modalArtist.textContent = [item.artist,item.year].filter(Boolean).join(' · ');
 
