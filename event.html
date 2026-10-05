@@ -29,7 +29,7 @@
 </script>
 
 <script>
-const PLAYER_PARSER_VERSION = '2026-10-05-v14-charge-left-column-formatting';
+const PLAYER_PARSER_VERSION = '2026-10-05-v15-search-dismiss-title-link';
 const SETTINGS = {
   API_KEY: 'AIzaSyCB5WplBrKEb70d5WHZTrg3G46fTdl_A0Q',
   CALENDAR_ID: 'akihirokokufukatamusic@gmail.com',
@@ -4278,6 +4278,38 @@ document.addEventListener(
   'click',
   function(event) {
 
+    /* SEARCH SUGGESTIONS */
+    const suggestionsBox =
+      document.getElementById('searchSuggestions');
+
+    const clickedInsideSearch =
+      event.target.closest('.show-search');
+
+    if (
+      suggestionsBox &&
+      !clickedInsideSearch
+    ) {
+      suggestionsBox.hidden = true;
+      activeSuggestionIndex = -1;
+    }
+
+    const suggestionButton =
+      event.target.closest('.search-suggestion');
+
+    if (suggestionButton) {
+      const value =
+        suggestionButton.dataset.suggestion || '';
+
+      if (value) {
+        activeVenueSearchKey = '';
+        setSearchQuery(value);
+      }
+
+      suggestionsBox.hidden = true;
+      activeSuggestionIndex = -1;
+      return;
+    }
+
 
     /* FLYER / LIVE PHOTO */
 
@@ -4356,6 +4388,13 @@ document.addEventListener(
           behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
           block: 'start'
         });
+        const box = document.getElementById('searchSuggestions');
+        if (box) {
+          box.hidden = true;
+          box.innerHTML = '';
+        }
+        activeSuggestionIndex = -1;
+
         showSearch.focus({ preventScroll:true });
       }
       return;
@@ -4386,6 +4425,13 @@ document.addEventListener(
           behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
           block: 'start'
         });
+
+        const box = document.getElementById('searchSuggestions');
+        if (box) {
+          box.hidden = true;
+          box.innerHTML = '';
+        }
+        activeSuggestionIndex = -1;
 
         input.focus({ preventScroll:true });
       }
@@ -5230,6 +5276,14 @@ showSearch.addEventListener('input', () => {
 
 showSearchClear.addEventListener('click', () => {
   setSearchQuery('');
+
+  const box = document.getElementById('searchSuggestions');
+  if (box) {
+    box.hidden = true;
+    box.innerHTML = '';
+  }
+
+  activeSuggestionIndex = -1;
   showSearch.focus();
 });
 
