@@ -1,7 +1,4 @@
 window.MUSIC_DATA = {
-  spotifyArtistUrl: "",
-  appleMusicArtistUrl: "",
-
   releases: [
     /*
     {
