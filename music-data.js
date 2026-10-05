@@ -35,3 +35,7 @@ window.MUSIC_DATA = {
       subtitle: "Pritesh Walia & Henry Godfrey Jazz Orchestra · ft Godwin Louis",
       youtube: "https://youtu.be/9H36Szlyq30",
       thumbnail: ""
+    },
+    
+  ]
+};
