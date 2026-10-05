@@ -29,7 +29,7 @@
 </script>
 
 <script>
-const PLAYER_PARSER_VERSION = '2026-10-05-v11-event-metadata-controls';
+const PLAYER_PARSER_VERSION = '2026-10-05-v12-public-ticket-info';
 const SETTINGS = {
   API_KEY: 'AIzaSyCB5WplBrKEb70d5WHZTrg3G46fTdl_A0Q',
   CALENDAR_ID: 'akihirokokufukatamusic@gmail.com',
@@ -1382,7 +1382,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 }
 
 
-/* EVENT TIME + OPTIONAL EVENT DETAILS */
+/* EVENT TIME + PUBLIC TICKET INFO */
 .event-time-stack{display:flex;flex-direction:column;gap:8px}
 .event-time-row{display:flex;flex-direction:column;gap:1px}
 .event-time-label{
@@ -1400,58 +1400,137 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
   white-space:nowrap;
 }
 .event-time-all-day{font-size:15px}
-.venue-address{
-  margin-top:5px;
+
+.public-show-info{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:7px 9px;
+  margin-top:18px;
+}
+.free-admission-badge{
+  display:inline-flex;
+  align-items:center;
+  min-height:27px;
+  padding:6px 10px 5px;
+  background:var(--crimson);
+  border:1px solid var(--crimson);
+  color:var(--paper);
+  font-family:var(--sans);
+  font-size:8px;
+  font-weight:600;
+  letter-spacing:1.45px;
+  line-height:1;
+}
+.public-price{
+  display:inline-flex;
+  align-items:baseline;
+  gap:7px;
+  min-height:27px;
+  padding:5px 9px;
+  border:1px solid var(--line);
+  background:rgba(247,242,233,.72);
+}
+.public-info-label{
   color:var(--muted);
-  font-family:var(--jp);
-  font-size:11px;
-  line-height:1.55;
+  font-family:var(--sans);
+  font-size:6.5px;
+  font-weight:600;
+  letter-spacing:1.2px;
 }
-.event-description-section{
-  margin-top:22px;
-  padding-top:18px;
-  border-top:1px solid var(--line);
+.public-price-value{
+  color:var(--ink);
+  font-family:var(--serif);
+  font-size:16px;
+  font-weight:600;
+  line-height:1;
 }
-.event-description-text{
-  color:#342c29;
-  font-family:var(--jp);
-  font-size:13px;
-  line-height:1.8;
-  white-space:pre-wrap;
-}
-.event-extra{
-  margin-top:20px;
-  padding-top:14px;
-  border-top:1px solid var(--line);
-}
-.event-extra-row{
-  display:grid;
-  grid-template-columns:105px minmax(0,1fr);
-  gap:14px;
-  padding:5px 0;
-}
-.event-extra-label{
+.availability-badge{
+  display:inline-flex;
+  align-items:center;
+  min-height:27px;
+  padding:6px 9px 5px;
+  border:1px solid var(--crimson);
   color:var(--crimson);
   font-family:var(--sans);
   font-size:7px;
   font-weight:600;
-  letter-spacing:1.4px;
+  letter-spacing:1.2px;
+  line-height:1;
 }
-.event-extra-value{
-  color:var(--ink);
-  font-family:var(--jp);
-  font-size:12px;
-  line-height:1.5;
+.availability-badge.sold-out{
+  background:var(--ink);
+  border-color:var(--ink);
+  color:var(--paper);
 }
-.event-extra-value a{color:inherit;text-decoration:none}
-.event-extra-value a:hover{color:var(--crimson);text-decoration:underline}
+
+.primary-actions{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:8px;
+  margin-top:20px;
+}
+.primary-actions .action{
+  width:100%;
+  min-width:0;
+  margin:0;
+  padding:12px 8px;
+  background:var(--crimson);
+  border-color:var(--crimson);
+  color:var(--paper);
+  text-align:center;
+  justify-content:center;
+}
+.primary-actions .action:hover{
+  background:var(--crimson-dark);
+  border-color:var(--crimson-dark);
+  color:var(--paper);
+}
+.primary-actions .action:only-child{
+  grid-column:1 / -1;
+}
+.primary-actions + .actions{
+  margin-top:8px;
+}
+
 @media(max-width:650px){
   .event-time-stack{gap:7px}
   .event-time-label{font-size:5.5px;letter-spacing:.9px}
   .event-time-value{font-size:13px}
-  .event-extra-row{grid-template-columns:88px minmax(0,1fr);gap:10px}
-  .event-extra-label{font-size:6.5px}
-  .event-extra-value,.event-description-text{font-size:11.5px}
+
+  .public-show-info{
+    gap:6px 7px;
+    margin-top:16px;
+  }
+  .free-admission-badge{
+    min-height:25px;
+    padding:6px 8px 5px;
+    font-size:7px;
+    letter-spacing:1.1px;
+  }
+  .public-price{
+    min-height:25px;
+    padding:5px 8px;
+    gap:6px;
+  }
+  .public-info-label{font-size:6px}
+  .public-price-value{font-size:14px}
+  .availability-badge{
+    min-height:25px;
+    padding:6px 8px 5px;
+    font-size:6.5px;
+    letter-spacing:1px;
+  }
+
+  .primary-actions{
+    gap:6px;
+    margin-top:17px;
+  }
+  .primary-actions .action{
+    padding:11px 6px !important;
+    font-size:7.4px !important;
+    letter-spacing:1px !important;
+  }
 }
 
 </style>
@@ -2276,82 +2355,82 @@ function createEventTimeHTML(event, info = {}) {
   `;
 }
 
-function createEventDetailInfoHTML(info = {}) {
-  if (!document.body.classList.contains('event-detail-page')) return '';
+function formatPublicPrice(info = {}) {
+  if (info.free === true || !info.price) return '';
 
-  const organizerName = info.organizerOrg || info.organizerPerson || '';
-  const availabilityLabel = getAvailabilityLabel(info.availability);
-  const priceLabel =
-    info.free === true
-      ? 'FREE'
-      : (
-          info.price
-            ? `${info.currency ? `${info.currency} ` : ''}${info.price}`
-            : ''
-        );
+  const raw = String(info.price).trim();
+  const numericText = raw.replace(/[,\s¥￥$€£]/g, '');
+  const numeric = Number(numericText);
 
-  const rows = [];
-
-  if (organizerName) {
-    const organizerHTML =
-      info.organizerURL
-        ? `<a href="${escapeHTML(info.organizerURL)}" target="_blank" rel="noopener noreferrer">${escapeHTML(organizerName)} ↗</a>`
-        : escapeHTML(organizerName);
-
-    rows.push(`
-      <div class="event-extra-row">
-        <div class="event-extra-label">ORGANIZER</div>
-        <div class="event-extra-value">${organizerHTML}</div>
-      </div>
-    `);
+  if (!Number.isFinite(numeric)) {
+    return `${info.currency ? `${info.currency} ` : ''}${raw}`.trim();
   }
 
-  if (priceLabel) {
-    rows.push(`
-      <div class="event-extra-row">
-        <div class="event-extra-label">ADMISSION</div>
-        <div class="event-extra-value">${escapeHTML(priceLabel)}</div>
-      </div>
-    `);
-  }
+  const formatted =
+    new Intl.NumberFormat(
+      'en-US',
+      {
+        maximumFractionDigits:
+          Number.isInteger(numeric)
+            ? 0
+            : 2
+      }
+    )
+    .format(numeric);
 
-  if (availabilityLabel) {
-    rows.push(`
-      <div class="event-extra-row">
-        <div class="event-extra-label">TICKETS</div>
-        <div class="event-extra-value">${escapeHTML(availabilityLabel)}</div>
-      </div>
-    `);
-  }
+  const currency = String(info.currency || '').toUpperCase();
 
-  if (info.previousStart && getEventStatusKey(info) === 'rescheduled') {
-    rows.push(`
-      <div class="event-extra-row">
-        <div class="event-extra-label">PREVIOUS DATE</div>
-        <div class="event-extra-value">${escapeHTML(info.previousStart)}</div>
-      </div>
-    `);
-  }
+  if (currency === 'JPY') return `¥${formatted}`;
+  if (currency === 'USD') return `$${formatted}`;
+  if (currency === 'EUR') return `€${formatted}`;
+  if (currency === 'GBP') return `£${formatted}`;
 
-  const descriptionHTML =
-    info.descriptionText
-      ? `
-        <div class="event-description-section">
-          <div class="label">ABOUT THIS SHOW</div>
-          <div class="event-description-text">${escapeHTML(info.descriptionText)}</div>
-        </div>
-      `
-      : '';
+  return currency
+    ? `${currency} ${formatted}`
+    : formatted;
+}
 
-  if (!rows.length && !descriptionHTML) return '';
+function createPublicShowInfoHTML(info = {}, isPast = false) {
+  const free = info.free === true;
+  const price = formatPublicPrice(info);
+
+  // Availability is useful to current visitors, but not on archived/past shows.
+  const availability =
+    isPast
+      ? ''
+      : getAvailabilityLabel(info.availability);
+
+  if (!free && !price && !availability) return '';
 
   return `
-    ${descriptionHTML}
-    ${
-      rows.length
-        ? `<div class="event-extra">${rows.join('')}</div>`
-        : ''
-    }
+    <div class="public-show-info" aria-label="Ticket and admission information">
+      ${
+        free
+          ? `<span class="free-admission-badge">FREE ADMISSION</span>`
+          : ''
+      }
+
+      ${
+        price
+          ? `
+            <span class="public-price">
+              <span class="public-info-label">PRICE</span>
+              <span class="public-price-value">${escapeHTML(price)}</span>
+            </span>
+          `
+          : ''
+      }
+
+      ${
+        availability
+          ? `
+            <span class="availability-badge ${/sold\s*out/i.test(availability) ? 'sold-out' : ''}">
+              ${escapeHTML(availability)}
+            </span>
+          `
+          : ''
+      }
+    </div>
   `;
 }
 
@@ -3344,11 +3423,7 @@ function createEventCard(
             data-venue-key="${escapeHTML(normalizeVenueLocation(event.location || venueToDisplay))}"
             aria-label="Search shows at ${escapeHTML(venueToDisplay)}"
           >${escapeHTML(venueToDisplay)}</button>
-          ${
-            document.body.classList.contains('event-detail-page') && info.address
-              ? `<div class="venue-address">${escapeHTML(info.address)}</div>`
-              : ''
-          }
+
         </div>
 
       </div>
@@ -3358,15 +3433,16 @@ function createEventCard(
   }
 
 
+  const primaryActions = [];
   const actions = [];
 
 
   /* RESERVATION: Calendar description controls the destination. */
   if (!isPast && info.reservation) {
     if (info.reservation === 'me') {
-      actions.push(`<button class="action reservation" type="button" data-reservation-me data-reservation-title="${escapeHTML(title)}" data-reservation-date="${escapeHTML(date.month + ' ' + date.number + ' / ' + formatTime(event))}">RESERVATION →</button>`);
+      primaryActions.push(`<button class="action reservation" type="button" data-reservation-me data-reservation-title="${escapeHTML(title)}" data-reservation-date="${escapeHTML(date.month + ' ' + date.number + ' / ' + formatTime(event))}">RESERVATION →</button>`);
     } else {
-      actions.push(`<a class="action reservation" href="${escapeHTML(info.reservation)}" target="_blank" rel="noopener noreferrer">RESERVATION →</a>`);
+      primaryActions.push(`<a class="action reservation" href="${escapeHTML(info.reservation)}" target="_blank" rel="noopener noreferrer">RESERVATION →</a>`);
     }
   }
 
@@ -3374,9 +3450,9 @@ function createEventCard(
   const mediaHTML = createEventMediaHTML(info, title);
 
   if (!isPast && info.ticketURL) {
-    actions.push(`
+    primaryActions.push(`
       <a
-        class="action"
+        class="action ticket"
         href="${escapeHTML(info.ticketURL)}"
         target="_blank"
         rel="noopener noreferrer"
@@ -3437,6 +3513,17 @@ function createEventCard(
 
   }
 
+
+  const primaryActionsHTML =
+    primaryActions.length
+      ?
+      `
+        <div class="primary-actions">
+          ${primaryActions.join('')}
+        </div>
+      `
+      :
+      '';
 
   const actionsHTML =
     actions.length
@@ -3523,10 +3610,13 @@ function createEventCard(
         ${venueHTML}
 
 
-        ${createEventDetailInfoHTML(info)}
+        ${createPublicShowInfoHTML(info, isPast)}
 
 
         ${mediaHTML}
+
+
+        ${primaryActionsHTML}
 
 
         ${actionsHTML}
