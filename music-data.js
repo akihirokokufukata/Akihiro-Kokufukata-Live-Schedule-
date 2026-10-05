@@ -4,8 +4,13 @@ window.MUSIC_DATA = {
       title: "Journey To Nowhere",
       artist: "Pritesh Walia & Henry Godfrey Jazz Orchestra",
       year: "2026",
-      credit: "Trumpet",
-      cover: "images/music/ Pritesh Walia & Henry Godfrey Jazz Orchestra - Journey To Nowhere.jpg",
+      coverCandidates: [
+        "images/music/Pritesh Walia & Henry Godfrey Jazz Orchestra - Journey To Nowhere.jpg",
+        "images/music/Pritesh Walia & Henry Godfrey Jazz Orchestra - Journey to Nowhere.jpg",
+        "images/music/Pritesh Walia & Henry Godfrey Jazz Orchestra – Journey To Nowhere.jpg",
+        "images/music/Pritesh Walia & Henry Godfrey Jazz Orchestra - Journey To Nowhere.jpeg",
+        "images/music/Pritesh Walia & Henry Godfrey Jazz Orchestra - Journey To Nowhere.png"
+      ],
       links: [
         { label: "SPOTIFY", url: "https://open.spotify.com/album/6SnNEBG38zzVaiYduXiFoz" },
         { label: "APPLE MUSIC", url: "https://music.apple.com/us/album/journey-to-nowhere/6794905866" }
@@ -15,7 +20,7 @@ window.MUSIC_DATA = {
       title: "FLOW",
       artist: "Juna Serita",
       year: "2026",
-      credit: "Trumpet on “Do My Shit!”",
+      note: "Appears on “Do My Shit!”",
       cover: "images/music/Juna Serita FLOW.jpg",
       links: [
         { label: "SPOTIFY — DO MY SHIT!", url: "https://open.spotify.com/track/2PMNAR2IFENYvuJDbDwuw0" },
@@ -26,7 +31,6 @@ window.MUSIC_DATA = {
       title: "The Charts I Recorded with My Friends While in Boston",
       artist: "Juan Saus' Big Band",
       year: "2025",
-      credit: "Trumpet",
       cover: "images/music/The Charts I Recorded with My Friends While in Boston.jpg",
       links: [
         { label: "SPOTIFY", url: "https://open.spotify.com/album/1QUM9bxBe8RaUVomkb1tov" },
@@ -37,7 +41,6 @@ window.MUSIC_DATA = {
       title: "The Awakening",
       artist: "Gaspard Gabriel",
       year: "2025",
-      credit: "Trumpet",
       cover: "images/music/Gaspard Gabriel The Awakening.jpg",
       links: [
         { label: "ALL STREAMING", url: "https://tr.ee/5I9El3Qe_o" },
