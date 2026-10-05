@@ -29,7 +29,7 @@
 </script>
 
 <script>
-const PLAYER_PARSER_VERSION = '2026-10-05-v12-public-ticket-info';
+const PLAYER_PARSER_VERSION = '2026-10-05-v13-charge-left-column';
 const SETTINGS = {
   API_KEY: 'AIzaSyCB5WplBrKEb70d5WHZTrg3G46fTdl_A0Q',
   CALENDAR_ID: 'akihirokokufukatamusic@gmail.com',
@@ -1382,7 +1382,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 }
 
 
-/* EVENT TIME + PUBLIC TICKET INFO */
+/* EVENT TIME + LEFT-COLUMN CHARGE INFO */
 .event-time-stack{display:flex;flex-direction:column;gap:8px}
 .event-time-row{display:flex;flex-direction:column;gap:1px}
 .event-time-label{
@@ -1401,67 +1401,49 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 }
 .event-time-all-day{font-size:15px}
 
-.public-show-info{
+.date-extra-info{
+  margin-top:14px;
+  padding-top:13px;
+  border-top:1px solid var(--line);
+}
+.date-extra-block{
   display:flex;
-  flex-wrap:wrap;
-  align-items:center;
-  gap:7px 9px;
-  margin-top:18px;
+  flex-direction:column;
+  gap:2px;
 }
-.free-admission-badge{
-  display:inline-flex;
-  align-items:center;
-  min-height:27px;
-  padding:6px 10px 5px;
-  background:var(--crimson);
-  border:1px solid var(--crimson);
-  color:var(--paper);
-  font-family:var(--sans);
-  font-size:8px;
-  font-weight:600;
-  letter-spacing:1.45px;
-  line-height:1;
-}
-.public-price{
-  display:inline-flex;
-  align-items:baseline;
-  gap:7px;
-  min-height:27px;
-  padding:5px 9px;
-  border:1px solid var(--line);
-  background:rgba(247,242,233,.72);
-}
-.public-info-label{
+.date-extra-label{
   color:var(--muted);
   font-family:var(--sans);
-  font-size:6.5px;
+  font-size:6px;
   font-weight:600;
-  letter-spacing:1.2px;
+  letter-spacing:1.15px;
 }
-.public-price-value{
+.date-extra-value{
   color:var(--ink);
   font-family:var(--serif);
-  font-size:16px;
-  font-weight:600;
-  line-height:1;
+  font-size:15px;
+  font-weight:500;
+  line-height:1.12;
+  overflow-wrap:anywhere;
 }
-.availability-badge{
-  display:inline-flex;
-  align-items:center;
-  min-height:27px;
-  padding:6px 9px 5px;
-  border:1px solid var(--crimson);
+.date-extra-value.free{
   color:var(--crimson);
   font-family:var(--sans);
-  font-size:7px;
+  font-size:12px;
   font-weight:600;
-  letter-spacing:1.2px;
-  line-height:1;
+  letter-spacing:1.25px;
 }
-.availability-badge.sold-out{
-  background:var(--ink);
-  border-color:var(--ink);
-  color:var(--paper);
+.date-availability{
+  margin-top:10px;
+  color:var(--crimson);
+  font-family:var(--sans);
+  font-size:6px;
+  font-weight:600;
+  letter-spacing:1px;
+  line-height:1.3;
+}
+.date-availability.sold-out{
+  color:var(--ink);
 }
 
 .primary-actions{
@@ -1498,28 +1480,26 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
   .event-time-label{font-size:5.5px;letter-spacing:.9px}
   .event-time-value{font-size:13px}
 
-  .public-show-info{
-    gap:6px 7px;
-    margin-top:16px;
+  .date-extra-info{
+    margin-top:12px;
+    padding-top:11px;
   }
-  .free-admission-badge{
-    min-height:25px;
-    padding:6px 8px 5px;
-    font-size:7px;
-    letter-spacing:1.1px;
+  .date-extra-label{
+    font-size:5.4px;
+    letter-spacing:.85px;
   }
-  .public-price{
-    min-height:25px;
-    padding:5px 8px;
-    gap:6px;
+  .date-extra-value{
+    font-size:12.5px;
+    line-height:1.12;
   }
-  .public-info-label{font-size:6px}
-  .public-price-value{font-size:14px}
-  .availability-badge{
-    min-height:25px;
-    padding:6px 8px 5px;
-    font-size:6.5px;
-    letter-spacing:1px;
+  .date-extra-value.free{
+    font-size:10px;
+    letter-spacing:.9px;
+  }
+  .date-availability{
+    margin-top:8px;
+    font-size:5.4px;
+    letter-spacing:.7px;
   }
 
   .primary-actions{
@@ -2355,68 +2335,54 @@ function createEventTimeHTML(event, info = {}) {
   `;
 }
 
-function formatPublicPrice(info = {}) {
-  if (info.free === true || !info.price) return '';
+function getChargeDisplay(info = {}) {
+  if (info.free === true) return 'FREE';
 
-  const raw = String(info.price).trim();
-  const numericText = raw.replace(/[,\s¥￥$€£]/g, '');
-  const numeric = Number(numericText);
-
-  if (!Number.isFinite(numeric)) {
-    return `${info.currency ? `${info.currency} ` : ''}${raw}`.trim();
-  }
-
-  const formatted =
-    new Intl.NumberFormat(
-      'en-US',
-      {
-        maximumFractionDigits:
-          Number.isInteger(numeric)
-            ? 0
-            : 2
-      }
-    )
-    .format(numeric);
-
-  const currency = String(info.currency || '').toUpperCase();
-
-  if (currency === 'JPY') return `¥${formatted}`;
-  if (currency === 'USD') return `$${formatted}`;
-  if (currency === 'EUR') return `€${formatted}`;
-  if (currency === 'GBP') return `£${formatted}`;
-
-  return currency
-    ? `${currency} ${formatted}`
-    : formatted;
+  // Preserve exactly what was typed after "Price:".
+  // Example: Price:￥3500 -> ￥3500
+  return String(info.price || '').trim();
 }
 
-function createPublicShowInfoHTML(info = {}, isPast = false) {
-  const free = info.free === true;
-  const price = formatPublicPrice(info);
+function getPublicAvailabilityLabel(value = '') {
+  const key =
+    String(value || '')
+      .trim()
+      .toLowerCase()
+      .replace(/[\s_-]+/g,'');
 
-  // Availability is useful to current visitors, but not on archived/past shows.
+  // Normal availability adds visual noise, so do not show it.
+  if (['instock','available',''].includes(key)) return '';
+
+  if (['soldout','outofstock'].includes(key)) return 'SOLD OUT';
+  if (['preorder','presale'].includes(key)) return 'PRE-SALE';
+  if (['limited','limitedavailability'].includes(key)) return 'LIMITED';
+
+  // Unknown/custom values stay hidden from the visual UI,
+  // but remain available for structured data when supported.
+  return '';
+}
+
+function createDateColumnMetaHTML(info = {}, isPast = false) {
+  const charge = getChargeDisplay(info);
+
   const availability =
     isPast
       ? ''
-      : getAvailabilityLabel(info.availability);
+      : getPublicAvailabilityLabel(info.availability);
 
-  if (!free && !price && !availability) return '';
+  if (!charge && !availability) return '';
 
   return `
-    <div class="public-show-info" aria-label="Ticket and admission information">
+    <div class="date-extra-info">
       ${
-        free
-          ? `<span class="free-admission-badge">FREE ADMISSION</span>`
-          : ''
-      }
-
-      ${
-        price
+        charge
           ? `
-            <span class="public-price">
-              <span class="public-info-label">PRICE</span>
-              <span class="public-price-value">${escapeHTML(price)}</span>
-            </span>
+            <div class="date-extra-block">
+              <div class="date-extra-label">CHARGE</div>
+              <div class="date-extra-value ${info.free === true ? 'free' : ''}">
+                ${escapeHTML(charge)}
+              </div>
+            </div>
           `
           : ''
       }
@@ -2424,9 +2390,9 @@ function createPublicShowInfoHTML(info = {}, isPast = false) {
       ${
         availability
           ? `
-            <span class="availability-badge ${/sold\s*out/i.test(availability) ? 'sold-out' : ''}">
+            <div class="date-availability ${availability === 'SOLD OUT' ? 'sold-out' : ''}">
               ${escapeHTML(availability)}
-            </span>
+            </div>
           `
           : ''
       }
@@ -3580,6 +3546,8 @@ function createEventCard(
 
         ${createEventTimeHTML(event, info)}
 
+        ${createDateColumnMetaHTML(info, isPast)}
+
       </div>
 
 
@@ -3609,8 +3577,6 @@ function createEventCard(
 
         ${venueHTML}
 
-
-        ${createPublicShowInfoHTML(info, isPast)}
 
 
         ${mediaHTML}
@@ -4566,8 +4532,21 @@ function buildOfferData(info = {}, eventURL = '') {
     offer.price = numericPrice;
   }
 
-  if (info.currency) {
-    offer.priceCurrency = info.currency;
+  const inferredCurrency = (() => {
+    if (info.currency) return String(info.currency).toUpperCase();
+
+    const raw = String(info.price || '').trim();
+
+    if (/[¥￥]|円/.test(raw)) return 'JPY';
+    if (/\$/.test(raw)) return 'USD';
+    if (/€/.test(raw)) return 'EUR';
+    if (/£/.test(raw)) return 'GBP';
+
+    return '';
+  })();
+
+  if (inferredCurrency) {
+    offer.priceCurrency = inferredCurrency;
   }
 
   const availabilityURL =
