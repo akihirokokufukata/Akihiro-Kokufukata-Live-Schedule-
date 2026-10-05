@@ -1121,6 +1121,17 @@ body.reservation-open{overflow:hidden}
 .search-recording:hover{border-color:var(--crimson)}
 .search-recording-cover{width:112px;aspect-ratio:1/1;overflow:hidden;background:var(--paper)}
 .search-recording-cover img{width:100%;height:100%;display:block;object-fit:cover}
+
+.search-recording-placeholder{
+  width:100%;height:100%;display:flex;align-items:center;justify-content:center;
+  padding:9px;text-align:center;color:var(--muted);
+  font-family:var(--serif);font-size:15px;line-height:1.05;
+}
+.search-profile-aliases{
+  margin-top:5px;color:var(--muted);
+  font-family:var(--jp);font-size:10px;line-height:1.5;
+}
+
 .search-recording-kicker{color:var(--crimson);font-family:var(--sans);font-size:7px;font-weight:600;letter-spacing:1.6px}
 .search-recording-title{margin-top:6px;font-family:var(--serif);font-size:23px;font-weight:600;line-height:1.02}
 .search-recording-meta{margin-top:6px;color:var(--muted);font-family:var(--jp);font-size:9px;line-height:1.55}
@@ -1758,7 +1769,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 </main>
 
 
-<script src="music-data.js?v=20261006-3"></script>
+<script src="music-data.js?v=20261006-5"></script>
 <script>
 
 
@@ -3899,53 +3910,107 @@ function eventMatchesSearch(event, query) {
     }
   }
 
-  const haystack = eventSearchText(event);
-
-  // If the query contains Japanese characters, also compare a whitespace-free
-  // version so "大坂 昌彦" and "大坂昌彦" match each other.
-  if (/[\u3040-\u30ff\u3400-\u9fff]/.test(normalized)) {
-    const compactQuery = normalized.replace(/\s+/g, '');
-    const compactHaystack = haystack.replace(/\s+/g, '');
-
-    if (compactHaystack.includes(compactQuery)) {
-      return true;
-    }
-  }
-
-  const words = normalized.split(' ').filter(Boolean);
-  return words.every(word => haystack.includes(word));
+  return textMatchesOneVariant(eventSearchText(event), query);
 }
 
+
+
+function getPeopleDirectory() {
+  return Array.isArray(window.MUSIC_DATA?.people) ? window.MUSIC_DATA.people : [];
+}
+
+function getPersonIdentity(query) {
+  const target = normalizePlayerName(query);
+  if (!target) return null;
+
+  return getPeopleDirectory().find(person => {
+    const names = [person.name, ...(person.aliases || [])].filter(Boolean);
+    return names.some(name => normalizePlayerName(name) === target);
+  }) || null;
+}
+
+function getSearchVariants(query) {
+  const identity = getPersonIdentity(query);
+  if (!identity) return [query];
+
+  return [identity.name, ...(identity.aliases || [])]
+    .filter(Boolean)
+    .filter((name, index, arr) =>
+      arr.findIndex(other => normalizePlayerName(other) === normalizePlayerName(name)) === index
+    );
+}
+
+function textMatchesOneVariant(haystack, query) {
+  return getSearchVariants(query).some(variant => {
+    const normalized = normalizeSearchText(variant);
+    if (!normalized) return false;
+
+    if (/[\u3040-\u30ff\u3400-\u9fff]/.test(normalized)) {
+      const compactQuery = normalized.replace(/\s+/g, '');
+      const compactHaystack = haystack.replace(/\s+/g, '');
+      if (compactHaystack.includes(compactQuery)) return true;
+    }
+
+    const words = normalized.split(' ').filter(Boolean);
+    return words.every(word => haystack.includes(word));
+  });
+}
 
 function getRecordings() {
   return Array.isArray(window.MUSIC_DATA?.releases) ? window.MUSIC_DATA.releases : [];
 }
 
 function recordingPeople(recording) {
-  const names = [];
-
-  (recording.searchNames || []).forEach(name => {
-    if (name) names.push({ name:String(name), role:'' });
-  });
+  const people = [];
 
   (recording.personnel || []).forEach(person => {
     if (typeof person === 'string') {
-      names.push({ name:person, role:'' });
-    } else if (person?.name) {
-      names.push({ name:person.name, role:person.role || '' });
+      const identity = getPersonIdentity(person);
+      people.push({
+        name:identity?.name || person,
+        displayName:person,
+        role:'',
+        aliases:identity?.aliases || []
+      });
+      return;
+    }
+
+    if (person?.name) {
+      const identity = getPersonIdentity(person.searchName || person.name);
+      people.push({
+        name:identity?.name || person.searchName || person.name,
+        displayName:person.name,
+        role:person.role || '',
+        aliases:[
+          ...(identity?.aliases || []),
+          ...(person.aliases || []),
+          ...(person.searchName && person.searchName !== person.name ? [person.name] : [])
+        ],
+        affiliation:identity?.affiliation || ''
+      });
     }
   });
 
-  return names;
+  return people;
 }
 
 function recordingSearchText(recording) {
   const trackText = (recording.tracks || []).map(track =>
-    typeof track === 'string' ? track : `${track.number || ''} ${track.title || ''}`
+    typeof track === 'string'
+      ? track
+      : `${track.number || ''} ${track.title || ''} ${track.note || ''}`
   );
 
-  const personnelText = recordingPeople(recording).flatMap(person => [person.name, person.role]);
-  const creditText = (recording.credits || []).flatMap(row => [row.label || '', row.value || '']);
+  const personnelText = recordingPeople(recording)
+    .flatMap(person => [
+      person.name,
+      person.displayName || '',
+      person.role,
+      ...(person.aliases || [])
+    ]);
+
+  const creditText = (recording.credits || [])
+    .flatMap(row => [row.label || '', row.value || '']);
 
   return normalizeSearchText([
     recording.title || '',
@@ -3953,6 +4018,7 @@ function recordingSearchText(recording) {
     recording.year || '',
     recording.note || '',
     recording.credit || '',
+    ...(recording.searchNames || []),
     ...trackText,
     ...personnelText,
     ...creditText,
@@ -3965,17 +4031,7 @@ function recordingSearchText(recording) {
 function recordingMatchesSearch(recording, query) {
   const normalized = normalizeSearchText(query);
   if (!normalized) return true;
-
-  const haystack = recordingSearchText(recording);
-
-  if (/[\u3040-\u30ff\u3400-\u9fff]/.test(normalized)) {
-    const compactQuery = normalized.replace(/\s+/g, '');
-    const compactHaystack = haystack.replace(/\s+/g, '');
-    if (compactHaystack.includes(compactQuery)) return true;
-  }
-
-  const words = normalized.split(' ').filter(Boolean);
-  return words.every(word => haystack.includes(word));
+  return textMatchesOneVariant(recordingSearchText(recording), query);
 }
 
 function recordingURL(recording) {
@@ -3998,7 +4054,10 @@ function renderRecordingSearchGroup(recordings) {
         ${recordings.map(recording => `
           <a class="search-recording" href="${escapeHTML(recordingURL(recording))}">
             <div class="search-recording-cover">
-              ${recording.cover ? `<img src="${escapeHTML(recording.cover)}" alt="${escapeHTML(recording.title || 'Recording')} album cover" loading="lazy">` : ''}
+              ${recording.cover
+                ? `<img src="${escapeHTML(recording.cover)}" alt="${escapeHTML(recording.title || 'Recording')} album cover" loading="lazy">`
+                : `<div class="search-recording-placeholder">${escapeHTML(recording.title || 'Recording')}</div>`
+              }
             </div>
             <div>
               <div class="search-recording-kicker">RECORDING</div>
@@ -4015,14 +4074,44 @@ function renderRecordingSearchGroup(recordings) {
 }
 
 function findExactRecordingPerson(query) {
+  const identity = getPersonIdentity(query);
+
+  if (identity) {
+    for (const recording of getRecordings()) {
+      for (const person of recordingPeople(recording)) {
+        const names = [person.name, ...(person.aliases || [])];
+        if (names.some(name =>
+          normalizePlayerName(name) === normalizePlayerName(identity.name) ||
+          normalizePlayerName(name) === normalizePlayerName(query)
+        )) {
+          return {
+            ...person,
+            name:identity.name,
+            aliases:identity.aliases || [],
+            affiliation:identity.affiliation || ''
+          };
+        }
+      }
+    }
+
+    return {
+      name:identity.name,
+      role:'',
+      aliases:identity.aliases || [],
+      affiliation:identity.affiliation || ''
+    };
+  }
+
   const target = normalizePlayerName(query);
   if (!target) return null;
 
   for (const recording of getRecordings()) {
     for (const person of recordingPeople(recording)) {
-      if (normalizePlayerName(person.name) === target) return person;
+      const names = [person.name, ...(person.aliases || [])];
+      if (names.some(name => normalizePlayerName(name) === target)) return person;
     }
   }
+
   return null;
 }
 
@@ -4077,20 +4166,35 @@ function renderSearchGroup(title, events, isPast) {
 function findExactPlayer(query) {
   const q = normalizeSearchText(query);
   if (!q) return null;
-  const events = [...upcomingEvents, ...pastEvents];
 
+  const identity = getPersonIdentity(query);
+  const targets = getSearchVariants(query).map(normalizePlayerName);
+
+  const events = [...upcomingEvents, ...pastEvents];
   for (const event of events) {
     const info = parseDescription(event.description || '');
     for (const p of splitPlayersIntoPeople(info.players || [])) {
-      if (normalizePlayerName(p.name) === normalizePlayerName(query)) {
-        return { name:p.name, role:normalizeRoleList(p.role), note:p.note || '' };
+      if (targets.includes(normalizePlayerName(p.name))) {
+        return {
+          name:identity?.name || p.name,
+          role:normalizeRoleList(p.role),
+          note:p.note || '',
+          aliases:identity?.aliases || [],
+          affiliation:identity?.affiliation || ''
+        };
       }
     }
   }
 
   const recordingPerson = findExactRecordingPerson(query);
   return recordingPerson
-    ? { name:recordingPerson.name, role:recordingPerson.role || '', note:'' }
+    ? {
+        name:recordingPerson.name,
+        role:recordingPerson.role || '',
+        note:'',
+        aliases:recordingPerson.aliases || [],
+        affiliation:recordingPerson.affiliation || ''
+      }
     : null;
 }
 
@@ -4136,9 +4240,17 @@ function createSearchProfileHTML(query, totalEvents, totalRecordings = 0) {
   if (totalEvents) counts.push(`${totalEvents} ${totalEvents === 1 ? 'SHOW' : 'SHOWS'}`);
   if (totalRecordings) counts.push(`${totalRecordings} ${totalRecordings === 1 ? 'RECORDING' : 'RECORDINGS'}`);
 
+  const aliasLine = player
+    ? [
+        ...(player.aliases || []),
+        player.affiliation || ''
+      ].filter(Boolean).join(' · ')
+    : '';
+
   return `
     <div class="search-profile">
       <div class="search-profile-name">${escapeHTML(name)}</div>
+      ${aliasLine ? `<div class="search-profile-aliases">${escapeHTML(aliasLine)}</div>` : ''}
       <div class="search-profile-meta">
         ${player && player.role ? `${escapeHTML(player.role.toUpperCase())} · ` : ''}
         ${type}${counts.length ? ` · ${counts.join(' · ')}` : ''}${range ? ` · ${range}` : ''}
@@ -5035,25 +5147,41 @@ function getSuggestions(query) {
     results.push(item);
   };
 
+  getPeopleDirectory().forEach(person => {
+    const names = [person.name, ...(person.aliases || [])].filter(Boolean);
+    const matches = names.some(name => {
+      const normalizedName = normalizeSearchText(name);
+      const compactName = normalizePlayerName(name);
+      const compactQuery = normalizePlayerName(query);
+      return normalizedName.includes(q) || compactName.includes(compactQuery);
+    });
+
+    if (matches) pushUnique({name:person.name,type:'PLAYER'});
+  });
+
   data.players.forEach(p => {
+    const identity = getPersonIdentity(p.name);
+    const displayName = identity?.name || p.name;
     const playerName = normalizeSearchText(p.name);
     const compactPlayer = normalizePlayerName(p.name);
     const compactQuery = normalizePlayerName(query);
 
     if (playerName.includes(q) || compactPlayer.includes(compactQuery)) {
-      pushUnique({name:p.name,type:'PLAYER'});
+      pushUnique({name:displayName,type:'PLAYER'});
     }
   });
 
   getRecordings().forEach(recording => {
     recordingPeople(recording).forEach(person => {
-      const playerName = normalizeSearchText(person.name);
-      const compactPlayer = normalizePlayerName(person.name);
-      const compactQuery = normalizePlayerName(query);
+      const allNames = [person.name, person.displayName || '', ...(person.aliases || [])].filter(Boolean);
+      const matches = allNames.some(name => {
+        const normalizedName = normalizeSearchText(name);
+        const compactName = normalizePlayerName(name);
+        const compactQuery = normalizePlayerName(query);
+        return normalizedName.includes(q) || compactName.includes(compactQuery);
+      });
 
-      if (playerName.includes(q) || compactPlayer.includes(compactQuery)) {
-        pushUnique({name:person.name,type:'PLAYER'});
-      }
+      if (matches) pushUnique({name:person.name,type:'PLAYER'});
     });
 
     (recording.searchNames || []).forEach(name => {
