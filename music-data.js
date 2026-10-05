@@ -5,7 +5,7 @@ window.MUSIC_DATA = {
       artist: "Pritesh Walia & Henry Godfrey Jazz Orchestra",
       year: "2026",
       coverCandidates: [
-        "images/music/Pritesh",
+        "images/music/Pritesh.jpg",
        
       ],
       links: [
