@@ -30,7 +30,7 @@
 </script>
 
 <script>
-const PLAYER_PARSER_VERSION = '2026-10-05-v13-charge-left-column';
+const PLAYER_PARSER_VERSION = '2026-10-05-v14-charge-left-column-formatting';
 const SETTINGS = {
   API_KEY: 'AIzaSyCB5WplBrKEb70d5WHZTrg3G46fTdl_A0Q',
   CALENDAR_ID: 'akihirokokufukatamusic@gmail.com',
@@ -1368,6 +1368,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 }
 .event-time-all-day{font-size:15px}
 
+/* CHARGE / FREE always lives in the LEFT date column. */
 .date-extra-info{
   margin-top:14px;
   padding-top:13px;
@@ -1376,7 +1377,8 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 .date-extra-block{
   display:flex;
   flex-direction:column;
-  gap:2px;
+  align-items:flex-start;
+  gap:3px;
 }
 .date-extra-label{
   color:var(--muted);
@@ -1386,6 +1388,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
   letter-spacing:1.15px;
 }
 .date-extra-value{
+  max-width:100%;
   color:var(--ink);
   font-family:var(--serif);
   font-size:15px;
@@ -1393,13 +1396,53 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
   line-height:1.12;
   overflow-wrap:anywhere;
 }
-.date-extra-value.free{
-  color:var(--crimson);
+
+/* FREE: restrained deep red fill + white text. */
+.free-charge-badge{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:50px;
+  margin-top:3px;
+  padding:7px 9px 6px;
+  background:var(--crimson-dark);
+  border:1px solid var(--crimson-dark);
+  color:var(--paper);
   font-family:var(--sans);
-  font-size:12px;
+  font-size:8px;
   font-weight:600;
-  letter-spacing:1.25px;
+  letter-spacing:1.3px;
+  line-height:1;
 }
+
+/* Student pricing uses intentional vertical layout. */
+.student-charge{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  gap:2px;
+  width:100%;
+  margin-top:7px;
+}
+.student-charge-label{
+  color:var(--muted);
+  font-family:var(--sans);
+  font-size:5.8px;
+  font-weight:600;
+  letter-spacing:.8px;
+  line-height:1.2;
+  white-space:nowrap;
+}
+.student-charge-value{
+  max-width:100%;
+  color:var(--ink);
+  font-family:var(--serif);
+  font-size:14px;
+  font-weight:500;
+  line-height:1.12;
+  overflow-wrap:anywhere;
+}
+
 .date-availability{
   margin-top:10px;
   color:var(--crimson);
@@ -1459,13 +1502,27 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
     font-size:12.5px;
     line-height:1.12;
   }
-  .date-extra-value.free{
-    font-size:10px;
-    letter-spacing:.9px;
+  .free-charge-badge{
+    min-width:46px;
+    padding:6px 7px 5px;
+    font-size:7px;
+    letter-spacing:1px;
+  }
+  .student-charge{
+    margin-top:6px;
+    gap:1px;
+  }
+  .student-charge-label{
+    font-size:5.2px;
+    letter-spacing:.65px;
+  }
+  .student-charge-value{
+    font-size:12px;
+    line-height:1.1;
   }
   .date-availability{
     margin-top:8px;
-    font-size:5.4px;
+    font-size:5.3px;
     letter-spacing:.7px;
   }
 
@@ -2299,12 +2356,59 @@ function createEventTimeHTML(event, info = {}) {
   `;
 }
 
-function getChargeDisplay(info = {}) {
-  if (info.free === true) return 'FREE';
+function parseChargeDisplay(info = {}) {
+  if (info.free === true) {
+    return {
+      free: true,
+      regular: '',
+      studentLabel: '',
+      studentPrice: ''
+    };
+  }
 
-  // Preserve exactly what was typed after "Price:".
-  // Example: Price:￥3500 -> ￥3500
-  return String(info.price || '').trim();
+  const raw = String(info.price || '').trim();
+
+  if (!raw) {
+    return {
+      free: false,
+      regular: '',
+      studentLabel: '',
+      studentPrice: ''
+    };
+  }
+
+  /*
+    Examples supported:
+      Price:￥4400 / Students￥2750
+      Price:￥4400 / Students ￥2750
+      Price:￥4400 / Student￥2750
+
+    Displayed vertically in the LEFT date/time column:
+      CHARGE
+      ￥4400
+      STUDENTS
+      ￥2750
+  */
+  const studentMatch =
+    raw.match(
+      /^(.*?)\s*(?:\/|｜|\|)\s*(students?|student)\s*[:：]?\s*(.+)$/i
+    );
+
+  if (studentMatch) {
+    return {
+      free: false,
+      regular: studentMatch[1].trim(),
+      studentLabel: /^students$/i.test(studentMatch[2]) ? 'STUDENTS' : 'STUDENT',
+      studentPrice: studentMatch[3].trim()
+    };
+  }
+
+  return {
+    free: false,
+    regular: raw,
+    studentLabel: '',
+    studentPrice: ''
+  };
 }
 
 function getPublicAvailabilityLabel(value = '') {
@@ -2314,38 +2418,71 @@ function getPublicAvailabilityLabel(value = '') {
       .toLowerCase()
       .replace(/[\s_-]+/g,'');
 
-  // Normal availability adds visual noise, so do not show it.
   if (['instock','available',''].includes(key)) return '';
-
   if (['soldout','outofstock'].includes(key)) return 'SOLD OUT';
   if (['preorder','presale'].includes(key)) return 'PRE-SALE';
   if (['limited','limitedavailability'].includes(key)) return 'LIMITED';
 
-  // Unknown/custom values stay hidden from the visual UI,
-  // but remain available for structured data when supported.
   return '';
 }
 
 function createDateColumnMetaHTML(info = {}, isPast = false) {
-  const charge = getChargeDisplay(info);
+  const charge = parseChargeDisplay(info);
 
   const availability =
     isPast
       ? ''
       : getPublicAvailabilityLabel(info.availability);
 
-  if (!charge && !availability) return '';
+  const hasCharge =
+    charge.free ||
+    charge.regular ||
+    charge.studentPrice;
+
+  if (!hasCharge && !availability) return '';
 
   return `
     <div class="date-extra-info">
       ${
-        charge
+        hasCharge
           ? `
             <div class="date-extra-block">
               <div class="date-extra-label">CHARGE</div>
-              <div class="date-extra-value ${info.free === true ? 'free' : ''}">
-                ${escapeHTML(charge)}
-              </div>
+
+              ${
+                charge.free
+                  ? `
+                    <div class="free-charge-badge">
+                      FREE
+                    </div>
+                  `
+                  : `
+                    ${
+                      charge.regular
+                        ? `
+                          <div class="date-extra-value">
+                            ${escapeHTML(charge.regular)}
+                          </div>
+                        `
+                        : ''
+                    }
+
+                    ${
+                      charge.studentPrice
+                        ? `
+                          <div class="student-charge">
+                            <div class="student-charge-label">
+                              ${escapeHTML(charge.studentLabel || 'STUDENTS')}
+                            </div>
+                            <div class="student-charge-value">
+                              ${escapeHTML(charge.studentPrice)}
+                            </div>
+                          </div>
+                        `
+                        : ''
+                    }
+                  `
+              }
             </div>
           `
           : ''
