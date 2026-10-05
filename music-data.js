@@ -4,7 +4,7 @@ window.MUSIC_DATA = {
       title: "Journey To Nowhere",
       artist: "Pritesh Walia & Henry Godfrey Jazz Orchestra",
       year: "2026",
-      cover: "images/music/Pritesh.jpg",
+      cover: "images/music/Pritesh.png",
       links: [
         {
           label: "SPOTIFY",
