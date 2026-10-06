@@ -28,18 +28,45 @@ window.MUSIC_DATA = {
       id: "day-by-day",
       title: "Day by Day",
       artist: "Zhengtao Pan",
+      artistParts: [
+        { label: "Zhengtao Pan", search: "Zhengtao Pan" }
+      ],
       year: "2026",
       cover: "",
       searchNames: ["Zhengtao Pan"],
       tracks: [
-        { number: "1", title: "Childhood", note: "feat. Rufus Reid" },
+        {
+          number: "1",
+          title: "Childhood",
+          participants: [
+            { name: "Rufus Reid", role: "Double Bass" }
+          ]
+        },
         { number: "2", title: "Dave's Here" },
         { number: "3", title: "Family" },
         { number: "4", title: "Endless Cycle" },
-        { number: "5", title: "Wind Dance", note: "feat. Steve Wilson" },
-        { number: "6", title: "The Tomb of the Couperin I. Prelude", note: "feat. Itai Kriss" },
+        {
+          number: "5",
+          title: "Wind Dance",
+          participants: [
+            { name: "Steve Wilson", role: "Alto Saxophone" }
+          ]
+        },
+        {
+          number: "6",
+          title: "The Tomb of the Couperin I. Prelude",
+          participants: [
+            { name: "Itai Kriss", role: "Flute" }
+          ]
+        },
         { number: "7", title: "Liu Yang River" },
-        { number: "8", title: "Aurora", note: "feat. Sara Gazarek" },
+        {
+          number: "8",
+          title: "Aurora",
+          participants: [
+            { name: "Sara Gazarek", role: "Vocal" }
+          ]
+        },
         { number: "9", title: "Day by Day" }
       ],
       personnel: [
@@ -77,6 +104,9 @@ window.MUSIC_DATA = {
         { label: "Recording / Mixing Engineer", value: "Aaron Nevezie" },
         { label: "Mastering Engineer", value: "Alex DeTurk" }
       ],
+      creditSources: [
+        { label: "OFFICIAL SITE", url: "https://www.zhengtaopan.com/" }
+      ],
       links: [
         { label: "SPOTIFY", url: "https://open.spotify.com/album/7ipKQJR6kz1kNw7D9KXgCo" }
       ]
@@ -86,13 +116,36 @@ window.MUSIC_DATA = {
       id: "journey-to-nowhere",
       title: "Journey To Nowhere",
       artist: "Pritesh Walia & Henry Godfrey Jazz Orchestra",
+      artistParts: [
+        { label: "Pritesh Walia", search: "Pritesh Walia" },
+        { text: " & " },
+        { label: "Henry Godfrey Jazz Orchestra", search: "Henry Godfrey" }
+      ],
       year: "2026",
       cover: "images/music/Pritesh.png",
       searchNames: ["Pritesh Walia", "Henry Godfrey", "Henry Godfrey Jazz Orchestra"],
       tracks: [
-        { number: "1", title: "Journey To Nowhere", note: "feat. Aaron Parks" },
-        { number: "2", title: "Bittersweet", note: "feat. Godwin Louis" },
-        { number: "3", title: "Mirage", note: "feat. Jerry Bergonzi" },
+        {
+          number: "1",
+          title: "Journey To Nowhere",
+          participants: [
+            { name: "Aaron Parks", role: "Piano / Keyboards" }
+          ]
+        },
+        {
+          number: "2",
+          title: "Bittersweet",
+          participants: [
+            { name: "Godwin Louis", role: "Alto Saxophone" }
+          ]
+        },
+        {
+          number: "3",
+          title: "Mirage",
+          participants: [
+            { name: "Jerry Bergonzi", role: "Tenor Saxophone" }
+          ]
+        },
         { number: "4", title: "Does It Work?" },
         { number: "5", title: "Hopetown" }
       ],
@@ -127,6 +180,12 @@ window.MUSIC_DATA = {
         { label: "Composer", value: "Pritesh Walia" },
         { label: "Arranger", value: "Henry Godfrey" }
       ],
+      creditSources: [
+        {
+          label: "FULL CREDITS / DL MEDIA",
+          url: "https://dlmediamusic.com/artists/pritesh-walia-journey-to-nowhere/"
+        }
+      ],
       links: [
         { label: "SPOTIFY", url: "https://open.spotify.com/album/6SnNEBG38zzVaiYduXiFoz" },
         { label: "APPLE MUSIC", url: "https://music.apple.com/us/album/journey-to-nowhere/6794905866" }
@@ -137,13 +196,28 @@ window.MUSIC_DATA = {
       id: "flow",
       title: "FLOW",
       artist: "Juna Serita",
+      artistParts: [
+        { label: "Juna Serita", search: "Juna Serita" }
+      ],
       year: "2026",
       note: "Appears on “Do My Shit!”",
       cover: "images/music/Juna Serita FLOW.jpg",
       searchNames: ["Juna Serita"],
       tracks: [
         { number: "1", title: "DUEL" },
-        { number: "2", title: "Do My Shit!" },
+        {
+          number: "2",
+          title: "Do My Shit!",
+          participants: [
+            { name: "Juna Serita", role: "Bass Guitar / Vocals" },
+            { name: "Zack Auslander", role: "Guitar" },
+            { name: "Mayumi “MiMi” Kawakami", role: "Drums" },
+            { name: "Gakushi", role: "Keyboards / Synthesizer" },
+            { name: "Fumiya Morishita", role: "Saxophone / Horn Arrangement" },
+            { name: "Akihiro Kokufukata", role: "Trumpet" },
+            { name: "Kosuke Kashihara", role: "Trombone" }
+          ]
+        },
         { number: "3", title: "You Make Me Feel" },
         { number: "4", title: "FLOW" },
         { number: "5", title: "Diminished Returns" },
@@ -166,6 +240,12 @@ window.MUSIC_DATA = {
       credits: [
         { label: "Recording / Mixing / Mastering Engineer", value: "Shuichi Watanabe" }
       ],
+      creditSources: [
+        {
+          label: "FULL CREDITS / BANDCAMP",
+          url: "https://junaserita.bandcamp.com/album/flow"
+        }
+      ],
       links: [
         { label: "SPOTIFY — DO MY SHIT!", url: "https://open.spotify.com/track/2PMNAR2IFENYvuJDbDwuw0" },
         { label: "APPLE MUSIC — DO MY SHIT!", url: "https://music.apple.com/us/song/do-my-shit/1888657691" }
@@ -176,12 +256,16 @@ window.MUSIC_DATA = {
       id: "the-charts-boston",
       title: "The Charts I Recorded with My Friends While in Boston",
       artist: "Juan Saus' Big Band",
+      artistParts: [
+        { label: "Juan Saus' Big Band", search: "Juan Saus" }
+      ],
       year: "2025",
       cover: "images/music/The Charts I Recorded with My Friends While in Boston.jpg",
       searchNames: ["Juan Saus", "Juan Saus' Big Band", "Juanito Saus"],
       tracks: [],
       personnel: [],
       credits: [],
+      creditSources: [],
       links: [
         { label: "SPOTIFY", url: "https://open.spotify.com/album/1QUM9bxBe8RaUVomkb1tov" },
         { label: "APPLE MUSIC", url: "https://music.apple.com/us/album/the-charts-i-recorded-with-my-friends-while-in-boston/1795061120" }
@@ -192,6 +276,9 @@ window.MUSIC_DATA = {
       id: "the-awakening",
       title: "The Awakening",
       artist: "Gaspard Gabriel",
+      artistParts: [
+        { label: "Gaspard Gabriel", search: "Gaspard Gabriel" }
+      ],
       year: "2025",
       cover: "images/music/Gaspard Gabriel The Awakening.jpg",
       searchNames: ["Gaspard Gabriel"],
@@ -218,6 +305,12 @@ window.MUSIC_DATA = {
         { name: "Willem Jochems", role: "Drums" }
       ],
       credits: [],
+      creditSources: [
+        {
+          label: "ALBUM CREDITS / BASS MUSICIAN",
+          url: "https://bassmusicianmagazine.com/2025/02/new-album-gaspard-gabriel-debut-album-the-awakening/"
+        }
+      ],
       links: [
         { label: "ALL STREAMING", url: "https://tr.ee/5I9El3Qe_o" },
         { label: "SPOTIFY", url: "https://open.spotify.com/album/0PnHFb2AnEeXiJ1aGm8P8c" },
@@ -230,16 +323,32 @@ window.MUSIC_DATA = {
     {
       title: "Aigis",
       subtitle: "國府方章弘 · 2026.02.05 · JAZZ CLUB ALFIE ROPPONGI TOKYO",
+      subtitleParts: [
+        { label: "國府方章弘", search: "Akihiro Kokufukata" },
+        { text: " · 2026.02.05 · JAZZ CLUB ALFIE ROPPONGI TOKYO" }
+      ],
       youtube: "https://youtu.be/Q8l-XVIPMYw"
     },
     {
       title: "Wind Dance",
       subtitle: "Zhengtao Pan Jazz Orchestra · feat. Steve Wilson",
+      subtitleParts: [
+        { label: "Zhengtao Pan Jazz Orchestra", search: "Zhengtao Pan" },
+        { text: " · feat. " },
+        { label: "Steve Wilson", search: "Steve Wilson" }
+      ],
       youtube: "https://youtu.be/iH88_iTfuyk"
     },
     {
       title: "Bittersweet",
       subtitle: "Pritesh Walia & Henry Godfrey Jazz Orchestra · ft Godwin Louis",
+      subtitleParts: [
+        { label: "Pritesh Walia", search: "Pritesh Walia" },
+        { text: " & " },
+        { label: "Henry Godfrey Jazz Orchestra", search: "Henry Godfrey" },
+        { text: " · ft " },
+        { label: "Godwin Louis", search: "Godwin Louis" }
+      ],
       youtube: "https://youtu.be/9H36Szlyq30"
     }
   ]
