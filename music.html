@@ -134,6 +134,96 @@ header{position:relative;padding:25px 10px 78px}
   letter-spacing:1px;
 }
 
+
+/* Music search */
+.music-search{
+  margin-top:34px;padding-bottom:22px;border-bottom:1px solid var(--line);
+}
+.music-search-label{
+  display:block;margin-bottom:11px;color:var(--crimson);
+  font-family:var(--sans);font-size:9px;font-weight:600;letter-spacing:2.4px;
+}
+.music-search-row{display:flex;align-items:end;gap:12px}
+.music-search-input{
+  flex:1;min-width:0;padding:8px 0 9px;border:0;border-bottom:1px solid var(--crimson);
+  outline:0;background:transparent;color:var(--ink);
+  font-family:var(--serif);font-size:27px;line-height:1.1;
+}
+.music-search-input::placeholder{color:#a99f98}
+.music-search-clear{
+  border:1px solid var(--line);background:transparent;color:var(--muted);
+  min-height:36px;padding:0 12px;font-family:var(--sans);font-size:7px;font-weight:600;
+  letter-spacing:1px;cursor:pointer;
+}
+.music-search-clear:hover{border-color:var(--crimson);color:var(--crimson)}
+.music-search-global{
+  display:none;margin-top:12px;color:var(--crimson);text-decoration:none;
+  font-family:var(--sans);font-size:8px;font-weight:600;letter-spacing:1.5px;
+}
+.music-search-global.visible{display:inline-block}
+.music-search-empty{
+  display:none;margin-top:18px;color:var(--muted);
+  font-family:var(--jp);font-size:12px;
+}
+.music-search-empty.visible{display:block}
+
+/* Discography year filters */
+.discography-tools{display:flex;align-items:center;gap:12px}
+.year-filters{display:flex;gap:5px;flex-wrap:wrap}
+.year-filter{
+  min-height:30px;padding:0 10px;border:1px solid var(--line);
+  background:transparent;color:var(--muted);
+  font-family:var(--sans);font-size:7px;font-weight:600;letter-spacing:1px;
+  cursor:pointer;
+}
+.year-filter.active,.year-filter:hover{
+  border-color:var(--crimson);background:var(--crimson);color:var(--paper);
+}
+
+/* Clickable artist / player names in card descriptions */
+.people-inline-link{
+  color:inherit;text-decoration:none;
+}
+.people-inline-link:hover{color:var(--crimson)}
+
+/* Track participants */
+.track-participants{
+  margin:5px 0 0 21px;color:var(--muted);
+  font-family:var(--sans);font-size:9px;line-height:1.6;
+}
+.track-participant-role{color:var(--muted)}
+
+/* Large-ensemble Personnel groups */
+.personnel-groups{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 28px;
+}
+.personnel-group-title{
+  margin:0 0 8px;color:var(--muted);
+  font-family:var(--sans);font-size:8px;font-weight:600;letter-spacing:1.7px;
+}
+.personnel-group .album-info-list li{margin:6px 0}
+
+/* Credits sources */
+.credit-source-list{display:flex;flex-wrap:wrap;gap:8px}
+.credit-source-link{
+  display:inline-flex;align-items:center;justify-content:space-between;gap:18px;
+  min-height:38px;padding:0 12px;border:1px solid var(--line);
+  color:var(--ink);text-decoration:none;
+  font-family:var(--sans);font-size:8px;font-weight:600;letter-spacing:1px;
+}
+.credit-source-link:hover{border-color:var(--crimson);color:var(--crimson)}
+
+@media(max-width:650px){
+  .music-search{margin-top:28px}
+  .music-search-input{font-size:23px}
+  .music-search-row{gap:8px}
+  .section-heading{align-items:flex-start}
+  .discography-tools{align-items:flex-end;flex-direction:column}
+  .year-filters{justify-content:flex-end}
+  .personnel-groups{grid-template-columns:1fr;gap:18px}
+  .track-participants{font-size:8px}
+}
+
 /* Discography */
 .release-track{
   display:flex;gap:16px;
@@ -236,8 +326,8 @@ header{position:relative;padding:25px 10px 78px}
 .album-info-label{margin:0 0 10px;color:var(--crimson);font-family:var(--sans);font-size:9px;font-weight:600;letter-spacing:2.2px}
 .album-info-list{margin:0;padding:0;list-style:none}
 .album-info-list li{margin:7px 0;font-family:var(--jp);font-size:12px;line-height:1.65}
-.album-player-link{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--line)}
-.album-player-link:hover{color:var(--crimson);border-color:var(--crimson)}
+.album-player-link{color:var(--ink);text-decoration:none}
+.album-player-link:hover{color:var(--crimson)}
 .album-info-grid{display:grid;grid-template-columns:minmax(120px,170px) 1fr;gap:7px 16px}
 .album-info-key{color:var(--muted);font-family:var(--sans);font-size:9px;letter-spacing:.8px}
 .album-info-value{font-family:var(--jp);font-size:12px;line-height:1.55}
@@ -462,14 +552,33 @@ footer{
 <section class="music" aria-labelledby="musicTitle">
   <h2 class="music-title" id="musicTitle">Music</h2>
   <div class="music-rule"></div>
+  <div class="music-search">
+    <label class="music-search-label" for="musicSearchInput">SEARCH MUSIC</label>
+    <div class="music-search-row">
+      <input
+        class="music-search-input"
+        id="musicSearchInput"
+        type="search"
+        placeholder="Player, recording, or keyword..."
+        autocomplete="off"
+      >
+      <button class="music-search-clear" id="musicSearchClear" type="button">CLEAR</button>
+    </div>
+    <a class="music-search-global" id="musicSearchGlobal" href="index.html">VIEW LIVE + RECORDING RESULTS ↗</a>
+    <div class="music-search-empty" id="musicSearchEmpty">No matching recordings or videos.</div>
+  </div>
+
 
   <!-- DISCOGRAPHY FIRST -->
   <section class="music-section" aria-labelledby="discographyTitle">
     <div class="section-heading">
       <h3 class="section-title" id="discographyTitle">DISCOGRAPHY</h3>
-      <div class="rail-controls">
-        <button class="rail-button" id="releasePrev" type="button" aria-label="Previous">‹</button>
-        <button class="rail-button" id="releaseNext" type="button" aria-label="Next">›</button>
+      <div class="discography-tools">
+        <div class="year-filters" id="yearFilters" aria-label="Discography year filter"></div>
+        <div class="rail-controls">
+          <button class="rail-button" id="releasePrev" type="button" aria-label="Previous">‹</button>
+          <button class="rail-button" id="releaseNext" type="button" aria-label="Next">›</button>
+        </div>
       </div>
     </div>
     <div class="release-track" id="releaseTrack"></div>
@@ -533,7 +642,7 @@ footer{
 </footer>
 </main>
 
-<script src="music-data.js?v=20261006-5"></script>
+<script src="music-data.js?v=20261006-6"></script>
 <script>
 const menuToggle = document.getElementById('menuToggle');
 const siteMenu = document.getElementById('siteMenu');
@@ -596,42 +705,209 @@ function personSearchName(person){
   return identity?.name || person?.name || '';
 }
 
+function personAliases(name){
+  const identity = getPersonIdentity(name);
+  return identity ? [identity.name, ...(identity.aliases || [])] : [name];
+}
+
+function linkedParts(parts, fallback=''){
+  if(!Array.isArray(parts) || !parts.length) return esc(fallback);
+  return parts.map(part => {
+    if(part.text) return esc(part.text);
+    const label = part.label || part.search || '';
+    const search = part.search || label;
+    return `<a class="people-inline-link" href="${playerSearchURL(search)}">${esc(label)}</a>`;
+  }).join('');
+}
+
+function recordingSearchText(item){
+  const personnel = (item.personnel || []).flatMap(person => {
+    const name = typeof person === 'string' ? person : (person.name || '');
+    const role = typeof person === 'string' ? '' : (person.role || '');
+    return [...personAliases(name), role];
+  });
+
+  const tracks = (item.tracks || []).flatMap(track => {
+    if(typeof track === 'string') return [track];
+    const participants = (track.participants || []).flatMap(person => [
+      ...personAliases(person.name || ''),
+      person.role || ''
+    ]);
+    return [track.title || '', track.note || '', ...participants];
+  });
+
+  const credits = (item.credits || []).flatMap(row => [row.label || '', row.value || '']);
+
+  return [
+    item.title || '',
+    item.artist || '',
+    item.year || '',
+    item.note || '',
+    ...(item.searchNames || []),
+    ...personnel,
+    ...tracks,
+    ...credits
+  ].join(' ').toLowerCase();
+}
+
+function videoSearchText(item){
+  const people = (item.subtitleParts || [])
+    .filter(part => part.search || part.label)
+    .flatMap(part => personAliases(part.search || part.label || ''));
+  return [item.title || '', item.subtitle || '', ...people].join(' ').toLowerCase();
+}
+
+function matchesMusicQuery(text, query){
+  const q = String(query || '').trim().toLowerCase();
+  if(!q) return true;
+  return q.split(/\s+/).filter(Boolean).every(word => text.includes(word));
+}
+
+function getPersonnelGroup(person){
+  const role = String(person?.role || '').toLowerCase();
+  if(role.includes('special guest')) return 'SPECIAL GUESTS';
+  if(/saxophone|clarinet|flute/.test(role)) return 'SAXOPHONES / REEDS';
+  if(role.includes('trumpet')) return 'TRUMPETS';
+  if(/trombone|tuba/.test(role)) return 'TROMBONES / LOW BRASS';
+  if(/guitar|piano|keys|keyboard|synth|bass|drums|vocal/.test(role)) return 'RHYTHM SECTION';
+  return 'OTHER';
+}
+
+function personnelLink(person){
+  const name = typeof person === 'string' ? person : (person.name || '');
+  const role = typeof person === 'string' ? '' : (person.role || '');
+  const searchName = typeof person === 'string' ? person : personSearchName(person);
+  return `<li><a class="album-player-link" href="${playerSearchURL(searchName)}">${esc(name)}</a>${role ? ` — ${esc(role)}` : ''}</li>`;
+}
+
+function trackParticipantsMarkup(track){
+  const participants = Array.isArray(track?.participants) ? track.participants : [];
+  if(!participants.length) return '';
+  return `
+    <div class="track-participants">
+      ${participants.map((person,index) => {
+        const searchName = personSearchName(person);
+        return `${index ? ' · ' : ''}<a class="people-inline-link" href="${playerSearchURL(searchName)}">${esc(person.name || '')}</a>${person.role ? `<span class="track-participant-role"> — ${esc(person.role)}</span>` : ''}`;
+      }).join('')}
+    </div>
+  `;
+}
+
+function personnelMarkup(item){
+  const personnel = Array.isArray(item.personnel) ? item.personnel : [];
+  if(!personnel.length) return '';
+
+  if(personnel.length < 12){
+    return `<ul class="album-info-list">${personnel.map(personnelLink).join('')}</ul>`;
+  }
+
+  const groups = new Map();
+  personnel.forEach(person => {
+    const group = getPersonnelGroup(person);
+    if(!groups.has(group)) groups.set(group, []);
+    groups.get(group).push(person);
+  });
+
+  const order = [
+    'SAXOPHONES / REEDS',
+    'TRUMPETS',
+    'TROMBONES / LOW BRASS',
+    'RHYTHM SECTION',
+    'SPECIAL GUESTS',
+    'OTHER'
+  ];
+
+  return `
+    <div class="personnel-groups">
+      ${order
+        .filter(group => groups.has(group))
+        .map(group => `
+          <div class="personnel-group">
+            <h6 class="personnel-group-title">${esc(group)}</h6>
+            <ul class="album-info-list">${groups.get(group).map(personnelLink).join('')}</ul>
+          </div>
+        `).join('')}
+    </div>
+  `;
+}
+
 
 /* ---------- Discography ---------- */
 const releaseTrack = document.getElementById('releaseTrack');
 const releases = Array.isArray(DATA.releases) ? DATA.releases : [];
-
-releaseTrack.innerHTML = releases.map((item,index)=>`
-  <article class="release-card">
-    <button
-      class="release-cover-button"
-      type="button"
-      data-album-info="${index}"
-      aria-label="View album information for ${esc(item.title)}"
-    >
-      ${item.cover
-        ? `<img src="${esc(item.cover)}" alt="${esc(item.title)} album cover" loading="${index < 2 ? 'eager' : 'lazy'}">`
-        : coverMarkup(item, 'card')
-      }
-    </button>
-
-    <div class="release-meta">
-      <h4 class="release-title">${esc(item.title)}</h4>
-      <div class="release-artist">${esc([item.artist,item.year].filter(Boolean).join(' · '))}</div>
-      ${item.note ? `<div class="release-note">${esc(item.note)}</div>` : ''}
-      ${item.credit ? `<div class="release-credit">${esc(item.credit)}</div>` : ''}
-      <button class="release-action" type="button" data-streaming="${index}">LISTEN / WATCH</button>
-    </div>
-  </article>
-`).join('');
-
 const releasePrev = document.getElementById('releasePrev');
 const releaseNext = document.getElementById('releaseNext');
+const yearFilters = document.getElementById('yearFilters');
+const musicSearchInput = document.getElementById('musicSearchInput');
+const musicSearchClear = document.getElementById('musicSearchClear');
+const musicSearchGlobal = document.getElementById('musicSearchGlobal');
+const musicSearchEmpty = document.getElementById('musicSearchEmpty');
+
+let activeYear = 'ALL';
+let musicQuery = '';
+
+function availableYears(){
+  return [...new Set(releases.map(item => String(item.year || '')).filter(Boolean))]
+    .sort((a,b) => Number(b) - Number(a));
+}
+
+function renderYearFilters(){
+  yearFilters.innerHTML = ['ALL', ...availableYears()].map(year => `
+    <button
+      class="year-filter ${activeYear === year ? 'active' : ''}"
+      type="button"
+      data-year="${esc(year)}"
+    >${esc(year)}</button>
+  `).join('');
+}
+
+function filteredReleases(){
+  return releases.filter(item => {
+    const yearMatch = activeYear === 'ALL' || String(item.year || '') === activeYear;
+    const searchMatch = matchesMusicQuery(recordingSearchText(item), musicQuery);
+    return yearMatch && searchMatch;
+  });
+}
+
+function renderReleaseCards(){
+  const visible = filteredReleases();
+
+  releaseTrack.innerHTML = visible.map(item => {
+    const index = releases.indexOf(item);
+    return `
+      <article class="release-card">
+        <button
+          class="release-cover-button"
+          type="button"
+          data-album-info="${index}"
+          aria-label="View album information for ${esc(item.title)}"
+        >
+          ${item.cover
+            ? `<img src="${esc(item.cover)}" alt="${esc(item.title)} album cover" loading="lazy">`
+            : coverMarkup(item, 'card')
+          }
+        </button>
+
+        <div class="release-meta">
+          <h4 class="release-title">${esc(item.title)}</h4>
+          <div class="release-artist">${linkedParts(item.artistParts, item.artist)}${item.year ? ` · ${esc(item.year)}` : ''}</div>
+          ${item.note ? `<div class="release-note">${esc(item.note)}</div>` : ''}
+          ${item.credit ? `<div class="release-credit">${esc(item.credit)}</div>` : ''}
+          <button class="release-action" type="button" data-streaming="${index}">LISTEN / WATCH</button>
+        </div>
+      </article>
+    `;
+  }).join('');
+
+  releaseTrack.hidden = !visible.length;
+  updateMusicEmptyState();
+}
 
 function releaseStep(){
   const card = releaseTrack.querySelector('.release-card');
   return card ? card.getBoundingClientRect().width + 16 : 220;
 }
+
 releasePrev.addEventListener('click',()=>{
   releaseTrack.scrollBy({left:-releaseStep(),behavior:'smooth'});
 });
@@ -639,6 +915,32 @@ releaseNext.addEventListener('click',()=>{
   releaseTrack.scrollBy({left:releaseStep(),behavior:'smooth'});
 });
 
+yearFilters.addEventListener('click',e=>{
+  const button = e.target.closest('[data-year]');
+  if(!button) return;
+  activeYear = button.dataset.year || 'ALL';
+  renderYearFilters();
+  renderReleaseCards();
+});
+
+musicSearchInput.addEventListener('input',()=>{
+  musicQuery = musicSearchInput.value.trim();
+  musicSearchGlobal.href = `index.html?search=${encodeURIComponent(musicQuery)}`;
+  musicSearchGlobal.classList.toggle('visible',Boolean(musicQuery));
+  renderReleaseCards();
+  renderVideos();
+});
+
+musicSearchClear.addEventListener('click',()=>{
+  musicSearchInput.value = '';
+  musicQuery = '';
+  musicSearchGlobal.classList.remove('visible');
+  renderReleaseCards();
+  renderVideos();
+  musicSearchInput.focus();
+});
+
+renderYearFilters();
 
 /* ---------- Album information modal ---------- */
 const albumInfoModal = document.getElementById('albumInfoModal');
@@ -667,7 +969,7 @@ function buildAlbumInfoSections(item){
             <li>
               ${track.number ? `<span>${esc(track.number)}. </span>` : ''}
               ${esc(track.title || track)}
-              ${track.note ? `<span class="album-track-note">— ${esc(track.note)}</span>` : ''}
+              ${trackParticipantsMarkup(track)}
             </li>
           `).join('')}
         </ol>
@@ -680,14 +982,7 @@ function buildAlbumInfoSections(item){
     sections.push(`
       <section class="album-info-section">
         <h5 class="album-info-label">${esc(item.personnelLabel || 'PERSONNEL')}</h5>
-        <ul class="album-info-list">
-          ${personnel.map(person => {
-            const name = typeof person === 'string' ? person : (person.name || '');
-            const role = typeof person === 'string' ? '' : (person.role || '');
-            const searchName = typeof person === 'string' ? person : personSearchName(person);
-            return `<li><a class="album-player-link" href="${playerSearchURL(searchName)}">${esc(name)}</a>${role ? ` — ${esc(role)}` : ''}</li>`;
-          }).join('')}
-        </ul>
+        ${personnelMarkup(item)}
       </section>
     `);
   }
@@ -707,6 +1002,22 @@ function buildAlbumInfoSections(item){
     `);
   }
 
+  const creditSources = Array.isArray(item.creditSources) ? item.creditSources : [];
+  if(creditSources.length){
+    sections.push(`
+      <section class="album-info-section">
+        <h5 class="album-info-label">CREDITS SOURCE</h5>
+        <div class="credit-source-list">
+          ${creditSources.map(source => `
+            <a class="credit-source-link" href="${esc(source.url || '')}" target="_blank" rel="noopener noreferrer">
+              <span>${esc(source.label || 'SOURCE')}</span><span>↗</span>
+            </a>
+          `).join('')}
+        </div>
+      </section>
+    `);
+  }
+
   return sections.join('');
 }
 
@@ -716,7 +1027,7 @@ function openAlbumInfo(index){
 
   albumInfoCover.innerHTML = coverMarkup(item, 'modal');
   albumInfoTitle.textContent = item.title || '';
-  albumInfoArtist.textContent = [item.artist,item.year].filter(Boolean).join(' · ');
+  albumInfoArtist.innerHTML = `${linkedParts(item.artistParts, item.artist)}${item.year ? ` · ${esc(item.year)}` : ''}`;
 
   albumInfoNote.textContent = item.note || '';
   albumInfoNote.style.display = item.note ? '' : 'none';
@@ -769,7 +1080,7 @@ function openReleaseModal(index){
 
   modalCover.innerHTML = coverMarkup(item, 'modal');
   modalTitle.textContent = item.title || '';
-  modalArtist.textContent = [item.artist,item.year].filter(Boolean).join(' · ');
+  modalArtist.innerHTML = `${linkedParts(item.artistParts, item.artist)}${item.year ? ` · ${esc(item.year)}` : ''}`;
 
   modalNote.textContent = item.note || '';
   modalNote.style.display = item.note ? '' : 'none';
@@ -838,25 +1149,47 @@ function youtubeId(url=''){
 
 const videoGrid = document.getElementById('videoGrid');
 const videos = Array.isArray(DATA.videos) ? DATA.videos : [];
+const videosSection = document.querySelector('[aria-labelledby="videosTitle"]');
 
-videoGrid.innerHTML = videos.map((item,index)=>{
-  const id = youtubeId(item.youtube);
-  if(!id) return '';
-  const thumb = item.thumbnail || `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
+function filteredVideos(){
+  return videos.filter(item => matchesMusicQuery(videoSearchText(item), musicQuery));
+}
 
-  return `
-    <article class="video-card">
-      <div class="video-frame" data-youtube="${esc(id)}">
-        <button class="video-thumb" type="button" aria-label="Play ${esc(item.title)}">
-          <img src="${esc(thumb)}" alt="${esc(item.title)}" loading="${index < 2 ? 'eager' : 'lazy'}">
-          <span class="play-button" aria-hidden="true"></span>
-        </button>
-      </div>
-      <h4 class="video-title">${esc(item.title)}</h4>
-      ${item.subtitle ? `<div class="video-subtitle">${esc(item.subtitle)}</div>` : ''}
-    </article>
-  `;
-}).join('');
+function updateMusicEmptyState(){
+  const noReleases = filteredReleases().length === 0;
+  const noVideos = filteredVideos().length === 0;
+  musicSearchEmpty.classList.toggle('visible',Boolean(musicQuery) && noReleases && noVideos);
+}
+
+function renderVideos(){
+  const visible = filteredVideos();
+
+  videoGrid.innerHTML = visible.map(item=>{
+    const index = videos.indexOf(item);
+    const id = youtubeId(item.youtube);
+    if(!id) return '';
+    const thumb = item.thumbnail || `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
+
+    return `
+      <article class="video-card">
+        <div class="video-frame" data-youtube="${esc(id)}">
+          <button class="video-thumb" type="button" aria-label="Play ${esc(item.title)}">
+            <img src="${esc(thumb)}" alt="${esc(item.title)}" loading="${index < 2 ? 'eager' : 'lazy'}">
+            <span class="play-button" aria-hidden="true"></span>
+          </button>
+        </div>
+        <h4 class="video-title">${esc(item.title)}</h4>
+        ${item.subtitle ? `<div class="video-subtitle">${linkedParts(item.subtitleParts, item.subtitle)}</div>` : ''}
+      </article>
+    `;
+  }).join('');
+
+  videosSection.hidden = !visible.length;
+  updateMusicEmptyState();
+}
+
+renderReleaseCards();
+renderVideos();
 
 videoGrid.addEventListener('click',e=>{
   const button = e.target.closest('.video-thumb');
