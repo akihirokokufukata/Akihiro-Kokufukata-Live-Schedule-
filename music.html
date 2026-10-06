@@ -46,7 +46,7 @@ main{
 }
 
 /* Header */
-header{position:relative;padding:25px 10px 78px}
+header{position:relative;padding:25px 10px 58px}
 .name-wrap{display:inline-block}
 .artist-name{
   margin:0;max-width:640px;
@@ -108,17 +108,21 @@ header{position:relative;padding:25px 10px 78px}
 
 /* Page */
 .music{padding:0 6px}
+.music-topbar{
+  display:flex;align-items:flex-end;justify-content:space-between;
+  gap:34px;
+}
 .music-title{
-  margin:0;font-family:var(--serif);
+  margin:0;flex:0 0 auto;font-family:var(--serif);
   font-size:clamp(50px,7vw,76px);
   font-weight:600;line-height:.95;letter-spacing:-1.5px;
 }
 .music-rule{
   width:100%;height:1px;
-  margin:22px 0 0;
+  margin:16px 0 0;
   background:var(--crimson);
 }
-.music-section{margin-top:58px}
+.music-section{margin-top:34px}
 .section-heading{
   display:flex;align-items:center;justify-content:space-between;
   gap:18px;margin-bottom:18px;
@@ -137,33 +141,36 @@ header{position:relative;padding:25px 10px 78px}
 
 /* Music search */
 .music-search{
-  margin-top:34px;padding-bottom:22px;border-bottom:1px solid var(--line);
+  width:min(410px,48%);
+  padding:0;border:0;
 }
 .music-search-label{
-  display:block;margin-bottom:11px;color:var(--crimson);
-  font-family:var(--sans);font-size:9px;font-weight:600;letter-spacing:2.4px;
+  display:block;margin-bottom:6px;color:var(--crimson);
+  font-family:var(--sans);font-size:7px;font-weight:600;letter-spacing:1.9px;
 }
-.music-search-row{display:flex;align-items:end;gap:12px}
+.music-search-row{
+  display:flex;align-items:center;gap:6px;
+}
 .music-search-input{
-  flex:1;min-width:0;padding:8px 0 9px;border:0;border-bottom:1px solid var(--crimson);
+  flex:1;min-width:0;padding:4px 0 7px;border:0;border-bottom:1px solid var(--crimson);
   outline:0;background:transparent;color:var(--ink);
-  font-family:var(--serif);font-size:27px;line-height:1.1;
+  font-family:var(--serif);font-size:20px;line-height:1.05;
 }
 .music-search-input::placeholder{color:#a99f98}
 .music-search-clear{
-  border:1px solid var(--line);background:transparent;color:var(--muted);
-  min-height:36px;padding:0 12px;font-family:var(--sans);font-size:7px;font-weight:600;
-  letter-spacing:1px;cursor:pointer;
+  flex:0 0 26px;width:26px;height:26px;padding:0;border:0;
+  background:transparent;color:var(--crimson);
+  font-family:var(--sans);font-size:18px;line-height:1;cursor:pointer;
 }
-.music-search-clear:hover{border-color:var(--crimson);color:var(--crimson)}
+.music-search-clear:hover{color:var(--crimson-dark)}
 .music-search-global{
-  display:none;margin-top:12px;color:var(--crimson);text-decoration:none;
-  font-family:var(--sans);font-size:8px;font-weight:600;letter-spacing:1.5px;
+  display:none;margin-top:6px;color:var(--crimson);text-decoration:none;
+  font-family:var(--sans);font-size:7px;font-weight:600;letter-spacing:1px;
 }
 .music-search-global.visible{display:inline-block}
 .music-search-empty{
-  display:none;margin-top:18px;color:var(--muted);
-  font-family:var(--jp);font-size:12px;
+  display:none;margin-top:12px;color:var(--muted);
+  font-family:var(--jp);font-size:11px;
 }
 .music-search-empty.visible{display:block}
 
@@ -214,11 +221,32 @@ header{position:relative;padding:25px 10px 78px}
 .credit-source-link:hover{border-color:var(--crimson);color:var(--crimson)}
 
 @media(max-width:650px){
-  .music-search{margin-top:28px}
-  .music-search-input{font-size:23px}
-  .music-search-row{gap:8px}
-  .section-heading{align-items:flex-start}
-  .discography-tools{align-items:flex-end;flex-direction:column}
+  .music-topbar{
+    align-items:flex-end;gap:16px;
+  }
+  .music-title{
+    font-size:clamp(46px,13vw,60px);
+  }
+  .music-search{
+    width:auto;flex:1;min-width:0;
+  }
+  .music-search-label{
+    margin-bottom:4px;font-size:6px;letter-spacing:1.5px;
+  }
+  .music-search-row{gap:4px}
+  .music-search-input{
+    font-size:15px;padding:3px 0 5px;
+  }
+  .music-search-clear{
+    width:22px;height:22px;flex-basis:22px;font-size:15px;
+  }
+  .music-search-global{
+    margin-top:4px;font-size:5.8px;letter-spacing:.7px;
+  }
+  .music-rule{margin-top:12px}
+  .music-section{margin-top:27px}
+  .section-heading{align-items:flex-start;margin-bottom:14px}
+  .discography-tools{align-items:flex-end;flex-direction:column;gap:8px}
   .year-filters{justify-content:flex-end}
   .personnel-groups{grid-template-columns:1fr;gap:18px}
   .track-participants{font-size:8px}
@@ -482,8 +510,8 @@ footer{
 }
 
 @media(max-width:650px){
-  main{padding:34px 15px 65px}
-  header{padding:30px 6px 67px}
+  main{padding:28px 15px 65px}
+  header{padding:26px 6px 40px}
   .artist-name{
     max-width:350px;font-size:clamp(52px,15vw,70px);
     line-height:.86;letter-spacing:-2px;
@@ -550,24 +578,27 @@ footer{
 </header>
 
 <section class="music" aria-labelledby="musicTitle">
-  <h2 class="music-title" id="musicTitle">Music</h2>
-  <div class="music-rule"></div>
-  <div class="music-search">
-    <label class="music-search-label" for="musicSearchInput">SEARCH MUSIC</label>
-    <div class="music-search-row">
-      <input
-        class="music-search-input"
-        id="musicSearchInput"
-        type="search"
-        placeholder="Player, recording, or keyword..."
-        autocomplete="off"
-      >
-      <button class="music-search-clear" id="musicSearchClear" type="button">CLEAR</button>
+  <div class="music-topbar">
+    <h2 class="music-title" id="musicTitle">Music</h2>
+
+    <div class="music-search">
+      <label class="music-search-label" for="musicSearchInput">SEARCH</label>
+      <div class="music-search-row">
+        <input
+          class="music-search-input"
+          id="musicSearchInput"
+          type="search"
+          placeholder="Player, recording..."
+          autocomplete="off"
+        >
+        <button class="music-search-clear" id="musicSearchClear" type="button" aria-label="Clear search">×</button>
+      </div>
+      <a class="music-search-global" id="musicSearchGlobal" href="index.html">LIVE + RECORDING RESULTS ↗</a>
     </div>
-    <a class="music-search-global" id="musicSearchGlobal" href="index.html">VIEW LIVE + RECORDING RESULTS ↗</a>
-    <div class="music-search-empty" id="musicSearchEmpty">No matching recordings or videos.</div>
   </div>
 
+  <div class="music-rule"></div>
+  <div class="music-search-empty" id="musicSearchEmpty">No matching recordings or videos.</div>
 
   <!-- DISCOGRAPHY FIRST -->
   <section class="music-section" aria-labelledby="discographyTitle">
@@ -642,7 +673,7 @@ footer{
 </footer>
 </main>
 
-<script src="music-data.js?v=20261006-6"></script>
+<script src="music-data.js?v=20261006-7"></script>
 <script>
 const menuToggle = document.getElementById('menuToggle');
 const siteMenu = document.getElementById('siteMenu');
