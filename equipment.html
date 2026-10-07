@@ -140,9 +140,15 @@ header{position:relative;padding:25px 10px 62px}
   letter-spacing:3px;
 }
 .instrument-maker{
-  margin-top:17px;color:var(--muted);
-  font-family:var(--sans);font-size:9px;font-weight:600;
-  letter-spacing:1.7px;
+  display:flex;align-items:center;gap:13px;
+  margin-top:17px;color:var(--ink);
+  font-family:var(--sans);font-size:11px;font-weight:700;
+  letter-spacing:2px;
+  text-transform:uppercase;
+}
+.instrument-maker::after{
+  content:"";height:1px;flex:1;max-width:110px;
+  background:var(--line);
 }
 .instrument-model{
   margin:5px 0 0;
@@ -164,10 +170,15 @@ header{position:relative;padding:25px 10px 62px}
   background:rgba(247,242,233,.35);
 }
 .maker-name{
-  margin:0 0 12px;color:var(--muted);
-  font-family:var(--sans);font-size:8px;font-weight:600;
-  letter-spacing:1.6px;
+  display:flex;align-items:center;gap:13px;
+  margin:0 0 18px;color:var(--ink);
+  font-family:var(--sans);font-size:10px;font-weight:700;
+  letter-spacing:1.9px;
   text-transform:uppercase;
+}
+.maker-name::after{
+  content:"";height:1px;flex:1;
+  background:var(--line);
 }
 .model-list{margin:0;padding:0;list-style:none}
 .model-list li{
@@ -175,7 +186,7 @@ header{position:relative;padding:25px 10px 62px}
   font-family:var(--serif);font-size:24px;line-height:1.18;
 }
 .gear-item + .gear-item{
-  margin-top:23px;padding-top:20px;border-top:1px solid var(--line);
+  margin-top:25px;padding-top:22px;border-top:1px solid var(--line);
 }
 .gear-model{
   font-family:var(--serif);font-size:24px;font-weight:600;line-height:1.12;
@@ -228,6 +239,9 @@ footer{
   .instrument-model{font-size:34px}
   .mouthpiece-grid{grid-template-columns:1fr;gap:10px}
   .maker-group{min-height:0;padding:17px 17px 15px}
+  .maker-name{font-size:9px;letter-spacing:1.7px;gap:10px;margin-bottom:16px}
+  .instrument-maker{font-size:10px;letter-spacing:1.8px;gap:10px}
+  .instrument-maker::after{max-width:85px}
   .model-list li{font-size:22px}
   .gear-model{font-size:22px}
   .gear-use{font-size:6.5px;letter-spacing:1px}
