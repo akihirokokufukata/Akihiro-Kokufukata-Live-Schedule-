@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Equipment | Akihiro Kokufukata</title>
+<meta name="description" content="Trumpet, flugelhorn and mouthpiece setup used by jazz trumpeter and composer Akihiro Kokufukata.">
+<link rel="canonical" href="https://akihirokokufukata.github.io/Akihiro-Kokufukata-Live-Schedule-/equipment.html">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Equipment | Akihiro Kokufukata">
+<meta property="og:description" content="Trumpet, flugelhorn and mouthpiece setup used by Akihiro Kokufukata.">
+<meta property="og:url" content="https://akihirokokufukata.github.io/Akihiro-Kokufukata-Live-Schedule-/equipment.html">
+<meta property="og:image" content="https://akihirokokufukata.github.io/Akihiro-Kokufukata-Live-Schedule-/images/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Noto+Serif+JP:wght@400;500;600&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --paper:#f3eee5;
+  --card:#f7f2e9;
+  --ink:#181313;
+  --muted:#756b66;
+  --crimson:#98182a;
+  --crimson-dark:#76101f;
+  --line:#cfc2b6;
+  --serif:"Cormorant Garamond",Georgia,serif;
+  --jp:"Noto Serif JP",serif;
+  --sans:"Space Grotesk",Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  -webkit-font-smoothing:antialiased;
+}
+button,a{-webkit-tap-highlight-color:transparent}
+button{font:inherit}
+main{
+  width:100%;max-width:1100px;margin:0 auto;
+  padding:58px 30px 90px;
+  overflow-x:hidden;
+}
+header{position:relative;padding:25px 10px 62px}
+.name-wrap{display:inline-block}
+.artist-name{
+  margin:0;max-width:640px;
+  font-family:var(--serif);
+  font-size:clamp(58px,8.5vw,100px);
+  font-weight:600;line-height:.82;letter-spacing:-3px;
+}
+.artist-name span{display:block}
+.name-line{
+  width:100%;height:1.5px;margin-top:24px;
+  background:var(--crimson);
+}
+.artist-role{
+  margin-top:19px;color:var(--crimson);
+  font-family:var(--sans);font-size:13px;font-weight:600;
+  letter-spacing:5px;
+}
+.menu-toggle{
+  position:absolute;top:42px;right:32px;z-index:30;
+  width:46px;height:38px;padding:5px 3px;border:0;
+  background:transparent;cursor:pointer;
+}
+.menu-toggle span{
+  display:block;width:100%;height:2px;margin:7px 0;
+  background:var(--crimson);
+  transition:transform .25s ease,opacity .2s ease;
+}
+.menu-toggle.open span:nth-child(1){transform:translateY(9px) rotate(45deg)}
+.menu-toggle.open span:nth-child(2){opacity:0}
+.menu-toggle.open span:nth-child(3){transform:translateY(-9px) rotate(-45deg)}
+.menu-backdrop{
+  position:fixed;inset:0;z-index:20;
+  background:rgba(24,19,19,.22);
+  opacity:0;visibility:hidden;
+  transition:.25s ease;
+}
+.menu-backdrop.open{opacity:1;visibility:visible}
+.site-menu{
+  position:fixed;top:0;right:0;z-index:25;
+  width:min(360px,84vw);height:100vh;
+  padding:125px 42px 40px;
+  background:var(--card);
+  border-left:1px solid var(--line);
+  transform:translateX(102%);
+  transition:transform .28s ease;
+  box-shadow:-12px 0 35px rgba(24,19,19,.08);
+}
+.site-menu.open{transform:translateX(0)}
+.site-menu a{
+  display:block;padding:18px 0;
+  border-bottom:1px solid var(--line);
+  color:var(--ink);
+  font-family:var(--serif);font-size:29px;font-weight:600;
+  text-decoration:none;
+}
+.site-menu a.current,.site-menu a:hover{color:var(--crimson)}
+
+.equipment{padding:0 6px}
+.equipment-title{
+  margin:0;font-family:var(--serif);
+  font-size:clamp(50px,7vw,76px);
+  font-weight:600;line-height:.95;letter-spacing:-1.5px;
+}
+.equipment-rule{
+  width:100%;height:1px;margin:20px 0 0;
+  background:var(--crimson);
+}
+.instrument-section{
+  display:grid;grid-template-columns:minmax(180px,30%) 1fr;
+  gap:52px;
+  padding:54px 0 58px;
+  border-bottom:1px solid var(--line);
+}
+.instrument-section:last-child{border-bottom:0;padding-bottom:20px}
+.instrument-label{
+  color:var(--crimson);
+  font-family:var(--sans);font-size:10px;font-weight:600;
+  letter-spacing:3px;
+}
+.instrument-maker{
+  margin-top:17px;color:var(--muted);
+  font-family:var(--sans);font-size:9px;font-weight:600;
+  letter-spacing:1.7px;
+}
+.instrument-model{
+  margin:5px 0 0;
+  font-family:var(--serif);font-size:40px;font-weight:600;line-height:1;
+}
+.gear-subsection + .gear-subsection{margin-top:34px}
+.gear-subtitle{
+  margin:0 0 17px;color:var(--crimson);
+  font-family:var(--sans);font-size:9px;font-weight:600;
+  letter-spacing:2.4px;
+}
+.mouthpiece-grid{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:15px;
+}
+.maker-group{
+  min-height:128px;padding:20px 20px 18px;
+  border:1px solid var(--line);
+  background:rgba(247,242,233,.35);
+}
+.maker-name{
+  margin:0 0 12px;color:var(--muted);
+  font-family:var(--sans);font-size:8px;font-weight:600;
+  letter-spacing:1.6px;
+  text-transform:uppercase;
+}
+.model-list{margin:0;padding:0;list-style:none}
+.model-list li{
+  margin:4px 0;
+  font-family:var(--serif);font-size:24px;line-height:1.18;
+}
+footer{
+  margin-top:54px;padding:31px 4px 15px;
+  border-top:1px solid var(--line);
+}
+.footer-name{
+  font-family:var(--sans);font-size:9px;font-weight:500;letter-spacing:4px;
+}
+.footer-role{
+  margin-top:8px;color:var(--muted);
+  font-family:var(--sans);font-size:8px;letter-spacing:3px;
+}
+
+@media(max-width:650px){
+  main{padding:28px 15px 65px}
+  header{padding:26px 6px 48px}
+  .artist-name{
+    max-width:350px;font-size:clamp(52px,15vw,70px);
+    line-height:.86;letter-spacing:-2px;
+  }
+  .name-line{margin-top:20px}
+  .artist-role{margin-top:17px;font-size:11px;letter-spacing:3.3px}
+  .menu-toggle{top:29px;right:18px;width:39px}
+  .site-menu{padding:105px 28px 35px}
+  .site-menu a{font-size:26px;padding:17px 0}
+  .equipment-title{font-size:clamp(48px,14vw,64px)}
+  .equipment-rule{margin-top:16px}
+  .instrument-section{display:block;padding:40px 0 44px}
+  .instrument-main{margin-bottom:32px}
+  .instrument-model{font-size:34px}
+  .mouthpiece-grid{grid-template-columns:1fr;gap:10px}
+  .maker-group{min-height:0;padding:17px 17px 15px}
+  .model-list li{font-size:22px}
+}
+</style>
+</head>
+<body>
+<main>
+<header>
+  <button class="menu-toggle" id="menuToggle" type="button" aria-label="Open menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="menu-backdrop" id="menuBackdrop"></div>
+
+  <nav class="site-menu" id="siteMenu" aria-label="Site navigation">
+    <a href="index.html">LIVE SCHEDULE</a>
+    <a href="bio.html">BIO</a>
+    <a href="music.html">MUSIC</a>
+    <a href="equipment.html" class="current" aria-current="page">EQUIPMENT</a>
+    <a href="contact.html">CONTACT</a>
+  </nav>
+
+  <div class="name-wrap">
+    <h1 class="artist-name"><span>Akihiro</span><span>Kokufukata</span></h1>
+    <div class="name-line"></div>
+  </div>
+  <div class="artist-role">TRUMPETER / COMPOSER</div>
+</header>
+
+<section class="equipment" aria-labelledby="equipmentTitle">
+  <h2 class="equipment-title" id="equipmentTitle">Equipment</h2>
+  <div class="equipment-rule"></div>
+
+  <section class="instrument-section" aria-labelledby="trumpetTitle">
+    <div class="instrument-main">
+      <div class="instrument-label" id="trumpetTitle">TRUMPET</div>
+      <div class="instrument-maker">BACH</div>
+      <h3 class="instrument-model">180 ML 37 SP</h3>
+    </div>
+    <div>
+      <section class="gear-subsection" aria-labelledby="trumpetMouthpiecesTitle">
+        <h4 class="gear-subtitle" id="trumpetMouthpiecesTitle">MOUTHPIECES</h4>
+        <div class="mouthpiece-grid">
+          <article class="maker-group">
+            <h5 class="maker-name">New York Bach</h5>
+            <ul class="model-list"><li>17C1 Olds Shank</li></ul>
+          </article>
+
+          <article class="maker-group">
+            <h5 class="maker-name">Patrick Mouthpieces</h5>
+            <ul class="model-list">
+              <li>Vintage CM2</li>
+              <li>Vintage CM-Studio</li>
+              <li>Vintage CD – Symphony</li>
+              <li>7.3 C</li>
+            </ul>
+          </article>
+
+          <article class="maker-group">
+            <h5 class="maker-name">Laskey</h5>
+            <ul class="model-list"><li>70 MD</li></ul>
+          </article>
+        </div>
+      </section>
+    </div>
+  </section>
+
+  <section class="instrument-section" aria-labelledby="flugelhornTitle">
+    <div class="instrument-main">
+      <div class="instrument-label" id="flugelhornTitle">FLUGELHORN</div>
+      <div class="instrument-maker">YAMAHA</div>
+      <h3 class="instrument-model">YHL-631</h3>
+    </div>
+    <div>
+      <section class="gear-subsection" aria-labelledby="flugelMouthpieceTitle">
+        <h4 class="gear-subtitle" id="flugelMouthpieceTitle">MOUTHPIECE</h4>
+        <div class="mouthpiece-grid">
+          <article class="maker-group">
+            <h5 class="maker-name">Patrick Mouthpieces</h5>
+            <ul class="model-list"><li>1.5C</li></ul>
+          </article>
+        </div>
+      </section>
+    </div>
+  </section>
+</section>
+
+<footer>
+  <div class="footer-name">AKIHIRO KOKUFUKATA</div>
+  <div class="footer-role">TRUMPETER / COMPOSER</div>
+</footer>
+</main>
+
+<script>
+const menuToggle=document.getElementById('menuToggle');
+const siteMenu=document.getElementById('siteMenu');
+const menuBackdrop=document.getElementById('menuBackdrop');
+function setMenu(open){
+  menuToggle.classList.toggle('open',open);
+  siteMenu.classList.toggle('open',open);
+  menuBackdrop.classList.toggle('open',open);
+  menuToggle.setAttribute('aria-expanded',String(open));
+  menuToggle.setAttribute('aria-label',open?'Close menu':'Open menu');
+}
+menuToggle.addEventListener('click',()=>setMenu(!siteMenu.classList.contains('open')));
+menuBackdrop.addEventListener('click',()=>setMenu(false));
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'&&siteMenu.classList.contains('open'))setMenu(false);
+});
+</script>
+</body>
+</html>
