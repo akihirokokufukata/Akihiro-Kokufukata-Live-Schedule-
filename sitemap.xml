@@ -1,6 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://akihirokokufukata.github.io/Akihiro-Kokufukata-Live-Schedule-/</loc></url>
-  <url><loc>https://akihirokokufukata.github.io/Akihiro-Kokufukata-Live-Schedule-/bio.html</loc></url>
-  <url><loc>https://akihirokokufukata.github.io/Akihiro-Kokufukata-Live-Schedule-/music.html</loc></url>
-  <url><loc>https://akihirokokufukata.github.io/Akihiro-Kokufukata-Live-Schedule-/contact.html</loc></url>
+  <url>
+    <loc>https://akihirokokufukata.github.io/Akihiro-Kokufukata-Live-Schedule-/</loc>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://akihirokokufukata.github.io/Akihiro-Kokufukata-Live-Schedule-/bio.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://akihirokokufukata.github.io/Akihiro-Kokufukata-Live-Schedule-/music.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://akihirokokufukata.github.io/Akihiro-Kokufukata-Live-Schedule-/equipment.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://akihirokokufukata.github.io/Akihiro-Kokufukata-Live-Schedule-/lessons.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://akihirokokufukata.github.io/Akihiro-Kokufukata-Live-Schedule-/contact.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
 </urlset>
