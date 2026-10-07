@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Lessons | Akihiro Kokufukata</title>
+<meta name="description" content="Private in-person trumpet lessons with Akihiro Kokufukata: trumpet, improvisation, lead trumpet and section playing.">
+<link rel="canonical" href="https://akihirokokufukata.github.io/Akihiro-Kokufukata-Live-Schedule-/lessons.html">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Lessons | Akihiro Kokufukata">
+<meta property="og:description" content="Private in-person trumpet lessons: trumpet, improvisation, lead trumpet and section playing.">
+<meta property="og:url" content="https://akihirokokufukata.github.io/Akihiro-Kokufukata-Live-Schedule-/lessons.html">
+<meta property="og:image" content="https://akihirokokufukata.github.io/Akihiro-Kokufukata-Live-Schedule-/images/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Noto+Serif+JP:wght@400;500;600&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --paper:#f3eee5;
+  --card:#f7f2e9;
+  --ink:#181313;
+  --muted:#756b66;
+  --crimson:#98182a;
+  --crimson-dark:#76101f;
+  --line:#cfc2b6;
+  --serif:"Cormorant Garamond",Georgia,serif;
+  --jp:"Noto Serif JP",serif;
+  --sans:"Space Grotesk",Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  -webkit-font-smoothing:antialiased;
+}
+button,a{-webkit-tap-highlight-color:transparent}
+button{font:inherit}
+main{
+  width:100%;max-width:1100px;margin:0 auto;
+  padding:58px 30px 90px;
+  overflow-x:hidden;
+}
+
+/* Header */
+header{position:relative;padding:25px 10px 62px}
+.name-wrap{display:inline-block}
+.artist-name{
+  margin:0;max-width:640px;
+  font-family:var(--serif);
+  font-size:clamp(58px,8.5vw,100px);
+  font-weight:600;line-height:.82;letter-spacing:-3px;
+}
+.artist-name span{display:block}
+.name-line{width:100%;height:1.5px;margin-top:24px;background:var(--crimson)}
+.artist-role{
+  margin-top:19px;color:var(--crimson);
+  font-family:var(--sans);font-size:13px;font-weight:600;letter-spacing:5px;
+}
+
+/* Menu */
+.menu-toggle{
+  position:absolute;top:42px;right:32px;z-index:30;
+  width:46px;height:38px;padding:5px 3px;border:0;background:transparent;cursor:pointer;
+}
+.menu-toggle span{
+  display:block;width:100%;height:2px;margin:7px 0;background:var(--crimson);
+  transition:transform .25s ease,opacity .2s ease;
+}
+.menu-toggle.open span:nth-child(1){transform:translateY(9px) rotate(45deg)}
+.menu-toggle.open span:nth-child(2){opacity:0}
+.menu-toggle.open span:nth-child(3){transform:translateY(-9px) rotate(-45deg)}
+.menu-backdrop{
+  position:fixed;inset:0;z-index:20;background:rgba(24,19,19,.22);
+  opacity:0;visibility:hidden;transition:.25s ease;
+}
+.menu-backdrop.open{opacity:1;visibility:visible}
+.site-menu{
+  position:fixed;top:0;right:0;z-index:25;
+  width:min(360px,84vw);height:100vh;padding:125px 42px 40px;
+  background:var(--card);border-left:1px solid var(--line);
+  transform:translateX(102%);transition:transform .28s ease;
+  box-shadow:-12px 0 35px rgba(24,19,19,.08);
+}
+.site-menu.open{transform:translateX(0)}
+.site-menu a{
+  display:block;padding:18px 0;border-bottom:1px solid var(--line);
+  color:var(--ink);font-family:var(--serif);font-size:29px;font-weight:600;
+  text-decoration:none;
+}
+.site-menu a.current,.site-menu a:hover{color:var(--crimson)}
+
+/* Page */
+.lessons{padding:0 6px}
+.lessons-heading{
+  display:flex;align-items:flex-end;justify-content:space-between;gap:24px;
+}
+.lessons-title{
+  margin:0;font-family:var(--serif);
+  font-size:clamp(50px,7vw,76px);font-weight:600;line-height:.95;letter-spacing:-1.5px;
+}
+.language-toggle{
+  display:flex;align-items:center;gap:7px;padding-bottom:5px;
+  font-family:var(--sans);font-size:8px;font-weight:600;letter-spacing:1.6px;
+}
+.language-button{
+  padding:0;border:0;background:transparent;color:var(--muted);
+  cursor:pointer;font:inherit;letter-spacing:inherit;
+}
+.language-button.active,.language-button:hover{color:var(--crimson)}
+.language-divider{color:var(--line)}
+.lessons-rule{width:100%;height:1px;margin:20px 0 0;background:var(--crimson)}
+
+.intro{
+  display:grid;grid-template-columns:minmax(180px,28%) 1fr;
+  gap:48px;padding:43px 0 48px;border-bottom:1px solid var(--line);
+}
+.eyebrow{
+  color:var(--crimson);font-family:var(--sans);
+  font-size:9px;font-weight:600;letter-spacing:2.5px;
+}
+.intro-copy{
+  margin:0;max-width:680px;
+  font-family:var(--serif);font-size:clamp(23px,3vw,34px);
+  font-weight:500;line-height:1.18;
+}
+body[data-language="ja"] .localized-copy{font-family:var(--jp)}
+
+.section{padding:48px 0;border-bottom:1px solid var(--line)}
+.section:last-of-type{border-bottom:0}
+.section-heading{
+  display:flex;align-items:flex-end;justify-content:space-between;
+  gap:20px;margin-bottom:22px;
+}
+.section-title{
+  margin:0;color:var(--crimson);
+  font-family:var(--sans);font-size:10px;font-weight:600;letter-spacing:2.6px;
+}
+
+/* What I teach */
+.topic-grid{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;
+}
+.topic-card{
+  padding:24px 22px 22px;border:1px solid var(--line);
+  background:rgba(247,242,233,.28);
+}
+.topic-number{
+  color:var(--muted);font-family:var(--sans);font-size:7px;font-weight:600;letter-spacing:1.4px;
+}
+.topic-name{
+  margin:8px 0 11px;font-family:var(--serif);
+  font-size:31px;font-weight:600;line-height:1;
+}
+.topic-description{
+  margin:0;color:var(--muted);
+  font-family:var(--sans);font-size:11px;line-height:1.7;
+}
+body[data-language="ja"] .topic-description{
+  font-family:var(--jp);font-size:11px;line-height:1.85;
+}
+
+/* Format and price */
+.details-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:14px;
+}
+.detail-card{
+  padding:25px 22px;border:1px solid var(--line);
+  background:rgba(247,242,233,.28);
+}
+.detail-label{
+  color:var(--crimson);font-family:var(--sans);
+  font-size:8px;font-weight:600;letter-spacing:2px;
+}
+.detail-value{
+  margin-top:10px;font-family:var(--serif);
+  font-size:30px;font-weight:600;line-height:1.05;
+}
+.detail-copy{
+  margin:10px 0 0;color:var(--muted);
+  font-family:var(--sans);font-size:10.5px;line-height:1.7;
+}
+body[data-language="ja"] .detail-copy{
+  font-family:var(--jp);font-size:10.5px;line-height:1.85;
+}
+
+.price-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:14px;
+}
+.price-card{
+  padding:25px 22px;border:1px solid var(--line);
+}
+.price-duration{
+  color:var(--crimson);font-family:var(--sans);
+  font-size:8px;font-weight:600;letter-spacing:2px;
+}
+.price{
+  margin-top:8px;font-family:var(--serif);
+  font-size:39px;font-weight:600;line-height:1;
+}
+.price-note{
+  margin-top:12px;color:var(--muted);
+  font-family:var(--sans);font-size:9px;line-height:1.6;
+}
+body[data-language="ja"] .price-note{
+  font-family:var(--jp);font-size:9.5px;line-height:1.75;
+}
+.fee-note{
+  margin:15px 0 0;color:var(--muted);
+  font-family:var(--sans);font-size:9px;line-height:1.65;
+}
+body[data-language="ja"] .fee-note{
+  font-family:var(--jp);font-size:9.5px;line-height:1.75;
+}
+
+/* Booking flow */
+.booking-flow{
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+}
+.booking-step{
+  position:relative;padding:23px 18px 22px;
+  border-right:1px solid var(--line);
+}
+.booking-step:last-child{border-right:0}
+.step-number{
+  color:var(--crimson);font-family:var(--sans);font-size:8px;font-weight:600;letter-spacing:1.5px;
+}
+.step-name{
+  margin-top:8px;font-family:var(--serif);font-size:24px;font-weight:600;line-height:1;
+}
+.step-copy{
+  margin:9px 0 0;color:var(--muted);
+  font-family:var(--sans);font-size:9.5px;line-height:1.65;
+}
+body[data-language="ja"] .step-copy{
+  font-family:var(--jp);font-size:9.5px;line-height:1.8;
+}
+
+/* CTA */
+.lesson-cta{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:24px;margin-top:46px;padding:31px 0 6px;
+}
+.cta-title{
+  margin:0;font-family:var(--serif);
+  font-size:clamp(30px,4vw,44px);font-weight:600;line-height:1;
+}
+.cta-copy{
+  margin:9px 0 0;color:var(--muted);
+  font-family:var(--sans);font-size:10px;line-height:1.6;
+}
+body[data-language="ja"] .cta-copy{
+  font-family:var(--jp);font-size:10px;line-height:1.75;
+}
+.cta-button{
+  display:inline-flex;align-items:center;justify-content:center;
+  min-height:48px;padding:0 19px;
+  border:1px solid var(--crimson);background:var(--crimson);color:var(--paper);
+  font-family:var(--sans);font-size:8px;font-weight:600;letter-spacing:1.5px;
+  text-decoration:none;white-space:nowrap;
+}
+.cta-button:hover{background:var(--crimson-dark);border-color:var(--crimson-dark)}
+
+footer{
+  margin-top:54px;padding:31px 4px 15px;border-top:1px solid var(--line);
+}
+.footer-name{font-family:var(--sans);font-size:9px;font-weight:500;letter-spacing:4px}
+.footer-role{margin-top:8px;color:var(--muted);font-family:var(--sans);font-size:8px;letter-spacing:3px}
+
+@media(max-width:650px){
+  main{padding:28px 15px 65px}
+  header{padding:26px 6px 48px}
+  .artist-name{
+    max-width:350px;font-size:clamp(52px,15vw,70px);
+    line-height:.86;letter-spacing:-2px;
+  }
+  .name-line{margin-top:20px}
+  .artist-role{margin-top:17px;font-size:11px;letter-spacing:3.3px}
+  .menu-toggle{top:29px;right:18px;width:39px}
+  .site-menu{padding:105px 28px 35px}
+  .site-menu a{font-size:26px;padding:15px 0}
+
+  .lessons-title{font-size:clamp(48px,14vw,64px)}
+  .lessons-heading{gap:14px}
+  .language-toggle{padding-bottom:3px;font-size:7px;letter-spacing:1.3px}
+  .lessons-rule{margin-top:16px}
+
+  .intro{display:block;padding:34px 0 37px}
+  .intro .eyebrow{margin-bottom:16px}
+  .intro-copy{font-size:25px}
+
+  .section{padding:38px 0}
+  .topic-grid,.details-grid,.price-grid{grid-template-columns:1fr}
+  .topic-card,.detail-card,.price-card{padding:20px 18px}
+  .topic-name{font-size:28px}
+  .topic-description{font-size:10.5px}
+  body[data-language="ja"] .topic-description{font-size:10.5px}
+
+  .booking-flow{grid-template-columns:1fr 1fr}
+  .booking-step:nth-child(2){border-right:0}
+  .booking-step:nth-child(-n+2){border-bottom:1px solid var(--line)}
+  .booking-step{padding:20px 15px}
+  .step-name{font-size:22px}
+
+  .lesson-cta{display:block;margin-top:37px;padding-top:26px}
+  .cta-button{margin-top:21px;width:100%}
+}
+</style>
+</head>
+
+<body data-language="en">
+<main>
+<header>
+  <button class="menu-toggle" id="menuToggle" type="button" aria-label="Open menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="menu-backdrop" id="menuBackdrop"></div>
+
+  <nav class="site-menu" id="siteMenu" aria-label="Site navigation">
+    <a href="index.html">LIVE SCHEDULE</a>
+    <a href="bio.html">BIO</a>
+    <a href="music.html">MUSIC</a>
+    <a href="equipment.html">EQUIPMENT</a>
+    <a href="lessons.html" class="current" aria-current="page">LESSONS</a>
+    <a href="contact.html">CONTACT</a>
+  </nav>
+
+  <div class="name-wrap">
+    <h1 class="artist-name"><span>Akihiro</span><span>Kokufukata</span></h1>
+    <div class="name-line"></div>
+  </div>
+  <div class="artist-role">TRUMPETER / COMPOSER</div>
+</header>
+
+<section class="lessons" aria-labelledby="lessonsTitle">
+  <div class="lessons-heading">
+    <h2 class="lessons-title" id="lessonsTitle">Lessons</h2>
+    <div class="language-toggle" role="group" aria-label="Description language">
+      <button class="language-button active" type="button" data-lang="en" aria-pressed="true">EN</button>
+      <span class="language-divider">/</span>
+      <button class="language-button" type="button" data-lang="ja" aria-pressed="false">JP</button>
+    </div>
+  </div>
+  <div class="lessons-rule"></div>
+
+  <div class="intro">
+    <div class="eyebrow">PRIVATE LESSONS</div>
+    <p class="intro-copy localized-copy"
+       data-copy-en="Private in-person lessons focused on trumpet playing, jazz improvisation, lead trumpet and section playing."
+       data-copy-ja="トランペット、ジャズ・インプロヴィゼーション、リードトランペット、セクションプレイを中心とした個人レッスン。">
+      Private in-person lessons focused on trumpet playing, jazz improvisation, lead trumpet and section playing.
+    </p>
+  </div>
+
+  <section class="section" aria-labelledby="teachTitle">
+    <div class="section-heading">
+      <h3 class="section-title" id="teachTitle">WHAT I TEACH</h3>
+    </div>
+
+    <div class="topic-grid">
+      <article class="topic-card">
+        <div class="topic-number">01</div>
+        <h4 class="topic-name">Trumpet</h4>
+        <p class="topic-description localized-copy"
+           data-copy-en="Sound, fundamentals, articulation, range and practical trumpet technique."
+           data-copy-ja="音色、基礎奏法、アーティキュレーション、音域など、実践的なトランペット奏法。">
+          Sound, fundamentals, articulation, range and practical trumpet technique.
+        </p>
+      </article>
+
+      <article class="topic-card">
+        <div class="topic-number">02</div>
+        <h4 class="topic-name">Improvisation</h4>
+        <p class="topic-description localized-copy"
+           data-copy-en="Jazz language, harmony, phrasing, standards and approaches to improvisation."
+           data-copy-ja="ジャズの語彙、ハーモニー、フレージング、スタンダードなど、インプロヴィゼーションへのアプローチ。">
+          Jazz language, harmony, phrasing, standards and approaches to improvisation.
+        </p>
+      </article>
+
+      <article class="topic-card">
+        <div class="topic-number">03</div>
+        <h4 class="topic-name">Lead Trumpet</h4>
+        <p class="topic-description localized-copy"
+           data-copy-en="Range, endurance, articulation, projection and lead playing in a big band setting."
+           data-copy-ja="音域、スタミナ、アーティキュレーション、音の飛ばし方など、ビッグバンドでのリード奏法。">
+          Range, endurance, articulation, projection and lead playing in a big band setting.
+        </p>
+      </article>
+
+      <article class="topic-card">
+        <div class="topic-number">04</div>
+        <h4 class="topic-name">Section Playing</h4>
+        <p class="topic-description localized-copy"
+           data-copy-en="Blend, intonation, time, articulation and the role of the trumpet section."
+           data-copy-ja="ブレンド、イントネーション、タイム、アーティキュレーションなど、トランペットセクションでの演奏。">
+          Blend, intonation, time, articulation and the role of the trumpet section.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="formatTitle">
+    <div class="section-heading">
+      <h3 class="section-title" id="formatTitle">FORMAT</h3>
+    </div>
+
+    <div class="details-grid">
+      <article class="detail-card">
+        <div class="detail-label">LESSON TYPE</div>
+        <div class="detail-value">In Person</div>
+        <p class="detail-copy localized-copy"
+           data-copy-en="Lessons are currently offered in person only."
+           data-copy-ja="現在は対面レッスンのみ実施。">
+          Lessons are currently offered in person only.
+        </p>
+      </article>
+
+      <article class="detail-card">
+        <div class="detail-label">STUDIO</div>
+        <div class="detail-value">By Arrangement</div>
+        <p class="detail-copy localized-copy"
+           data-copy-en="The studio is confirmed after scheduling. Studio reservation and rental fee are arranged separately by the student."
+           data-copy-ja="日程確定後に使用スタジオを相談。スタジオの予約・利用料は生徒側で別途手配。">
+          The studio is confirmed after scheduling. Studio reservation and rental fee are arranged separately by the student.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="feeTitle">
+    <div class="section-heading">
+      <h3 class="section-title" id="feeTitle">LESSON FEE</h3>
+    </div>
+
+    <div class="price-grid">
+      <article class="price-card">
+        <div class="price-duration">60 MIN</div>
+        <div class="price">¥5,000</div>
+      </article>
+
+      <article class="price-card">
+        <div class="price-duration">120 MIN</div>
+        <div class="price">¥8,000</div>
+      </article>
+    </div>
+
+    <p class="fee-note localized-copy"
+       data-copy-en="Studio rental fee is not included in the lesson fee."
+       data-copy-ja="レッスン料金にスタジオ利用料は含まれません。">
+      Studio rental fee is not included in the lesson fee.
+    </p>
+  </section>
+
+  <section class="section" aria-labelledby="bookingTitle">
+    <div class="section-heading">
+      <h3 class="section-title" id="bookingTitle">HOW TO BOOK</h3>
+    </div>
+
+    <div class="booking-flow">
+      <article class="booking-step">
+        <div class="step-number">01</div>
+        <div class="step-name">Inquire</div>
+        <p class="step-copy localized-copy"
+           data-copy-en="Send a lesson inquiry through the contact page."
+           data-copy-ja="Contactページからレッスン希望を送信。">
+          Send a lesson inquiry through the contact page.
+        </p>
+      </article>
+
+      <article class="booking-step">
+        <div class="step-number">02</div>
+        <div class="step-name">Schedule</div>
+        <p class="step-copy localized-copy"
+           data-copy-en="Confirm a date and lesson length."
+           data-copy-ja="日程とレッスン時間を決定。">
+          Confirm a date and lesson length.
+        </p>
+      </article>
+
+      <article class="booking-step">
+        <div class="step-number">03</div>
+        <div class="step-name">Studio</div>
+        <p class="step-copy localized-copy"
+           data-copy-en="Confirm the studio and make the reservation."
+           data-copy-ja="使用スタジオを確認し、生徒側で予約。">
+          Confirm the studio and make the reservation.
+        </p>
+      </article>
+
+      <article class="booking-step">
+        <div class="step-number">04</div>
+        <div class="step-name">Lesson</div>
+        <p class="step-copy localized-copy"
+           data-copy-en="Meet at the studio for the lesson."
+           data-copy-ja="スタジオでレッスンを実施。">
+          Meet at the studio for the lesson.
+        </p>
+      </article>
+    </div>
+
+    <div class="lesson-cta">
+      <div>
+        <h4 class="cta-title">Book a Lesson</h4>
+        <p class="cta-copy localized-copy"
+           data-copy-en="For lesson availability and scheduling, send an inquiry through the contact form."
+           data-copy-ja="空き日程やレッスンについてはContactフォームからお問い合わせください。">
+          For lesson availability and scheduling, send an inquiry through the contact form.
+        </p>
+      </div>
+      <a class="cta-button localized-label"
+         href="contact.html?subject=Lesson%20Inquiry"
+         data-copy-en="LESSON INQUIRY →"
+         data-copy-ja="レッスン問い合わせ →">LESSON INQUIRY →</a>
+    </div>
+  </section>
+</section>
+
+<footer>
+  <div class="footer-name">AKIHIRO KOKUFUKATA</div>
+  <div class="footer-role">TRUMPETER / COMPOSER</div>
+</footer>
+</main>
+
+<script>
+const menuToggle=document.getElementById('menuToggle');
+const siteMenu=document.getElementById('siteMenu');
+const menuBackdrop=document.getElementById('menuBackdrop');
+
+function setMenu(open){
+  menuToggle.classList.toggle('open',open);
+  siteMenu.classList.toggle('open',open);
+  menuBackdrop.classList.toggle('open',open);
+  menuToggle.setAttribute('aria-expanded',String(open));
+  menuToggle.setAttribute('aria-label',open?'Close menu':'Open menu');
+}
+menuToggle.addEventListener('click',()=>setMenu(!siteMenu.classList.contains('open')));
+menuBackdrop.addEventListener('click',()=>setMenu(false));
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'&&siteMenu.classList.contains('open'))setMenu(false);
+});
+
+const languageButtons=[...document.querySelectorAll('.language-button')];
+const localizedCopy=[...document.querySelectorAll('.localized-copy,.localized-label')];
+
+function setLanguage(lang){
+  const language=lang==='ja'?'ja':'en';
+  document.body.dataset.language=language;
+
+  languageButtons.forEach(button=>{
+    const active=button.dataset.lang===language;
+    button.classList.toggle('active',active);
+    button.setAttribute('aria-pressed',String(active));
+  });
+
+  localizedCopy.forEach(item=>{
+    item.textContent=language==='ja' ? item.dataset.copyJa : item.dataset.copyEn;
+  });
+
+  try{localStorage.setItem('lessons-language',language)}catch(e){}
+}
+
+languageButtons.forEach(button=>{
+  button.addEventListener('click',()=>setLanguage(button.dataset.lang));
+});
+
+let initialLanguage='en';
+try{
+  const saved=localStorage.getItem('lessons-language');
+  if(saved==='ja'||saved==='en')initialLanguage=saved;
+  else if((navigator.language||'').toLowerCase().startsWith('ja'))initialLanguage='ja';
+}catch(e){}
+
+setLanguage(initialLanguage);
+</script>
+</body>
+</html>
