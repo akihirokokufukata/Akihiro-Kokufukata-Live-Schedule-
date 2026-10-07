@@ -32,7 +32,7 @@ window.MUSIC_DATA = {
         { label: "Zhengtao Pan", search: "Zhengtao Pan" }
       ],
       year: "2026",
-      cover: "images/music/Zhengtao Day By Day.jpg",
+      cover: "images/music/Day By Day.jpg",
       searchNames: ["Zhengtao Pan"],
       tracks: [
         {
