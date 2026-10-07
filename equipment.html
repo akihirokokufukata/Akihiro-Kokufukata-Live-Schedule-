@@ -108,6 +108,21 @@ header{position:relative;padding:25px 10px 62px}
   font-size:clamp(50px,7vw,76px);
   font-weight:600;line-height:.95;letter-spacing:-1.5px;
 }
+.equipment-heading{
+  display:flex;align-items:flex-end;justify-content:space-between;
+  gap:24px;
+}
+.language-toggle{
+  display:flex;align-items:center;gap:7px;padding-bottom:5px;
+  font-family:var(--sans);font-size:8px;font-weight:600;letter-spacing:1.6px;
+}
+.language-button{
+  padding:0;border:0;background:transparent;color:var(--muted);
+  cursor:pointer;font:inherit;letter-spacing:inherit;
+}
+.language-button.active,.language-button:hover{color:var(--crimson)}
+.language-divider{color:var(--line)}
+
 .equipment-rule{
   width:100%;height:1px;margin:20px 0 0;
   background:var(--crimson);
@@ -159,6 +174,27 @@ header{position:relative;padding:25px 10px 62px}
   margin:4px 0;
   font-family:var(--serif);font-size:24px;line-height:1.18;
 }
+.gear-item + .gear-item{
+  margin-top:23px;padding-top:20px;border-top:1px solid var(--line);
+}
+.gear-model{
+  font-family:var(--serif);font-size:24px;font-weight:600;line-height:1.12;
+}
+.gear-use{
+  margin-top:7px;color:var(--crimson);
+  font-family:var(--sans);font-size:7px;font-weight:600;
+  line-height:1.45;letter-spacing:1.15px;
+}
+.gear-description{
+  margin:11px 0 0;color:var(--muted);
+  font-family:var(--sans);font-size:11px;font-weight:400;
+  line-height:1.65;letter-spacing:.1px;
+}
+body[data-language="ja"] .gear-description{
+  font-family:var(--jp);font-size:11px;line-height:1.8;letter-spacing:.02em;
+}
+.trumpet-mouthpieces .maker-group:nth-child(2){grid-row:span 2}
+
 footer{
   margin-top:54px;padding:31px 4px 15px;
   border-top:1px solid var(--line);
@@ -184,6 +220,8 @@ footer{
   .site-menu{padding:105px 28px 35px}
   .site-menu a{font-size:26px;padding:17px 0}
   .equipment-title{font-size:clamp(48px,14vw,64px)}
+  .equipment-heading{align-items:flex-end;gap:14px}
+  .language-toggle{padding-bottom:3px;font-size:7px;letter-spacing:1.3px}
   .equipment-rule{margin-top:16px}
   .instrument-section{display:block;padding:40px 0 44px}
   .instrument-main{margin-bottom:32px}
@@ -191,6 +229,11 @@ footer{
   .mouthpiece-grid{grid-template-columns:1fr;gap:10px}
   .maker-group{min-height:0;padding:17px 17px 15px}
   .model-list li{font-size:22px}
+  .gear-model{font-size:22px}
+  .gear-use{font-size:6.5px;letter-spacing:1px}
+  .gear-description{font-size:10.5px;line-height:1.7}
+  body[data-language="ja"] .gear-description{font-size:10.5px;line-height:1.85}
+  .trumpet-mouthpieces .maker-group:nth-child(2){grid-row:auto}
 }
 </style>
 </head>
@@ -218,7 +261,14 @@ footer{
 </header>
 
 <section class="equipment" aria-labelledby="equipmentTitle">
-  <h2 class="equipment-title" id="equipmentTitle">Equipment</h2>
+  <div class="equipment-heading">
+    <h2 class="equipment-title" id="equipmentTitle">Equipment</h2>
+    <div class="language-toggle" role="group" aria-label="Description language">
+      <button class="language-button active" type="button" data-lang="en" aria-pressed="true">EN</button>
+      <span class="language-divider">/</span>
+      <button class="language-button" type="button" data-lang="ja" aria-pressed="false">JP</button>
+    </div>
+  </div>
   <div class="equipment-rule"></div>
 
   <section class="instrument-section" aria-labelledby="trumpetTitle">
@@ -230,25 +280,75 @@ footer{
     <div>
       <section class="gear-subsection" aria-labelledby="trumpetMouthpiecesTitle">
         <h4 class="gear-subtitle" id="trumpetMouthpiecesTitle">MOUTHPIECES</h4>
-        <div class="mouthpiece-grid">
+        <div class="mouthpiece-grid trumpet-mouthpieces">
           <article class="maker-group">
             <h5 class="maker-name">New York Bach</h5>
-            <ul class="model-list"><li>17C1 Olds Shank</li></ul>
+            <div class="gear-item">
+              <div class="gear-model">17C1 Olds Shank</div>
+              <div class="gear-use">MAIN · COMBO / LEAD + SOLO</div>
+              <p class="gear-description"
+                 data-copy-en="Main mouthpiece for combo playing, and for jobs where I cover both lead and solos."
+                 data-copy-ja="コンボでの演奏を中心に使用。リードとソロの両方を担当する現場でも、メインとして使用。">
+                Main mouthpiece for combo playing, and for jobs where I cover both lead and solos.
+              </p>
+            </div>
           </article>
 
           <article class="maker-group">
             <h5 class="maker-name">Patrick Mouthpieces</h5>
-            <ul class="model-list">
-              <li>Vintage CM2</li>
-              <li>Vintage CM-Studio</li>
-              <li>Vintage CD-Symphony</li>
-              <li>7.3 C</li>
-            </ul>
+
+            <div class="gear-item">
+              <div class="gear-model">Vintage CM2</div>
+              <div class="gear-use">LEAD · MAIN</div>
+              <p class="gear-description"
+                 data-copy-en="My primary lead mouthpiece when I also want a fuller, richer tone."
+                 data-copy-ja="リード用のメイン。高音域だけでなく、太さや豊かさのある音色も重視したい場面で使用。">
+                My primary lead mouthpiece when I also want a fuller, richer tone.
+              </p>
+            </div>
+
+            <div class="gear-item">
+              <div class="gear-model">Vintage CM-Studio</div>
+              <div class="gear-use">LEAD · HIGH REGISTER</div>
+              <p class="gear-description"
+                 data-copy-en="For lead work where I want more focus and ease in the upper register."
+                 data-copy-ja="より高い音域やハイノートの吹きやすさを重視したいリードの現場で使用。">
+                For lead work where I want more focus and ease in the upper register.
+              </p>
+            </div>
+
+            <div class="gear-item">
+              <div class="gear-model">Vintage CD-Symphony</div>
+              <div class="gear-use">SECTION · FULL RANGE / RICH SOUND</div>
+              <p class="gear-description"
+                 data-copy-en="For section playing when I want a broad register and a full, rich sound."
+                 data-copy-ja="幅広い音域をカバーしながら、太く豊かな音色でセクションを支えたい場面で使用。">
+                For section playing when I want a broad register and a full, rich sound.
+              </p>
+            </div>
+
+            <div class="gear-item">
+              <div class="gear-model">7.3 C</div>
+              <div class="gear-use">SECTION · CLASSICAL COLOR</div>
+              <p class="gear-description"
+                 data-copy-en="For section work with a more classical character and sound."
+                 data-copy-ja="クラシカルな要素や音色が求められるセクションで使用。">
+                For section work with a more classical character and sound.
+              </p>
+            </div>
           </article>
 
           <article class="maker-group">
             <h5 class="maker-name">Laskey</h5>
-            <ul class="model-list"><li>70 MD</li></ul>
+            <div class="gear-item">
+              <div class="gear-model">70 MD</div>
+              <div class="gear-use">ORCHESTRAL / CLASSICAL</div>
+              <p class="gear-description"
+                 data-copy-en="For orchestral and classical playing."
+                 data-copy-ja="オーケストラやクラシックで使用。">
+                For orchestral and classical playing.
+              </p>
+            </div>
           </article>
         </div>
       </section>
@@ -297,6 +397,39 @@ menuBackdrop.addEventListener('click',()=>setMenu(false));
 document.addEventListener('keydown',e=>{
   if(e.key==='Escape'&&siteMenu.classList.contains('open'))setMenu(false);
 });
+
+const languageButtons=[...document.querySelectorAll('.language-button')];
+const descriptions=[...document.querySelectorAll('.gear-description')];
+
+function setLanguage(lang){
+  const language=lang==='ja'?'ja':'en';
+  document.body.dataset.language=language;
+
+  languageButtons.forEach(button=>{
+    const active=button.dataset.lang===language;
+    button.classList.toggle('active',active);
+    button.setAttribute('aria-pressed',String(active));
+  });
+
+  descriptions.forEach(item=>{
+    item.textContent=language==='ja' ? item.dataset.copyJa : item.dataset.copyEn;
+  });
+
+  try{localStorage.setItem('equipment-language',language)}catch(e){}
+}
+
+languageButtons.forEach(button=>{
+  button.addEventListener('click',()=>setLanguage(button.dataset.lang));
+});
+
+let initialLanguage='en';
+try{
+  const saved=localStorage.getItem('equipment-language');
+  if(saved==='ja'||saved==='en')initialLanguage=saved;
+  else if((navigator.language||'').toLowerCase().startsWith('ja'))initialLanguage='ja';
+}catch(e){}
+
+setLanguage(initialLanguage);
 </script>
 </body>
 </html>
