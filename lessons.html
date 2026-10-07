@@ -177,7 +177,6 @@ body[data-language="ja"] .detail-copy{
 }
 .group-price-card{
   grid-column:1 / -1;
-  position:relative;
   display:grid;
   grid-template-columns:minmax(0,1fr) auto;
   align-items:end;
@@ -185,11 +184,6 @@ body[data-language="ja"] .detail-copy{
   padding:25px 22px 23px;
   border:1px solid var(--line);
   background:rgba(247,242,233,.28);
-}
-.group-price-card::before{
-  content:"";
-  position:absolute;top:-1px;left:-1px;right:-1px;
-  height:2px;background:var(--crimson);
 }
 .group-price-card .price{
   font-size:42px;
@@ -200,8 +194,8 @@ body[data-language="ja"] .detail-copy{
 }
 .group-price-card .price-type{
   color:var(--crimson);
-  font-size:8px;
-  letter-spacing:1.8px;
+  font-size:9.5px;
+  letter-spacing:1.9px;
 }
 .group-price-card .price-duration{
   margin-top:7px;
@@ -333,7 +327,7 @@ footer{
     border-top:1px solid var(--line);
     text-align:left;
   }
-  .group-price-card .price-type{font-size:7.5px}
+  .group-price-card .price-type{font-size:9px}
   .price-per{font-size:10px}
   body[data-language="ja"] .price-per{font-size:11px}
   .topic-card{padding:18px 18px 20px}.detail-card,.price-card{padding:20px 18px}
@@ -511,7 +505,7 @@ footer{
         <div class="step-name">Inquire</div>
         <p class="step-copy localized-copy"
            data-copy-en="Send a lesson inquiry through the contact page."
-           data-copy-ja="Contactページからレッスン希望を送信">
+           data-copy-ja="Contactページからレッスン希望を送信。">
           Send a lesson inquiry through the contact page.
         </p>
       </article>
@@ -521,7 +515,7 @@ footer{
         <div class="step-name">Schedule</div>
         <p class="step-copy localized-copy"
            data-copy-en="Confirm a date and lesson length."
-           data-copy-ja="日程とレッスン時間を決定">
+           data-copy-ja="日程とレッスン時間を決定。">
           Confirm a date and lesson length.
         </p>
       </article>
@@ -531,7 +525,7 @@ footer{
         <div class="step-name">Studio</div>
         <p class="step-copy localized-copy"
            data-copy-en="Confirm the studio and make the reservation."
-           data-copy-ja="使用スタジオを確認し、生徒側で予約">
+           data-copy-ja="使用スタジオを確認し、生徒側で予約。">
           Confirm the studio and make the reservation.
         </p>
       </article>
@@ -541,7 +535,7 @@ footer{
         <div class="step-name">Lesson</div>
         <p class="step-copy localized-copy"
            data-copy-en="Meet at the studio for the lesson."
-           data-copy-ja="スタジオでレッスンを実施">
+           data-copy-ja="スタジオでレッスンを実施。">
           Meet at the studio for the lesson.
         </p>
       </article>
@@ -552,7 +546,7 @@ footer{
         <h4 class="cta-title">Book a Lesson</h4>
         <p class="cta-copy localized-copy"
            data-copy-en="For lesson availability and scheduling, send an inquiry through the contact form."
-           data-copy-ja="空き日程やレッスンについてはContactフォームからお問い合わせください">
+           data-copy-ja="空き日程やレッスンについてはContactフォームからお問い合わせください。">
           For lesson availability and scheduling, send an inquiry through the contact form.
         </p>
       </div>
