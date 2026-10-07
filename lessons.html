@@ -173,8 +173,40 @@ body[data-language="ja"] .detail-copy{
 }
 
 .price-grid{
-  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;
 }
+.group-price-card{
+  grid-column:1 / -1;
+  position:relative;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  align-items:end;
+  gap:24px;
+  padding:27px 22px 25px;
+  border:1px solid var(--crimson);
+  background:rgba(247,242,233,.38);
+}
+.group-price-card::before{
+  content:"";
+  position:absolute;top:-1px;left:-1px;right:-1px;
+  height:4px;background:var(--crimson);
+}
+.group-price-card .price{
+  font-size:47px;
+}
+.group-price-meta{
+  text-align:right;
+  padding-bottom:3px;
+}
+.group-price-card .price-type{
+  color:var(--crimson);
+  font-size:9px;
+  letter-spacing:2px;
+}
+.group-price-card .price-duration{
+  margin-top:7px;
+}
+
 .price-card{
   padding:25px 22px;border:1px solid var(--line);
 }
@@ -188,9 +220,12 @@ body[data-language="ja"] .detail-copy{
   letter-spacing:1.6px;
 }
 .price-per{
-  margin-top:7px;color:var(--muted);
-  font-family:var(--sans);font-size:7px;font-weight:600;
-  letter-spacing:1.3px;
+  margin-top:10px;color:var(--ink);
+  font-family:var(--sans);font-size:11px;font-weight:600;
+  line-height:1.3;letter-spacing:1.5px;
+}
+body[data-language="ja"] .price-per{
+  font-family:var(--jp);font-size:12px;letter-spacing:.08em;
 }
 .price{
   margin-top:8px;font-family:var(--serif);
@@ -286,6 +321,21 @@ footer{
 
   .section{padding:38px 0}
   .topic-grid,.details-grid,.price-grid{grid-template-columns:1fr}
+  .group-price-card{
+    grid-column:auto;
+    display:block;
+    padding:24px 18px 22px;
+  }
+  .group-price-card .price{font-size:42px}
+  .group-price-meta{
+    margin-top:18px;
+    padding-top:16px;
+    border-top:1px solid var(--line);
+    text-align:left;
+  }
+  .group-price-card .price-type{font-size:8px}
+  .price-per{font-size:10.5px}
+  body[data-language="ja"] .price-per{font-size:11.5px}
   .topic-card{padding:18px 18px 20px}.detail-card,.price-card{padding:20px 18px}
   .topic-name{font-size:28px}
   .topic-description{font-size:10.5px}
@@ -428,13 +478,18 @@ footer{
         <div class="price">¥8,000</div>
       </article>
 
-      <article class="price-card">
-        <div class="price-type">GROUP</div>
-        <div class="price-duration">120 MIN</div>
-        <div class="price">¥5,000</div>
-        <div class="price-per localized-copy"
-             data-copy-en="PER PERSON"
-             data-copy-ja="1名あたり">PER PERSON</div>
+      <article class="group-price-card">
+        <div>
+          <div class="price-type">GROUP LESSON</div>
+          <div class="price">¥5,000</div>
+          <div class="price-per localized-copy"
+               data-copy-en="PER PERSON"
+               data-copy-ja="1名あたり">PER PERSON</div>
+        </div>
+
+        <div class="group-price-meta">
+          <div class="price-duration">120 MIN</div>
+        </div>
       </article>
     </div>
 
