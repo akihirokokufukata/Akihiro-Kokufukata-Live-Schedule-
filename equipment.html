@@ -249,6 +249,29 @@ footer{
   body[data-language="ja"] .gear-description{font-size:10.5px;line-height:1.85}
   .trumpet-mouthpieces .maker-group:nth-child(2){grid-row:auto}
 }
+
+.lesson-teaser{
+  display:flex;align-items:center;justify-content:space-between;gap:24px;
+  margin-top:45px;padding:25px 0;
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+}
+.lesson-teaser-label{
+  color:var(--crimson);font-family:var(--sans);font-size:8px;font-weight:600;letter-spacing:2px;
+}
+.lesson-teaser-copy{
+  margin-top:7px;color:var(--muted);font-family:var(--serif);font-size:21px;line-height:1.15;
+}
+.lesson-teaser-link{
+  color:var(--crimson);font-family:var(--sans);font-size:8px;font-weight:600;
+  letter-spacing:1.4px;text-decoration:none;white-space:nowrap;
+}
+.lesson-teaser-link:hover{color:var(--crimson-dark)}
+@media(max-width:650px){
+  .lesson-teaser{display:block;margin-top:34px;padding:21px 0}
+  .lesson-teaser-copy{font-size:18px}
+  .lesson-teaser-link{display:inline-block;margin-top:14px}
+}
+
 </style>
 </head>
 <body>
@@ -264,6 +287,7 @@ footer{
     <a href="bio.html">BIO</a>
     <a href="music.html">MUSIC</a>
     <a href="equipment.html" class="current" aria-current="page">EQUIPMENT</a>
+    <a href="lessons.html">LESSONS</a>
     <a href="contact.html">CONTACT</a>
   </nav>
 
@@ -302,7 +326,7 @@ footer{
               <div class="gear-use">MAIN · COMBO / LEAD + SOLO</div>
               <p class="gear-description"
                  data-copy-en="Main mouthpiece for combo playing, and for jobs where I cover both lead and solos."
-                 data-copy-ja="コンボでの演奏を中心に使用。リードとソロの両方を担当する現場でもメインとして使用。">
+                 data-copy-ja="コンボでの演奏を中心に使用。リードとソロの両方を担当する現場でも、メインとして使用。">
                 Main mouthpiece for combo playing, and for jobs where I cover both lead and solos.
               </p>
             </div>
@@ -388,6 +412,13 @@ footer{
     </div>
   </section>
 </section>
+<div class="lesson-teaser">
+  <div>
+    <div class="lesson-teaser-label">PRIVATE LESSONS</div>
+    <div class="lesson-teaser-copy">Trumpet · Improvisation · Lead Trumpet · Section Playing</div>
+  </div>
+  <a class="lesson-teaser-link" href="lessons.html">VIEW LESSONS →</a>
+</div>
 
 <footer>
   <div class="footer-name">AKIHIRO KOKUFUKATA</div>
