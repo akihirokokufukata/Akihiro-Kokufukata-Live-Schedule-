@@ -1,355 +1,1243 @@
-window.MUSIC_DATA = {
-  people: [
-    {
-      id: "akihiro-kokufukata",
-      name: "Akihiro Kokufukata",
-      aliases: ["國府方章弘", "国府方章弘"]
-    },
-    {
-      id: "fumiya-morishita",
-      name: "Fumiya Morishita",
-      aliases: ["森下歩哉"],
-      affiliation: "Groove Syndicate"
-    },
-    {
-      id: "kosuke-kashihara",
-      name: "Kosuke Kashihara",
-      aliases: ["Kassy"]
-    },
-    {
-      id: "juan-saus",
-      name: "Juan Saus",
-      aliases: ["Juanito Saus"]
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Music | Akihiro Kokufukata</title>
+<meta name="description" content="Discography and videos by trumpeter and composer Akihiro Kokufukata (國府方章弘 / 国府方章弘).">
+<link rel="canonical" href="https://akihirokokufukata.github.io/Akihiro-Kokufukata-Live-Schedule-/music.html">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Music | Akihiro Kokufukata">
+<meta property="og:description" content="Discography and selected videos by Akihiro Kokufukata.">
+<meta property="og:url" content="https://akihirokokufukata.github.io/Akihiro-Kokufukata-Live-Schedule-/music.html">
+<meta property="og:image" content="https://akihirokokufukata.github.io/Akihiro-Kokufukata-Live-Schedule-/images/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Noto+Serif+JP:wght@400;500;600&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --paper:#f3eee5;
+  --card:#f7f2e9;
+  --ink:#181313;
+  --muted:#756b66;
+  --crimson:#98182a;
+  --crimson-dark:#76101f;
+  --line:#cfc2b6;
+  --serif:"Cormorant Garamond",Georgia,serif;
+  --jp:"Noto Serif JP",serif;
+  --sans:"Space Grotesk",Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  -webkit-font-smoothing:antialiased;
+}
+button,a{-webkit-tap-highlight-color:transparent}
+button{font:inherit}
+main{
+  width:100%;max-width:1100px;margin:0 auto;
+  padding:58px 30px 90px;
+  overflow-x:hidden;
+}
+
+/* Header */
+header{position:relative;padding:25px 10px 58px}
+.name-wrap{display:inline-block}
+.artist-name{
+  margin:0;max-width:640px;
+  font-family:var(--serif);
+  font-size:clamp(58px,8.5vw,100px);
+  font-weight:600;line-height:.82;letter-spacing:-3px;
+}
+.artist-name span{display:block}
+.name-line{
+  width:100%;height:1.5px;margin-top:24px;
+  background:var(--crimson);
+}
+.artist-role{
+  margin-top:19px;color:var(--crimson);
+  font-family:var(--sans);font-size:13px;font-weight:600;
+  letter-spacing:5px;
+}
+
+/* Menu */
+.menu-toggle{
+  position:absolute;top:42px;right:32px;z-index:30;
+  width:46px;height:38px;padding:5px 3px;border:0;
+  background:transparent;cursor:pointer;
+}
+.menu-toggle span{
+  display:block;width:100%;height:2px;margin:7px 0;
+  background:var(--crimson);
+  transition:transform .25s ease,opacity .2s ease;
+}
+.menu-toggle.open span:nth-child(1){transform:translateY(9px) rotate(45deg)}
+.menu-toggle.open span:nth-child(2){opacity:0}
+.menu-toggle.open span:nth-child(3){transform:translateY(-9px) rotate(-45deg)}
+.menu-backdrop{
+  position:fixed;inset:0;z-index:20;
+  background:rgba(24,19,19,.22);
+  opacity:0;visibility:hidden;
+  transition:.25s ease;
+}
+.menu-backdrop.open{opacity:1;visibility:visible}
+.site-menu{
+  position:fixed;top:0;right:0;z-index:25;
+  width:min(360px,84vw);height:100vh;
+  padding:125px 42px 40px;
+  background:var(--card);
+  border-left:1px solid var(--line);
+  transform:translateX(102%);
+  transition:transform .28s ease;
+  box-shadow:-12px 0 35px rgba(24,19,19,.08);
+}
+.site-menu.open{transform:translateX(0)}
+.site-menu a{
+  display:block;padding:20px 0;
+  border-bottom:1px solid var(--line);
+  color:var(--ink);
+  font-family:var(--serif);font-size:30px;font-weight:600;
+  text-decoration:none;
+}
+.site-menu a.current,.site-menu a:hover{color:var(--crimson)}
+
+/* Page */
+.music{padding:0 6px}
+.music-topbar{
+  display:flex;align-items:flex-end;justify-content:space-between;
+  gap:38px;
+}
+.music-title{
+  margin:0;flex:0 0 auto;font-family:var(--serif);
+  font-size:clamp(50px,7vw,76px);
+  font-weight:600;line-height:.95;letter-spacing:-1.5px;
+}
+.music-rule{
+  width:100%;height:1px;
+  margin:16px 0 0;
+  background:var(--crimson);
+}
+.music-section{margin-top:34px}
+.section-heading{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:18px;margin-bottom:18px;
+}
+.section-title{
+  margin:0;color:var(--crimson);
+  font-family:var(--sans);font-size:10px;font-weight:600;
+  letter-spacing:3px;
+}
+.section-note{
+  margin:0;color:var(--muted);
+  font-family:var(--sans);font-size:7px;font-weight:500;
+  letter-spacing:1px;
+}
+
+
+/* Music search */
+.music-search{
+  width:min(340px,43%);
+  padding:0;border:0;
+}
+.music-search-label{
+  display:block;margin-bottom:4px;color:var(--crimson);
+  font-family:var(--sans);font-size:7px;font-weight:600;letter-spacing:1.9px;
+}
+.music-search-row{
+  display:flex;align-items:center;gap:6px;
+}
+.music-search-input{
+  flex:1;min-width:0;padding:3px 0 4px;border:0;
+  outline:0;background:transparent;color:var(--ink);
+  font-family:var(--serif);font-size:20px;line-height:1.05;
+}
+.music-search-input::placeholder{color:#a99f98}
+.music-search-clear{
+  flex:0 0 26px;width:26px;height:26px;padding:0;border:0;
+  background:transparent;color:var(--crimson);
+  font-family:var(--sans);font-size:18px;line-height:1;cursor:pointer;
+}
+.music-search-clear:hover{color:var(--crimson-dark)}
+.music-search-global{
+  display:none;margin-top:6px;color:var(--crimson);text-decoration:none;
+  font-family:var(--sans);font-size:7px;font-weight:600;letter-spacing:1px;
+}
+.music-search-global.visible{display:inline-block}
+.music-search-empty{
+  display:none;margin-top:12px;color:var(--muted);
+  font-family:var(--jp);font-size:11px;
+}
+.music-search-empty.visible{display:block}
+
+/* Discography year filters */
+.discography-tools{display:flex;align-items:center;gap:12px}
+.year-filters{display:flex;gap:5px;flex-wrap:wrap}
+.year-filter{
+  min-height:30px;padding:0 10px;border:1px solid var(--line);
+  background:transparent;color:var(--muted);
+  font-family:var(--sans);font-size:7px;font-weight:600;letter-spacing:1px;
+  cursor:pointer;
+}
+.year-filter.active,.year-filter:hover{
+  border-color:var(--crimson);background:var(--crimson);color:var(--paper);
+}
+
+/* Clickable artist / player names in card descriptions */
+.people-inline-link{
+  color:inherit;text-decoration:none;
+}
+.people-inline-link:hover{color:var(--crimson)}
+
+/* Track participants */
+.track-participants{
+  margin:5px 0 0 21px;color:var(--muted);
+  font-family:var(--sans);font-size:9px;line-height:1.6;
+}
+.track-participant-role{color:var(--muted)}
+
+/* Large-ensemble Personnel groups */
+.personnel-groups{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 28px;
+}
+.personnel-group-title{
+  margin:0 0 8px;color:var(--muted);
+  font-family:var(--sans);font-size:8px;font-weight:600;letter-spacing:1.7px;
+}
+.personnel-group .album-info-list li{margin:6px 0}
+
+/* Credits sources */
+.credit-source-list{display:flex;flex-wrap:wrap;gap:8px}
+.credit-source-link{
+  display:inline-flex;align-items:center;justify-content:space-between;gap:18px;
+  min-height:38px;padding:0 12px;border:1px solid var(--line);
+  color:var(--ink);text-decoration:none;
+  font-family:var(--sans);font-size:8px;font-weight:600;letter-spacing:1px;
+}
+.credit-source-link:hover{border-color:var(--crimson);color:var(--crimson)}
+
+@media(max-width:650px){
+  .music-topbar{
+    align-items:flex-end;gap:16px;
+  }
+  .music-title{
+    font-size:clamp(46px,13vw,60px);
+  }
+  .music-search{
+    width:auto;flex:0 1 300px;min-width:0;
+  }
+  .music-search-label{
+    margin-bottom:4px;font-size:6px;letter-spacing:1.5px;
+  }
+  .music-search-row{gap:4px}
+  .music-search-input{
+    font-size:15px;padding:2px 0 3px;
+  }
+  .music-search-clear{
+    width:22px;height:22px;flex-basis:22px;font-size:15px;
+  }
+  .music-search-global{
+    margin-top:4px;font-size:5.8px;letter-spacing:.7px;
+  }
+  .music-rule{margin-top:12px}
+  .music-section{margin-top:27px}
+  .section-heading{align-items:flex-start;margin-bottom:14px}
+  .discography-tools{align-items:flex-end;flex-direction:column;gap:8px}
+  .year-filters{justify-content:flex-end}
+  .personnel-groups{grid-template-columns:1fr;gap:18px}
+  .track-participants{font-size:8px}
+}
+
+/* Discography */
+.release-track{
+  display:flex;gap:16px;
+  width:100%;
+  overflow-x:auto;
+  scroll-snap-type:x mandatory;
+  scroll-behavior:smooth;
+  scrollbar-width:none;
+  padding-bottom:8px;
+}
+.release-track::-webkit-scrollbar{display:none}
+.release-card{
+  flex:0 0 clamp(200px,28vw,280px);
+  scroll-snap-align:start;
+  min-width:0;
+}
+.release-cover-button{
+  display:block;width:100%;aspect-ratio:1/1;
+  border:1px solid var(--line);
+  padding:0;background:var(--card);
+  overflow:hidden;cursor:pointer;
+}
+.release-cover-button img{
+  display:block;width:100%;height:100%;object-fit:cover;
+}
+
+.release-cover-placeholder{
+  width:100%;height:100%;display:flex;align-items:center;justify-content:center;
+  padding:18px;text-align:center;background:var(--card);color:var(--muted);
+  font-family:var(--serif);font-size:20px;line-height:1.05;
+}
+.album-info-cover-placeholder{
+  width:100%;height:100%;display:flex;align-items:center;justify-content:center;
+  padding:14px;text-align:center;background:var(--paper);color:var(--muted);
+  font-family:var(--serif);font-size:22px;line-height:1.05;
+}
+.album-track-note{
+  margin-left:5px;color:var(--muted);
+  font-family:var(--sans);font-size:9px;letter-spacing:.3px;
+}
+
+.release-meta{padding:11px 1px 0}
+.release-title{
+  margin:0;font-family:var(--serif);
+  font-size:23px;font-weight:600;line-height:1.05;
+}
+.release-artist{
+  margin-top:6px;color:var(--muted);
+  font-family:var(--jp);font-size:11px;line-height:1.55;
+}
+.release-note,.release-credit{
+  margin-top:4px;color:var(--crimson);
+  font-family:var(--jp);font-size:9px;line-height:1.45;
+}
+.release-action{
+  margin-top:10px;
+  border:1px solid var(--line);background:transparent;
+  color:var(--ink);padding:7px 10px;
+  font-family:var(--sans);font-size:7px;font-weight:600;
+  letter-spacing:1px;cursor:pointer;
+}
+.release-action:hover{
+  border-color:var(--crimson);color:var(--crimson);
+}
+.rail-controls{display:flex;gap:5px}
+.rail-button{
+  width:34px;height:30px;
+  border:1px solid var(--crimson);
+  background:transparent;color:var(--crimson);
+  cursor:pointer;font-family:var(--serif);font-size:19px;
+}
+.rail-button:hover{background:var(--crimson);color:var(--paper)}
+
+
+/* Album information modal */
+.album-info-modal{
+  position:fixed;inset:0;z-index:61;display:flex;align-items:flex-end;justify-content:center;
+  padding:20px;background:rgba(24,19,19,.46);opacity:0;visibility:hidden;
+  transition:opacity .22s ease,visibility .22s ease;
+}
+.album-info-modal.open{opacity:1;visibility:visible}
+.album-info-sheet{
+  width:min(720px,100%);max-height:88vh;overflow-y:auto;padding:18px 18px 26px;
+  background:var(--card);border:1px solid var(--line);
+  transform:translateY(20px);transition:transform .22s ease;
+}
+.album-info-modal.open .album-info-sheet{transform:translateY(0)}
+.album-info-close{
+  display:flex;align-items:center;justify-content:center;width:38px;height:38px;margin-left:auto;
+  border:1px solid var(--line);background:transparent;color:var(--crimson);font-size:24px;cursor:pointer;
+}
+.album-info-hero{display:grid;grid-template-columns:minmax(220px,310px) 1fr;gap:24px;align-items:start;margin-top:12px}
+.album-info-cover{width:100%;aspect-ratio:1/1;border:1px solid var(--line);background:var(--paper);overflow:hidden}
+.album-info-cover img{width:100%;height:100%;display:block;object-fit:cover}
+.album-info-title{margin:0;font-family:var(--serif);font-size:38px;font-weight:600;line-height:1}
+.album-info-artist{margin-top:9px;color:var(--muted);font-family:var(--jp);font-size:12px;line-height:1.6}
+.album-info-note,.album-info-credit{margin-top:8px;color:var(--crimson);font-family:var(--jp);font-size:11px;line-height:1.6}
+.album-info-sections{margin-top:26px;border-top:1px solid var(--line)}
+.album-info-section{padding:19px 0;border-bottom:1px solid var(--line)}
+.album-info-label{margin:0 0 10px;color:var(--crimson);font-family:var(--sans);font-size:9px;font-weight:600;letter-spacing:2.2px}
+.album-info-list{margin:0;padding:0;list-style:none}
+.album-info-list li{margin:7px 0;font-family:var(--jp);font-size:12px;line-height:1.65}
+.album-player-link{color:var(--ink);text-decoration:none}
+.album-player-link:hover{color:var(--crimson)}
+.album-info-grid{display:grid;grid-template-columns:minmax(120px,170px) 1fr;gap:7px 16px}
+.album-info-key{color:var(--muted);font-family:var(--sans);font-size:9px;letter-spacing:.8px}
+.album-info-value{font-family:var(--jp);font-size:12px;line-height:1.55}
+@media(max-width:650px){
+  .album-info-modal{padding:0}
+  .album-info-sheet{width:100%;max-height:90vh;padding:16px 16px 24px;border-left:0;border-right:0;border-bottom:0}
+  .album-info-hero{grid-template-columns:128px 1fr;gap:15px}
+  .album-info-title{font-size:27px}
+  .album-info-artist{font-size:11px}
+  .album-info-note,.album-info-credit{font-size:10px}
+  .album-info-list li,.album-info-value{font-size:11px}
+  .album-info-grid{grid-template-columns:105px 1fr;gap:7px 12px}
+}
+
+/* Discography modal */
+.discography-modal{
+  position:fixed;inset:0;z-index:60;
+  display:flex;align-items:flex-end;justify-content:center;
+  padding:20px;
+  background:rgba(24,19,19,.46);
+  opacity:0;visibility:hidden;
+  transition:.22s ease;
+}
+.discography-modal.open{opacity:1;visibility:visible}
+.discography-sheet{
+  width:min(560px,100%);
+  max-height:82vh;overflow-y:auto;
+  padding:18px 18px 24px;
+  background:var(--card);
+  border:1px solid var(--line);
+  transform:translateY(20px);
+  transition:transform .22s ease;
+}
+.discography-modal.open .discography-sheet{transform:translateY(0)}
+.modal-close{
+  display:flex;align-items:center;justify-content:center;
+  width:38px;height:38px;margin-left:auto;
+  border:1px solid var(--line);background:transparent;
+  color:var(--crimson);font-size:24px;cursor:pointer;
+}
+.modal-grid{
+  display:grid;grid-template-columns:120px 1fr;
+  gap:17px;margin-top:12px;
+}
+.modal-cover{
+  width:120px;aspect-ratio:1/1;
+  border:1px solid var(--line);overflow:hidden;
+}
+.modal-cover img{
+  width:100%;height:100%;display:block;object-fit:cover;
+}
+.modal-title{
+  margin:2px 0 0;
+  font-family:var(--serif);font-size:30px;font-weight:600;line-height:1;
+}
+.modal-artist,.modal-note,.modal-credit{
+  margin-top:6px;color:var(--muted);
+  font-family:var(--jp);font-size:10px;line-height:1.55;
+}
+.modal-note,.modal-credit{color:var(--crimson)}
+.listen-label{
+  margin-top:22px;color:var(--crimson);
+  font-family:var(--sans);font-size:9px;font-weight:600;
+  letter-spacing:2.4px;
+}
+.listen-links{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:8px;margin-top:11px;
+}
+.listen-link{
+  display:flex;align-items:center;justify-content:space-between;
+  min-height:44px;padding:0 13px;
+  border:1px solid var(--line);
+  color:var(--ink);text-decoration:none;
+  font-family:var(--sans);font-size:8px;font-weight:600;
+  letter-spacing:1px;
+}
+.listen-link:hover{
+  border-color:var(--crimson);color:var(--crimson);
+}
+
+/* Videos */
+.video-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:24px 18px;
+}
+.video-frame{
+  position:relative;width:100%;aspect-ratio:16/9;
+  border:1px solid var(--line);background:#120f0f;
+  overflow:hidden;
+}
+.video-thumb{
+  position:absolute;inset:0;
+  width:100%;height:100%;
+  border:0;padding:0;background:#120f0f;
+  cursor:pointer;
+}
+.video-thumb img{
+  width:100%;height:100%;
+  display:block;object-fit:cover;opacity:.9;
+}
+.play-button{
+  position:absolute;left:50%;top:50%;
+  transform:translate(-50%,-50%);
+  width:52px;height:52px;border-radius:50%;
+  background:var(--crimson);
+}
+.play-button::after{
+  content:"";position:absolute;left:21px;top:15px;
+  border-top:11px solid transparent;
+  border-bottom:11px solid transparent;
+  border-left:17px solid var(--paper);
+}
+.video-frame iframe{
+  position:absolute;inset:0;width:100%;height:100%;border:0;
+}
+.video-title{
+  margin:11px 0 0;
+  font-family:var(--serif);font-size:24px;font-weight:600;line-height:1.05;
+}
+.video-subtitle{
+  margin-top:7px;color:var(--muted);
+  font-family:var(--sans);font-size:10px;letter-spacing:.85px;line-height:1.6;
+}
+
+footer{
+  margin-top:75px;padding:32px 4px 15px;
+  border-top:1px solid var(--line);
+}
+.footer-name{
+  font-family:var(--sans);font-size:9px;font-weight:500;letter-spacing:4px;
+}
+.footer-role{
+  margin-top:8px;color:var(--muted);
+  font-family:var(--sans);font-size:8px;letter-spacing:3px;
+}
+.footer-instagram{
+  display:inline-flex;align-items:center;gap:9px;margin-top:18px;
+  color:var(--crimson);text-decoration:none;
+  font-family:var(--sans);font-size:9px;font-weight:600;letter-spacing:2px;
+}
+.footer-instagram:hover{text-decoration:underline}
+.footer-instagram-icon{
+  width:22px;height:22px;display:block;flex:0 0 auto;
+}
+.footer-instagram-icon rect,
+.footer-instagram-icon circle{
+  fill:none;stroke:currentColor;stroke-width:1.55;
+  vector-effect:non-scaling-stroke;
+}
+
+@media(max-width:650px){
+  main{padding:28px 15px 65px}
+  header{padding:26px 6px 40px}
+  .artist-name{
+    max-width:350px;font-size:clamp(52px,15vw,70px);
+    line-height:.86;letter-spacing:-2px;
+  }
+  .name-line{margin-top:20px}
+  .artist-role{margin-top:17px;font-size:11px;letter-spacing:3.3px}
+  .menu-toggle{top:29px;right:18px;width:39px}
+  .site-menu{padding:105px 28px 35px}
+  .site-menu a{font-size:27px}
+
+  .music-section{margin-top:48px}
+  .section-note{display:none}
+
+  /* About two album covers visible */
+  .release-track{
+    gap:10px;
+    margin-right:-21px;
+    padding-right:21px;
+  }
+  .release-card{flex-basis:42vw}
+  .release-title{font-size:18px}
+  .release-artist{font-size:10px;line-height:1.55}
+  .release-note,.release-credit{font-size:9px;line-height:1.5}
+  .release-action{font-size:6.5px;padding:6px 8px;margin-top:8px}
+
+  .video-grid{grid-template-columns:1fr;gap:30px}
+  .video-title{font-size:22px}
+  .video-subtitle{font-size:10px;line-height:1.6;letter-spacing:.75px}
+
+  .discography-modal{padding:0}
+  .discography-sheet{
+    width:100%;max-height:86vh;
+    padding:16px 16px 24px;
+    border-left:0;border-right:0;border-bottom:0;
+  }
+  .modal-grid{grid-template-columns:96px 1fr;gap:14px}
+  .modal-cover{width:96px}
+  .modal-title{font-size:26px}
+  .listen-links{grid-template-columns:1fr}
+}
+</style>
+</head>
+
+<body>
+<main>
+<header>
+  <button class="menu-toggle" id="menuToggle" type="button" aria-label="Open menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="menu-backdrop" id="menuBackdrop"></div>
+
+  <nav class="site-menu" id="siteMenu" aria-label="Site navigation">
+    <a href="index.html">LIVE SCHEDULE</a>
+    <a href="bio.html">BIO</a>
+    <a href="music.html" class="current" aria-current="page">MUSIC</a><a href="equipment.html">EQUIPMENT</a>
+    <a href="lessons.html">LESSONS</a>
+    <a href="contact.html">CONTACT</a>
+  </nav>
+
+  <div class="name-wrap">
+    <h1 class="artist-name"><span>Akihiro</span><span>Kokufukata</span></h1>
+    <div class="name-line"></div>
+  </div>
+  <div class="artist-role">TRUMPETER / COMPOSER</div>
+</header>
+
+<section class="music" aria-labelledby="musicTitle">
+  <div class="music-topbar">
+    <h2 class="music-title" id="musicTitle">Music</h2>
+
+    <div class="music-search">
+      <label class="music-search-label" for="musicSearchInput">SEARCH</label>
+      <div class="music-search-row">
+        <input
+          class="music-search-input"
+          id="musicSearchInput"
+          type="search"
+          placeholder="Player, recording..."
+          autocomplete="off"
+        >
+        <button class="music-search-clear" id="musicSearchClear" type="button" aria-label="Clear search">×</button>
+      </div>
+      <a class="music-search-global" id="musicSearchGlobal" href="index.html">LIVE + RECORDING RESULTS ↗</a>
+    </div>
+  </div>
+
+  <div class="music-rule"></div>
+  <div class="music-search-empty" id="musicSearchEmpty">No matching recordings or videos.</div>
+
+  <!-- DISCOGRAPHY FIRST -->
+  <section class="music-section" aria-labelledby="discographyTitle">
+    <div class="section-heading">
+      <h3 class="section-title" id="discographyTitle">DISCOGRAPHY</h3>
+      <div class="discography-tools">
+        <div class="year-filters" id="yearFilters" aria-label="Discography year filter"></div>
+        <div class="rail-controls">
+          <button class="rail-button" id="releasePrev" type="button" aria-label="Previous">‹</button>
+          <button class="rail-button" id="releaseNext" type="button" aria-label="Next">›</button>
+        </div>
+      </div>
+    </div>
+    <div class="release-track" id="releaseTrack"></div>
+  </section>
+
+  <!-- VIDEOS SECOND -->
+  <section class="music-section" aria-labelledby="videosTitle">
+    <div class="section-heading">
+      <h3 class="section-title" id="videosTitle">VIDEOS</h3>
+      <p class="section-note">TAP A THUMBNAIL TO PLAY</p>
+    </div>
+    <div class="video-grid" id="videoGrid"></div>
+  </section>
+</section>
+
+
+<div class="album-info-modal" id="albumInfoModal" aria-hidden="true">
+  <div class="album-info-sheet" role="dialog" aria-modal="true" aria-labelledby="albumInfoTitle">
+    <button class="album-info-close" id="albumInfoClose" type="button" aria-label="Close">×</button>
+    <div class="album-info-hero">
+      <div class="album-info-cover" id="albumInfoCover"></div>
+      <div>
+        <h4 class="album-info-title" id="albumInfoTitle"></h4>
+        <div class="album-info-artist" id="albumInfoArtist"></div>
+        <div class="album-info-note" id="albumInfoNote"></div>
+        <div class="album-info-credit" id="albumInfoCredit"></div>
+      </div>
+    </div>
+    <div class="album-info-sections" id="albumInfoSections"></div>
+  </div>
+</div>
+
+<div class="discography-modal" id="discographyModal" aria-hidden="true">
+  <div class="discography-sheet" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <button class="modal-close" id="modalClose" type="button" aria-label="Close">×</button>
+    <div class="modal-grid">
+      <div class="modal-cover" id="modalCover"></div>
+      <div>
+        <h4 class="modal-title" id="modalTitle"></h4>
+        <div class="modal-artist" id="modalArtist"></div>
+        <div class="modal-note" id="modalNote"></div>
+        <div class="modal-credit" id="modalCredit"></div>
+      </div>
+    </div>
+    <div class="listen-label">LISTEN / WATCH</div>
+    <div class="listen-links" id="modalLinks"></div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-name">AKIHIRO KOKUFUKATA</div>
+  <div class="footer-role">TRUMPETER / COMPOSER</div>
+  <a class="footer-instagram" href="https://www.instagram.com/akihiro_kokufukata/" target="_blank" rel="noopener noreferrer" aria-label="Akihiro Kokufukata on Instagram">
+    <svg class="footer-instagram-icon" viewBox="0 0 32 32" aria-hidden="true">
+      <rect x="4" y="4" width="24" height="24" rx="6"></rect>
+      <circle cx="16" cy="16" r="5.5"></circle>
+      <circle cx="23.2" cy="8.8" r="1.15" style="fill:currentColor;stroke:none"></circle>
+    </svg>
+    <span>INSTAGRAM</span>
+  </a>
+</footer>
+</main>
+
+<script src="music-data.js?v=20261006-8"></script>
+<script>
+const menuToggle = document.getElementById('menuToggle');
+const siteMenu = document.getElementById('siteMenu');
+const menuBackdrop = document.getElementById('menuBackdrop');
+
+function setMenu(open){
+  menuToggle.classList.toggle('open',open);
+  siteMenu.classList.toggle('open',open);
+  menuBackdrop.classList.toggle('open',open);
+  menuToggle.setAttribute('aria-expanded',String(open));
+}
+menuToggle.addEventListener('click',()=>setMenu(!siteMenu.classList.contains('open')));
+menuBackdrop.addEventListener('click',()=>setMenu(false));
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){
+    setMenu(false);
+    closeAlbumInfo();
+    closeReleaseModal();
+  }
+});
+
+const DATA = window.MUSIC_DATA || { releases:[], videos:[] };
+
+function esc(value=''){
+  return String(value)
+    .replaceAll('&','&amp;')
+    .replaceAll('<','&lt;')
+    .replaceAll('>','&gt;')
+    .replaceAll('"','&quot;')
+    .replaceAll("'","&#039;");
+}
+
+function coverMarkup(item, mode='card'){
+  if(item.cover){
+    return `<img src="${esc(item.cover)}" alt="${esc(item.title)} album cover">`;
+  }
+  const cls = mode === 'modal' ? 'album-info-cover-placeholder' : 'release-cover-placeholder';
+  return `<div class="${cls}">${esc(item.title || 'Album cover')}</div>`;
+}
+
+function getPeopleDirectory(){
+  return Array.isArray(DATA.people) ? DATA.people : [];
+}
+
+function getPersonIdentity(name){
+  const q = String(name || '').trim().toLowerCase();
+  if(!q) return null;
+
+  return getPeopleDirectory().find(person => {
+    const names = [person.name, ...(person.aliases || [])]
+      .filter(Boolean)
+      .map(value => String(value).trim().toLowerCase());
+    return names.includes(q);
+  }) || null;
+}
+
+function personSearchName(person){
+  if(person?.searchName) return person.searchName;
+  const identity = getPersonIdentity(person?.name || '');
+  return identity?.name || person?.name || '';
+}
+
+function personAliases(name){
+  const identity = getPersonIdentity(name);
+  return identity ? [identity.name, ...(identity.aliases || [])] : [name];
+}
+
+function linkedParts(parts, fallback=''){
+  if(!Array.isArray(parts) || !parts.length) return esc(fallback);
+  return parts.map(part => {
+    if(part.text) return esc(part.text);
+    const label = part.label || part.search || '';
+    const search = part.search || label;
+    return `<a class="people-inline-link" href="${playerSearchURL(search)}">${esc(label)}</a>`;
+  }).join('');
+}
+
+function recordingSearchText(item){
+  const personnel = (item.personnel || []).flatMap(person => {
+    const name = typeof person === 'string' ? person : (person.name || '');
+    const role = typeof person === 'string' ? '' : (person.role || '');
+    return [...personAliases(name), role];
+  });
+
+  const tracks = (item.tracks || []).flatMap(track => {
+    if(typeof track === 'string') return [track];
+    const participants = (track.participants || []).flatMap(person => [
+      ...personAliases(person.name || ''),
+      person.role || ''
+    ]);
+    return [track.title || '', track.note || '', ...participants];
+  });
+
+  const credits = (item.credits || []).flatMap(row => [row.label || '', row.value || '']);
+
+  return [
+    item.title || '',
+    item.artist || '',
+    item.year || '',
+    item.note || '',
+    ...(item.searchNames || []),
+    ...personnel,
+    ...tracks,
+    ...credits
+  ].join(' ').toLowerCase();
+}
+
+function videoSearchText(item){
+  const people = (item.subtitleParts || [])
+    .filter(part => part.search || part.label)
+    .flatMap(part => personAliases(part.search || part.label || ''));
+  return [item.title || '', item.subtitle || '', ...people].join(' ').toLowerCase();
+}
+
+function matchesMusicQuery(text, query){
+  const q = String(query || '').trim().toLowerCase();
+  if(!q) return true;
+  return q.split(/\s+/).filter(Boolean).every(word => text.includes(word));
+}
+
+function getPersonnelGroup(person){
+  const role = String(person?.role || '').toLowerCase();
+  if(role.includes('special guest')) return 'SPECIAL GUESTS';
+  if(/saxophone|clarinet|flute/.test(role)) return 'SAXOPHONES / REEDS';
+  if(role.includes('trumpet')) return 'TRUMPETS';
+  if(/trombone|tuba/.test(role)) return 'TROMBONES / LOW BRASS';
+  if(/guitar|piano|keys|keyboard|synth|bass|drums|vocal/.test(role)) return 'RHYTHM SECTION';
+  return 'OTHER';
+}
+
+function personnelLink(person){
+  const name = typeof person === 'string' ? person : (person.name || '');
+  const role = typeof person === 'string' ? '' : (person.role || '');
+  const searchName = typeof person === 'string' ? person : personSearchName(person);
+  return `<li><a class="album-player-link" href="${playerSearchURL(searchName)}">${esc(name)}</a>${role ? ` — ${esc(role)}` : ''}</li>`;
+}
+
+function trackParticipantsMarkup(track){
+  const participants = Array.isArray(track?.participants) ? track.participants : [];
+  if(!participants.length) return '';
+  return `
+    <div class="track-participants">
+      ${participants.map((person,index) => {
+        const searchName = personSearchName(person);
+        return `${index ? ' · ' : ''}<a class="people-inline-link" href="${playerSearchURL(searchName)}">${esc(person.name || '')}</a>${person.role ? `<span class="track-participant-role"> — ${esc(person.role)}</span>` : ''}`;
+      }).join('')}
+    </div>
+  `;
+}
+
+function personnelMarkup(item){
+  const personnel = Array.isArray(item.personnel) ? item.personnel : [];
+  if(!personnel.length) return '';
+
+  if(personnel.length < 12){
+    return `<ul class="album-info-list">${personnel.map(personnelLink).join('')}</ul>`;
+  }
+
+  const groups = new Map();
+  personnel.forEach(person => {
+    const group = getPersonnelGroup(person);
+    if(!groups.has(group)) groups.set(group, []);
+    groups.get(group).push(person);
+  });
+
+  const order = [
+    'SAXOPHONES / REEDS',
+    'TRUMPETS',
+    'TROMBONES / LOW BRASS',
+    'RHYTHM SECTION',
+    'SPECIAL GUESTS',
+    'OTHER'
+  ];
+
+  return `
+    <div class="personnel-groups">
+      ${order
+        .filter(group => groups.has(group))
+        .map(group => `
+          <div class="personnel-group">
+            <h6 class="personnel-group-title">${esc(group)}</h6>
+            <ul class="album-info-list">${groups.get(group).map(personnelLink).join('')}</ul>
+          </div>
+        `).join('')}
+    </div>
+  `;
+}
+
+
+/* ---------- Discography ---------- */
+const releaseTrack = document.getElementById('releaseTrack');
+const releases = Array.isArray(DATA.releases) ? DATA.releases : [];
+const releasePrev = document.getElementById('releasePrev');
+const releaseNext = document.getElementById('releaseNext');
+const yearFilters = document.getElementById('yearFilters');
+const musicSearchInput = document.getElementById('musicSearchInput');
+const musicSearchClear = document.getElementById('musicSearchClear');
+const musicSearchGlobal = document.getElementById('musicSearchGlobal');
+const musicSearchEmpty = document.getElementById('musicSearchEmpty');
+
+let activeYear = 'ALL';
+let musicQuery = '';
+
+function availableYears(){
+  return [...new Set(releases.map(item => String(item.year || '')).filter(Boolean))]
+    .sort((a,b) => Number(b) - Number(a));
+}
+
+function renderYearFilters(){
+  yearFilters.innerHTML = ['ALL', ...availableYears()].map(year => `
+    <button
+      class="year-filter ${activeYear === year ? 'active' : ''}"
+      type="button"
+      data-year="${esc(year)}"
+    >${esc(year)}</button>
+  `).join('');
+}
+
+function filteredReleases(){
+  return releases.filter(item => {
+    const yearMatch = activeYear === 'ALL' || String(item.year || '') === activeYear;
+    const searchMatch = matchesMusicQuery(recordingSearchText(item), musicQuery);
+    return yearMatch && searchMatch;
+  });
+}
+
+function renderReleaseCards(){
+  const visible = filteredReleases();
+
+  releaseTrack.innerHTML = visible.map(item => {
+    const index = releases.indexOf(item);
+    return `
+      <article class="release-card">
+        <button
+          class="release-cover-button"
+          type="button"
+          data-album-info="${index}"
+          aria-label="View album information for ${esc(item.title)}"
+        >
+          ${item.cover
+            ? `<img src="${esc(item.cover)}" alt="${esc(item.title)} album cover" loading="lazy">`
+            : coverMarkup(item, 'card')
+          }
+        </button>
+
+        <div class="release-meta">
+          <h4 class="release-title">${esc(item.title)}</h4>
+          <div class="release-artist">${linkedParts(item.artistParts, item.artist)}${item.year ? ` · ${esc(item.year)}` : ''}</div>
+          ${item.note ? `<div class="release-note">${esc(item.note)}</div>` : ''}
+          ${item.credit ? `<div class="release-credit">${esc(item.credit)}</div>` : ''}
+          <button class="release-action" type="button" data-streaming="${index}">LISTEN / WATCH</button>
+        </div>
+      </article>
+    `;
+  }).join('');
+
+  releaseTrack.hidden = !visible.length;
+  updateMusicEmptyState();
+}
+
+function releaseStep(){
+  const card = releaseTrack.querySelector('.release-card');
+  return card ? card.getBoundingClientRect().width + 16 : 220;
+}
+
+releasePrev.addEventListener('click',()=>{
+  releaseTrack.scrollBy({left:-releaseStep(),behavior:'smooth'});
+});
+releaseNext.addEventListener('click',()=>{
+  releaseTrack.scrollBy({left:releaseStep(),behavior:'smooth'});
+});
+
+yearFilters.addEventListener('click',e=>{
+  const button = e.target.closest('[data-year]');
+  if(!button) return;
+  activeYear = button.dataset.year || 'ALL';
+  renderYearFilters();
+  renderReleaseCards();
+});
+
+musicSearchInput.addEventListener('input',()=>{
+  musicQuery = musicSearchInput.value.trim();
+  musicSearchGlobal.href = `index.html?search=${encodeURIComponent(musicQuery)}`;
+  musicSearchGlobal.classList.toggle('visible',Boolean(musicQuery));
+  renderReleaseCards();
+  renderVideos();
+});
+
+musicSearchClear.addEventListener('click',()=>{
+  musicSearchInput.value = '';
+  musicQuery = '';
+  musicSearchGlobal.classList.remove('visible');
+  renderReleaseCards();
+  renderVideos();
+  musicSearchInput.focus();
+});
+
+renderYearFilters();
+
+/* ---------- Album information modal ---------- */
+const albumInfoModal = document.getElementById('albumInfoModal');
+const albumInfoClose = document.getElementById('albumInfoClose');
+const albumInfoCover = document.getElementById('albumInfoCover');
+const albumInfoTitle = document.getElementById('albumInfoTitle');
+const albumInfoArtist = document.getElementById('albumInfoArtist');
+const albumInfoNote = document.getElementById('albumInfoNote');
+const albumInfoCredit = document.getElementById('albumInfoCredit');
+const albumInfoSections = document.getElementById('albumInfoSections');
+
+function playerSearchURL(name){
+  return `index.html?search=${encodeURIComponent(name)}`;
+}
+
+function buildAlbumInfoSections(item){
+  const sections = [];
+
+  const tracks = Array.isArray(item.tracks) ? item.tracks : [];
+  if(tracks.length){
+    sections.push(`
+      <section class="album-info-section">
+        <h5 class="album-info-label">TRACKS</h5>
+        <ol class="album-info-list">
+          ${tracks.map(track => `
+            <li>
+              ${track.number ? `<span>${esc(track.number)}. </span>` : ''}
+              ${esc(track.title || track)}
+              ${trackParticipantsMarkup(track)}
+            </li>
+          `).join('')}
+        </ol>
+      </section>
+    `);
+  }
+
+  const personnel = Array.isArray(item.personnel) ? item.personnel : [];
+  if(personnel.length){
+    sections.push(`
+      <section class="album-info-section">
+        <h5 class="album-info-label">${esc(item.personnelLabel || 'PERSONNEL')}</h5>
+        ${personnelMarkup(item)}
+      </section>
+    `);
+  }
+
+  const credits = Array.isArray(item.credits) ? item.credits : [];
+  if(credits.length){
+    sections.push(`
+      <section class="album-info-section">
+        <h5 class="album-info-label">RECORDING / CREDITS</h5>
+        <div class="album-info-grid">
+          ${credits.map(row => `
+            <div class="album-info-key">${esc(row.label || '')}</div>
+            <div class="album-info-value">${esc(row.value || '')}</div>
+          `).join('')}
+        </div>
+      </section>
+    `);
+  }
+
+  const creditSources = Array.isArray(item.creditSources) ? item.creditSources : [];
+  if(creditSources.length){
+    sections.push(`
+      <section class="album-info-section">
+        <h5 class="album-info-label">CREDITS SOURCE</h5>
+        <div class="credit-source-list">
+          ${creditSources.map(source => `
+            <a class="credit-source-link" href="${esc(source.url || '')}" target="_blank" rel="noopener noreferrer">
+              <span>${esc(source.label || 'SOURCE')}</span><span>↗</span>
+            </a>
+          `).join('')}
+        </div>
+      </section>
+    `);
+  }
+
+  return sections.join('');
+}
+
+function openAlbumInfo(index){
+  const item = releases[index];
+  if(!item) return;
+
+  albumInfoCover.innerHTML = coverMarkup(item, 'modal');
+  albumInfoTitle.textContent = item.title || '';
+  albumInfoArtist.innerHTML = `${linkedParts(item.artistParts, item.artist)}${item.year ? ` · ${esc(item.year)}` : ''}`;
+
+  albumInfoNote.textContent = item.note || '';
+  albumInfoNote.style.display = item.note ? '' : 'none';
+
+  albumInfoCredit.textContent = item.credit || '';
+  albumInfoCredit.style.display = item.credit ? '' : 'none';
+
+  albumInfoSections.innerHTML = buildAlbumInfoSections(item);
+
+  albumInfoModal.classList.add('open');
+  albumInfoModal.setAttribute('aria-hidden','false');
+  document.body.style.overflow='hidden';
+
+  if(item.id){
+    const url = new URL(window.location.href);
+    url.searchParams.set('release',item.id);
+    history.replaceState(null,'',url.pathname + url.search + url.hash);
+  }
+}
+
+function closeAlbumInfo(){
+  if(!albumInfoModal.classList.contains('open')) return;
+  albumInfoModal.classList.remove('open');
+  albumInfoModal.setAttribute('aria-hidden','true');
+  document.body.style.overflow='';
+
+  const url = new URL(window.location.href);
+  url.searchParams.delete('release');
+  history.replaceState(null,'',url.pathname + url.search + url.hash);
+}
+
+albumInfoClose.addEventListener('click',closeAlbumInfo);
+albumInfoModal.addEventListener('click',e=>{
+  if(e.target===albumInfoModal) closeAlbumInfo();
+});
+
+/* ---------- Discography modal ---------- */
+const modal = document.getElementById('discographyModal');
+const modalClose = document.getElementById('modalClose');
+const modalCover = document.getElementById('modalCover');
+const modalTitle = document.getElementById('modalTitle');
+const modalArtist = document.getElementById('modalArtist');
+const modalNote = document.getElementById('modalNote');
+const modalCredit = document.getElementById('modalCredit');
+const modalLinks = document.getElementById('modalLinks');
+
+function openReleaseModal(index){
+  const item = releases[index];
+  if(!item) return;
+
+  modalCover.innerHTML = coverMarkup(item, 'modal');
+  modalTitle.textContent = item.title || '';
+  modalArtist.innerHTML = `${linkedParts(item.artistParts, item.artist)}${item.year ? ` · ${esc(item.year)}` : ''}`;
+
+  modalNote.textContent = item.note || '';
+  modalNote.style.display = item.note ? '' : 'none';
+
+  modalCredit.textContent = item.credit || '';
+  modalCredit.style.display = item.credit ? '' : 'none';
+
+  const links = Array.isArray(item.links) ? item.links : [];
+  modalLinks.innerHTML = links.map(link=>`
+    <a class="listen-link" href="${esc(link.url)}">
+      <span>${esc(link.label)}</span><span>↗</span>
+    </a>
+  `).join('');
+
+  modal.classList.add('open');
+  modal.setAttribute('aria-hidden','false');
+  document.body.style.overflow='hidden';
+}
+
+function closeReleaseModal(){
+  modal.classList.remove('open');
+  modal.setAttribute('aria-hidden','true');
+  document.body.style.overflow='';
+}
+
+releaseTrack.addEventListener('click',e=>{
+  const infoTrigger = e.target.closest('[data-album-info]');
+  if(infoTrigger){
+    openAlbumInfo(Number(infoTrigger.dataset.albumInfo));
+    return;
+  }
+
+  const streamingTrigger = e.target.closest('[data-streaming]');
+  if(streamingTrigger){
+    openReleaseModal(Number(streamingTrigger.dataset.streaming));
+  }
+});
+modalClose.addEventListener('click',closeReleaseModal);
+modal.addEventListener('click',e=>{
+  if(e.target===modal) closeReleaseModal();
+});
+
+
+const requestedRelease = new URLSearchParams(window.location.search).get('release');
+if(requestedRelease){
+  const requestedIndex = releases.findIndex(item => item.id === requestedRelease);
+  if(requestedIndex >= 0){
+    requestAnimationFrame(()=>openAlbumInfo(requestedIndex));
+  }
+}
+
+/* ---------- Videos ---------- */
+function youtubeId(url=''){
+  try{
+    const u = new URL(url);
+    const host = u.hostname.replace(/^www\./,'');
+    if(host==='youtu.be') return u.pathname.split('/').filter(Boolean)[0] || '';
+    if(host==='youtube.com' || host==='m.youtube.com'){
+      if(u.pathname==='/watch') return u.searchParams.get('v') || '';
+      const parts = u.pathname.split('/').filter(Boolean);
+      if(['shorts','embed','live'].includes(parts[0])) return parts[1] || '';
     }
-  ],
+  }catch{}
+  return '';
+}
 
-  releases: [
-    {
-      id: "day-by-day",
-      title: "Day by Day",
-      artist: "Zhengtao Pan",
-      artistParts: [
-        { label: "Zhengtao Pan", search: "Zhengtao Pan" }
-      ],
-      year: "2026",
-      cover: "",
-      searchNames: ["Zhengtao Pan"],
-      tracks: [
-        {
-          number: "1",
-          title: "Childhood",
-          participants: [
-            { name: "Rufus Reid", role: "Double Bass" }
-          ]
-        },
-        { number: "2", title: "Dave's Here" },
-        { number: "3", title: "Family" },
-        { number: "4", title: "Endless Cycle" },
-        {
-          number: "5",
-          title: "Wind Dance",
-          participants: [
-            { name: "Steve Wilson", role: "Alto Saxophone" }
-          ]
-        },
-        {
-          number: "6",
-          title: "The Tomb of the Couperin I. Prelude",
-          participants: [
-            { name: "Itai Kriss", role: "Flute" }
-          ]
-        },
-        { number: "7", title: "Liu Yang River" },
-        {
-          number: "8",
-          title: "Aurora",
-          participants: [
-            { name: "Sara Gazarek", role: "Vocal" }
-          ]
-        },
-        { number: "9", title: "Day by Day" }
-      ],
-      personnel: [
-        { name: "Andrew Gould", role: "Alto Saxophone" },
-        { name: "Juanito Saus", searchName: "Juan Saus", role: "Alto Saxophone" },
-        { name: "Sam Dillon", role: "Tenor Saxophone" },
-        { name: "Ryota Sasaki", role: "Tenor Saxophone" },
-        { name: "Andrew Gutauskas", role: "Baritone Saxophone" },
+const videoGrid = document.getElementById('videoGrid');
+const videos = Array.isArray(DATA.videos) ? DATA.videos : [];
+const videosSection = document.querySelector('[aria-labelledby="videosTitle"]');
 
-        { name: "Akihiro Kokufukata", role: "Trumpet" },
-        { name: "John Lake", role: "Trumpet" },
-        { name: "Sean Temme", role: "Trumpet" },
-        { name: "Shota Yamaguchi", role: "Trumpet" },
+function filteredVideos(){
+  return videos.filter(item => matchesMusicQuery(videoSearchText(item), musicQuery));
+}
 
-        { name: "Alan Ferber", role: "Trombone" },
-        { name: "Sam Blakeslee", role: "Trombone" },
-        { name: "John Yao", role: "Trombone" },
-        { name: "Jennifer Wharton", role: "Bass Trombone" },
+function updateMusicEmptyState(){
+  const noReleases = filteredReleases().length === 0;
+  const noVideos = filteredVideos().length === 0;
+  musicSearchEmpty.classList.toggle('visible',Boolean(musicQuery) && noReleases && noVideos);
+}
 
-        { name: "Chen Wang", role: "Guitar" },
-        { name: "Adam Birnbaum", role: "Piano" },
-        { name: "Martha Kato", role: "Piano" },
-        { name: "Edward Perez", role: "Bass" },
-        { name: "Jared Schonig", role: "Drums" },
+function renderVideos(){
+  const visible = filteredVideos();
 
-        { name: "Itai Kriss", role: "Flute · Special Guest" },
-        { name: "Steve Wilson", role: "Alto Saxophone · Special Guest" },
-        { name: "Rufus Reid", role: "Double Bass · Special Guest" },
-        { name: "Sara Gazarek", role: "Vocal · Special Guest" }
-      ],
-      credits: [
-        { label: "Composer / Arranger / Conductor", value: "Zhengtao Pan" },
-        { label: "Producer", value: "Dave Rivello" },
-        { label: "Co-Producer", value: "Nick Finzer" },
-        { label: "Recording / Mixing Engineer", value: "Aaron Nevezie" },
-        { label: "Mastering Engineer", value: "Alex DeTurk" }
-      ],
-      creditSources: [
-        { label: "OFFICIAL SITE", url: "https://www.zhengtaopan.com/" }
-      ],
-      links: [
-        { label: "SPOTIFY", url: "https://open.spotify.com/album/7ipKQJR6kz1kNw7D9KXgCo" }
-      ]
-    },
+  videoGrid.innerHTML = visible.map(item=>{
+    const index = videos.indexOf(item);
+    const id = youtubeId(item.youtube);
+    if(!id) return '';
+    const thumb = item.thumbnail || `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
 
-    {
-      id: "journey-to-nowhere",
-      title: "Journey To Nowhere",
-      artist: "Pritesh Walia & Henry Godfrey Jazz Orchestra",
-      artistParts: [
-        { label: "Pritesh Walia", search: "Pritesh Walia" },
-        { text: " & " },
-        { label: "Henry Godfrey Jazz Orchestra", search: "Henry Godfrey" }
-      ],
-      year: "2026",
-      cover: "images/music/Pritesh.png",
-      searchNames: ["Pritesh Walia", "Henry Godfrey", "Henry Godfrey Jazz Orchestra"],
-      tracks: [
-        {
-          number: "1",
-          title: "Journey To Nowhere",
-          participants: [
-            { name: "Aaron Parks", role: "Piano / Keyboards" }
-          ]
-        },
-        {
-          number: "2",
-          title: "Bittersweet",
-          participants: [
-            { name: "Godwin Louis", role: "Alto Saxophone" }
-          ]
-        },
-        {
-          number: "3",
-          title: "Mirage",
-          participants: [
-            { name: "Jerry Bergonzi", role: "Tenor Saxophone" }
-          ]
-        },
-        { number: "4", title: "Does It Work?" },
-        { number: "5", title: "Hopetown" }
-      ],
-      personnel: [
-        { name: "Zack Bacak", role: "Alto Saxophone / Flute" },
-        { name: "Andrew Summerfield", role: "Alto Saxophone" },
-        { name: "Ian Buss", role: "Tenor Saxophone / Clarinet" },
-        { name: "Brett Walberg", role: "Tenor Saxophone / Flute" },
-        { name: "Michelle Sweeney", role: "Baritone Saxophone / Bass Clarinet" },
+    return `
+      <article class="video-card">
+        <div class="video-frame" data-youtube="${esc(id)}">
+          <button class="video-thumb" type="button" aria-label="Play ${esc(item.title)}">
+            <img src="${esc(thumb)}" alt="${esc(item.title)}" loading="${index < 2 ? 'eager' : 'lazy'}">
+            <span class="play-button" aria-hidden="true"></span>
+          </button>
+        </div>
+        <h4 class="video-title">${esc(item.title)}</h4>
+        ${item.subtitle ? `<div class="video-subtitle">${linkedParts(item.subtitleParts, item.subtitle)}</div>` : ''}
+      </article>
+    `;
+  }).join('');
 
-        { name: "Ryan O’Connell", role: "Trumpet" },
-        { name: "Matt Kelly", role: "Trumpet" },
-        { name: "Akihiro Kokufukata", role: "Trumpet" },
-        { name: "Eli Block", role: "Trumpet" },
+  videosSection.hidden = !visible.length;
+  updateMusicEmptyState();
+}
 
-        { name: "Michael Prentky", role: "Trombone" },
-        { name: "Mitchell Bailey", role: "Trombone" },
-        { name: "Sam Rowley", role: "Trombone" },
-        { name: "Josiah Reibstein", role: "Bass Trombone / Tuba" },
+renderReleaseCards();
+renderVideos();
 
-        { name: "Liz Sinn", role: "Keys" },
-        { name: "Noah Harrington", role: "Bass" },
-        { name: "Henry Godfrey", role: "Drums" },
-        { name: "Pritesh Walia", role: "Guitar" },
+videoGrid.addEventListener('click',e=>{
+  const button = e.target.closest('.video-thumb');
+  if(!button) return;
 
-        { name: "Aaron Parks", role: "Piano / Keyboards · Special Guest" },
-        { name: "Jerry Bergonzi", role: "Tenor Saxophone · Special Guest" },
-        { name: "Godwin Louis", role: "Alto Saxophone · Special Guest" },
-        { name: "Ron Cha", role: "Piano · Special Guest" }
-      ],
-      credits: [
-        { label: "Composer", value: "Pritesh Walia" },
-        { label: "Arranger", value: "Henry Godfrey" }
-      ],
-      creditSources: [
-        {
-          label: "FULL CREDITS / DL MEDIA",
-          url: "https://dlmediamusic.com/artists/pritesh-walia-journey-to-nowhere/"
-        }
-      ],
-      links: [
-        { label: "SPOTIFY", url: "https://open.spotify.com/album/6SnNEBG38zzVaiYduXiFoz" },
-        { label: "APPLE MUSIC", url: "https://music.apple.com/us/album/journey-to-nowhere/6794905866" }
-      ]
-    },
-
-    {
-      id: "flow",
-      title: "FLOW",
-      artist: "Juna Serita",
-      artistParts: [
-        { label: "Juna Serita", search: "Juna Serita" }
-      ],
-      year: "2026",
-      note: "Appears on “Do My Shit!”",
-      cover: "images/music/Juna Serita FLOW.jpg",
-      searchNames: ["Juna Serita"],
-      tracks: [
-        { number: "1", title: "DUEL" },
-        {
-          number: "2",
-          title: "Do My Shit!",
-          participants: [
-            { name: "Juna Serita", role: "Bass Guitar / Vocals" },
-            { name: "Zack Auslander", role: "Guitar" },
-            { name: "Mayumi “MiMi” Kawakami", role: "Drums" },
-            { name: "Gakushi", role: "Keyboards / Synthesizer" },
-            { name: "Fumiya Morishita", role: "Saxophone / Horn Arrangement" },
-            { name: "Akihiro Kokufukata", role: "Trumpet" },
-            { name: "Kosuke Kashihara", role: "Trombone" }
-          ]
-        },
-        { number: "3", title: "You Make Me Feel" },
-        { number: "4", title: "FLOW" },
-        { number: "5", title: "Diminished Returns" },
-        { number: "6", title: "Still Here" },
-        { number: "7", title: "Sun." },
-        { number: "8", title: "Find My Way" },
-        { number: "9", title: "Fight or Flight" },
-        { number: "10", title: "SANAMI" }
-      ],
-      personnelLabel: "PERSONNEL — “DO MY SHIT!”",
-      personnel: [
-        { name: "Juna Serita", role: "Bass Guitar / Vocals" },
-        { name: "Zack Auslander", role: "Guitar" },
-        { name: "Mayumi “MiMi” Kawakami", role: "Drums" },
-        { name: "Gakushi", role: "Keyboards / Synthesizer" },
-        { name: "Fumiya Morishita", role: "Saxophone / Horn Arrangement" },
-        { name: "Akihiro Kokufukata", role: "Trumpet" },
-        { name: "Kosuke Kashihara", role: "Trombone" }
-      ],
-      credits: [
-        { label: "Recording / Mixing / Mastering Engineer", value: "Shuichi Watanabe" }
-      ],
-      creditSources: [
-        {
-          label: "FULL CREDITS / BANDCAMP",
-          url: "https://junaserita.bandcamp.com/album/flow"
-        }
-      ],
-      links: [
-        { label: "SPOTIFY — DO MY SHIT!", url: "https://open.spotify.com/track/2PMNAR2IFENYvuJDbDwuw0" },
-        { label: "APPLE MUSIC — DO MY SHIT!", url: "https://music.apple.com/us/song/do-my-shit/1888657691" }
-      ]
-    },
-
-    {
-      id: "the-charts-boston",
-      title: "The Charts I Recorded with My Friends While in Boston",
-      artist: "Juan Saus' Big Band",
-      artistParts: [
-        { label: "Juan Saus' Big Band", search: "Juan Saus" }
-      ],
-      year: "2025",
-      cover: "images/music/The Charts I Recorded with My Friends While in Boston.jpg",
-      searchNames: ["Juan Saus", "Juan Saus' Big Band", "Juanito Saus"],
-      tracks: [],
-      personnel: [],
-      credits: [],
-      creditSources: [],
-      links: [
-        { label: "SPOTIFY", url: "https://open.spotify.com/album/1QUM9bxBe8RaUVomkb1tov" },
-        { label: "APPLE MUSIC", url: "https://music.apple.com/us/album/the-charts-i-recorded-with-my-friends-while-in-boston/1795061120" }
-      ]
-    },
-
-    {
-      id: "the-awakening",
-      title: "The Awakening",
-      artist: "Gaspard Gabriel",
-      artistParts: [
-        { label: "Gaspard Gabriel", search: "Gaspard Gabriel" }
-      ],
-      year: "2025",
-      cover: "images/music/Gaspard Gabriel The Awakening.jpg",
-      searchNames: ["Gaspard Gabriel"],
-      tracks: [
-        { number: "1", title: "Prelude" },
-        { number: "2", title: "Awake" },
-        { number: "3", title: "Gunung Padang" },
-        { number: "4", title: "Princess Nyasaä" },
-        { number: "5", title: "Fly Away" },
-        { number: "6", title: "Interlude" },
-        { number: "7", title: "Big Cake!" },
-        { number: "8", title: "Between Worlds" },
-        { number: "9", title: "Dream Corp." },
-        { number: "10", title: "Secret Place" }
-      ],
-      personnel: [
-        { name: "Coy Simmons", role: "Alto Saxophone" },
-        { name: "Akihiro Kokufukata", role: "Trumpet" },
-        { name: "Joey Du Bois", role: "Trumpet" },
-        { name: "Hana Uwai", role: "Piano" },
-        { name: "Arman Wali", role: "Piano" },
-        { name: "Paul Vanier", role: "Piano" },
-        { name: "Angelo Della Valle", role: "Guitar" },
-        { name: "Willem Jochems", role: "Drums" }
-      ],
-      credits: [],
-      creditSources: [
-        {
-          label: "ALBUM CREDITS / BASS MUSICIAN",
-          url: "https://bassmusicianmagazine.com/2025/02/new-album-gaspard-gabriel-debut-album-the-awakening/"
-        }
-      ],
-      links: [
-        { label: "ALL STREAMING", url: "https://tr.ee/5I9El3Qe_o" },
-        { label: "SPOTIFY", url: "https://open.spotify.com/album/0PnHFb2AnEeXiJ1aGm8P8c" },
-        { label: "APPLE MUSIC", url: "https://music.apple.com/us/album/the-awakening/1790711085" }
-      ]
-    }
-  ],
-
-  videos: [
-    {
-      title: "Aigis",
-      subtitle: "國府方章弘 · 2026.02.05 · JAZZ CLUB ALFIE ROPPONGI TOKYO",
-      subtitleParts: [
-        { label: "國府方章弘", search: "Akihiro Kokufukata" },
-        { text: " · 2026.02.05 · JAZZ CLUB ALFIE ROPPONGI TOKYO" }
-      ],
-      youtube: "https://youtu.be/Q8l-XVIPMYw"
-    },
-    {
-      title: "Wind Dance",
-      subtitle: "Zhengtao Pan Jazz Orchestra · feat. Steve Wilson",
-      subtitleParts: [
-        { label: "Zhengtao Pan Jazz Orchestra", search: "Zhengtao Pan" },
-        { text: " · feat. " },
-        { label: "Steve Wilson", search: "Steve Wilson" }
-      ],
-      youtube: "https://youtu.be/iH88_iTfuyk"
-    },
-    {
-      title: "Bittersweet",
-      subtitle: "Pritesh Walia & Henry Godfrey Jazz Orchestra · ft Godwin Louis",
-      subtitleParts: [
-        { label: "Pritesh Walia", search: "Pritesh Walia" },
-        { text: " & " },
-        { label: "Henry Godfrey Jazz Orchestra", search: "Henry Godfrey" },
-        { text: " · ft " },
-        { label: "Godwin Louis", search: "Godwin Louis" }
-      ],
-      youtube: "https://youtu.be/9H36Szlyq30"
-    }
-  ]
-};
+  const frame = button.closest('.video-frame');
+  const id = frame.dataset.youtube;
+  frame.innerHTML = `
+    <iframe
+      src="https://www.youtube.com/embed/${id}?autoplay=1&rel=0"
+      title="YouTube video player"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowfullscreen
+    ></iframe>
+  `;
+});
+</script>
+</body>
+</html>
