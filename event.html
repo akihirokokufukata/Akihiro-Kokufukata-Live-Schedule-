@@ -1353,18 +1353,10 @@ body.reservation-open{overflow:hidden}
   display:flex !important;
   align-items:center;
   justify-content:center;
-  gap:7px;
   height:100%;
+  line-height:1.35;
   cursor:pointer;
   box-sizing:border-box;
-}
-.schedule-caret{
-  display:inline-block;
-  font-size:.9em;
-  transition:transform .18s ease;
-}
-.schedule-menu[open] .schedule-caret{
-  transform:rotate(180deg);
 }
 .schedule-options{
   position:absolute;
@@ -1402,9 +1394,6 @@ body.reservation-open{overflow:hidden}
   outline:none;
 }
 @media(max-width:650px){
-  .schedule-trigger{
-    gap:4px;
-  }
   .schedule-options{
     width:190px;
   }
@@ -3945,8 +3934,10 @@ function createEventCard(
     actions.push(`
       <details class="schedule-menu">
         <summary class="action schedule-trigger" aria-label="Add this show to a calendar">
-          <span>ADD SCHEDULE</span>
-          <span class="schedule-caret" aria-hidden="true">↓</span>
+          <span class="calendar-label">
+            <span>ADD</span>
+            <span>SCHEDULE ↗</span>
+          </span>
         </summary>
         <div class="schedule-options">
           <a
