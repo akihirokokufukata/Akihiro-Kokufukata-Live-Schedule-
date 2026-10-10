@@ -4,6 +4,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' 'unsafe-inline'; script-src-attr 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob: https:; media-src 'self' https:; connect-src 'self' https://www.googleapis.com https://formspree.io https://fonts.googleapis.com https://fonts.gstatic.com; frame-src 'self' https://www.youtube-nocookie.com https://www.youtube.com; form-action 'self' https://formspree.io; worker-src 'none'; manifest-src 'self'; upgrade-insecure-requests">
 
 <title>Show Details | Akihiro Kokufukata</title>
 <meta name="description" content="Jazz trumpeter and composer Akihiro Kokufukata（國府方章弘・国府方章弘）の公式ライブスケジュール。出演情報、会場、共演者、写真・フライヤー・映像を掲載。">
@@ -4929,6 +4931,17 @@ document.addEventListener(
 
 
 
+function fetchGoogleCalendarJSON(url) {
+  return fetch(url, {
+    method: 'GET',
+    credentials: 'omit',
+    headers: {
+      'Accept': 'application/json',
+      'X-Goog-Api-Key': API_KEY
+    }
+  });
+}
+
 /* =========================================================
    GOOGLE CALENDAR
    ★ 2018年から取得
@@ -5262,12 +5275,10 @@ async function loadEventDetail() {
     'https://www.googleapis.com/calendar/v3/calendars/'
     + encodeURIComponent(CALENDAR_ID)
     + '/events/'
-    + encodeURIComponent(eventId)
-    + '?'
-    + new URLSearchParams({ key: API_KEY }).toString();
+    + encodeURIComponent(eventId);
 
   try {
-    const response = await fetch(requestURL);
+    const response = await fetchGoogleCalendarJSON(requestURL);
 
     if (!response.ok) {
       throw new Error('Event request failed');
@@ -5332,7 +5343,6 @@ async function loadCalendar() {
 
       const params =
         new URLSearchParams({
-          key: API_KEY,
           singleEvents: 'true',
           orderBy: 'startTime',
           timeMin: timeMinDate.toISOString(),
@@ -5364,7 +5374,7 @@ async function loadCalendar() {
 
 
       const response =
-        await fetch(url);
+        await fetchGoogleCalendarJSON(url);
 
 
       if (!response.ok) {
