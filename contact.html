@@ -3,6 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' 'unsafe-inline'; script-src-attr 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob: https:; media-src 'self' https:; connect-src 'self' https://www.googleapis.com https://formspree.io https://fonts.googleapis.com https://fonts.gstatic.com; frame-src 'self' https://www.youtube-nocookie.com https://www.youtube.com; form-action 'self' https://formspree.io; worker-src 'none'; manifest-src 'self'; upgrade-insecure-requests">
 <title>Contact | Akihiro Kokufukata</title>
 <meta name="description" content="Contact Akihiro Kokufukata (國府方章弘 / 国府方章弘), trumpeter and composer, for live performances, recording, performance requests, lessons and other inquiries.">
 <link rel="canonical" href="https://akihirokokufukata.github.io/Akihiro-Kokufukata-Live-Schedule-/contact.html">
@@ -77,6 +79,16 @@
   .lesson-teaser-link{display:inline-block;margin-top:14px}
 }
 
+.contact-trap{
+  position:absolute !important;
+  left:-10000px !important;
+  top:auto !important;
+  width:1px !important;
+  height:1px !important;
+  overflow:hidden !important;
+  opacity:0 !important;
+  pointer-events:none !important;
+}
 </style>
 </head>
 <body><main><header><button class="menu-toggle" id="menuToggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="siteMenu"><span></span><span></span><span></span></button><div class="menu-backdrop" id="menuBackdrop"></div><nav class="site-menu" id="siteMenu" aria-label="Site navigation"><a href="index.html">LIVE SCHEDULE</a><a href="bio.html">BIO</a><a href="music.html">MUSIC</a><a href="equipment.html">EQUIPMENT</a>
@@ -114,12 +126,12 @@
 
   <div class="field">
     <label for="name">NAME</label>
-    <input id="name" name="name" type="text" autocomplete="name" required>
+    <input id="name" name="name" type="text" autocomplete="name" maxlength="100" required>
   </div>
 
   <div class="field">
     <label for="email">EMAIL</label>
-    <input id="email" name="email" type="email" autocomplete="email" required>
+    <input id="email" name="email" type="email" autocomplete="email" maxlength="254" required>
   </div>
 
   <div class="schedule-fields">
@@ -136,13 +148,18 @@
 
   <div class="field">
     <label for="subject">SUBJECT</label>
-    <input id="subject" name="subject" type="text" required>
+    <input id="subject" name="subject" type="text" maxlength="160" required>
   </div>
 
   <div class="field">
     <label for="message">MESSAGE</label>
-    <textarea id="message" name="message" required></textarea>
+    <textarea id="message" name="message" maxlength="5000" required></textarea>
     <p class="field-note">If the date or time is not fixed, leave it blank and include details in your message.</p>
+  </div>
+
+  <div class="contact-trap" aria-hidden="true">
+    <label for="website_check">Leave this field empty</label>
+    <input id="website_check" type="text" name="_gotcha" tabindex="-1" autocomplete="off">
   </div>
 
   <input type="hidden" id="formSubject" name="_subject" value="Website inquiry | Akihiro Kokufukata">
