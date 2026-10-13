@@ -136,3 +136,247 @@ html[data-color-theme="yankees"] .name-line {
   background: #0C2340;
 }
 
+
+/* =========================================================
+   ALL SPORTS v4 — team-specific uniform / visual treatments
+   Baseball v3 FIXED is preserved unchanged.
+   Patterns are used only where they are strongly recognizable.
+   ========================================================= */
+
+/* -------------------------
+   NFL
+   ------------------------- */
+
+/* Patriots — navy field with red + silver hierarchy */
+html[data-color-theme="patriots"] .name-line{
+  background:linear-gradient(90deg,#002244 0 58%,#C60C30 58% 82%,#B0B7BC 82% 100%);
+}
+
+/* Packers — green body / gold trim */
+html[data-color-theme="packers"] .name-line{
+  background:linear-gradient(90deg,#203731 0 70%,#FFB612 70% 100%);
+}
+
+/* Raiders — restrained metallic sheen, inspired by silver helmet / black uniform */
+html[data-color-theme="raiders"] body{
+  background-color:#111214;
+  background-image:linear-gradient(
+    135deg,
+    rgba(255,255,255,0) 0 39%,
+    rgba(165,172,175,.055) 46%,
+    rgba(255,255,255,.085) 50%,
+    rgba(165,172,175,.055) 54%,
+    rgba(255,255,255,0) 61% 100%
+  );
+}
+html[data-color-theme="raiders"] .name-line{
+  background:linear-gradient(90deg,#A5ACAF 0 66%,#111111 66% 100%);
+}
+
+/* Broncos — orange is the statement, navy anchors it */
+html[data-color-theme="broncos"] .name-line{
+  background:linear-gradient(90deg,#FB4F14 0 72%,#002244 72% 100%);
+}
+
+/* Dolphins — aqua field, orange piping-like accent */
+html[data-color-theme="dolphins"] body{
+  background:linear-gradient(180deg,#F8FEFD 0%,#EFFAFA 100%);
+}
+html[data-color-theme="dolphins"] .name-line{
+  background:linear-gradient(90deg,#008E97 0 76%,#FC4C02 76% 93%,#FFFFFF 93% 100%);
+}
+
+
+/* -------------------------
+   SOCCER
+   ------------------------- */
+
+/* Liverpool — nearly all red, with a tiny teal release */
+html[data-color-theme="liverpool"] .name-line{
+  background:linear-gradient(90deg,#C8102E 0 92%,#00B2A9 92% 100%);
+}
+
+/* Japan — blue-dominant, restrained Hinomaru red */
+html[data-color-theme="japan"] .name-line{
+  background:linear-gradient(90deg,#001E62 0 91%,#BC002D 91% 100%);
+}
+
+/* Barcelona — unmistakable blaugrana vertical striping */
+html[data-color-theme="barcelona"] body{
+  background-color:#0B1D3A;
+  background-image:repeating-linear-gradient(
+    90deg,
+    rgba(0,77,152,.20) 0 34px,
+    rgba(165,0,68,.18) 34px 68px
+  );
+}
+html[data-color-theme="barcelona"] .event{
+  background-color:rgba(21,43,82,.91)!important;
+  background-image:repeating-linear-gradient(
+    90deg,
+    rgba(0,77,152,.09) 0 34px,
+    rgba(165,0,68,.08) 34px 68px
+  )!important;
+}
+html[data-color-theme="barcelona"] .name-line{
+  background:linear-gradient(90deg,#004D98 0 45%,#A50044 45% 90%,#EDBB00 90% 100%);
+}
+
+/* Real Madrid — white kit, royal blue + gold trim */
+html[data-color-theme="real-madrid"] .name-line{
+  background:linear-gradient(90deg,#FFFFFF 0 54%,#00529F 54% 85%,#FEBE10 85% 100%);
+  border:1px solid rgba(0,82,159,.16);
+}
+
+/* AC Milan — classic rossoneri vertical stripes */
+html[data-color-theme="ac-milan"] body{
+  background-color:#151515;
+  background-image:repeating-linear-gradient(
+    90deg,
+    rgba(251,9,11,.18) 0 32px,
+    rgba(0,0,0,.16) 32px 64px
+  );
+}
+html[data-color-theme="ac-milan"] .event{
+  background-color:rgba(32,32,32,.92)!important;
+  background-image:repeating-linear-gradient(
+    90deg,
+    rgba(251,9,11,.075) 0 32px,
+    rgba(0,0,0,.08) 32px 64px
+  )!important;
+}
+html[data-color-theme="ac-milan"] .name-line{
+  background:linear-gradient(90deg,#FB090B 0 50%,#111111 50% 100%);
+}
+
+/* Inter — nerazzurri vertical stripes */
+html[data-color-theme="inter-milan"] body{
+  background-color:#001B33;
+  background-image:repeating-linear-gradient(
+    90deg,
+    rgba(0,120,200,.18) 0 32px,
+    rgba(0,0,0,.18) 32px 64px
+  );
+}
+html[data-color-theme="inter-milan"] .event{
+  background-color:rgba(7,39,70,.92)!important;
+  background-image:repeating-linear-gradient(
+    90deg,
+    rgba(0,120,200,.075) 0 32px,
+    rgba(0,0,0,.08) 32px 64px
+  )!important;
+}
+html[data-color-theme="inter-milan"] .name-line{
+  background:linear-gradient(90deg,#0078C8 0 50%,#050505 50% 100%);
+}
+
+/* Brazil — yellow leads, green then blue */
+html[data-color-theme="brazil"] .name-line{
+  background:linear-gradient(90deg,#FFDF00 0 56%,#009C3B 56% 82%,#002776 82% 100%);
+}
+
+/* Argentina — albiceleste stripes */
+html[data-color-theme="argentina"] body{
+  background-color:#F7FCFF;
+  background-image:repeating-linear-gradient(
+    90deg,
+    rgba(117,170,219,.14) 0 35px,
+    rgba(255,255,255,.78) 35px 70px
+  );
+}
+html[data-color-theme="argentina"] .event{
+  background-color:rgba(255,255,255,.91)!important;
+  background-image:repeating-linear-gradient(
+    90deg,
+    rgba(117,170,219,.065) 0 35px,
+    rgba(255,255,255,.44) 35px 70px
+  )!important;
+}
+html[data-color-theme="argentina"] .name-line{
+  background:linear-gradient(90deg,#75AADB 0 42%,#FFFFFF 42% 84%,#F6B40E 84% 100%);
+}
+
+
+/* -------------------------
+   NBA
+   ------------------------- */
+
+/* Celtics — subtle parquet-floor geometry rather than a logo */
+html[data-color-theme="celtics"] body{
+  background-color:#F3F1E6;
+  background-image:
+    linear-gradient(45deg,rgba(0,122,51,.035) 25%,transparent 25%,transparent 75%,rgba(0,122,51,.035) 75%),
+    linear-gradient(-45deg,rgba(186,150,83,.035) 25%,transparent 25%,transparent 75%,rgba(186,150,83,.035) 75%);
+  background-size:44px 44px;
+  background-position:0 0,22px 22px;
+}
+html[data-color-theme="celtics"] .name-line{
+  background:linear-gradient(90deg,#007A33 0 78%,#BA9653 78% 100%);
+}
+
+/* Lakers — purple field / gold trim */
+html[data-color-theme="lakers"] .name-line{
+  background:linear-gradient(90deg,#552583 0 58%,#FDB927 58% 100%);
+}
+
+/* Warriors — royal blue + gold */
+html[data-color-theme="warriors"] .name-line{
+  background:linear-gradient(90deg,#1D428A 0 66%,#FFC72C 66% 100%);
+}
+
+/* Bulls — nod to the famous black pinstripe look */
+html[data-color-theme="bulls"] body{
+  background-color:#151515;
+  background-image:repeating-linear-gradient(
+    90deg,
+    transparent 0 27px,
+    rgba(206,17,65,.095) 27px 28px
+  );
+}
+html[data-color-theme="bulls"] .event{
+  background-color:rgba(34,34,34,.92)!important;
+  background-image:repeating-linear-gradient(
+    90deg,
+    transparent 0 27px,
+    rgba(206,17,65,.055) 27px 28px
+  )!important;
+}
+html[data-color-theme="bulls"] .name-line{
+  background:linear-gradient(90deg,#CE1141 0 70%,#111111 70% 100%);
+}
+
+/* Knicks — blue field with orange trim */
+html[data-color-theme="knicks"] .name-line{
+  background:linear-gradient(90deg,#006BB6 0 64%,#F58426 64% 100%);
+}
+
+
+/* -------------------------
+   NHL
+   ------------------------- */
+
+/* Bruins — sweater-like black / gold / white banding, kept to the rule line */
+html[data-color-theme="bruins"] .name-line{
+  background:linear-gradient(90deg,#111111 0 50%,#FFB81C 50% 88%,#FFFFFF 88% 100%);
+}
+
+/* Canadiens — iconic red + blue + white sweater relationship */
+html[data-color-theme="canadiens"] .name-line{
+  background:linear-gradient(90deg,#AF1E2D 0 52%,#FFFFFF 52% 66%,#192168 66% 100%);
+}
+
+/* Maple Leafs — deliberately spare blue / white */
+html[data-color-theme="maple-leafs"] .name-line{
+  background:linear-gradient(90deg,#003E7E 0 76%,#FFFFFF 76% 100%);
+  border:1px solid rgba(0,62,126,.16);
+}
+
+/* Red Wings — pure red / white */
+html[data-color-theme="red-wings"] .name-line{
+  background:linear-gradient(90deg,#CE1126 0 78%,#FFFFFF 78% 100%);
+}
+
+/* Sharks — teal + black + silver, orange only as a small spark */
+html[data-color-theme="sharks"] .name-line{
+  background:linear-gradient(90deg,#006D75 0 58%,#111111 58% 78%,#B7C5C8 78% 92%,#EA7200 92% 100%);
+}
