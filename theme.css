@@ -1,0 +1,20 @@
+.theme-locker{margin:72px 0 8px;padding-top:22px;border-top:1px solid var(--line);font-family:var(--sans)}
+.theme-locker-trigger{width:100%;min-height:44px;display:flex;align-items:center;justify-content:space-between;border:0;background:none;color:var(--muted);padding:0;cursor:pointer}
+.theme-locker-trigger span:first-child{font-size:9px;font-weight:600;letter-spacing:2.6px}
+.theme-locker-mark{color:var(--crimson);font-size:17px}
+.theme-panel{display:none;padding-top:16px}.theme-locker.open .theme-panel{display:block}
+.theme-category{border-top:1px solid var(--line)}.theme-category:last-of-type{border-bottom:1px solid var(--line)}
+.theme-category summary{min-height:46px;display:flex;align-items:center;gap:12px;cursor:pointer;list-style:none}
+.theme-category summary::-webkit-details-marker{display:none}
+.theme-category-name{font-size:10px;font-weight:600;letter-spacing:2px}.theme-category-count{margin-left:auto;color:var(--muted);font-size:8px}
+.theme-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:0 0 15px}
+.theme-choice{min-width:0;min-height:64px;padding:10px 11px;border:1px solid var(--line);background:var(--card);color:var(--ink);text-align:left;cursor:pointer}
+.theme-choice:hover,.theme-choice:focus-visible,.theme-choice.selected{border-color:var(--crimson);outline:none}
+.theme-choice-name{display:block;margin-bottom:9px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:9px;font-weight:600;letter-spacing:.7px}
+.theme-swatch{display:flex;height:4px;overflow:hidden}.theme-swatch i{display:block;height:100%}
+.theme-original{width:100%;margin-bottom:18px}
+html[data-theme-tone="dark"]{color-scheme:dark}html[data-theme-tone="light"]{color-scheme:light}
+html[data-color-theme]:not([data-color-theme="original"]) .event{background:var(--theme-event-bg)!important}
+@media(min-width:700px){.theme-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:520px){.theme-grid{grid-template-columns:1fr}.theme-locker{margin-top:56px}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
