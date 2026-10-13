@@ -18,3 +18,100 @@ html[data-color-theme]:not([data-color-theme="original"]) .event{background:var(
 @media(min-width:700px){.theme-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:520px){.theme-grid{grid-template-columns:1fr}.theme-locker{margin-top:56px}}
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+
+/* =========================================================
+   BASEBALL v2 — uniform-inspired treatments
+   ========================================================= */
+
+/* Tigers — cleaner white field, vivid Hanshin yellow, bold pinstripes. */
+html[data-color-theme="tigers"] body {
+  background-color: var(--paper);
+  background-image: repeating-linear-gradient(
+    90deg,
+    transparent 0 27px,
+    rgba(17,17,17,.10) 27px 28px
+  );
+}
+html[data-color-theme="tigers"] .event {
+  background-color: var(--theme-event-bg) !important;
+  background-image: repeating-linear-gradient(
+    90deg,
+    transparent 0 27px,
+    rgba(17,17,17,.055) 27px 28px
+  ) !important;
+}
+html[data-color-theme="tigers"] .name-line {
+  background: linear-gradient(90deg,#FFD400 0 82%,#111111 82% 100%);
+}
+html[data-color-theme="tigers"] .month-button.active,
+html[data-color-theme="tigers"] .status,
+html[data-color-theme="tigers"] .primary-actions .action,
+html[data-color-theme="tigers"] .action.reservation,
+html[data-color-theme="tigers"] .reservation-submit,
+html[data-color-theme="tigers"] .action:hover {
+  color: #111111 !important;
+}
+
+/* Red Sox — already strong; keep the dark navy field and red hierarchy. */
+html[data-color-theme="red-sox"] .name-line {
+  background: #BD3039;
+}
+
+/* Dodgers — more white, stronger Dodger blue, a small flash of red. */
+html[data-color-theme="dodgers"] body {
+  background: linear-gradient(180deg,#FFFFFF 0%,#F8FAFC 100%);
+}
+html[data-color-theme="dodgers"] .artist-name,
+html[data-color-theme="dodgers"] .schedule-title {
+  color: #13294B;
+}
+html[data-color-theme="dodgers"] .name-line {
+  background: linear-gradient(90deg,#005A9C 0 91%,#EF3E42 91% 100%);
+}
+html[data-color-theme="dodgers"] .event {
+  box-shadow: inset 3px 0 0 rgba(0,90,156,.16);
+}
+
+/* Mariners — switch from deep-night teal to silver/white home-uniform balance. */
+html[data-color-theme="mariners"] body {
+  background: linear-gradient(180deg,#F7FAFA 0%,#EAF0F1 100%);
+}
+html[data-color-theme="mariners"] .name-line {
+  background: linear-gradient(90deg,#007A82 0 72%,#0C2C56 72% 92%,#C4CED4 92% 100%);
+}
+html[data-color-theme="mariners"] .event {
+  box-shadow: inset 3px 0 0 rgba(12,44,86,.16);
+}
+
+/* Padres — richer brown, cleaner cream, gold used like uniform piping. */
+html[data-color-theme="padres"] body {
+  background: linear-gradient(180deg,#F6EBCF 0%,#F1E1B8 100%);
+}
+html[data-color-theme="padres"] .name-line {
+  background: linear-gradient(90deg,#4A2C20 0 78%,#FFC425 78% 100%);
+}
+html[data-color-theme="padres"] .event {
+  box-shadow: inset 3px 0 0 rgba(255,196,37,.34);
+}
+
+/* Yankees — unmistakable navy pinstripes, including the event cards. */
+html[data-color-theme="yankees"] body {
+  background-color: #F7F7F4;
+  background-image: repeating-linear-gradient(
+    90deg,
+    transparent 0 25px,
+    rgba(12,35,64,.115) 25px 26px
+  );
+}
+html[data-color-theme="yankees"] .event {
+  background-color: var(--theme-event-bg) !important;
+  background-image: repeating-linear-gradient(
+    90deg,
+    transparent 0 25px,
+    rgba(12,35,64,.075) 25px 26px
+  ) !important;
+}
+html[data-color-theme="yankees"] .name-line {
+  background: #0C2340;
+}
+
