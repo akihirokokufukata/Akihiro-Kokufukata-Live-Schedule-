@@ -425,3 +425,82 @@ html[data-color-theme="patriots"] .name-line {
     #B0B7BC 50% 100%
   );
 }
+
+
+/* ==================================================================
+   FAVORITE TEAM THEMES v16 — add AFTER theme.css v15
+   Correct Patriots contrast; 6px TOP + LEFT card frames on all six
+   favorite teams, both Live Schedule and Show Details (event.html).
+   ORIGINAL is deliberately unchanged.
+   ================================================================== */
+
+/* Apply the same design to EVERY show card, not only NEXT SHOW.
+   The previous ::before rail must be disabled, or it doubles the line. */
+html[data-color-theme="tigers"]    { --team-event-frame: #FFD400; }
+html[data-color-theme="celtics"]   { --team-event-frame: #007A33; }
+html[data-color-theme="bruins"]    { --team-event-frame: #FFB81C; }
+html[data-color-theme="red-sox"]   { --team-event-frame: #244A70; }
+html[data-color-theme="liverpool"] { --team-event-frame: #C8102E; }
+html[data-color-theme="patriots"]  { --team-event-frame: #C60C30; }
+
+html[data-color-theme="tigers"]    .event,
+html[data-color-theme="celtics"]   .event,
+html[data-color-theme="bruins"]    .event,
+html[data-color-theme="red-sox"]   .event,
+html[data-color-theme="liverpool"] .event,
+html[data-color-theme="patriots"]  .event {
+  border-top: 6px solid var(--team-event-frame) !important;
+  border-left: 6px solid var(--team-event-frame) !important;
+}
+
+html[data-color-theme="tigers"]    .event::before,
+html[data-color-theme="celtics"]   .event::before,
+html[data-color-theme="bruins"]    .event::before,
+html[data-color-theme="red-sox"]   .event::before,
+html[data-color-theme="liverpool"] .event::before,
+html[data-color-theme="patriots"]  .event::before {
+  content: none !important;
+}
+
+/* Fix specificity collision: v15's generic !important background wins
+   over the older Patriots-specific rule and creates navy-on-navy text.
+   This selector has at least the same specificity and is loaded LAST. */
+html[data-color-theme="patriots"]:not([data-color-theme="original"]) .event {
+  --paper: #F4F6F8;
+  --card: #F4F6F8;
+  --ink: #0D233E;
+  --muted: #48596B;
+  --line: #BBC7D2;
+  --crimson: #A30C2C;
+  background: #F4F6F8 !important;
+  color: #0D233E;
+}
+html[data-color-theme="patriots"] .event .event-date-column {
+  background: #E4EAF0;
+  color: #0D233E;
+  border-right-color: #BBC7D2;
+}
+html[data-color-theme="patriots"] .event .event-body,
+html[data-color-theme="patriots"] .event .event-title,
+html[data-color-theme="patriots"] .event .event-title-link,
+html[data-color-theme="patriots"] .event .players,
+html[data-color-theme="patriots"] .event .player-search,
+html[data-color-theme="patriots"] .event .venue,
+html[data-color-theme="patriots"] .event .venue-search,
+html[data-color-theme="patriots"] .event .event-month,
+html[data-color-theme="patriots"] .event .event-time,
+html[data-color-theme="patriots"] .event .date-extra-value {
+  color: #0D233E;
+}
+html[data-color-theme="patriots"] .event .player-instrument,
+html[data-color-theme="patriots"] .event .player-note,
+html[data-color-theme="patriots"] .event .event-media-count,
+html[data-color-theme="patriots"] .event .event-media-hint,
+html[data-color-theme="patriots"] .event .event-permalink {
+  color: #48596B;
+}
+/* Keep important performance information in Patriots red. */
+html[data-color-theme="patriots"] .event .event-number,
+html[data-color-theme="patriots"] .event .event-day {
+  color: #C60C30;
+}
