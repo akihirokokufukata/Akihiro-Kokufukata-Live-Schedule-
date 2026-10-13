@@ -1,210 +1,26 @@
-.theme-locker{margin:72px 0 8px;padding-top:22px;border-top:1px solid var(--line);font-family:var(--sans)}
-.theme-locker-trigger{width:100%;min-height:44px;display:flex;align-items:center;justify-content:space-between;border:0;background:none;color:var(--muted);padding:0;cursor:pointer}
-.theme-locker-trigger span:first-child{font-size:9px;font-weight:600;letter-spacing:2.6px}
-.theme-locker-mark{color:var(--crimson);font-size:17px}
-.theme-panel{display:none;padding-top:16px}.theme-locker.open .theme-panel{display:block}
-.theme-category{border-top:1px solid var(--line)}.theme-category:last-of-type{border-bottom:1px solid var(--line)}
-.theme-category summary{min-height:46px;display:flex;align-items:center;gap:12px;cursor:pointer;list-style:none}
-.theme-category summary::-webkit-details-marker{display:none}
-.theme-category-name{font-size:10px;font-weight:600;letter-spacing:2px}.theme-category-count{margin-left:auto;color:var(--muted);font-size:8px}
-.theme-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:0 0 15px}
-.theme-choice{min-width:0;min-height:64px;padding:10px 11px;border:1px solid var(--line);background:var(--card);color:var(--ink);text-align:left;cursor:pointer}
-.theme-choice:hover,.theme-choice:focus-visible,.theme-choice.selected{border-color:var(--crimson);outline:none}
-.theme-choice-name{display:block;margin-bottom:9px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:9px;font-weight:600;letter-spacing:.7px}
-.theme-swatch{display:flex;height:4px;overflow:hidden}.theme-swatch i{display:block;height:100%}
-.theme-original{width:100%;margin-bottom:18px}
-html[data-theme-tone="dark"]{color-scheme:dark}html[data-theme-tone="light"]{color-scheme:light}
-html[data-color-theme]:not([data-color-theme="original"]) .event{background:var(--theme-event-bg)!important}
-@media(min-width:700px){.theme-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
-@media(max-width:520px){.theme-grid{grid-template-columns:1fr}.theme-locker{margin-top:56px}}
-@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+/* =====================================================================
+   AKIHIRO KOKUFUKATA · FAVORITE TEAMS v14
+   Add once to the END of theme.css.
+   Replace the previous FAVORITE TEAMS v12 / v11 (or older) block
+   with this complete block. Do not stack multiple versions.
+   Only the 6 favorite teams are affected; ORIGINAL remains untouched.
+   No theme.js or index.html edits are required.
+   ===================================================================== */
 
-/* =========================================================
-   BASEBALL v3 FIXED — refined uniform-inspired treatments
-   ========================================================= */
+/* 1. Emoji marks beside the Live Schedule heading */
+html[data-color-theme="tigers"]    .schedule-title::after { content: "🐯"; }
+html[data-color-theme="celtics"]   .schedule-title::after { content: "☘️"; }
+html[data-color-theme="bruins"]    .schedule-title::after { content: "🧸"; }
+html[data-color-theme="red-sox"]   .schedule-title::after { content: "🧦"; }
+html[data-color-theme="liverpool"] .schedule-title::after { content: "🐦‍🔥"; }
+html[data-color-theme="patriots"]  .schedule-title::after { content: "🏈"; }
 
-/* Tigers — cleaner white field, vivid Hanshin yellow, bold pinstripes. */
-html[data-color-theme="tigers"] body {
-  background-color: var(--paper);
-  background-image: repeating-linear-gradient(
-    90deg,
-    transparent 0 27px,
-    rgba(17,17,17,.10) 27px 28px
-  );
-}
-html[data-color-theme="tigers"] .event {
-  background-color: var(--theme-event-bg) !important;
-  background-image: repeating-linear-gradient(
-    90deg,
-    transparent 0 27px,
-    rgba(17,17,17,.055) 27px 28px
-  ) !important;
-}
-html[data-color-theme="tigers"] .name-line {
-  background: linear-gradient(90deg,#FFD400 0 82%,#111111 82% 100%);
-}
-html[data-color-theme="tigers"] .month-button.active,
-html[data-color-theme="tigers"] .status,
-html[data-color-theme="tigers"] .primary-actions .action,
-html[data-color-theme="tigers"] .action.reservation,
-html[data-color-theme="tigers"] .reservation-submit,
-html[data-color-theme="tigers"] .action:hover {
-  color: #111111 !important;
-}
-
-/* Red Sox — already strong; keep the dark navy field and red hierarchy. */
-html[data-color-theme="red-sox"] .name-line {
-  background: #BD3039;
-}
-
-
-/* -------------------------
-   NFL
-   ------------------------- */
-
-/* Patriots — navy field with red + silver hierarchy */
-html[data-color-theme="patriots"] .name-line{
-  background:linear-gradient(90deg,#002244 0 58%,#C60C30 58% 82%,#B0B7BC 82% 100%);
-}
-
-
-
-/* -------------------------
-   SOCCER
-   ------------------------- */
-
-/* Liverpool — nearly all red, with a tiny teal release */
-html[data-color-theme="liverpool"] .name-line{
-  background:linear-gradient(90deg,#C8102E 0 92%,#00B2A9 92% 100%);
-}
-
-
-/* -------------------------
-   NBA
-   ------------------------- */
-
-/* Celtics — subtle parquet-floor geometry rather than a logo */
-html[data-color-theme="celtics"] body{
-  background-color:#F3F1E6;
-  background-image:
-    linear-gradient(45deg,rgba(0,122,51,.035) 25%,transparent 25%,transparent 75%,rgba(0,122,51,.035) 75%),
-    linear-gradient(-45deg,rgba(186,150,83,.035) 25%,transparent 25%,transparent 75%,rgba(186,150,83,.035) 75%);
-  background-size:44px 44px;
-  background-position:0 0,22px 22px;
-}
-html[data-color-theme="celtics"] .name-line{
-  background:linear-gradient(90deg,#007A33 0 78%,#BA9653 78% 100%);
-}
-
-
-
-/* -------------------------
-   NHL
-   ------------------------- */
-
-/* Bruins — sweater-like black / gold / white banding, kept to the rule line */
-html[data-color-theme="bruins"] .name-line{
-  background:linear-gradient(90deg,#111111 0 50%,#FFB81C 50% 88%,#FFFFFF 88% 100%);
-}
-
-
-
-/* =========================================================
-   FAVORITES v5 — only the six supported teams are exposed
-   ========================================================= */
-
-/* Hanshin Tigers */
-html[data-color-theme="tigers"] body{
-  background-color:#FFFDF2;
-  background-image:repeating-linear-gradient(
-    90deg,
-    transparent 0 49px,
-    rgba(17,17,17,.095) 49px 51px
-  );
-}
-html[data-color-theme="tigers"] .event{
-  background-color:rgba(255,255,255,.88)!important;
-  background-image:repeating-linear-gradient(
-    90deg,
-    transparent 0 49px,
-    rgba(17,17,17,.045) 49px 51px
-  )!important;
-}
-html[data-color-theme="tigers"] .name-line{
-  background:linear-gradient(90deg,#FFD400 0 82%,#111111 82% 100%);
-}
-
-/* Boston Red Sox */
-html[data-color-theme="red-sox"] .name-line{
-  background:linear-gradient(90deg,#BD3039 0 28%,#0B1F33 28% 100%);
-}
-
-/* New England Patriots */
-html[data-color-theme="patriots"] .name-line{
-  background:linear-gradient(90deg,#002244 0 58%,#C60C30 58% 82%,#B0B7BC 82% 100%);
-}
-
-/* Liverpool */
-html[data-color-theme="liverpool"] .name-line{
-  background:linear-gradient(90deg,#C8102E 0 92%,#00B2A9 92% 100%);
-}
-
-/* Boston Celtics — original subtle parquet treatment */
-html[data-color-theme="celtics"] body{
-  background-color:#F3F1E6;
-  background-image:
-    linear-gradient(45deg,rgba(0,122,51,.035) 25%,transparent 25%,transparent 75%,rgba(0,122,51,.035) 75%),
-    linear-gradient(-45deg,rgba(186,150,83,.035) 25%,transparent 25%,transparent 75%,rgba(186,150,83,.035) 75%);
-  background-size:44px 44px;
-  background-position:0 0,22px 22px;
-}
-html[data-color-theme="celtics"] .event{
-  background-color:rgba(252,250,241,.88)!important;
-  background-image:none!important;
-}
-html[data-color-theme="celtics"] .name-line{
-  background:linear-gradient(90deg,#007A33 0 78%,#BA9653 78% 100%);
-}
-
-/* Boston Bruins */
-html[data-color-theme="bruins"] .name-line{
-  background:linear-gradient(90deg,#111111 0 50%,#FFB81C 50% 88%,#FFFFFF 88% 100%);
-}
-
-/* ==========================================================
-   AKIHIRO COLOR LOCKER · TEAM ACCENTS v7
-   Add this block at the VERY END of theme.css.
-   No changes to theme.js or index.html are needed.
-   ========================================================== */
-
-/* A small native emoji after 'Live Schedule'.
-   It appears only when a team theme is selected. */
-html[data-color-theme="tigers"] .schedule-title::after {
-  content: "🐯";
-}
-html[data-color-theme="celtics"] .schedule-title::after {
-  content: "☘️";
-}
-html[data-color-theme="bruins"] .schedule-title::after {
-  content: "🧸";
-}
-html[data-color-theme="red-sox"] .schedule-title::after {
-  content: "🧦";
-}
-html[data-color-theme="liverpool"] .schedule-title::after {
-  content: "🐦‍🔥";
-}
-html[data-color-theme="patriots"] .schedule-title::after {
-  content: "🏈";
-}
-
-/* Shared sizing, independent of the heading's serif font. */
-html[data-color-theme="tigers"] .schedule-title::after,
-html[data-color-theme="celtics"] .schedule-title::after,
-html[data-color-theme="bruins"] .schedule-title::after,
-html[data-color-theme="red-sox"] .schedule-title::after,
+html[data-color-theme="tigers"]    .schedule-title::after,
+html[data-color-theme="celtics"]   .schedule-title::after,
+html[data-color-theme="bruins"]    .schedule-title::after,
+html[data-color-theme="red-sox"]   .schedule-title::after,
 html[data-color-theme="liverpool"] .schedule-title::after,
-html[data-color-theme="patriots"] .schedule-title::after {
+html[data-color-theme="patriots"]  .schedule-title::after {
   display: inline-block;
   margin-left: .22em;
   font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
@@ -214,14 +30,8 @@ html[data-color-theme="patriots"] .schedule-title::after {
   letter-spacing: 0;
   vertical-align: .08em;
 }
+html[data-color-theme="original"] .schedule-title::after { content: none; }
 
-/* Never show a team mark with ORIGINAL. */
-html[data-color-theme="original"] .schedule-title::after {
-  content: none;
-}
-
-/* On narrow phones, allow the filter to move beneath the heading
-   instead of crushing the title + emoji. Only affects team themes. */
 @media (max-width: 650px) {
   html[data-color-theme]:not([data-color-theme="original"]) .schedule-heading {
     flex-wrap: wrap;
@@ -229,45 +39,309 @@ html[data-color-theme="original"] .schedule-title::after {
   }
 }
 
-/* ==========================================================
-   BOSTON CELTICS · REVISED DESIGN
-   ========================================================== */
-
-/* Clean warm background. No clover, parquet or other tiled pattern. */
+/* 2. CELTICS — simple warm background, 4 equal green segments */
 html[data-color-theme="celtics"] body {
   background-color: #F3F1E6;
   background-image: none;
 }
-
-/* Four EXACTLY equal segments, official green first, then darker. */
 html[data-color-theme="celtics"] .name-line {
   height: 4px;
   border: 0;
   background: linear-gradient(to right,
-    #007A33 0%,  #007A33 25%,
-    #00652C 25%, #00652C 50%,
-    #004B22 50%, #004B22 75%,
-    #002F1A 75%, #002F1A 100%
+    #007A33 0 25%,
+    #00652C 25% 50%,
+    #004B22 50% 75%,
+    #002F1A 75% 100%);
+}
+html[data-color-theme="celtics"] .event {
+  background: #FCFAF1 !important;
+}
+
+/* 3. HANSHIN TIGERS — the original ivory / yellow / black pinstripes */
+html[data-color-theme="tigers"] body {
+  background-color: #FFFDF2;
+  background-image: repeating-linear-gradient(
+    90deg,
+    transparent 0 49px,
+    rgba(17,17,17,.095) 49px 51px
   );
 }
-
-/* Clean cream event cards. Keep existing team accent colors. */
-html[data-color-theme="celtics"] .event {
-  background-color: rgba(252, 250, 241, .93) !important;
-  background-image: none !important;
+html[data-color-theme="tigers"] .event {
+  background-color: #FFFFFF !important;
+  background-image: repeating-linear-gradient(
+    90deg,
+    transparent 0 49px,
+    rgba(17,17,17,.045) 49px 51px
+  ) !important;
+}
+html[data-color-theme="tigers"] .name-line {
+  background: linear-gradient(90deg, #FFD400 0 82%, #111111 82% 100%);
+}
+/* Keep vibrant yellow for bold accents, use deeper gold for SMALL text. */
+html[data-color-theme="tigers"] .artist-role,
+html[data-color-theme="tigers"] .event .label,
+html[data-color-theme="tigers"] .event .next-label,
+html[data-color-theme="tigers"] .event .leader-label,
+html[data-color-theme="tigers"] .event .show-more,
+html[data-color-theme="tigers"] .month-button:not(.active) {
+  color: #856800;
+}
+html[data-color-theme="tigers"] .status,
+html[data-color-theme="tigers"] .month-button.active {
+  color: #111111 !important;
+}
+html[data-color-theme="tigers"] .event .action:not(.primary) {
+  color: #856800;
+  border-color: #B69100;
 }
 
-/* Strong left rail ONLY for the next upcoming show.
-   The current site's renderer uses .next-label inside that card. */
-html[data-color-theme="celtics"] .event:has(.next-label)::before {
+/* 4. RED SOX — WHITE field, vivid RED primary, softer NAVY secondary.
+   Theme JS sets inline CSS variables, so !important is needed here.
+   CSS-only means existing saved choices and theme switcher keep working. */
+html[data-color-theme="red-sox"] {
+  --paper: #FFFFFF !important;
+  --card: #FFFAFB !important;
+  --ink: #244A70 !important;
+  --muted: #586B7D !important;
+  --crimson: #E31837 !important;
+  --crimson-dark: #B9142C !important;
+  --line: #D2DAE3 !important;
+  --theme-event-bg: #FFFAFB !important;
+  color-scheme: light;
+}
+html[data-color-theme="red-sox"] body {
+  background: #FFFFFF;
+}
+html[data-color-theme="red-sox"] .artist-name,
+html[data-color-theme="red-sox"] .schedule-title {
+  color: #244A70;
+}
+html[data-color-theme="red-sox"] .name-line {
+  background: linear-gradient(90deg, #E31837 0 78%, #244A70 78% 100%);
+}
+html[data-color-theme="red-sox"] .event {
+  background: #FFFAFB !important;
+  color: #244A70;
+  border-color: #C9D4DF;
+}
+html[data-color-theme="red-sox"] .event.leader { border-color: #E31837; }
+html[data-color-theme="red-sox"] .event-date-column {
+  background: #F2F6FA;
+  border-right-color: #D2DAE3;
+}
+html[data-color-theme="red-sox"] .event .event-title,
+html[data-color-theme="red-sox"] .event .players,
+html[data-color-theme="red-sox"] .event .venue {
+  color: #244A70;
+}
+html[data-color-theme="red-sox"] .status {
+  background: #244A70;
+  color: #FFFFFF;
+}
+
+
+/* The hidden color-locker swatch must also reflect the new Red Sox hierarchy. */
+.theme-choice[data-theme-id="red-sox"] .theme-swatch i:nth-child(1) {
+  background: #E31837 !important;
+  flex-grow: 70 !important;
+}
+.theme-choice[data-theme-id="red-sox"] .theme-swatch i:nth-child(2) {
+  background: #244A70 !important;
+  flex-grow: 20 !important;
+}
+.theme-choice[data-theme-id="red-sox"] .theme-swatch i:nth-child(3) {
+  background: #FFFFFF !important;
+  flex-grow: 10 !important;
+}
+
+/* 5. PATRIOTS — keep NAVY outer field, use SILVER / WHITE event cards.
+   The opposite overall brightness now separates it from the Red Sox. */
+html[data-color-theme="patriots"] body {
+  background: #002244;
+}
+html[data-color-theme="patriots"] .event {
+  /* Override variables ONLY inside event cards, not the dark page header. */
+  --paper: #F4F6F8;
+  --ink: #0D233E;
+  --muted: #48596B;
+  --crimson: #A30C2C;
+  --crimson-dark: #800923;
+  --line: #BBC7D2;
+  color: #0D233E;
+  background: #F4F6F8 !important;
+  border-color: #B3C0CC;
+}
+html[data-color-theme="patriots"] .event.leader { border-color: #C60C30; }
+html[data-color-theme="patriots"] .event-date-column {
+  background: #E4EAF0;
+  border-right-color: #BBC7D2;
+}
+html[data-color-theme="patriots"] .event .event-title,
+html[data-color-theme="patriots"] .event .players,
+html[data-color-theme="patriots"] .event .venue {
+  color: #0D233E;
+}
+html[data-color-theme="patriots"] .status {
+  background: #C60C30;
+  color: #FFFFFF;
+}
+/* Small crimson writing on navy is too dim; use silver in the header. */
+html[data-color-theme="patriots"] .artist-role { color: #DDE4EA; }
+html[data-color-theme="patriots"] .month-button:not(.active) { color: #F4F6F8; }
+html[data-color-theme="patriots"] .month-button.active { color: #FFFFFF; }
+
+/* 6. BRUINS — solid deep charcoal cards, high-contrast ivory text */
+html[data-color-theme="bruins"] .event {
+  --ink: #F7F2E7;
+  --muted: #D6CFC4;
+  --line: #5A5144;
+  --crimson: #FFB81C;
+  color: #F7F2E7;
+  background: #232323 !important;
+  border-color: #65563E;
+}
+html[data-color-theme="bruins"] .event-date-column {
+  background: #171717;
+  border-right-color: #65563E;
+}
+html[data-color-theme="bruins"] .event .event-title,
+html[data-color-theme="bruins"] .event .players,
+html[data-color-theme="bruins"] .event .venue {
+  color: #F7F2E7;
+}
+html[data-color-theme="bruins"] .event .event-time,
+html[data-color-theme="bruins"] .event .event-month {
+  color: #F7F2E7;
+}
+html[data-color-theme="bruins"] .status {
+  background: #FFB81C;
+  color: #111111;
+}
+
+/* 7. Matching 6px Next-show vertical rail on ALL six teams. */
+html[data-color-theme="tigers"] .event:has(.next-label)::before,
+html[data-color-theme="liverpool"] .event:has(.next-label)::before,
+html[data-color-theme="celtics"] .event:has(.next-label)::before,
+html[data-color-theme="red-sox"] .event:has(.next-label)::before,
+html[data-color-theme="patriots"] .event:has(.next-label)::before,
+html[data-color-theme="bruins"] .event:has(.next-label)::before {
   content: "";
   position: absolute;
   top: 0;
   bottom: 0;
   left: 0;
   width: 6px;
-  background: #007A33;
   z-index: 3;
   pointer-events: none;
 }
+html[data-color-theme="tigers"] .event:has(.next-label)::before { background: #FFD400; }
+html[data-color-theme="liverpool"] .event:has(.next-label)::before { background: #C8102E; }
+html[data-color-theme="celtics"] .event:has(.next-label)::before { background: #007A33; }
+html[data-color-theme="red-sox"] .event:has(.next-label)::before { background: #244A70; }
+html[data-color-theme="patriots"] .event:has(.next-label)::before { background: #C60C30; }
+html[data-color-theme="bruins"] .event:has(.next-label)::before { background: #FFB81C; }
 
+/* FAVORITE TEAMS v11 — Red Sox navy frames, red NEXT SHOW heading.
+   Integrated into the complete v11 theme stylesheet.
+   This only affects the Red Sox theme.
+   ALL / OCT / NOV / PAST stays red as previously requested. */
+/* Event cards: all their borders and vertical rail are soft navy. */
+html[data-color-theme="red-sox"] .event,
+html[data-color-theme="red-sox"] .event.leader {
+  border-color: #244A70;
+}
+html[data-color-theme="red-sox"] .event-date-column {
+  border-right-color: #244A70;
+}
+html[data-color-theme="red-sox"] .event .date-rule {
+  background: #244A70;
+  opacity: .35;
+}
+html[data-color-theme="red-sox"] .event .action {
+  border-color: #244A70;
+  color: #244A70;
+}
+html[data-color-theme="red-sox"] .event:has(.next-label)::before {
+  background: #244A70;
+}
+/* Only the NEXT SHOW ribbon is vivid red in the card framing. */
+html[data-color-theme="red-sox"] .status {
+  background: #244A70;
+  color: #FFFFFF;
+}
+/* The date filters remain red; do not let navy-framing rules affect them. */
+html[data-color-theme="red-sox"] .month-filter { border-color: #E31837; }
+html[data-color-theme="red-sox"] .month-button {
+  border-right-color: #E31837;
+  color: #E31837;
+}
+html[data-color-theme="red-sox"] .month-button.active {
+  background: #E31837;
+  color: #FFFFFF;
+}
+
+/* =============================================================
+   AKIHIRO · TEAM NAME-LINE v14 — only 6 favorite team themes
+   Integrated in the complete FAVORITE TEAMS v12 block.
+   ORIGINAL is intentionally unchanged.
+   ============================================================= */
+html[data-color-theme="tigers"] .name-line,
+html[data-color-theme="celtics"] .name-line,
+html[data-color-theme="bruins"] .name-line,
+html[data-color-theme="red-sox"] .name-line,
+html[data-color-theme="liverpool"] .name-line,
+html[data-color-theme="patriots"] .name-line {
+  height: 4px;
+  min-height: 4px;
+  border: 0;
+}
+
+/* Tigers: alternating Hanshin-yellow fabric and thin black pinstripes. */
+html[data-color-theme="tigers"] .name-line {
+  background: repeating-linear-gradient(90deg,
+    #FFD400 0 20px,
+    #111111 20px 23px
+  );
+}
+
+/* Celtics: four equal green shades, from bright to deep. */
+html[data-color-theme="celtics"] .name-line {
+  background: linear-gradient(90deg,
+    #007A33 0 25%,
+    #00652C 25% 50%,
+    #004B22 50% 75%,
+    #002F1A 75% 100%
+  );
+}
+
+/* Bruins: gold and white, 50% each (background-black removed). */
+html[data-color-theme="bruins"] .name-line {
+  background: linear-gradient(90deg,
+    #FFB81C 0 50%,
+    #FFFFFF 50% 100%
+  );
+}
+
+/* Red Sox: vivid red and brighter navy — half each. */
+html[data-color-theme="red-sox"] .name-line {
+  background: linear-gradient(90deg,
+    #E31837 0 50%,
+    #244A70 50% 100%
+  );
+}
+
+/* Liverpool: red and teal — half each. */
+html[data-color-theme="liverpool"] .name-line {
+  background: linear-gradient(90deg,
+    #C8102E 0 50%,
+    #00B2A9 50% 100%
+  );
+}
+
+/* Patriots: red and silver, 50% each (background-navy removed). */
+html[data-color-theme="patriots"] .name-line {
+  background: linear-gradient(90deg,
+    #C60C30 0 50%,
+    #B0B7BC 50% 100%
+  );
+}
