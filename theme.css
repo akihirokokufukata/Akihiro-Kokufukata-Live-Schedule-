@@ -331,22 +331,43 @@ html[data-color-theme="argentina"] .name-line{
 
 /* Celtics — subtle repeating clover / shamrock wallpaper.
    Built only with CSS gradients: no logo or external image. */
+/* Celtics — subtle shamrock version */
 html[data-color-theme="celtics"] body{
-  background-color:#F3F1E6;
+  background-color:#f4f2e8;
   background-image:
-    radial-gradient(circle at 50% 31%, rgba(0,122,51,.10) 0 6px, transparent 6.5px),
-    radial-gradient(circle at 36% 48%, rgba(0,122,51,.10) 0 6px, transparent 6.5px),
-    radial-gradient(circle at 64% 48%, rgba(0,122,51,.10) 0 6px, transparent 6.5px),
-    radial-gradient(circle at 50% 62%, rgba(0,122,51,.10) 0 6px, transparent 6.5px),
-    linear-gradient(70deg, transparent 47%, rgba(0,122,51,.08) 48% 51%, transparent 52%);
-  background-size:56px 56px;
-  background-position:0 0;
+    /* very light base geometry */
+    linear-gradient(45deg, rgba(0,122,51,.020) 25%, transparent 25%, transparent 50%, rgba(0,122,51,.020) 50%, rgba(0,122,51,.020) 75%, transparent 75%, transparent),
+    linear-gradient(-45deg, rgba(0,122,51,.016) 25%, transparent 25%, transparent 50%, rgba(0,122,51,.016) 50%, rgba(0,122,51,.016) 75%, transparent 75%, transparent),
+
+    /* subtle shamrock */
+    radial-gradient(circle at 50% 34%, rgba(0,122,51,.045) 0 9px, transparent 9.6px),
+    radial-gradient(circle at 36% 50%, rgba(0,122,51,.045) 0 9px, transparent 9.6px),
+    radial-gradient(circle at 64% 50%, rgba(0,122,51,.045) 0 9px, transparent 9.6px),
+    linear-gradient(66deg, transparent 47%, rgba(0,122,51,.035) 48%, rgba(0,122,51,.035) 50%, transparent 51%);
+
+  background-size:
+    34px 34px,
+    34px 34px,
+    88px 88px,
+    88px 88px,
+    88px 88px,
+    88px 88px;
+
+  background-position:
+    0 0,
+    17px 17px,
+    0 0,
+    0 0,
+    0 0,
+    0 0;
 }
+
 html[data-color-theme="celtics"] .event{
-  background-color:rgba(252,250,241,.92)!important;
+  background-color:rgba(252,250,241,.94)!important;
 }
+
 html[data-color-theme="celtics"] .name-line{
-  background:linear-gradient(90deg,#007A33 0 78%,#BA9653 78% 100%);
+  background:linear-gradient(90deg,#007A33 0 78%, #BA9653 78% 100%);
 }
 
 /* Lakers — purple field / gold trim */
