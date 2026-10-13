@@ -197,50 +197,8 @@ html[data-color-theme="liverpool"] .name-line{
 }
 
 /* Japan — blue-dominant, restrained Hinomaru red */
-/* Japan — clean Samurai Blue with a restrained Hinomaru red */
-html[data-color-theme="japan"] body{
-  background:linear-gradient(
-    180deg,
-    #F8FAFD 0%,
-    #F2F6FB 100%
-  );
-}
-
-html[data-color-theme="japan"] .artist-name,
-html[data-color-theme="japan"] .schedule-title,
-html[data-color-theme="japan"] .event-title{
-  color:#001E62;
-}
-
 html[data-color-theme="japan"] .name-line{
-  background:linear-gradient(
-    90deg,
-    #001E62 0 72%,
-    #2952A3 72% 92%,
-    #BC002D 92% 100%
-  );
-}
-
-html[data-color-theme="japan"] .section-label,
-html[data-color-theme="japan"] .show-more,
-html[data-color-theme="japan"] .venue-label{
-  color:#001E62;
-}
-
-html[data-color-theme="japan"] .tab.active,
-html[data-color-theme="japan"] .action.primary{
-  background:#001E62;
-  border-color:#001E62;
-  color:#FFFFFF;
-}
-
-html[data-color-theme="japan"] .tab,
-html[data-color-theme="japan"] .action{
-  border-color:#2952A3;
-}
-
-html[data-color-theme="japan"] .menu-button{
-  color:#001E62;
+  background:linear-gradient(90deg,#001E62 0 91%,#BC002D 91% 100%);
 }
 
 /* Barcelona — unmistakable blaugrana vertical striping */
@@ -371,38 +329,17 @@ html[data-color-theme="argentina"] .name-line{
    NBA
    ------------------------- */
 
-/* Celtics — subtle repeating clover / shamrock wallpaper.
-   Built only with CSS gradients: no logo or external image. */
-/* Celtics — subtle shamrock version */
 /* Celtics — subtle parquet-floor geometry rather than a logo */
 html[data-color-theme="celtics"] body{
   background-color:#F3F1E6;
   background-image:
-    linear-gradient(
-      45deg,
-      rgba(0,122,51,.035) 25%,
-      transparent 25%,
-      transparent 75%,
-      rgba(0,122,51,.035) 75%
-    ),
-    linear-gradient(
-      -45deg,
-      rgba(186,150,83,.035) 25%,
-      transparent 25%,
-      transparent 75%,
-      rgba(186,150,83,.035) 75%
-    );
-
+    linear-gradient(45deg,rgba(0,122,51,.035) 25%,transparent 25%,transparent 75%,rgba(0,122,51,.035) 75%),
+    linear-gradient(-45deg,rgba(186,150,83,.035) 25%,transparent 25%,transparent 75%,rgba(186,150,83,.035) 75%);
   background-size:44px 44px;
   background-position:0 0,22px 22px;
 }
-
 html[data-color-theme="celtics"] .name-line{
-  background:linear-gradient(
-    90deg,
-    #007A33 0 78%,
-    #BA9653 78% 100%
-  );
+  background:linear-gradient(90deg,#007A33 0 78%,#BA9653 78% 100%);
 }
 
 /* Lakers — purple field / gold trim */
@@ -471,3 +408,67 @@ html[data-color-theme="red-wings"] .name-line{
 html[data-color-theme="sharks"] .name-line{
   background:linear-gradient(90deg,#006D75 0 58%,#111111 58% 78%,#B7C5C8 78% 92%,#EA7200 92% 100%);
 }
+
+
+/* =========================================================
+   FAVORITES v5 — only the six supported teams are exposed
+   ========================================================= */
+
+/* Hanshin Tigers */
+html[data-color-theme="tigers"] body{
+  background-color:#FFFDF2;
+  background-image:repeating-linear-gradient(
+    90deg,
+    transparent 0 49px,
+    rgba(17,17,17,.095) 49px 51px
+  );
+}
+html[data-color-theme="tigers"] .event{
+  background-color:rgba(255,255,255,.88)!important;
+  background-image:repeating-linear-gradient(
+    90deg,
+    transparent 0 49px,
+    rgba(17,17,17,.045) 49px 51px
+  )!important;
+}
+html[data-color-theme="tigers"] .name-line{
+  background:linear-gradient(90deg,#FFD400 0 82%,#111111 82% 100%);
+}
+
+/* Boston Red Sox */
+html[data-color-theme="red-sox"] .name-line{
+  background:linear-gradient(90deg,#BD3039 0 28%,#0B1F33 28% 100%);
+}
+
+/* New England Patriots */
+html[data-color-theme="patriots"] .name-line{
+  background:linear-gradient(90deg,#002244 0 58%,#C60C30 58% 82%,#B0B7BC 82% 100%);
+}
+
+/* Liverpool */
+html[data-color-theme="liverpool"] .name-line{
+  background:linear-gradient(90deg,#C8102E 0 92%,#00B2A9 92% 100%);
+}
+
+/* Boston Celtics — original subtle parquet treatment */
+html[data-color-theme="celtics"] body{
+  background-color:#F3F1E6;
+  background-image:
+    linear-gradient(45deg,rgba(0,122,51,.035) 25%,transparent 25%,transparent 75%,rgba(0,122,51,.035) 75%),
+    linear-gradient(-45deg,rgba(186,150,83,.035) 25%,transparent 25%,transparent 75%,rgba(186,150,83,.035) 75%);
+  background-size:44px 44px;
+  background-position:0 0,22px 22px;
+}
+html[data-color-theme="celtics"] .event{
+  background-color:rgba(252,250,241,.88)!important;
+  background-image:none!important;
+}
+html[data-color-theme="celtics"] .name-line{
+  background:linear-gradient(90deg,#007A33 0 78%,#BA9653 78% 100%);
+}
+
+/* Boston Bruins */
+html[data-color-theme="bruins"] .name-line{
+  background:linear-gradient(90deg,#111111 0 50%,#FFB81C 50% 88%,#FFFFFF 88% 100%);
+}
+
