@@ -197,8 +197,50 @@ html[data-color-theme="liverpool"] .name-line{
 }
 
 /* Japan — blue-dominant, restrained Hinomaru red */
+/* Japan — clean Samurai Blue with a restrained Hinomaru red */
+html[data-color-theme="japan"] body{
+  background:linear-gradient(
+    180deg,
+    #F8FAFD 0%,
+    #F2F6FB 100%
+  );
+}
+
+html[data-color-theme="japan"] .artist-name,
+html[data-color-theme="japan"] .schedule-title,
+html[data-color-theme="japan"] .event-title{
+  color:#001E62;
+}
+
 html[data-color-theme="japan"] .name-line{
-  background:linear-gradient(90deg,#001E62 0 91%,#BC002D 91% 100%);
+  background:linear-gradient(
+    90deg,
+    #001E62 0 72%,
+    #2952A3 72% 92%,
+    #BC002D 92% 100%
+  );
+}
+
+html[data-color-theme="japan"] .section-label,
+html[data-color-theme="japan"] .show-more,
+html[data-color-theme="japan"] .venue-label{
+  color:#001E62;
+}
+
+html[data-color-theme="japan"] .tab.active,
+html[data-color-theme="japan"] .action.primary{
+  background:#001E62;
+  border-color:#001E62;
+  color:#FFFFFF;
+}
+
+html[data-color-theme="japan"] .tab,
+html[data-color-theme="japan"] .action{
+  border-color:#2952A3;
+}
+
+html[data-color-theme="japan"] .menu-button{
+  color:#001E62;
 }
 
 /* Barcelona — unmistakable blaugrana vertical striping */
