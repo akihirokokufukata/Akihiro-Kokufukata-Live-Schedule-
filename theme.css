@@ -222,10 +222,38 @@ html[data-color-theme="barcelona"] .name-line{
   background:linear-gradient(90deg,#004D98 0 45%,#A50044 45% 90%,#EDBB00 90% 100%);
 }
 
-/* Real Madrid — white kit, royal blue + gold trim */
+/* Real Madrid — white field with a much stronger metallic-gold identity.
+   Royal blue remains as the secondary club color. */
+html[data-color-theme="real-madrid"] body{
+  background:linear-gradient(180deg,#FCFBF7 0%,#F7F4EA 100%);
+}
+html[data-color-theme="real-madrid"] .artist-name,
+html[data-color-theme="real-madrid"] .schedule-title,
+html[data-color-theme="real-madrid"] .event-title{
+  color:#1D2D50;
+}
 html[data-color-theme="real-madrid"] .name-line{
-  background:linear-gradient(90deg,#FFFFFF 0 54%,#00529F 54% 85%,#FEBE10 85% 100%);
-  border:1px solid rgba(0,82,159,.16);
+  background:linear-gradient(90deg,#C7A64A 0 72%,#00529F 72% 100%);
+  border:0;
+}
+html[data-color-theme="real-madrid"] .section-label,
+html[data-color-theme="real-madrid"] .show-more,
+html[data-color-theme="real-madrid"] .venue-label{
+  color:#B18B2C;
+}
+html[data-color-theme="real-madrid"] .tab.active,
+html[data-color-theme="real-madrid"] .action.primary{
+  background:#1D2D50;
+  border-color:#1D2D50;
+  color:#FFFFFF;
+}
+html[data-color-theme="real-madrid"] .tab,
+html[data-color-theme="real-madrid"] .action{
+  border-color:#B18B2C;
+}
+html[data-color-theme="real-madrid"] .menu-button,
+html[data-color-theme="real-madrid"] .site-menu a:hover{
+  color:#B18B2C;
 }
 
 /* AC Milan — classic rossoneri vertical stripes */
@@ -301,14 +329,21 @@ html[data-color-theme="argentina"] .name-line{
    NBA
    ------------------------- */
 
-/* Celtics — subtle parquet-floor geometry rather than a logo */
+/* Celtics — subtle repeating clover / shamrock wallpaper.
+   Built only with CSS gradients: no logo or external image. */
 html[data-color-theme="celtics"] body{
   background-color:#F3F1E6;
   background-image:
-    linear-gradient(45deg,rgba(0,122,51,.035) 25%,transparent 25%,transparent 75%,rgba(0,122,51,.035) 75%),
-    linear-gradient(-45deg,rgba(186,150,83,.035) 25%,transparent 25%,transparent 75%,rgba(186,150,83,.035) 75%);
-  background-size:44px 44px;
-  background-position:0 0,22px 22px;
+    radial-gradient(circle at 50% 31%, rgba(0,122,51,.10) 0 6px, transparent 6.5px),
+    radial-gradient(circle at 36% 48%, rgba(0,122,51,.10) 0 6px, transparent 6.5px),
+    radial-gradient(circle at 64% 48%, rgba(0,122,51,.10) 0 6px, transparent 6.5px),
+    radial-gradient(circle at 50% 62%, rgba(0,122,51,.10) 0 6px, transparent 6.5px),
+    linear-gradient(70deg, transparent 47%, rgba(0,122,51,.08) 48% 51%, transparent 52%);
+  background-size:56px 56px;
+  background-position:0 0;
+}
+html[data-color-theme="celtics"] .event{
+  background-color:rgba(252,250,241,.92)!important;
 }
 html[data-color-theme="celtics"] .name-line{
   background:linear-gradient(90deg,#007A33 0 78%,#BA9653 78% 100%);
