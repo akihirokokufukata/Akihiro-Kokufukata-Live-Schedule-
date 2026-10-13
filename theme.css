@@ -1,10 +1,104 @@
+
+/* ======================================================================
+   AKIHIRO KOKUFUKATA — THEME CONTROLS (restored)
+   The theme locker styles were present before the v14 CSS-only replacement.
+   The live calendar, event logic, fonts, navigation and page layout remain
+   owned by their original HTML files.  Do not replace those HTML files.
+   ====================================================================== */
+.theme-locker {
+  margin: 72px 0 8px;
+  padding-top: 22px;
+  border-top: 1px solid var(--line);
+  font-family: var(--sans, Arial, sans-serif);
+}
+.theme-locker-trigger {
+  width: 100%; min-height: 44px;
+  display: flex; align-items: center; justify-content: space-between;
+  border: 0; background: transparent; color: var(--muted);
+  padding: 0; cursor: pointer; text-align: left;
+  font: inherit;
+}
+.theme-locker-trigger span:first-child {
+  font-size: 10px; font-weight: 600; letter-spacing: 2.4px;
+}
+.theme-locker-mark { color: var(--crimson); font-size: 21px; line-height: 1; }
+.theme-panel { display: none; padding: 12px 0 8px; }
+.theme-locker.open .theme-panel { display: block; }
+.theme-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 9px;
+}
+.theme-choice {
+  display: flex; align-items: center; justify-content: center;
+  min-width: 0; min-height: 48px;
+  padding: 11px 9px;
+  border: 1px solid var(--line);
+  border-radius: 0;
+  background: var(--card);
+  color: var(--ink);
+  cursor: pointer;
+  font-family: var(--sans, Arial, sans-serif);
+  text-align: center;
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+}
+.theme-choice:hover, .theme-choice:focus-visible {
+  border-color: var(--crimson);
+  outline-offset: 3px;
+}
+.theme-choice:focus-visible { outline: 2px solid var(--crimson); }
+.theme-choice.selected {
+  border-color: var(--crimson);
+  box-shadow: inset 0 0 0 1px var(--crimson);
+}
+.theme-choice-name {
+  display: inline-flex; align-items: center; justify-content: center;
+  gap: .4em;
+  margin: 0;
+  min-width: 0;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  line-height: 1.4;
+  white-space: normal;
+  word-break: keep-all;
+}
+.theme-choice-emoji {
+  font-size: 1.35em;
+  line-height: 1;
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
+}
+.theme-original {
+  width: 100%; margin-bottom: 11px;
+  min-height: 44px; background: transparent;
+}
+/* In v15 colors are represented by the current theme, not little swatches. */
+.theme-swatch { display: none !important; }
+.theme-category { display: contents; }
+.theme-category summary { display: none; }
+html[data-theme-tone="dark"] { color-scheme: dark; }
+html[data-theme-tone="light"] { color-scheme: light; }
+html[data-color-theme]:not([data-color-theme="original"]) .event {
+  background: var(--theme-event-bg) !important;
+}
+@media (min-width: 700px) {
+  .theme-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 520px) {
+  .theme-locker { margin-top: 56px; }
+  .theme-choice-name { font-size: 9px; letter-spacing: .65px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .theme-choice { transition: none; }
+}
+
 /* =====================================================================
-   AKIHIRO KOKUFUKATA · FAVORITE TEAMS v14
+   AKIHIRO KOKUFUKATA · FAVORITE TEAMS v15
    Add once to the END of theme.css.
-   Replace the previous FAVORITE TEAMS v12 / v11 (or older) block
+   The original picker CSS is restored above this v14 design block
    with this complete block. Do not stack multiple versions.
    Only the 6 favorite teams are affected; ORIGINAL remains untouched.
-   No theme.js or index.html edits are required.
+   Use this file together with the supplied v15 theme.js; leave index.html unchanged.
    ===================================================================== */
 
 /* 1. Emoji marks beside the Live Schedule heading */
@@ -139,20 +233,6 @@ html[data-color-theme="red-sox"] .status {
   color: #FFFFFF;
 }
 
-
-/* The hidden color-locker swatch must also reflect the new Red Sox hierarchy. */
-.theme-choice[data-theme-id="red-sox"] .theme-swatch i:nth-child(1) {
-  background: #E31837 !important;
-  flex-grow: 70 !important;
-}
-.theme-choice[data-theme-id="red-sox"] .theme-swatch i:nth-child(2) {
-  background: #244A70 !important;
-  flex-grow: 20 !important;
-}
-.theme-choice[data-theme-id="red-sox"] .theme-swatch i:nth-child(3) {
-  background: #FFFFFF !important;
-  flex-grow: 10 !important;
-}
 
 /* 5. PATRIOTS — keep NAVY outer field, use SILVER / WHITE event cards.
    The opposite overall brightness now separates it from the Red Sox. */
