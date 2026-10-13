@@ -504,3 +504,26 @@ html[data-color-theme="patriots"] .event .event-number,
 html[data-color-theme="patriots"] .event .event-day {
   color: #C60C30;
 }
+
+/* ====================================================================
+   FAVORITE TEAMS v17 — top accent only on the FIRST displayed show.
+   Requires v16. Add this at the END of theme.css after the v16 rules.
+
+   - All favorite-team show cards: left accent stays 6px.
+   - Only the topmost show card: top accent stays 6px.
+   - Remaining show cards: top border returns to 1px.
+   - Show Details (event.html): its sole show keeps both 6px borders.
+   - Original theme is unchanged.
+   ==================================================================== */
+
+/* Shrink ONLY the upper border on the favorite-team show cards. */
+html[data-color-theme]:not([data-color-theme="original"]) #events .event {
+  border-top-width: 1px !important;
+}
+
+/* Select the first .event sibling, even if a PAST heading precedes it.
+   The second selector covers grouped search results. */
+html[data-color-theme]:not([data-color-theme="original"]) #events > .event:nth-child(1 of .event),
+html[data-color-theme]:not([data-color-theme="original"]) #events > .search-group:nth-child(1 of .search-group) > .event:nth-child(1 of .event) {
+  border-top-width: 6px !important;
+}
