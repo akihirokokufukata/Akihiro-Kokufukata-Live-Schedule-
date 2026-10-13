@@ -57,91 +57,6 @@ html[data-color-theme="red-sox"] .name-line {
   background: #BD3039;
 }
 
-/* Dodgers — clean white field, vivid Dodger blue, dark undershirt navy, restrained red. */
-html[data-color-theme="dodgers"] body {
-  background: linear-gradient(180deg,#FFFFFF 0%,#F7F9FC 100%);
-}
-html[data-color-theme="dodgers"] .artist-name,
-html[data-color-theme="dodgers"] .schedule-title,
-html[data-color-theme="dodgers"] .event-title {
-  color: #102A43;
-}
-html[data-color-theme="dodgers"] .name-line {
-  background: linear-gradient(90deg,#005A9C 0 82%,#102A43 82% 93%,#EF3E42 93% 100%);
-}
-html[data-color-theme="dodgers"] .date-day,
-html[data-color-theme="dodgers"] .day-number {
-  color: #EF3E42;
-}
-html[data-color-theme="dodgers"] .section-label,
-html[data-color-theme="dodgers"] .show-more,
-html[data-color-theme="dodgers"] .venue-label {
-  color: #005A9C;
-}
-
-/* Mariners — logo-like balance: navy dominant, teal secondary, silver/white support. */
-html[data-color-theme="mariners"] body {
-  background: linear-gradient(180deg,#F7F9F9 0%,#EEF2F3 100%);
-}
-html[data-color-theme="mariners"] .artist-name,
-html[data-color-theme="mariners"] .schedule-title,
-html[data-color-theme="mariners"] .event-title {
-  color: #0C2C56;
-}
-html[data-color-theme="mariners"] .name-line {
-  background: linear-gradient(90deg,#0C2C56 0 55%,#006D6F 55% 82%,#C4CED4 82% 100%);
-}
-html[data-color-theme="mariners"] .section-label,
-html[data-color-theme="mariners"] .show-more,
-html[data-color-theme="mariners"] .venue-label {
-  color: #006D6F;
-}
-
-/* Padres — rich brown and warm cream, with a slightly stronger gold accent. */
-html[data-color-theme="padres"] body {
-  background: linear-gradient(180deg,#F7EED8 0%,#F2E4C4 100%);
-}
-html[data-color-theme="padres"] .artist-name,
-html[data-color-theme="padres"] .schedule-title,
-html[data-color-theme="padres"] .event-title {
-  color: #3B261A;
-}
-html[data-color-theme="padres"] .name-line {
-  background: linear-gradient(90deg,#4A2C20 0 72%,#FFC425 72% 100%);
-}
-html[data-color-theme="padres"] .section-label,
-html[data-color-theme="padres"] .show-more,
-html[data-color-theme="padres"] .venue-label {
-  color: #B67A00;
-}
-
-/* Yankees — unmistakable navy pinstripes, including the event cards. */
-html[data-color-theme="yankees"] body {
-  background-color: #F7F7F4;
-  background-image: repeating-linear-gradient(
-    90deg,
-    transparent 0 25px,
-    rgba(12,35,64,.115) 25px 26px
-  );
-}
-html[data-color-theme="yankees"] .event {
-  background-color: var(--theme-event-bg) !important;
-  background-image: repeating-linear-gradient(
-    90deg,
-    transparent 0 25px,
-    rgba(12,35,64,.075) 25px 26px
-  ) !important;
-}
-html[data-color-theme="yankees"] .name-line {
-  background: #0C2340;
-}
-
-
-/* =========================================================
-   ALL SPORTS v4 — team-specific uniform / visual treatments
-   Baseball v3 FIXED is preserved unchanged.
-   Patterns are used only where they are strongly recognizable.
-   ========================================================= */
 
 /* -------------------------
    NFL
@@ -152,39 +67,6 @@ html[data-color-theme="patriots"] .name-line{
   background:linear-gradient(90deg,#002244 0 58%,#C60C30 58% 82%,#B0B7BC 82% 100%);
 }
 
-/* Packers — green body / gold trim */
-html[data-color-theme="packers"] .name-line{
-  background:linear-gradient(90deg,#203731 0 70%,#FFB612 70% 100%);
-}
-
-/* Raiders — restrained metallic sheen, inspired by silver helmet / black uniform */
-html[data-color-theme="raiders"] body{
-  background-color:#111214;
-  background-image:linear-gradient(
-    135deg,
-    rgba(255,255,255,0) 0 39%,
-    rgba(165,172,175,.055) 46%,
-    rgba(255,255,255,.085) 50%,
-    rgba(165,172,175,.055) 54%,
-    rgba(255,255,255,0) 61% 100%
-  );
-}
-html[data-color-theme="raiders"] .name-line{
-  background:linear-gradient(90deg,#A5ACAF 0 66%,#111111 66% 100%);
-}
-
-/* Broncos — orange is the statement, navy anchors it */
-html[data-color-theme="broncos"] .name-line{
-  background:linear-gradient(90deg,#FB4F14 0 72%,#002244 72% 100%);
-}
-
-/* Dolphins — aqua field, orange piping-like accent */
-html[data-color-theme="dolphins"] body{
-  background:linear-gradient(180deg,#F8FEFD 0%,#EFFAFA 100%);
-}
-html[data-color-theme="dolphins"] .name-line{
-  background:linear-gradient(90deg,#008E97 0 76%,#FC4C02 76% 93%,#FFFFFF 93% 100%);
-}
 
 
 /* -------------------------
@@ -194,134 +76,6 @@ html[data-color-theme="dolphins"] .name-line{
 /* Liverpool — nearly all red, with a tiny teal release */
 html[data-color-theme="liverpool"] .name-line{
   background:linear-gradient(90deg,#C8102E 0 92%,#00B2A9 92% 100%);
-}
-
-/* Japan — blue-dominant, restrained Hinomaru red */
-html[data-color-theme="japan"] .name-line{
-  background:linear-gradient(90deg,#001E62 0 91%,#BC002D 91% 100%);
-}
-
-/* Barcelona — unmistakable blaugrana vertical striping */
-html[data-color-theme="barcelona"] body{
-  background-color:#0B1D3A;
-  background-image:repeating-linear-gradient(
-    90deg,
-    rgba(0,77,152,.20) 0 34px,
-    rgba(165,0,68,.18) 34px 68px
-  );
-}
-html[data-color-theme="barcelona"] .event{
-  background-color:rgba(21,43,82,.91)!important;
-  background-image:repeating-linear-gradient(
-    90deg,
-    rgba(0,77,152,.09) 0 34px,
-    rgba(165,0,68,.08) 34px 68px
-  )!important;
-}
-html[data-color-theme="barcelona"] .name-line{
-  background:linear-gradient(90deg,#004D98 0 45%,#A50044 45% 90%,#EDBB00 90% 100%);
-}
-
-/* Real Madrid — white field with a much stronger metallic-gold identity.
-   Royal blue remains as the secondary club color. */
-html[data-color-theme="real-madrid"] body{
-  background:linear-gradient(180deg,#FCFBF7 0%,#F7F4EA 100%);
-}
-html[data-color-theme="real-madrid"] .artist-name,
-html[data-color-theme="real-madrid"] .schedule-title,
-html[data-color-theme="real-madrid"] .event-title{
-  color:#1D2D50;
-}
-html[data-color-theme="real-madrid"] .name-line{
-  background:linear-gradient(90deg,#C7A64A 0 72%,#00529F 72% 100%);
-  border:0;
-}
-html[data-color-theme="real-madrid"] .section-label,
-html[data-color-theme="real-madrid"] .show-more,
-html[data-color-theme="real-madrid"] .venue-label{
-  color:#B18B2C;
-}
-html[data-color-theme="real-madrid"] .tab.active,
-html[data-color-theme="real-madrid"] .action.primary{
-  background:#1D2D50;
-  border-color:#1D2D50;
-  color:#FFFFFF;
-}
-html[data-color-theme="real-madrid"] .tab,
-html[data-color-theme="real-madrid"] .action{
-  border-color:#B18B2C;
-}
-html[data-color-theme="real-madrid"] .menu-button,
-html[data-color-theme="real-madrid"] .site-menu a:hover{
-  color:#B18B2C;
-}
-
-/* AC Milan — classic rossoneri vertical stripes */
-html[data-color-theme="ac-milan"] body{
-  background-color:#151515;
-  background-image:repeating-linear-gradient(
-    90deg,
-    rgba(251,9,11,.18) 0 32px,
-    rgba(0,0,0,.16) 32px 64px
-  );
-}
-html[data-color-theme="ac-milan"] .event{
-  background-color:rgba(32,32,32,.92)!important;
-  background-image:repeating-linear-gradient(
-    90deg,
-    rgba(251,9,11,.075) 0 32px,
-    rgba(0,0,0,.08) 32px 64px
-  )!important;
-}
-html[data-color-theme="ac-milan"] .name-line{
-  background:linear-gradient(90deg,#FB090B 0 50%,#111111 50% 100%);
-}
-
-/* Inter — nerazzurri vertical stripes */
-html[data-color-theme="inter-milan"] body{
-  background-color:#001B33;
-  background-image:repeating-linear-gradient(
-    90deg,
-    rgba(0,120,200,.18) 0 32px,
-    rgba(0,0,0,.18) 32px 64px
-  );
-}
-html[data-color-theme="inter-milan"] .event{
-  background-color:rgba(7,39,70,.92)!important;
-  background-image:repeating-linear-gradient(
-    90deg,
-    rgba(0,120,200,.075) 0 32px,
-    rgba(0,0,0,.08) 32px 64px
-  )!important;
-}
-html[data-color-theme="inter-milan"] .name-line{
-  background:linear-gradient(90deg,#0078C8 0 50%,#050505 50% 100%);
-}
-
-/* Brazil — yellow leads, green then blue */
-html[data-color-theme="brazil"] .name-line{
-  background:linear-gradient(90deg,#FFDF00 0 56%,#009C3B 56% 82%,#002776 82% 100%);
-}
-
-/* Argentina — albiceleste stripes */
-html[data-color-theme="argentina"] body{
-  background-color:#F7FCFF;
-  background-image:repeating-linear-gradient(
-    90deg,
-    rgba(117,170,219,.14) 0 35px,
-    rgba(255,255,255,.78) 35px 70px
-  );
-}
-html[data-color-theme="argentina"] .event{
-  background-color:rgba(255,255,255,.91)!important;
-  background-image:repeating-linear-gradient(
-    90deg,
-    rgba(117,170,219,.065) 0 35px,
-    rgba(255,255,255,.44) 35px 70px
-  )!important;
-}
-html[data-color-theme="argentina"] .name-line{
-  background:linear-gradient(90deg,#75AADB 0 42%,#FFFFFF 42% 84%,#F6B40E 84% 100%);
 }
 
 
@@ -342,41 +96,6 @@ html[data-color-theme="celtics"] .name-line{
   background:linear-gradient(90deg,#007A33 0 78%,#BA9653 78% 100%);
 }
 
-/* Lakers — purple field / gold trim */
-html[data-color-theme="lakers"] .name-line{
-  background:linear-gradient(90deg,#552583 0 58%,#FDB927 58% 100%);
-}
-
-/* Warriors — royal blue + gold */
-html[data-color-theme="warriors"] .name-line{
-  background:linear-gradient(90deg,#1D428A 0 66%,#FFC72C 66% 100%);
-}
-
-/* Bulls — nod to the famous black pinstripe look */
-html[data-color-theme="bulls"] body{
-  background-color:#151515;
-  background-image:repeating-linear-gradient(
-    90deg,
-    transparent 0 27px,
-    rgba(206,17,65,.095) 27px 28px
-  );
-}
-html[data-color-theme="bulls"] .event{
-  background-color:rgba(34,34,34,.92)!important;
-  background-image:repeating-linear-gradient(
-    90deg,
-    transparent 0 27px,
-    rgba(206,17,65,.055) 27px 28px
-  )!important;
-}
-html[data-color-theme="bulls"] .name-line{
-  background:linear-gradient(90deg,#CE1141 0 70%,#111111 70% 100%);
-}
-
-/* Knicks — blue field with orange trim */
-html[data-color-theme="knicks"] .name-line{
-  background:linear-gradient(90deg,#006BB6 0 64%,#F58426 64% 100%);
-}
 
 
 /* -------------------------
@@ -388,26 +107,6 @@ html[data-color-theme="bruins"] .name-line{
   background:linear-gradient(90deg,#111111 0 50%,#FFB81C 50% 88%,#FFFFFF 88% 100%);
 }
 
-/* Canadiens — iconic red + blue + white sweater relationship */
-html[data-color-theme="canadiens"] .name-line{
-  background:linear-gradient(90deg,#AF1E2D 0 52%,#FFFFFF 52% 66%,#192168 66% 100%);
-}
-
-/* Maple Leafs — deliberately spare blue / white */
-html[data-color-theme="maple-leafs"] .name-line{
-  background:linear-gradient(90deg,#003E7E 0 76%,#FFFFFF 76% 100%);
-  border:1px solid rgba(0,62,126,.16);
-}
-
-/* Red Wings — pure red / white */
-html[data-color-theme="red-wings"] .name-line{
-  background:linear-gradient(90deg,#CE1126 0 78%,#FFFFFF 78% 100%);
-}
-
-/* Sharks — teal + black + silver, orange only as a small spark */
-html[data-color-theme="sharks"] .name-line{
-  background:linear-gradient(90deg,#006D75 0 58%,#111111 58% 78%,#B7C5C8 78% 92%,#EA7200 92% 100%);
-}
 
 
 /* =========================================================
@@ -470,5 +169,105 @@ html[data-color-theme="celtics"] .name-line{
 /* Boston Bruins */
 html[data-color-theme="bruins"] .name-line{
   background:linear-gradient(90deg,#111111 0 50%,#FFB81C 50% 88%,#FFFFFF 88% 100%);
+}
+
+/* ==========================================================
+   AKIHIRO COLOR LOCKER · TEAM ACCENTS v7
+   Add this block at the VERY END of theme.css.
+   No changes to theme.js or index.html are needed.
+   ========================================================== */
+
+/* A small native emoji after 'Live Schedule'.
+   It appears only when a team theme is selected. */
+html[data-color-theme="tigers"] .schedule-title::after {
+  content: "🐯";
+}
+html[data-color-theme="celtics"] .schedule-title::after {
+  content: "☘️";
+}
+html[data-color-theme="bruins"] .schedule-title::after {
+  content: "🧸";
+}
+html[data-color-theme="red-sox"] .schedule-title::after {
+  content: "🧦";
+}
+html[data-color-theme="liverpool"] .schedule-title::after {
+  content: "🐦‍🔥";
+}
+html[data-color-theme="patriots"] .schedule-title::after {
+  content: "🏈";
+}
+
+/* Shared sizing, independent of the heading's serif font. */
+html[data-color-theme="tigers"] .schedule-title::after,
+html[data-color-theme="celtics"] .schedule-title::after,
+html[data-color-theme="bruins"] .schedule-title::after,
+html[data-color-theme="red-sox"] .schedule-title::after,
+html[data-color-theme="liverpool"] .schedule-title::after,
+html[data-color-theme="patriots"] .schedule-title::after {
+  display: inline-block;
+  margin-left: .22em;
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
+  font-size: .55em;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0;
+  vertical-align: .08em;
+}
+
+/* Never show a team mark with ORIGINAL. */
+html[data-color-theme="original"] .schedule-title::after {
+  content: none;
+}
+
+/* On narrow phones, allow the filter to move beneath the heading
+   instead of crushing the title + emoji. Only affects team themes. */
+@media (max-width: 650px) {
+  html[data-color-theme]:not([data-color-theme="original"]) .schedule-heading {
+    flex-wrap: wrap;
+    row-gap: 14px;
+  }
+}
+
+/* ==========================================================
+   BOSTON CELTICS · REVISED DESIGN
+   ========================================================== */
+
+/* Clean warm background. No clover, parquet or other tiled pattern. */
+html[data-color-theme="celtics"] body {
+  background-color: #F3F1E6;
+  background-image: none;
+}
+
+/* Four EXACTLY equal segments, official green first, then darker. */
+html[data-color-theme="celtics"] .name-line {
+  height: 4px;
+  border: 0;
+  background: linear-gradient(to right,
+    #007A33 0%,  #007A33 25%,
+    #00652C 25%, #00652C 50%,
+    #004B22 50%, #004B22 75%,
+    #002F1A 75%, #002F1A 100%
+  );
+}
+
+/* Clean cream event cards. Keep existing team accent colors. */
+html[data-color-theme="celtics"] .event {
+  background-color: rgba(252, 250, 241, .93) !important;
+  background-image: none !important;
+}
+
+/* Strong left rail ONLY for the next upcoming show.
+   The current site's renderer uses .next-label inside that card. */
+html[data-color-theme="celtics"] .event:has(.next-label)::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 6px;
+  background: #007A33;
+  z-index: 3;
+  pointer-events: none;
 }
 
