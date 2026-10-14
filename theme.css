@@ -1,10 +1,10 @@
 /* =====================================================================
    AKIHIRO KOKUFUKATA — FAVORITE TEAM THEMES
-   Consolidated stylesheet (2026-10-14)
+   Consolidated stylesheet v25 — 7 teams, 5px Pattern D edges
 
    Load alongside the existing theme.js and original page styles.
    Keep the original index.html and event.html code unchanged.
-   Only the six team themes are customized; ORIGINAL is untouched.
+   Seven team themes are customized; ORIGINAL is untouched.
    ===================================================================== */
 
 /* ---------------------------------------------------------------------
@@ -121,6 +121,12 @@ html[data-color-theme="bruins"]    .schedule-title::after { content: "🧸"; }
 html[data-color-theme="red-sox"]   .schedule-title::after { content: "🧦"; }
 html[data-color-theme="liverpool"] .schedule-title::after { content: "🐦‍🔥"; }
 html[data-color-theme="patriots"]  .schedule-title::after { content: "🏈"; }
+html[data-color-theme="saints"]    .schedule-title::after {
+  content: "⚜︎"; /* U+269C plus U+FE0E: text presentation, not emoji presentation */
+  color: #A88B57;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: .62em;
+}
 
 html[data-color-theme]:not([data-color-theme="original"]) .schedule-title::after {
   display: inline-block;
@@ -304,13 +310,81 @@ html[data-color-theme="bruins"] .status {
   color: #111111;
 }
 
+/* SAINTS — warm ivory page, deep black cards, antique gold details.
+   Distinct from Bruins: page is LIGHT, while event cards are DARK. */
+html[data-color-theme="saints"] {
+  --saints-black: #191919;
+  --saints-old-gold: #B49A69;
+  color-scheme: light;
+}
+html[data-color-theme="saints"] body { background: #F4EFE4; }
+html[data-color-theme="saints"] .artist-name,
+html[data-color-theme="saints"] .schedule-title { color: #211D17; }
+html[data-color-theme="saints"] .artist-role { color: #8B7144; }
+html[data-color-theme="saints"] .theme-choice[data-theme-id="saints"] .theme-choice-emoji,
+html[data-color-theme="saints"] .theme-choice-emoji { color: #B49A69; }
+.theme-choice[data-theme-id="saints"] .theme-choice-emoji {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.75em;
+  color: #A88B57;
+}
+html[data-color-theme="saints"] .event {
+  --paper: #211F1B;
+  --card: #211F1B;
+  --ink: #F4EEDD;
+  --muted: #D4C5AB;
+  --line: #695F4F;
+  --crimson: #D3BC8D;
+  --crimson-dark: #B49A69;
+  color: #F4EEDD;
+  background: #211F1B !important;
+  border-color: #74664E;
+}
+html[data-color-theme="saints"] .event-date-column {
+  background: #161512;
+  color: #F4EEDD;
+  border-right-color: #6D6049;
+}
+html[data-color-theme="saints"] .event .event-title,
+html[data-color-theme="saints"] .event .event-title-link,
+html[data-color-theme="saints"] .event .event-body,
+html[data-color-theme="saints"] .event .players,
+html[data-color-theme="saints"] .event .player-search,
+html[data-color-theme="saints"] .event .venue,
+html[data-color-theme="saints"] .event .venue-search,
+html[data-color-theme="saints"] .event .event-month,
+html[data-color-theme="saints"] .event .event-time,
+html[data-color-theme="saints"] .event .date-extra-value {
+  color: #F4EEDD;
+}
+html[data-color-theme="saints"] .event .event-number,
+html[data-color-theme="saints"] .event .event-day,
+html[data-color-theme="saints"] .event .label,
+html[data-color-theme="saints"] .event .next-label {
+  color: #D3BC8D;
+}
+html[data-color-theme="saints"] .event .player-instrument,
+html[data-color-theme="saints"] .event .player-note,
+html[data-color-theme="saints"] .event .event-media-count,
+html[data-color-theme="saints"] .event .event-media-hint,
+html[data-color-theme="saints"] .event .event-permalink { color: #D4C5AB; }
+html[data-color-theme="saints"] .status {
+  background: #B49A69;
+  color: #15130F;
+}
+html[data-color-theme="saints"] .event .action { color: #D3BC8D; border-color: #B49A69; }
+html[data-color-theme="saints"] .event .date-rule { background: #887957; }
+html[data-color-theme="saints"] .month-button.active {
+  color: #171511;
+}
+
 /* LIVERPOOL — card background supplied by the theme palette */
 html[data-color-theme="liverpool"] .event {
   background: var(--theme-event-bg) !important;
 }
 
 /* ---------------------------------------------------------------------
-   4. PATTERN D — SOFTLY FADING TOP/LEFT EDGES
+   4. PATTERN D — 5px TOTAL, SOFTLY FADING TOP/LEFT EDGES
    --------------------------------------------------------------------- */
 html[data-color-theme="tigers"]    { --team-event-frame: #FFD400; }
 html[data-color-theme="celtics"]   { --team-event-frame: #007A33; }
@@ -318,6 +392,7 @@ html[data-color-theme="bruins"]    { --team-event-frame: #FFB81C; }
 html[data-color-theme="red-sox"]   { --team-event-frame: #244A70; }
 html[data-color-theme="liverpool"] { --team-event-frame: #C8102E; }
 html[data-color-theme="patriots"]  { --team-event-frame: #C60C30; }
+html[data-color-theme="saints"]    { --team-event-frame: #B49A69; }
 
 html[data-color-theme]:not([data-color-theme="original"]) {
   --team-left-rail: linear-gradient(to right,
@@ -344,7 +419,7 @@ html[data-color-theme]:not([data-color-theme="original"]) #events .event::before
   top: 0 !important;
   bottom: 0 !important;
   left: 0 !important;
-  width: 5px !important;
+  width: 4px !important;
   height: auto !important;
   background: var(--team-left-rail) !important;
   opacity: 1 !important;
@@ -363,7 +438,7 @@ html[data-color-theme]:not([data-color-theme="original"]) body.event-detail-page
   left: 0 !important;
   right: 0 !important;
   width: auto !important;
-  height: 5px !important;
+  height: 4px !important;
   background: var(--team-top-rail) !important;
   opacity: 1 !important;
   z-index: 3 !important;
@@ -427,6 +502,14 @@ html[data-color-theme="liverpool"] .name-line {
 html[data-color-theme="patriots"] .name-line {
   background-image: linear-gradient(to right,
     #C60C30 0 50%, #B0B7BC 50% 100%);
+  background-size: 72px 100%;
+  background-repeat: repeat-x;
+}
+
+/* Saints: 36px alternating Old Gold and black (72px cycle). */
+html[data-color-theme="saints"] .name-line {
+  background-image: linear-gradient(to right,
+    #B49A69 0 50%, #211F1B 50% 100%);
   background-size: 72px 100%;
   background-repeat: repeat-x;
 }
