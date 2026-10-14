@@ -1,4 +1,4 @@
-/* Akihiro Kokufukata — Favorite Team Locker v15
+/* Akihiro Kokufukata — Favorite Team Locker v25
    Original selection/storage behavior retained; categories and swatches removed.
    Works with index.html and the existing page layout. */
 (() => {
@@ -23,7 +23,9 @@
     {id:'liverpool',label:'LIVERPOOL',fullName:'Liverpool FC',emoji:'🐦‍🔥',tone:'light',
       c:['#F6EFE9','#FFF9F4','#241416','#746260','#C8102E','#980B22','#D5BEB9','rgba(255,249,244,.86)']},
     {id:'patriots',label:'PATRIOTS',fullName:'New England Patriots',emoji:'🏈',tone:'dark',
-      c:['#002244','#0B2C50','#F5F5F5','#B0B7BC','#C60C30','#940923','#60758A','rgba(11,44,80,.86)']}
+      c:['#002244','#0B2C50','#F5F5F5','#B0B7BC','#C60C30','#940923','#60758A','rgba(11,44,80,.86)']},
+    {id:'saints',label:'SAINTS',fullName:'New Orleans Saints',emoji:'⚜︎',tone:'light',
+      c:['#F4EFE4','#FCF8F0','#211D17','#665A49','#B49A69','#8B7144','#C6B99D','#211F1B']}
   ];
   const all = new Map([original, ...teams].map(t => [t.id,t]));
 
