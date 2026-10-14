@@ -566,7 +566,8 @@ html[data-color-theme="liverpool"] .name-line {
     #C8102E 0 50%, #00B2A9 50% 100%);
   background-size: 72px 100%;
   background-repeat: repeat-x;
-}
+}     
+
 html[data-color-theme="patriots"] .name-line {
   background-image: linear-gradient(to right,
     #C60C30 0 50%, #B0B7BC 50% 100%);
@@ -576,4 +577,108 @@ html[data-color-theme="patriots"] .name-line {
 
 /* Tigers: existing yellow + very narrow black pinstripes unchanged. */
 /* ORIGINAL: unchanged. */
+
+/* ========================================================================
+   FAVORITE TEAMS v21 — Pattern D: softly fading inner edge
+   APPEND this block at the END of the existing theme.css, AFTER v16/v17.
+   Do NOT replace the site's original theme.css with this small file.
+
+   - All six team themes: refined 1px outer line + 5px fading inner rail.
+   - Only the first displayed show: matching fading upper rail.
+   - Show Details (body.event-detail-page): upper + left rails.
+   - Name underline: original team-color segments and Tigers pinstripes
+     unchanged; only the bottom edge gently fades, like Pattern D.
+   - ORIGINAL and all existing calendar/theme functionality untouched.
+   ======================================================================== */
+
+/* Colors are already supplied by v16; these are safe fallbacks. */
+html[data-color-theme="tigers"]    { --team-event-frame:#FFD400; }
+html[data-color-theme="celtics"]   { --team-event-frame:#007A33; }
+html[data-color-theme="bruins"]    { --team-event-frame:#FFB81C; }
+html[data-color-theme="red-sox"]   { --team-event-frame:#244A70; }
+html[data-color-theme="liverpool"] { --team-event-frame:#C8102E; }
+html[data-color-theme="patriots"]  { --team-event-frame:#C60C30; }
+
+/* Exact color progression of the previously selected Pattern D.
+   The color remains strongest at the outside edge, then fades inward. */
+html[data-color-theme]:not([data-color-theme="original"]) {
+  --d21-left-rail:linear-gradient(to right,
+    var(--team-event-frame) 0 60%,
+    color-mix(in srgb, var(--team-event-frame) 58%, white) 60% 80%,
+    color-mix(in srgb, var(--team-event-frame) 18%, white) 80% 100%);
+  --d21-top-rail:linear-gradient(to bottom,
+    var(--team-event-frame) 0 60%,
+    color-mix(in srgb, var(--team-event-frame) 58%, white) 60% 80%,
+    color-mix(in srgb, var(--team-event-frame) 18%, white) 80% 100%);
+}
+
+/* Frame base: 1px outline plus 5px *inside* the card.
+   This avoids painting the original solid 6px border twice. */
+html[data-color-theme]:not([data-color-theme="original"]) #events .event {
+  border-left:1px solid var(--team-event-frame) !important;
+  border-top:1px solid var(--team-event-frame) !important;
+  position:relative;
+  isolation:isolate;
+}
+
+/* v17's more specific first-show rule needs to be overridden too. */
+html[data-color-theme]:not([data-color-theme="original"]) #events > .event:nth-child(1 of .event),
+html[data-color-theme]:not([data-color-theme="original"]) #events > .search-group:nth-child(1 of .search-group) > .event:nth-child(1 of .event) {
+  border-top-width:1px !important;
+}
+
+/* Left rail: every show, including the separate Show Details page.
+   Overwrites v16's `content:none` on ::before only for team themes. */
+html[data-color-theme]:not([data-color-theme="original"]) #events .event::before {
+  content:"" !important;
+  display:block !important;
+  position:absolute !important;
+  top:0 !important;
+  bottom:0 !important;
+  left:0 !important;
+  width:5px !important;
+  height:auto !important;
+  background:var(--d21-left-rail) !important;
+  opacity:1 !important;
+  z-index:3 !important;
+  pointer-events:none !important;
+}
+
+/* Only the topmost listing card gets the 5px top gradient. */
+html[data-color-theme]:not([data-color-theme="original"]) #events > .event:nth-child(1 of .event)::after,
+html[data-color-theme]:not([data-color-theme="original"]) #events > .search-group:nth-child(1 of .search-group) > .event:nth-child(1 of .event)::after,
+/* On event.html the one displayed card always has an accented top edge. */
+html[data-color-theme]:not([data-color-theme="original"]) body.event-detail-page #events .event::after {
+  content:"" !important;
+  display:block !important;
+  position:absolute !important;
+  top:0 !important;
+  left:0 !important;
+  right:0 !important;
+  width:auto !important;
+  height:5px !important;
+  background:var(--d21-top-rail) !important;
+  opacity:1 !important;
+  z-index:3 !important;
+  pointer-events:none !important;
+}
+
+/* In case older theme rules supplied top accents on subsequent shows. */
+html[data-color-theme]:not([data-color-theme="original"]) body:not(.event-detail-page) #events > .event:nth-child(n+2 of .event)::after,
+html[data-color-theme]:not([data-color-theme="original"]) body:not(.event-detail-page) #events > .search-group:not(:nth-child(1 of .search-group)) .event::after {
+  content:none !important;
+}
+
+/* Akihiro Kokufukata underline: keep ALL existing stripe/segment colors.
+   The mask works on top of the original backgrounds and softens only
+   their lower edge. Width and 4px line height remain unchanged. */
+html[data-color-theme]:not([data-color-theme="original"]) .name-line {
+  -webkit-mask-image:linear-gradient(to bottom, #000 0 60%, rgba(0,0,0,.58) 80%, rgba(0,0,0,.18) 100%);
+  mask-image:linear-gradient(to bottom, #000 0 60%, rgba(0,0,0,.58) 80%, rgba(0,0,0,.18) 100%);
+}
+
+
+
+
+
 
