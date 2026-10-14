@@ -527,3 +527,53 @@ html[data-color-theme]:not([data-color-theme="original"]) #events > .event:nth-c
 html[data-color-theme]:not([data-color-theme="original"]) #events > .search-group:nth-child(1 of .search-group) > .event:nth-child(1 of .event) {
   border-top-width: 6px !important;
 }
+
+/* =====================================================================
+   Favorite-team name line — FINAL 36px bands (v24)
+   Add at the VERY END of existing theme.css, after the v21 D-style CSS.
+   DO NOT replace your existing theme.css with this file.
+   Only the artist-name underline changes. Event cards stay untouched.
+   The existing D-style mask on .name-line continues to soften its edge.
+   ===================================================================== */
+
+/* Celtics: four equal green shades, each exactly 36px (144px cycle). */
+html[data-color-theme="celtics"] .name-line {
+  background-image: linear-gradient(to right,
+    #007A33 0 25%,
+    #00652C 25% 50%,
+    #004B22 50% 75%,
+    #002F1A 75% 100%
+  );
+  background-size: 144px 100%;
+  background-repeat: repeat-x;
+}
+
+/* Two alternating colors, 36px per color (72px cycle). */
+html[data-color-theme="bruins"] .name-line {
+  background-image: linear-gradient(to right,
+    #FFB81C 0 50%, #FFFFFF 50% 100%);
+  background-size: 72px 100%;
+  background-repeat: repeat-x;
+}
+html[data-color-theme="red-sox"] .name-line {
+  background-image: linear-gradient(to right,
+    #E31837 0 50%, #244A70 50% 100%);
+  background-size: 72px 100%;
+  background-repeat: repeat-x;
+}
+html[data-color-theme="liverpool"] .name-line {
+  background-image: linear-gradient(to right,
+    #C8102E 0 50%, #00B2A9 50% 100%);
+  background-size: 72px 100%;
+  background-repeat: repeat-x;
+}
+html[data-color-theme="patriots"] .name-line {
+  background-image: linear-gradient(to right,
+    #C60C30 0 50%, #B0B7BC 50% 100%);
+  background-size: 72px 100%;
+  background-repeat: repeat-x;
+}
+
+/* Tigers: existing yellow + very narrow black pinstripes unchanged. */
+/* ORIGINAL: unchanged. */
+
