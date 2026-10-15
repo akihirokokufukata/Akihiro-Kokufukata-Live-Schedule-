@@ -1,0 +1,16 @@
+/* GAME DAY v44 — isolated trigger styles only. No changes to event cards or theme.css. */
+.pb-widget[hidden], .pb-panel[hidden] { display:none !important; }
+.pb-widget { margin:38px 0 10px; padding:20px 0 12px; border-top:1px solid var(--line,#cfc2b6); }
+.pb-toggle { width:100%;display:flex;align-items:center;justify-content:space-between;gap:16px; padding:17px 18px; border:1px solid var(--crimson,#98182a); background:transparent; color:var(--ink,#181313); font-family:var(--sans,Arial,sans-serif); text-align:left;cursor:pointer;transition:background .18s ease,border-color .18s ease; }
+.pb-toggle:hover { background:color-mix(in srgb,var(--crimson,#98182a) 5%,transparent); }
+.pb-toggle:focus-visible {outline:2px solid var(--crimson,#98182a);outline-offset:4px}
+.pb-title {display:inline-flex;align-items:center;gap:9px;font-weight:700;letter-spacing:.10em;font-size:clamp(14px,2.2vw,19px)}
+.pb-title .pb-ball {font-size:1.35em;line-height:1}
+.pb-indicator {font-family:Arial,sans-serif;font-size:21px;line-height:1;color:var(--crimson,#98182a)}
+.pb-widget[data-team="tigers"] .pb-toggle {border-left:4px solid #FFD400}
+.pb-widget[data-team="red-sox"] .pb-toggle {border-left:4px solid #244A70}
+.pb-panel {margin-top:15px}
+.pb-frame {display:block;width:100%;border:0;background:transparent;height:760px;min-height:0;overflow:hidden}
+.pb-loading {font:600 12px/1.6 Arial,sans-serif;letter-spacing:.14em;color:var(--muted,#756b66);padding:16px 0}
+@media(max-width:600px){.pb-widget{margin-top:28px;padding-top:15px}.pb-toggle{padding:16px 13px}.pb-panel{margin-top:12px}}
+@media(prefers-reduced-motion:reduce){.pb-toggle{transition:none}}
