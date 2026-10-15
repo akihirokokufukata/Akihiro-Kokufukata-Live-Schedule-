@@ -225,6 +225,7 @@
     const token=S.token;
     S.pitch=makePitch();
     S.pitches++;
+    $("pitchReadout").textContent = "PITCHING: " + S.pitch.name + " · " + Math.round(S.pitch.speed) + " km/h";
     S.phase="windup";
     S.start=performance.now()+550;
     S.impact=S.start+S.pitch.duration*.83;
