@@ -234,7 +234,6 @@
     pitcher.src="./pitch-ready.png";
     pitcher.classList.remove("release");
     $("phaseLabel").textContent="WINDUP...";
-    $("pitchReadout").textContent="LAST PITCH: —";
     hud();
 
     function frame(now) {
