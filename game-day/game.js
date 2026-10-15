@@ -230,7 +230,7 @@
     S.impact=S.start+S.pitch.duration*.83;
     pitchBtn.disabled=true;
     field.classList.add("playing","batting");
-    pitcher.src="pitch-ready.png";
+    pitcher.src="./pitch-ready.png";
     pitcher.classList.remove("release");
     $("phaseLabel").textContent="WINDUP...";
     $("pitchReadout").textContent="LAST PITCH: —";
@@ -244,7 +244,7 @@
       }
       if(S.phase==="windup") {
         S.phase="pitching";
-        pitcher.src="pitch-release.png";
+        pitcher.src="./pitch-release.png";
         pitcher.classList.add("release");
         $("phaseLabel").textContent="PITCH INCOMING!";
       }
